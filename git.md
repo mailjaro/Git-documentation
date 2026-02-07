@@ -20,6 +20,12 @@ REPO utgjør objektdatabasen for prosjektet der alle versjoner, all historikk og
 
 Både INDEKS og REPO opererer på fulle øyeblikksbilder av prosjektet, såkalte *snapshots*. INDEKS inneholder øyeblikksbildet for neste *commit*, mens REPO inneholder hele følgen av snapshots, hele historikken, fra oppstart til tidspunktet for siste *commit*. Git lagrer selvsagt ikke hele filstrukturen i hver *commit*, men holder orden på endringer og sammenhenger for effektiv, plassbesparende utnyttelse.
 
+![Brancht](./branch.png) 
+
+Her ser vi en illustrasjon av to grener på REPO, Master og Feature, som består av hhv. fire og to øyeblikksbilder. Sistnevnte gren er forgrenet ut fra hovedgrenens andre *commit*.
+
+Vi ser også den viktige pekeren HEAD (*egentlig* en fil med en referansebeskrivelse), som peker ut aktivt øyeblikksbilde. Ofte peker den på siste commit, men brukeren kan sette den til å peke på hvilken som helst *commit*. Kommandoer som opererer på REPO, virker gjerne på aktivt øyeblikksbilde.
+
  Den grunnleggende arbeidsflyten er som følger:
 
 1. Brukeren endrer eller oppretter filer i arbeidskatalogen
