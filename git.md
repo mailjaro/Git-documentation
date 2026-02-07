@@ -4,7 +4,7 @@
 
 Her ser vi strukturen Git-systemet bygger på. Man har **Working directory** (kalt arbeidskatalog), **Staging area** (kalt **INDEKS**) og **Git directory** (kalt **Repository** eller **REPO**):
 
-![Git](./git.png) 
+<!-- ![Git](./git.png-FJERN) -->
 
 Dette korresponderer til de tre stadiene en fil under Git kan være i:
 
@@ -20,7 +20,7 @@ REPO utgjør objektdatabasen for prosjektet der alle versjoner, all historikk og
 
 Både INDEKS og REPO opererer på fulle øyeblikksbilder av prosjektet, såkalte *snapshots*. INDEKS inneholder øyeblikksbildet for neste *commit*, mens REPO inneholder hele følgen av snapshots, hele historikken, fra oppstart til tidspunktet for siste *commit*. Git lagrer selvsagt ikke hele filstrukturen i hver *commit*, men holder orden på endringer og sammenhenger for effektiv, plassbesparende utnyttelse.
 
-![Brancht](./branch.png) 
+<!-- ![Brancht](./branch.png) -->
 
 Her ser vi en illustrasjon av to grener på REPO, Master og Feature, som består av hhv. fire og to øyeblikksbilder. Sistnevnte gren er forgrenet ut fra hovedgrenens andre *commit*.
 
@@ -56,15 +56,29 @@ git init -b Branch-NO-1
 ```
 
 
-## ▶️ Add og commit
+## ▶️ Add
 
-For det første kan man se hvilke filer som er *staged* og *modifisert* ved:
+Man sender filer til INDEKS (*staging*) ved 
+
+```r
+git  add <fil>
+git  add -a
+```
+(hhv. en enkelt fil eller alle modifiserte filer).
+
+Dette påvirker ikke REPO (og derfor heller ikke HEAD), hvilket vi kan illustrere ved:
+
+```yaml
+add:  WD → INDEKS
+```
+
+Man kan til enhver tid se hvilke filer som er *staged* og *modifisert* ved:
 
 ```nginx
 git status
 ```
 
-Her ser vi et eksempel på et prosjekt i tidlig fase:
+som f.eks. kan vise:
 
 ```yaml
 On branch Branch-NO-1
@@ -83,46 +97,14 @@ Untracked files:
         git.png
 ```
 
-Vi ser at filene **kap-1.doc**, **kap-2.doc** og **kap-3.md** er *staged*, sendt til INDEKS, mens **doc.md** og **git.png** er *modifisert*. Intet er *commited* så langt.
 
-Om man vil sende de to siste filene til INDEKS, kan man gjøre:
+## ▶️ Commit
 
-```nginx
-git  add doc.md git.png
-```
-
-Eventuelt kan man alltid sende alle modifiserte filer til INDEKS ved
-
-```nginx
-git  add .
-```
-
-Begge deler gir i eksempelet:
-
-```nginx
-git status
-```
-
-```yaml
-On branch Branch-NO-1
-
-No commits yet
-
-Changes to be committed:
-  (use "git rm --cached <file>..." to unstage)
-	new file:   doc.md
-	new file:   git.png
-	new file:   kap-1.adoc
-	new file:   kap-2.adoc
-	new file:   kap-3.md
-```
-
-Vi kan foreta *commit* av dette, med en passende beskrivelse, ved
+Vi kan foreta *commit* med en passende beskrivelse, ved
 
 ```bash
 git commit -m "First commit of prosjekt git-TEST."
 ```
-
 
 ```yaml
 [Branch-NO-1 (root-commit) 57f8ab9] First commit of prosjekt git-TEST.
@@ -134,7 +116,13 @@ git commit -m "First commit of prosjekt git-TEST."
  create mode 100644 kap-3.md
  ```
 
-Mer informasjon over alle commits (øyeblikksbilder) på REPO fås ved:
+Dette legger øyeblikksbildet på INDEKS over i følgen av øyeblikksbilder på REPO, og HEAD oppdateres til å peke på dette. Endringene på Git-systemet kan illustreres ved:
+
+```yaml
+commit: INDEKS → REPO, HEAD++
+```
+
+Mer informasjon over alle øyeblikksbilder på REPO fås (i lang versjon) ved:
 
 ```nginx
 git log
@@ -150,7 +138,7 @@ Date:   Thu Feb 5 19:16:43 2026 +0100
 …/git-TEST on 🌿 Branch-NO-1 [!] 
 ```
 
-Hash-verdien vi ser (oftest en SHA-1--hash, men i noen tilfeller også SHA-256) beregnes av filer og kataloger i øyeblikksbilde, av tidligere øyeblikksbilder, forfatter og *commit*-melding. Hashen benyttes både som en unik identifikator og for integritetskontroll (av hele historikken).
+Hash-verdien vi ser (oftest en SHA-1--hash, men i noen tilfeller også SHA-256) beregnes av filer og kataloger i øyeblikksbilde, av tidligere øyeblikksbilder, forfatter og *commit*-melding. Hashen benyttes både som en unik identifikator og for integritetskontroll (av hele historikken). En kortversjon av hash-en (minimum de fire første tegnede, ofte de syv første) benyttes ofte til å referere øyeblikksbilder på REPO.
 
 Man kan også legge til INDEKS og foreta *commit* av *alle* modifiserte filer i en og samme kommando ved:
 
@@ -161,59 +149,39 @@ git commit -a -m "First commit of prosjekt git-TEST."
 
 ## ▶️ Rename
 
-For å endre navnet til en fil, f.eks. **file-2.adoc** til **A.adoc**, kan man gjøre:
+For å endre navnet til en fil, kan man gjøre:
 
 ```bash
-git mv kap-1.adoc A.adoc
+git mv <fil> <ny-fil>
 ```
 
 Navnet endres på arbeidskatalogen, og endringen legges til på INDEKS, klar for neste *commit*.
 
-Dette bekreftes av
+Alternativt kan man navnendre filen og legge den til indeksen selv. Altså gjøre:
 
 ```bash
-ls -1
+mv <filnavn> <nytt-fil-navn>
+git <ny-fil>
 ```
+
+Kun dette blir endret:
 
 ```yaml
-A.adoc
-git.png
-kap-2.adoc
-kap-3.md
+rename: WD → INDEKS
 ```
 
-og
-
-```nginx
-git status
-```
-
-```yaml
-On branch Branch-NO-1
-Changes to be committed:
-  (use "git restore --staged <file>..." to unstage)
-        renamed:    kap-1.adoc -> A.adoc
-```
-
-Alternativt kan man navneendre filen og legge den til indeksen selv. Altså gjøre:
-
-```bash
-mv kap-1.adoc A.adoc
-git add A.adoc
-```
-
-Også her er man klar for en oppfølgende *commit*.
+så alt er klargjort for en oppfølgende *commit*.
 
 
 ## ▶️ Delete
 
-For å slette en fil, f.eks. filen **doc.md**, kan man gjøre
+For å slette en fil kan man gjøre
 
 ```bash
-git rm doc.md
+git rm <fil>
 ```
 
-Dette krever at **doc.md** er *commited*. Kommandoen gjør to ting samtidig:
+Dette krever at filen er *commited*. Kommandoen gjør to ting samtidig:
 
 - Fjerner filen fra arbeidskatalogen
 - Legger inn endringen på INDEKS 
@@ -223,12 +191,25 @@ Man kan for så vidt også slette filen fra arbeidskatalogen (ved `rm`) og legge
 Dersom man ønsker å beholde filen lokalt, men bare fjerne den fra Git, kan man dessuten gjøre
 
 ```bash
-git rm --cached doc.md
+git rm --cached <fil>
 ```
 
 (og deretter også oppdatere **.gitignore** tilsvarende).
 
-I alle tre tilfelle avsluttes prosessen med en *commit* (med passende beskrivelse).
+Kun INDEKS blir endret
+
+```yaml
+delete: WD → INDEKS
+```
+
+Prosessen krever en avsluttende *commit*.
+
+
+## ▶️ Reset
+
+### 🔸 Soft reset
+
+### 🔸 Hard reset
 
 
 ## ▶️ Restore og Unstage
