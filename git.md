@@ -22,9 +22,10 @@ Både INDEKS og REPO opererer på fulle øyeblikksbilder av prosjektet, såkalte
 
 <!-- ![Brancht](./branch.png) -->
 
-Her ser vi en illustrasjon av to grener på REPO, Master og Feature, som består av hhv. fire og to øyeblikksbilder. Sistnevnte gren er forgrenet ut fra hovedgrenens andre *commit*.
+Her ser vi en illustrasjon av to grener på REPO, Master og Feature, som består av hhv. fire og to øyeblikksbilder. Sistnevnte gren er forgrenet ut fra hovedgrenens andre øyeblikksbilder.
 
-Vi ser også den viktige pekeren HEAD (*egentlig* en fil med en referansebeskrivelse), som peker ut aktivt øyeblikksbilde. Ofte peker den på siste commit, men brukeren kan sette den til å peke på hvilken som helst *commit*. Kommandoer som opererer på REPO, virker gjerne på aktivt øyeblikksbilde.
+Vi ser også den viktige pekeren HEAD, som peker på aktivt øyeblikksbilde, ofte det siste.
+I tillegg har man også én peker til hver branch. Vi kommer tilbake til hvordan disse er implementert og fungerer.
 
  Den grunnleggende arbeidsflyten er som følger:
 
@@ -138,6 +139,12 @@ Date:   Thu Feb 5 19:16:43 2026 +0100
 …/git-TEST on 🌿 Branch-NO-1 [!] 
 ```
 
+Evt gir følgende et fargeformatert konsentrat (kortversjon) får ved:
+
+```r
+git log --oneline --graph --decorate --all
+```
+
 Hash-verdien vi ser (oftest en SHA-1--hash, men i noen tilfeller også SHA-256) beregnes av filer og kataloger i øyeblikksbilde, av tidligere øyeblikksbilder, forfatter og *commit*-melding. Hashen benyttes både som en unik identifikator og for integritetskontroll (av hele historikken). En kortversjon av hash-en (minimum de fire første tegnede, ofte de syv første) benyttes ofte til å referere øyeblikksbilder på REPO.
 
 Man kan også legge til INDEKS og foreta *commit* av *alle* modifiserte filer i en og samme kommando ved:
@@ -151,7 +158,7 @@ git commit -a -m "First commit of prosjekt git-TEST."
 
 For å endre navnet til en fil, kan man gjøre:
 
-```bash
+```html
 git mv <fil> <ny-fil>
 ```
 
@@ -159,7 +166,7 @@ Navnet endres på arbeidskatalogen, og endringen legges til på INDEKS, klar for
 
 Alternativt kan man navnendre filen og legge den til indeksen selv. Altså gjøre:
 
-```bash
+```html
 mv <filnavn> <nytt-fil-navn>
 git <ny-fil>
 ```
@@ -205,26 +212,125 @@ delete: TRE → INDEKS
 Prosessen krever en avsluttende *commit*.
 
 
+## ▶️ Branching
+
+Som antydet, kan man lage én eller flere forgreninger fra et øyeblikksbilde. Kommandoen er slik:
+
+```html
+git branch <ny gren>
+```
+
+Dette oppretter en peker (egentlig fil, se nedenfor) med dette navnet, og denne grenen og dette øyeblikksbildet blir aktivt.
+
+Vi kan liste alle grener ved:
+
+```nginx
+git branch
+```
+
+Man kan bytte gren ved
+
+```nginx
+git switch <gren>
+```
+
+Vi skal behandle denne kommandoen nærmere, men her blir <gren> aktiv gren, og siste *commit* på denne aktivt øyeblikksbilde. I tillegg oppdateres både arbeidskatalog og INDEKS iht. til dette. Dette kan oppsummeres ved:
+
+```yaml
+switch:
+HEAD → <gren> → latest commit
+TRE ← INDEKS ← REPO
+```
+
+### 🔸Referering
+
+Man kan referer øyeblikksbilder både absolutt og relaticvt
+
+### 🔸 HEAD og branch-pekere
+
+Vi må se litt nærmere på hvordan pekerne HEAD og branch-pekere er implementert og virker. Begge deler er egentlig vanlige tekstfiler. Førstnevnte heter HEAD og ligger på `.git`, mens de sistnevnt (én for hver gren) har grennavn som filnavn og ligger på `.git/refs/heads`.
+
+En grenpeker, som f.eks. MAIN, inneholder hash-verdien til et øyeblikksbilde, f.eks.
+
+```yaml
+436ab61d81d052cd320f3a8a4dc532f33e5d1a13
+```
+
+Dette vil normalt være siste øyeblikksbilde på grenen.
+
+HEAD inneholder normalt referanse til en gren, i form av sti/filnavn til en grenpeker, f.eks.
+
+```yaml
+ref: refs/heads/main
+```
+
+Men i noen tilfeller (som vi skal se) inneholder den hash-verdien til et bestemt øyeblikksbilde (slik som MAIN i eksempelet).
+
+
+Men normalt, når man sier "HEAD peker på øyeblikksbilde D", så betyr det egentlig:
+
+```yaml
+HEAD → MAIN → D
+```
+
+
 ## ▶️ Reset
 
-`reset` er en kommando med rike muligheter til å resette tilstander fra tidligere tilstander, både i TRE, INDEKS og REPO.
+`reset` er en kommando med rike muligheter til å endre tingenes tilstand i pekere, i TRE og INDEKS. Vi har tre grunnleggende versjoner (med flere mulige opsjoner):
 
-### 🔸 Soft
 
-En soft reset endrer bare HEAD.
+```yaml
+- Soft reset:  Endrer HEAD
 
-### 🔸 Mixed 
+- Mixed reset: Endrer HEAD         INDEKS ← REPO
 
-En mixed reset endrer HEAD og oppdaterer INDEKS
+- HARD reset:  Endrer HEAD   TRE ← INDEKS ← REPO
+```
 
-### 🔸 Hard
+Ved `hard reset` kan man benytte opsjonene `--Merged` og `--Keep`, som er to måter å beskytte filer i TRE fra overskrivelse på.
 
-En hard reset endrer HEAD og oppdaterer både INDEKS og TRE
+La oss se nærmere hva som skjer også med pekerne våre her.
 
-#### --Merged
+Anta vi har en følge av øyeblikksbilder A → B → C → D på MAIN, og at D er aktivt. Hva skjer om vi foretar:
 
-#### --Keep
+```nginx
+git reset soft <B>
+```
 
+Hele prosessen kan oppsummeres ved:
+
+```yaml
+HEAD → MAIN → B
+```
+
+Dvs. at MAIN peker på øyeblikksbilde B, og HEAD peker på gren MAIN. Dette gjør B aktivt. Ved soft reset endres verken TRE eller INDEKS (slik at disse i utgangspunktet fortsatt har verdi D). REPO er uansett uforandret.
+
+Merk nå at dersom vi commit'er modifiseringer, får vi en etterfølger vi kan betegn C', som vil være ulik C (uansett om modifiseringene skulle være identiske). C og D blir nå hengende (selv om forgjenger B er uendret). Dersom intet annet refererer dem, en tag eller noe, risikerer disse (med tid og studer, kanskje 30-60 dager) å bli slettet av garbage collector. Disse risikerer å bli såkalt unreachable.
+
+Dvs. at reset er primært ment for å rulle tilbake i versjoner. Lite endres (særlig ved soft reset), men etterfølgende modifisering vil endre historikken.
+
+La oss derfor se på den beslektede kommandoen `switch`.
+
+
+## ▶️ Switch
+
+Som vi har sett, kan `switch` benyttes til å bytte gren, men vi kan også hoppe til et hvilket som helst øyeblikksbilde.
+
+La oss anta samme utgangspunkt som over: A → B → C → D på MAIN, og D er aktivt. Hva skjer om vi hopper til B ved `switch`?
+
+```nginx
+git switch --detached <B>
+```
+
+(detached er påkrevet når man hopper innen samme gren.) Her er virkningen oppsummert:
+
+
+```yaml
+HEAD → B
+WD ← INDEKS ← B
+```
+
+HEAD blir satt til å peke på øyeblikksbilde B (dvs. det vil inneholde hash-verdien til B, ikke lenger referanse til en gren). MAIN endres ikke og peker fortsatt på D (siste commit i gren MAIN), og REPO forblir også uforandret. B blir aktivt også i dette eksempelet, men merk at D (og dermed også historikken fram) fortsatt er *reachable* her.
 
 ## ▶️ Restore og Unstage
 
