@@ -2,7 +2,7 @@
 
 ## ▶️ Systemet
 
-Her ser vi strukturen Git-systemet bygger på. Man har **Working directory** (kalt arbeidskatalog), **Staging area** (kalt **INDEKS**) og **Git directory** (kalt **Repository** eller **REPO**):
+Her ser vi strukturen Git-systemet bygger på. Man har **Working directory** (kalt TRE), **Staging area** (kalt **INDEKS**) og **Git directory** (kalt **REPO**):
 
 <!-- ![Git](./git.png-FJERN) -->
 
@@ -12,7 +12,7 @@ Dette korresponderer til de tre stadiene en fil under Git kan være i:
 - Staged: Filen er markert i sin nåværende versjon for å bli med i neste *commit*
 - Comitted: Filen er trygt lagret i REPO-databasen
 
-Arbeidskatalogen er den aktive utgaven (dvs. filstrukturen) til prosjektet. Filene er hentet ut fra REPO og plassert på disken klar for bruk eller videre modifisering.
+Arbeidskatalogen er den aktive utgaven (dvs. filtreet) til prosjektet. Filene er hentet ut fra REPO og plassert på disken klar for bruk eller videre modifisering.
 
 INDEKS er rent fysisk en fil og holder oversikt over om hva som skal med i neste *commit*.
 
@@ -69,7 +69,7 @@ git  add -a
 Dette påvirker ikke REPO (og derfor heller ikke HEAD), hvilket vi kan illustrere ved:
 
 ```yaml
-add:  WD → INDEKS
+add:  TRE → INDEKS
 ```
 
 Man kan til enhver tid se hvilke filer som er *staged* og *modifisert* ved:
@@ -167,7 +167,7 @@ git <ny-fil>
 Kun dette blir endret:
 
 ```yaml
-rename: WD → INDEKS
+rename: TRE → INDEKS
 ```
 
 så alt er klargjort for en oppfølgende *commit*.
@@ -199,7 +199,7 @@ git rm --cached <fil>
 Kun INDEKS blir endret
 
 ```yaml
-delete: WD → INDEKS
+delete: TRE → INDEKS
 ```
 
 Prosessen krever en avsluttende *commit*.
@@ -207,9 +207,23 @@ Prosessen krever en avsluttende *commit*.
 
 ## ▶️ Reset
 
-### 🔸 Soft reset
+`reset` er en kommando med rike muligheter til å resette tilstander fra tidligere tilstander, både i TRE, INDEKS og REPO.
 
-### 🔸 Hard reset
+### 🔸 Soft
+
+En soft reset endrer bare HEAD.
+
+### 🔸 Mixed 
+
+En mixed reset endrer HEAD og oppdaterer INDEKS
+
+### 🔸 Hard
+
+En hard reset endrer HEAD og oppdaterer både INDEKS og TRE
+
+#### --Merged
+
+#### --Keep
 
 
 ## ▶️ Restore og Unstage
@@ -218,18 +232,18 @@ Ettersom vi har sett på *add* og *commit*, er det naturlig også å se på hvor
 
 INDEKS inneholder alltid snapshot av neste *commit*. Men merk at den ikke nulles eller endres ved en *commit*. INDEKS endres bare dynamisk ved nye *add*. La oss derfor følge en bestemt fil **kap-1.adoc** gjennom Git-systemet. Anta at filen først har innhold (med plassering, fil-attributter osv.) som kan oppsummeres med 'innhold **A**'.
 
-- Når vi legger filen til INDEKS og utfører *commit*, ser alle (arbeidskatalog, INDEKS og REPO) innhold **A**.
+- Når vi legger filen til INDEKS og utfører *commit*, ser alle (TRE, INDEKS og REPO) innhold **A**.
 
-- Om filen modifiseres til **B**, ser arbeidskatalog innhold **B**, mens INDEKS og REPO ser innhold **A**.
+- Om filen modifiseres til **B**, ser TRE innhold **B**, mens INDEKS og REPO ser innhold **A**.
 
-- Om filen legges til INDEKS, ser arbeidskatalog og INDEKS innhold **B**, mens REPO ser innhold **A**.
+- Om filen legges til INDEKS, ser TRE og INDEKS innhold **B**, mens REPO ser innhold **A**.
 
 - Om man utfører *commit*, ser alle tre innhold **B**.
 
 Ved innfører følgende notasjon 
 
 ```yaml
-WD:      arbeidskatalog
+TRE:      arbeidskatalog
 INDEKS:  staging area
 REPO:    .git directory
 ```
@@ -237,7 +251,7 @@ REPO:    .git directory
 kan dette kortere illustreres ved:
 
 ```yaml
-add:     WD → INDEKS
+add:     TRE → INDEKS
 commit:  INDEKS → REPO
 ```
 
@@ -249,12 +263,12 @@ Kommandoen for å gjøre *restore* av en fil er:
 git restore kap-1.adoc
 ```
 
-Merk at `restore` gjenskaper filer på arbeidskatalog fra INDEKS. Som vi har sett, *kan* disse være — men trenger ikke å være — like filene på REPO.
+Merk at `restore` gjenskaper filer på TRE fra INDEKS. Som vi har sett, *kan* disse være — men trenger ikke å være — like filene på REPO.
 
 Dette kan kortere illustreres ved:
 
 ```yaml
-restore:  WD ← INDEKS
+restore:  TRE ← INDEKS
 ```
 Ønsker man å utføre *restore* på hele øyeblikksbildet, kan man gjøre:
 
@@ -308,10 +322,10 @@ Vi kommer tilbake til hvordan man refererer tidligere øyeblikksbilder senere.
 
 ## ▶️ Reset og checkout
 
-Man kan også hente inn fil eller øyeblikksbilde fra REPO helt over i arbeidskatalogen. Da skjer egentlig først en *unstage* og så en *restore*, altså operasjonen:
+Man kan også hente inn fil eller øyeblikksbilde fra REPO helt over i TREen. Da skjer egentlig først en *unstage* og så en *restore*, altså operasjonen:
 
 ```yaml
-reset      : WD ← INDEKS ← REPO
+reset      : TRE ← INDEKS ← REPO
 ```
 
 Dette kan samles i en og samme kommando ved:
@@ -321,7 +335,7 @@ git restore --staged --worktree kap-1.adoc
 git restore --staged --worktree 
 ```
 
-for fil eller *commit*. Dette gjenskaper tidligere REPO-lagret fil eller øyeblikksbilde. Merk for det første at, uten nærmere angivelse, er det siste *commit* som legges til grunn her (eller egentlig *commit* utpekt av HEAD). For det andre, når vi gjenskaper en enkeltfil, har man ingen garanti for at den gjenskapte (gamle) filen lenger gir mening i (den nyere) arbeidskatalogen. Brukeren har likevel lov å gjøre dette. Alt ansvar for mening og konsistens overlates brukeren.
+for fil eller *commit*. Dette gjenskaper tidligere REParbeidskatalogO-lagret fil eller øyeblikksbilde. Merk for det første at, uten nærmere angivelse, er det siste *commit* som legges til grunn her (eller egentlig *commit* utpekt av HEAD). For det andre, når vi gjenskaper en enkeltfil, har man ingen garanti for at den gjenskapte (gamle) filen lenger gir mening i (den nyere) arbeidskatalogen. Brukeren har likevel lov å gjøre dette. Alt ansvar for mening og konsistens overlates brukeren.
 
 En gjenskaping kalles også en *checkout* eller en *reset*. Følgende kommandoer utfører derfor essensielt det samme (med hensyn til hva de gjenskaper i arbeidskatalogen):
 
@@ -460,18 +474,51 @@ Vi ser at HEAD peker på nyeste av to *commits* i gren 2. Gren 1 inneholder fire
 Vi kan referer de enkelte øyeblikksbildene på flere måter. Kortversjonen av hash-verdien
 
 
+## ▶️ Hjelp
+
+### 🔸 Man-sider
+
+Man kan få manualsider for ulike kommandoer i kort eller langt format (den første er for kort, de to andre gir samme, lange output):
+
+```html
+git <comand> -h
+git <comand> --help
+git help <comand>
+```
+
+Ønsker man å lese dokumentasjonen i en web-side heller enn i terminal, kan man gjøre:
+
+```html
+git help -w <comand>
+```
+
+om det tilrettelagt for det i `/usr/share/doc/git/html`.
+
+Man kan også få en liste over alle kommandoer ved:
+
+```nginx
+git help -a
+```
+
+
+### 🔸 Nettressurser
+
+[Pro Git Book](https://git-scm.com/book/en/v2)
+
+[Git in VSCode](https://code.visualstudio.com/docs/sourcecontrol/overview)
+
 ## ▶️ Oppsummering
 
 ```yaml
-add        : INDEKS  ←  WD
+add        : INDEKS  ←  TRE
 commit     : REPO    ←  INDEKS
-restore    : WD      ←  INDEKS
+restore    : TRE     ←  INDEKS
 unstage    : INDEKS  ←  REPO
-reset      : WD      ←  INDEKS ← REPO
+reset      : TRE     ←  INDEKS ← REPO
 ```
 
 Merk at disse Git-kommandoene ikke hopper over ledd i følgen:
 
 ```yaml
-INDEKS  ↔  WD  ↔  REPO
+INDEKS  ↔  TRE  ↔  REPO
 ```
