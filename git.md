@@ -1,11 +1,11 @@
-# ➕ Git: Et overordnet blikk
+# ➕ Git: En grundig introduksjon
 
 ## ▶️ Systemet
 
 Her ser vi strukturen Git-systemet bygger på. Man har
 
 - **Working directory** (her kalt **TRE**)
-- **Staging area** (her kalt **INDEKS**) og 
+- **Staging area** (her kalt **INDEKS**) og
 - **Git directory** (her kalt **REPO**):
 
 <!-- ![Git](./git.png-FJERN) -->
@@ -45,8 +45,7 @@ Ettersom prosjektet vokser, kan prosjektet grene ut i flere versjoner. Disse vil
 
 Vi bør i oppstarten også nevne at vi kan skjerme bestemte filer og kataloger fra Git ved å inkludere dem i en tekstfil **.gitignore** øverst i arbeidskatalogen. Avhengig av type prosjekt, kan man velge å ikke følge bestemt filer.
 
-
-## ▶️ Grunnleggende eksempler
+## ➕ Grunnleggende eksempler
 
 Før vi går inn på flere Git-detaljer og ser nærmere på hvordan ting egentlig henger sammen, kan vi vise noen grunnleggende eksempler og kommandoer for grunnleggende bruk. Dette dekker normal hovedaktivitet, og mange vil klare seg kun med dette. FlNoen kommandoer fins riktignok både i eldre og nyere varianter, og vi skal prøve å benytte de nyere. Vi ser her på lokal bruk, og vil snakke senere om hvordan man kan koble se seg på eksterne systemer som GitHub og andre, for backup, samarbeid eller fjernaksess.
 
@@ -82,6 +81,7 @@ git  add -a
 
 Man kan til se hvilke filer som er *staged* og *modifisert* ved `git status`. Under ser vi noen varianter. Disse viser hhv. alle slike filer i en long output eller i kort output, samt branch-info:
 filerfilerfiler
+
 ```nginx
 git status
 ```
@@ -120,8 +120,6 @@ git log <hash> --stat
 
 Man kan lage en ny gren ved:
 
-
-
 ### 🔸 Commit
 
 Mar foreta *commit* ved:
@@ -136,7 +134,33 @@ Evt. kan man sende alt til INDEKS og *commit* samtidig ved:
 git commit -a -m "<Beskrivelse>"
 ```
 
-### 🔸 Help
+### 🔸 Tags
+
+Man har to typer tags: *lightweight* og *annotated*. Førstnevnte er for korte tags, som v-1.0 og liknende. Den gis ved:
+
+```nginx
+git tag <tag-navn> <commit-hash>
+```
+
+Den andre er for lengre, mer sammensatte tags og er et egt Git-objekt med innehold:
+
+-hvem som tager
+-dato
+-melding
+-mulighet for kryptografisk signering
+-peker på commit
+
+Den settes vef:
+
+```nginx
+git tag -a <tag-navn> -m "melding" <commit>
+```
+
+Vi kan liste tags ved
+
+```nginx
+git tag -l
+```
 
 Man kan få manualsider for ulike kommandoer i kort eller langt format (den første er for kort, de to andre gir samme, lange output):
 
@@ -158,11 +182,11 @@ Man kan også få en liste over alle kommandoer ved:
 git help -a
 ```
 
-# ➕ Git: En detaljert kikk
+## ➕ Git: En detaljert kikk
 
 For å forstå Git bedre og å kunne håndtere enkelte kommandoer riktig, trenger vi å dykke mer ned i detaljene. Vi må vite litt om hvordan et øyeblikksbilde egentlig ser ut og hvordan de ulike pekerne fungerer. Dessuten må se på hvordan man kan referere øyeblikksbilder i kommandoer. Dette er enkelt nok, og vi kan starte der.
 
-##  ▶️ Hvordan referer øyeblikksbilder?
+## ▶️ Hvordan referer øyeblikksbilder?
 
 Man kan referer øyeblikksbilder både absolutt og relativt.
 
@@ -220,12 +244,11 @@ HEAD → MAIN → D
 En commit inneholder snapshot av prosjektet og referanser til foreldre.
 Hele commit-grafen kan rekonstrueres ved å følge parent-referansene bakover.
 
-
 ## ▶️ Add
 
-Vi har sett på de vanligste kommandoen, som `add`, i [Grunnleggende eksempler](##-▶️-Grunnleggende-eksempler). Men vi kan nå forklare mer detaljert hva som skjer og ikke skjer ifm. `git add`, `git commit` og (særlig) andre kommandoer. Det vi ønsker å se, er se hva som endres av TRE, INDEKS, REPO, HEAD og gren-pekere. I kommandoer som bare involvere én gren, antar vi da at denne er MAIN.
+Vi har sett på de vanligste kommandoen, som `add`, i *Grunnleggende eksempler*. Men vi kan nå forklare mer detaljert hva som skjer og ikke skjer ifm. `git add`, `git commit` og (særlig) andre kommandoer. Det vi ønsker å se, er se hva som endres av TRE, INDEKS, REPO, HEAD og gren-pekere. I kommandoer som bare involvere én gren, antar vi da at denne er MAIN.
 
-Man sender altså filer til INDEKS (*staging*) ved 
+Man sender altså filer til INDEKS (*staging*) ved
 
 ```r
 git  add <fil>
@@ -240,8 +263,6 @@ add:
 ```
 
 Dermed har man en presis oversikt over hvordan kommandoen virker (hvilket blir viktigere for andre kommandoer).
-
-
 
 ## ▶️ Commit
 
@@ -323,7 +344,6 @@ rename: TRE → INDEKS
 
 så alt er klargjort for en oppfølgende *commit*.
 
-
 ## ▶️ Delete
 
 For å slette en fil kan man gjøre
@@ -335,7 +355,7 @@ git rm <fil>
 Dette krever at filen er *commited*. Kommandoen gjør to ting samtidig:
 
 - Fjerner filen fra arbeidskatalogen
-- Legger inn endringen på INDEKS 
+- Legger inn endringen på INDEKS
 
 Man kan for så vidt også slette filen fra arbeidskatalogen (ved `rm`) og legge til INDEKS selv (ved `add`), med samme resultat.
 
@@ -355,12 +375,9 @@ delete: TRE → INDEKS
 
 Prosessen krever en avsluttende *commit*.
 
-
-
 ## ▶️ Reset
 
 `reset` er en kommando med rike muligheter til å endre tingenes tilstand i pekere, i TRE og INDEKS. Vi har tre grunnleggende versjoner (med flere mulige opsjoner):
-
 
 ```yaml
 - Soft reset:  Endrer HEAD
@@ -394,7 +411,6 @@ Dette betyr at *reset* primært er ment for å rulle tilbake i versjoner, kanskj
 
 La oss nå se på den beslektede kommandoen `switch`.
 
-
 ## ▶️ Switch
 
 Som vi har sett, kan `switch` benyttes til å bytte gren. Men vi kan også hoppe til et hvilket som helst øyeblikksbilde, slik som *reset*.
@@ -406,7 +422,6 @@ git switch --detached <B>
 ```
 
 (detached er påkrevet når man hopper innen samme gren.) Her er virkningen oppsummert:
-
 
 ```yaml
 HEAD → B
@@ -443,14 +458,13 @@ Man kan bytte gren ved
 git switch <gren>
 ```
 
-Vi skal behandle denne kommandoen nærmere, men her blir <gren> aktiv gren, og siste *commit* på denne aktivt øyeblikksbilde. I tillegg oppdateres både arbeidskatalog og INDEKS iht. til dette. Dette kan oppsummeres ved:
+Vi skal behandle denne kommandoen nærmere, men her blir *gren* aktiv gren, og siste *commit* på denne aktivt øyeblikksbilde. I tillegg oppdateres både arbeidskatalog og INDEKS iht. til dette. Dette kan oppsummeres ved:
 
 ```yaml
 switch:
 HEAD → <gren> → latest commit
 TRE ← INDEKS ← REPO
 ```
-
 
 ## ▶️ Rebase
 
@@ -468,7 +482,7 @@ INDEKS inneholder alltid snapshot av neste *commit*. Men merk at den ikke nulles
 
 - Om man utfører *commit*, ser alle tre innhold **B**.
 
-Ved innfører følgende notasjon 
+Ved innfører følgende notasjon
 
 ```yaml
 TRE:      arbeidskatalog
@@ -498,6 +512,7 @@ Dette kan kortere illustreres ved:
 ```yaml
 restore:  TRE ← INDEKS
 ```
+
 Ønsker man å utføre *restore* på hele øyeblikksbildet, kan man gjøre:
 
 ```nginx
@@ -514,7 +529,6 @@ git restore source=<commit>
 ```
 
 for enkeltfiler eller øyeblikksbilde. Vi kommer tilbake til hvordan øyeblikksbilder refereres.
-
 
 ### 🔸 Unstage
 
@@ -546,7 +560,6 @@ git restore --staged --source=<commit>
 ```
 
 Vi kommer tilbake til hvordan man refererer tidligere øyeblikksbilder senere.
-
 
 ## ▶️ *Reset og checkout (endres)
 
@@ -703,7 +716,6 @@ Vi kan referer de enkelte øyeblikksbildene på flere måter. Kortversjonen av h
 
 ## ▶️ Archive
 
-
 ## ▶️ *Oppsummering
 
 Endres. Må ha med HEAD og gren-peker
@@ -728,4 +740,4 @@ INDEKS  ↔  TRE  ↔  REPO
 
 [Git in VSCode](https://code.visualstudio.com/docs/sourcecontrol/overview)
 
-# ➕ GitHub
+## ➕ GitHub
