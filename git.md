@@ -793,3 +793,30 @@ og deretter lime inn output på GitHub. Om alt det går fint, kan man teste dett
 ssh -T git@github.com
 ```nginx
 
+Deretter kan man sette opp et nytt REPO på GitHub.
+
+❗ IKKE huk av for:
+
+- Add README
+
+ -Add .gitignore
+
+ -Add license
+
+Siden prosjektet allerede finnes lokalt. Velg et passende prosjektnavn
+
+Når det er gjort, stå på hovedgren (normalt main, hvilket ofte GitHub forventer)
+
+```nginx
+git remote add origin git@github.com:mailjaro/Git-documentation.git
+```
+
+når Git-documentation.git eller Git-documentation er navnet på prosjektet.
+
+I hvert fall når main ikke er hovedgren, men NyMain, gjør man så:
+
+```nginx
+git push -u origin NyMain
+```
+
+Da skal prosjektet pushes over, og NyMain er satt som default branch, og man kan senere bare foreta push og pull uten referanse til NyMain.
