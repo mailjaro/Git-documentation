@@ -734,12 +734,6 @@ Merk at disse Git-kommandoene ikke hopper over ledd i følgen:
 INDEKS  ↔  TRE  ↔  REPO
 ```
 
-## ▶️ Nettressurser
-
-[Pro Git Book](https://git-scm.com/book/en/v2)
-
-[Git in VSCode](https://code.visualstudio.com/docs/sourcecontrol/overview)
-
 ## ➕ GitHub
 
 - Lag konto på GitHub
@@ -747,27 +741,7 @@ INDEKS  ↔  TRE  ↔  REPO
 - Generer SSH-nøkler
   - `ssh-keygen -t ed25519 -C "mailjaro@gmail.com"`
 
-Dette ga
-
-```text
-Your identification has been saved in /home/jan/.ssh/id_ed25519
-Your public key has been saved in /home/jan/.ssh/id_ed25519.pub
-The key fingerprint is:
-SHA256:D73m4yqINm5wnghQgj7698Chg7dH5VeN8k/jfKzhFdo mailjaro@gmail.com
-The key's randomart image is:
-+--[ED25519 256]--+
-|.                |
-|o .              |
-|.o         o     |
-|.o    . ..o .    |
-|o . .o  S+.   .  |
-|+..o... .o..oo . |
-|o*++o. .  +=ooE  |
-|..Oo+..  o..+oo  |
-| +o+ ....oo.oo   |
-+----[SHA256]-----+
-
-```
+Dette outputer informasjon om hvor nøklene lagres samt fingerprint til offentlig nøkkel og en såkalt random art av nøkkelen.
 
 Fingerprint kan vises senere ved:
 
@@ -775,13 +749,13 @@ Fingerprint kan vises senere ved:
 ssh-keygen -lf ~/.ssh/id_ed25519.pub
 ```
 
-Random art kan vises senere ved:
+og random art kan vises ved:
 
 ```nginx
 ssh-keygen -lvf ~/.ssh/id_ed25519.pub
 ```
 
-Neste steg er å legge til den offentlige SSH-nøkkelen på GitHub. Man har knapp for å gjør det på GitHub. Da må man skrive ut sun offebtlige nøkkel, ved
+Neste steg er å legge til den offentlige SSH-nøkkelen på GitHub. Man har knapp for å gjør det på GitHub. Da må man skrive ut sin offentlige nøkkel ved
 
 ```nginx
 cat ~/.ssh/id_ed25519.pub
@@ -798,30 +772,39 @@ Deretter kan man sette opp et nytt REPO på GitHub.
 ❗ IKKE huk av for:
 
 - Add README
-
  -Add .gitignore
-
  -Add license
 
-Siden prosjektet allerede finnes lokalt. Velg et passende prosjektnavn
-
-Når det er gjort, stå på hovedgren (normalt main, hvilket ofte GitHub forventer)
+siden prosjektet allerede finnes lokalt. Velg et passende prosjektnavn. Deretter, fra prosjektkatalogen, utfør:
 
 ```nginx
-git remote add origin git@github.com:mailjaro/Git-documentation.git
+git remote add origin git@github.com:mailjaro/<prosjektnavn>
 ```
 
-når Git-documentation.git eller Git-documentation er navnet på prosjektet.
-
-I hvert fall når main ikke er hovedgren, men NyMain, gjør man så:
+ Man kan dermed pushe over prosjektet ved:
 
 ```nginx
-git push -u origin NyMain
+git push -u origin <hovedgren>
 ```
 
-Da skal prosjektet pushes over, og NyMain er satt som default branch, og man kan senere bare foreta push og pull uten referanse til NyMain.
+Fordelen ved å benytte opsjonen `-u`, er at man 
 
-Man kan også se om noe er skjedd før man evt. foretar en pull. Følgende enter informasjon om nye commits på GitHub:
+1. siden slipper og angi gren i ``pull` og `push`
+2. *Default branch* i prosjektet på GitHub settes iht. til dette.
+
+Man kan spesifisere gren spesifikt ved:
+
+```nginx
+git push origin <gren>
+```
+
+```nginx
+git pull origin <gren>
+```
+
+*Default branch* i prosjektet på GitGub forlanges fordi en av versjonene (grenene) av prosjektet må være prosjektet ansikt utad.
+
+For å se om noe er skjedd før man evt. foretar en pull kan man foreta en *fetch*. Følgende henter informasjon om nye commits på GitHub:
 
 ```nginx
 git fetch origin
@@ -856,3 +839,9 @@ git log --graph --decorate --all origin/NyMain
 ```nginx
 git log -p origin/NyMain
 ```
+
+## ➕ Nettressurser
+
+[Pro Git Book](https://git-scm.com/book/en/v2)
+
+[Git in VSCode](https://code.visualstudio.com/docs/sourcecontrol/overview)
