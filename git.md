@@ -820,3 +820,39 @@ git push -u origin NyMain
 ```
 
 Da skal prosjektet pushes over, og NyMain er satt som default branch, og man kan senere bare foreta push og pull uten referanse til NyMain.
+
+Man kan også se om noe er skjedd før man evt. foretar en pull. Følgende enter informasjon om nye commits på GitHub:
+
+```nginx
+git fetch origin
+```
+
+Etter fetch kan man sjekke status:
+
+```nginx
+git status
+```
+
+Det følgende viser ekstern commit-log i kort-format.
+
+```nginx
+git log origin/NyMain --oneline
+```
+
+Under ser du noen varianter med lengre output:
+
+```nginx
+git log origin/NyMain
+```
+
+```nginx
+git log --pretty=fuller origin/NyMain
+```
+
+```nginx
+git log --graph --decorate --all origin/NyMain
+```
+
+```nginx
+git log -p origin/NyMain
+```
