@@ -741,3 +741,55 @@ INDEKS  ↔  TRE  ↔  REPO
 [Git in VSCode](https://code.visualstudio.com/docs/sourcecontrol/overview)
 
 ## ➕ GitHub
+
+- Lag konto på GitHub
+
+- Generer SSH-nøkler
+  - `ssh-keygen -t ed25519 -C "mailjaro@gmail.com"`
+
+Dette ga
+
+```text
+Your identification has been saved in /home/jan/.ssh/id_ed25519
+Your public key has been saved in /home/jan/.ssh/id_ed25519.pub
+The key fingerprint is:
+SHA256:D73m4yqINm5wnghQgj7698Chg7dH5VeN8k/jfKzhFdo mailjaro@gmail.com
+The key's randomart image is:
++--[ED25519 256]--+
+|.                |
+|o .              |
+|.o         o     |
+|.o    . ..o .    |
+|o . .o  S+.   .  |
+|+..o... .o..oo . |
+|o*++o. .  +=ooE  |
+|..Oo+..  o..+oo  |
+| +o+ ....oo.oo   |
++----[SHA256]-----+
+
+```
+
+Fingerprint kan vises senere ved:
+
+```nginx
+ssh-keygen -lf ~/.ssh/id_ed25519.pub
+```
+
+Random art kan vises senere ved:
+
+```nginx
+ssh-keygen -lvf ~/.ssh/id_ed25519.pub
+```
+
+Neste steg er å legge til den offentlige SSH-nøkkelen på GitHub. Man har knapp for å gjør det på GitHub. Da må man skrive ut sun offebtlige nøkkel, ved
+
+```nginx
+cat ~/.ssh/id_ed25519.pub
+```
+
+og deretter lime inn output på GitHub. Om alt det går fint, kan man teste dette SSH-oppsettet ved:
+
+```nginx
+ssh -T git@github.com
+```nginx
+
