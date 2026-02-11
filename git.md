@@ -744,13 +744,15 @@ og random art kan vises ved:
 ssh-keygen -lvf ~/.ssh/id_ed25519.pub
 ```
 
-Neste steg er å legge til den offentlige SSH-nøkkelen på GitHub. Man har knapp for å gjør det på GitHub. Da må man skrive ut sin offentlige nøkkel ved
+Skal man sette opp eksternt REPO fra flere PC-er, må SSH-nøkler generes også her.
+
+Neste steg er å legge til den offentlige SSH-nøkkelen på GitHub. Man har knapp tilgjengelig for å legge til nye SSH-nøkler. Lokalt må man skrive ut sin offentlige nøkkel ved
 
 ```nginx
 cat ~/.ssh/id_ed25519.pub
 ```
 
-og deretter lime inn output på GitHub. Om alt det går fint, kan man teste dette SSH-oppsettet ved:
+og deretter lime inn output på GitHub. Dette må man gjøre også fra neste PC. Om alt det går fint, kan man teste dette SSH-oppsettet ved:
 
 ```nginx
 ssh -T git@github.com
@@ -843,7 +845,17 @@ git log --graph --decorate --all origin/<gren>
 git log -p origin/NyMain
 ```
 
-Har man mange Git-prosjekter, kan man kanskje over tid glemme hvilke som er lokale og hvilke som er ikke-lokale. Kommandoene
+Om man vil jobbe med prosjektet på annen PC, bør man først ha initialsiert Git med samme bruker og e-post som den opprinnelige PC-en. Deretter kan man klone prosjektet over fra GitHub med:
+
+```nginx
+git clone git@github.com:<bruker>/<prosjekt>.git
+```
+
+fra katalogen arbeidskatalogen (som blir opprettet i kallet) skal ligge på. Selve katalognavnet for prosjektet kan godt navnendres om prosjektnavnet ikke skal være katalognavnet.
+
+Dersom man ønsker å samarbeide ned prosjektet med eksterne brukere må man først gi brukerne tilgang til GitHub-repoet. De må ha Git installert og ha SSH-nøkler etc. før prosjektet klones. Konflikter i filer kan forkeomme når flere modifiserer, commiter og pusher. Konflikter må løses lokalt.
+
+Har man mange Git-prosjekter man jobber med, kan man kanskje over tid glemme hvilke som er lokale og hvilke som er ikke-lokale. Kommandoene
 
 ```nginx
 git remote
