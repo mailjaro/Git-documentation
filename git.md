@@ -1,6 +1,6 @@
-# ➕ Git: En grundig introduksjon
+# 📗 Git: En grundig introduksjon
 
-## ▶️ Systemet
+## ➕ Systemet
 
 Her ser vi strukturen Git-systemet bygger på. Man har
 
@@ -49,7 +49,7 @@ Vi bør i oppstarten også nevne at vi kan skjerme bestemte filer og kataloger f
 
 Før vi går inn på flere Git-detaljer og ser nærmere på hvordan ting egentlig henger sammen, kan vi vise noen grunnleggende eksempler og kommandoer for grunnleggende bruk. Dette dekker normal hovedaktivitet, og mange vil klare seg kun med dette. FlNoen kommandoer fins riktignok både i eldre og nyere varianter, og vi skal prøve å benytte de nyere. Vi ser her på lokal bruk, og vil snakke senere om hvordan man kan koble se seg på eksterne systemer som GitHub og andre, for backup, samarbeid eller fjernaksess.
 
-### 🔸 Initialisering
+### ▶️ Initialisering
 
 Man kan initialiser Git for et prosjekt med å gjøre
 
@@ -65,7 +65,7 @@ Default *branch name* ved initialisering er *master* eller *main*, avhenging av 
 git init -b <branch-navn>
 ```
 
-### 🔸 Add
+### ▶️ Legge til indeks
 
 Man sender, enten en bestemt fil eller alle modifiserte filer, til INDEKS ved hhv.:
 
@@ -77,7 +77,7 @@ git  add <fil>
 git  add -a
 ```
 
-### 🔸 Status og log
+### ▶️ Se Git-infomasjon
 
 Man kan til se hvilke filer som er *staged* og *modifisert* ved `git status`. Under ser vi noen varianter. Disse viser hhv. alle slike filer i en long output eller i kort output, samt branch-info:
 filerfilerfiler
@@ -116,11 +116,15 @@ git log --oneline --graph --decorate --all
 git log <hash> --stat
 ```
 
-### 🔸 Branch
+### ▶️ Forgreninger
 
 Man kan lage en ny gren ved:
 
-### 🔸 Commit
+### ▶️ Se endringer
+
+Man kan se forskjellen mellom to øyeblikksbilder ved:
+
+### ▶️ Foreta commit
 
 Mar foreta *commit* ved:
 
@@ -134,9 +138,9 @@ Evt. kan man sende alt til INDEKS og *commit* samtidig ved:
 git commit -a -m "<Beskrivelse>"
 ```
 
-### 🔸 Tags
+### ▶️ Merkalapper
 
-Man har to typer tags: *lightweight* og *annotated*. Førstnevnte er for korte tags, som v-1.0 og liknende. Den gis ved:
+Man har to typer merkelapper, tags: *lightweight* og *annotated*. Førstnevnte er for korte tags, som v-1.0 og liknende. Den gis ved:
 
 ```nginx
 git tag <tag-navn> <commit-hash>
@@ -186,11 +190,11 @@ git help -a
 
 For å forstå Git bedre og å kunne håndtere enkelte kommandoer riktig, trenger vi å dykke mer ned i detaljene. Vi må vite litt om hvordan et øyeblikksbilde egentlig ser ut og hvordan de ulike pekerne fungerer. Dessuten må se på hvordan man kan referere øyeblikksbilder i kommandoer. Dette er enkelt nok, og vi kan starte der.
 
-## ▶️ Hvordan referer øyeblikksbilder?
+### ▶️ Hvordan referer øyeblikksbilder?
 
 Man kan referer øyeblikksbilder både absolutt og relativt.
 
-## ▶️ Innhold i øyeblikksbilde
+### ▶️ Innhold i øyeblikksbilde
 
 Et øyeblikksbilde inneholder:
 
@@ -215,8 +219,7 @@ Så hva da med tre-hashen? Kort fortalt er den hash av en binærrepresentasjon a
 
 Det er selvsagt mulig å grave enda dypere i dette, men dette holder trolig for vårt formål.
 
-
-## ▶️ HEAD og gren-pekere
+### ▶️ HEAD og gren-pekere
 
 Vi må se litt nærmere på hvordan peker HEAD og gren-pekere er implementert og virker. Vi husker at HEAD (konseptuelt) peker på aktivt øyeblikksbilde, mens gren-pekere peker (konseptuelt) på hver sin gren. Begge deler er egentlig vanlige tekstfiler. HEAD ligger på `.git`, mens de sistnevnt har grennavn som filnavn (én fil for hver gren) og ligger på `.git/refs/heads`.
 
@@ -244,7 +247,7 @@ HEAD → MAIN → D
 En commit inneholder snapshot av prosjektet og referanser til foreldre.
 Hele commit-grafen kan rekonstrueres ved å følge parent-referansene bakover.
 
-## ▶️ Add
+### ▶️ Add
 
 Vi har sett på de vanligste kommandoen, som `add`, i *Grunnleggende eksempler*. Men vi kan nå forklare mer detaljert hva som skjer og ikke skjer ifm. `git add`, `git commit` og (særlig) andre kommandoer. Det vi ønsker å se, er se hva som endres av TRE, INDEKS, REPO, HEAD og gren-pekere. I kommandoer som bare involvere én gren, antar vi da at denne er MAIN.
 
@@ -264,7 +267,7 @@ add:
 
 Dermed har man en presis oversikt over hvordan kommandoen virker (hvilket blir viktigere for andre kommandoer).
 
-## ▶️ Commit
+### ▶️ Commit
 
 Vi kan foreta *commit* med en passende beskrivelse, ved
 
@@ -318,8 +321,7 @@ Man kan også legge til INDEKS og foreta *commit* av *alle* modifiserte filer i 
 git commit -a -m "First commit of prosjekt git-TEST."
 ```
 
-
-## ▶️ Rename
+### ▶️ Rename
 
 For å endre navnet til en fil, kan man gjøre:
 
@@ -344,7 +346,7 @@ rename: TRE → INDEKS
 
 så alt er klargjort for en oppfølgende *commit*.
 
-## ▶️ Delete
+### ▶️ Delete
 
 For å slette en fil kan man gjøre
 
@@ -375,7 +377,7 @@ delete: TRE → INDEKS
 
 Prosessen krever en avsluttende *commit*.
 
-## ▶️ Reset
+### ▶️ Reset
 
 `reset` er en kommando med rike muligheter til å endre tingenes tilstand i pekere, i TRE og INDEKS. Vi har tre grunnleggende versjoner (med flere mulige opsjoner):
 
@@ -411,7 +413,7 @@ Dette betyr at *reset* primært er ment for å rulle tilbake i versjoner, kanskj
 
 La oss nå se på den beslektede kommandoen `switch`.
 
-## ▶️ Switch
+### ▶️ Switch
 
 Som vi har sett, kan `switch` benyttes til å bytte gren. Men vi kan også hoppe til et hvilket som helst øyeblikksbilde, slik som *reset*.
 
@@ -430,13 +432,13 @@ WD ← INDEKS ← B
 
 HEAD blir satt til å peke på øyeblikksbilde B (dvs. det vil inneholde hash-verdien til B, ikke lenger referanse til en gren). MAIN endres ikke og peker fortsatt på D (siste commit i gren MAIN), og REPO forblir også uforandret. B blir aktivt også i dette eksempelet, men merk at D (og dermed også historikken fram) fortsatt er *reachable* her.
 
-## ▶️ Checkout
+### ▶️ Checkout
 
-## ▶️ Restore
+### ▶️ Restore
 
-## ▶️ Merge
+### ▶️ Merge
 
-## ▶️ Merging
+### ▶️ Merging
 
 Som antydet, kan man lage én eller flere forgreninger fra et øyeblikksbilde. Kommandoen er slik:
 
@@ -466,9 +468,9 @@ HEAD → <gren> → latest commit
 TRE ← INDEKS ← REPO
 ```
 
-## ▶️ Rebase
+### ▶️ Rebase
 
-## ▶️ *Restore og Unstage (Endres)
+### ▶️ *Restore og Unstage (Endres)
 
 Ettersom vi har sett på *add* og *commit*, er det naturlig også å se på hvordan disse aksjonene kan reverseres. Altså, hvordan foreta *unstage* av en fil på INDEKS eller gjenskape (*restore*) en *commited* fil? For å forklare det, må vi se nærmere på noen detaljer.
 
@@ -497,7 +499,7 @@ add:     TRE → INDEKS
 commit:  INDEKS → REPO
 ```
 
-### 🔸 Restore
+#### 🔸 Restore
 
 Kommandoen for å gjøre *restore* av en fil er:
 
@@ -530,7 +532,7 @@ git restore source=<commit>
 
 for enkeltfiler eller øyeblikksbilde. Vi kommer tilbake til hvordan øyeblikksbilder refereres.
 
-### 🔸 Unstage
+#### 🔸 Unstage
 
 *Unstage* av en fil, fjerning av fil fra INDEKS, foretas med:
 
@@ -561,7 +563,7 @@ git restore --staged --source=<commit>
 
 Vi kommer tilbake til hvordan man refererer tidligere øyeblikksbilder senere.
 
-## ▶️ *Reset og checkout (endres)
+### ▶️ *Reset og checkout (endres)
 
 Man kan også hente inn fil eller øyeblikksbilde fra REPO helt over i TREen. Da skjer egentlig først en *unstage* og så en *restore*, altså operasjonen:
 
@@ -614,7 +616,7 @@ reset      : HEAD flyttes
 
 Forskjellen har en viktig relevans for hva som skjer videre etter modifiseringer og ny *commit*. Når man foretar en *checkout* eller *reset* fra tidligere *commit* igjen, flyttes nemlig HEAD bakover til aktuelt øyeblikksbilde. Foretas ny commit, vil man få et nytt etterfølgende øyeblikksbilde, og de tidligere etterfølgerne blir hengende fritt. Kanskje ønsket bruker å rulle tilbake til tidligere tilstand og forkaste alle etterfølgere. Men hvis ikke, står de hengende øyeblikksbildene i fare for å bli slettet av *garbage collector*. Normalt tar dette 3-6 uker, og fram til da er øyeblikksbildene og nødvendige referanser likevel ikke tapt.
 
-## ▶️ *Branching (Endres og flyttes)
+### ▶️ *Branching (Endres og flyttes)
 
 Det anbefales å gjøre hyppige *commits*. Av og til ønsker man å dele ut en ny fran av prosjektet. Kanskje ønsker man å eksperimenter med noe, ny funksjonalitet, en omskriving etc. Det er lett å lage en ny gren (*branch*). Det er også lett å bytte (*switche*) tilbake til hovedgrenen eller mellom grener.
 
@@ -714,34 +716,21 @@ Vi ser at HEAD peker på nyeste av to *commits* i gren 2. Gren 1 inneholder fire
 
 Vi kan referer de enkelte øyeblikksbildene på flere måter. Kortversjonen av hash-verdien
 
-## ▶️ Archive
+### ▶️ Archive
 
-## ▶️ *Oppsummering
-
-Endres. Må ha med HEAD og gren-peker
-
-```yaml
-add        : INDEKS  ←  TRE
-commit     : REPO    ←  INDEKS
-restore    : TRE     ←  INDEKS
-unstage    : INDEKS  ←  REPO
-reset      : TRE     ←  INDEKS ← REPO
-```
-
-Merk at disse Git-kommandoene ikke hopper over ledd i følgen:
-
-```yaml
-INDEKS  ↔  TRE  ↔  REPO
-```
+Her kommer det mer.
 
 ## ➕ GitHub
 
 - Lag konto på GitHub
 
 - Generer SSH-nøkler
-  - `ssh-keygen -t ed25519 -C "mailjaro@gmail.com"`
 
-Dette outputer informasjon om hvor nøklene lagres samt fingerprint til offentlig nøkkel og en såkalt random art av nøkkelen.
+```bash
+ssh-keygen -t ed25519 -C <e-post>
+```
+
+Dette outputer informasjon om hvor nøklene lagres samt fingerprint til offentlig nøkkel og en såkalt *random art* av nøkkelen.
 
 Fingerprint kan vises senere ved:
 
@@ -765,7 +754,7 @@ og deretter lime inn output på GitHub. Om alt det går fint, kan man teste dett
 
 ```nginx
 ssh -T git@github.com
-```nginx
+```
 
 Deretter kan man sette opp et nytt REPO på GitHub.
 
@@ -775,19 +764,33 @@ Deretter kan man sette opp et nytt REPO på GitHub.
  -Add .gitignore
  -Add license
 
-siden prosjektet allerede finnes lokalt. Velg et passende prosjektnavn. Deretter, fra prosjektkatalogen, utfør:
+siden prosjektet allerede finnes lokalt. Velg et passende prosjektnavn, avgjør om det skal være privat eller offentlig tilgjengelig etc. Deretter, fra prosjektkatalogen, utfør:
 
 ```nginx
-git remote add origin git@github.com:mailjaro/<prosjektnavn>
+git remote add origin git@github.com:<brukernavn>/<prosjektnavn>
 ```
 
- Man kan dermed pushe over prosjektet ved:
+Man kan se eksempler hvor prosjektnavnet også etterfølges av .git. Begge deler er OK og oversettes likt.
+
+F.eks., mitt brukernavn er `mailjaro`, og får et REPO på GitHub med navnet f.eks. `gpg-doc`, blir kommandoen:
+
+```nginx
+git remote add origin git@github.com:mailjaro/gpg-doc
+```
+
+eller ekvivalent:
+
+```nginx
+git remote add origin git@github.com:mailjaro/gpg-doc.git
+```
+
+Man kan dermed pushe over prosjektet ved:
 
 ```nginx
 git push -u origin <hovedgren>
 ```
 
-Fordelen ved å benytte opsjonen `-u`, er at man 
+Fordelen ved å benytte opsjonen `-u`, er at man:
 
 1. siden slipper og angi gren i ``pull` og `push`
 2. *Default branch* i prosjektet på GitHub settes iht. til dette.
@@ -819,25 +822,69 @@ git status
 Det følgende viser ekstern commit-log i kort-format.
 
 ```nginx
-git log origin/NyMain --oneline
+git log origin/<gren> --oneline
 ```
 
 Under ser du noen varianter med lengre output:
 
 ```nginx
-git log origin/NyMain
+git log origin/<gren>
 ```
 
 ```nginx
-git log --pretty=fuller origin/NyMain
+git log --pretty=fuller origin/<gren>
 ```
 
 ```nginx
-git log --graph --decorate --all origin/NyMain
+git log --graph --decorate --all origin/<gren>
 ```
 
 ```nginx
 git log -p origin/NyMain
+```
+
+Har man mange Git-prosjekter, kan man kanskje over tid glemme hvilke som er lokale og hvilke som er ikke-lokale. Kommandoene
+
+```nginx
+git remote
+```
+
+```nginx
+git remote -v
+```
+
+fra prosjektets hjemmekatalog sjekker dette. For ikke-lokale REPO gir førstnevnte `origin` som svar, den andre nærmere informasjon om navn mm. Lokale REPO gir ingen output.
+
+Man kan også
+
+For å se hvilke Git-prosjekter man har, både lokal og ikke-lokale, kan man utføre følgende (denne finner alle `.git`-kataloger)
+
+```nginx
+fd -u -t d '^\.git$' ~
+```
+
+Og når man er i gang, kan man godt lage en `fd`-kommando som ved opsjonen `-x` utfører `git remote` også, som denne:
+
+fd -u -t d '^\.git$' ~ -x sh -c \
+   'echo "Repo: $(dirname "$1")"; \
+   git -C "$(dirname "$1")" remote; echo' sh {}
+
+## ➕ Oppsummering
+
+Langt fra ferdig. Må ha med HEAD og gren-peker, samt flere kommandoer
+
+```yaml
+add        : INDEKS  ←  TRE
+commit     : REPO    ←  INDEKS
+restore    : TRE     ←  INDEKS
+unstage    : INDEKS  ←  REPO
+reset      : TRE     ←  INDEKS ← REPO
+```
+
+Merk at disse Git-kommandoene ikke hopper over ledd i følgen:
+
+```yaml
+INDEKS  ↔  TRE  ↔  REPO
 ```
 
 ## ➕ Nettressurser
