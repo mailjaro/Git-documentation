@@ -10,19 +10,19 @@ Her ser vi strukturen Git-systemet bygger på. Man har
 
 <!-- ![Git](./git.png-FJERN) -->
 
-Dette korresponderer til de tre stadiene en fil under Git kan være i:
+Dette korresponderer til de tre stadiene en fil  kan være i under Git:
 
 - Modifisert: Filen er endret, men ennå ikke sendt videre i Git-systemet
 - Sendt til INDEKS: Filen er markert i sin nåværende versjon for å bli med i neste *commit*
 - *Comitted*: Filen er trygt lagret i REPO-databasen
 
-Arbeidskatalogen utgjør den aktive,lokale utgaven av filtreet til prosjektet. Filene er hentet ut fra REPO og plassert på disken klar for bruk eller videre modifisering.
+Arbeidskatalogen utgjør den aktive, lokale utgaven av filtreet til prosjektet. Filene er hentet ut fra REPO og plassert på disken klar for bruk eller videre modifisering.
 
 INDEKS er rent fysisk en fil og holder oversikt over om hva som skal med i neste *commit*.
 
 REPO inneholder objektdatabasen for prosjektet og lagrer alle versjoner, all historikk og alt av relasjoner gjennom prosjektet.
 
-Både INDEKS og REPO opererer på fulle øyeblikksbilder av prosjektet, såkalte *snapshots* eller *commits*. INDEKS inneholder øyeblikksbildet for neste *commit*, mens REPO inneholder hele følgen av øyeblikksbilder, hele historikken, fra oppstart til tidspunktet for siste *commit*. Git lagrer selvsagt ikke hele filstrukturen i hver *commit*, men holder orden på endringer og sammenhenger for effektiv og plassbesparende utnyttelse.
+Både INDEKS og REPO opererer på fulle øyeblikksbilder av prosjektet, såkalte *snapshots* eller *commits*. INDEKS inneholder øyeblikksbildet for neste *commit*, mens REPO inneholder hele følgen av øyeblikksbilder, hele historikken, fra oppstart til siste *commit*. Git lagrer selvsagt ikke hele filstrukturen i hver *commit*, men holder orden på endringer og sammenhenger for effektiv og plassbesparende utnyttelse.
 
 <!-- ![Brancht](./branch.png) -->
 
@@ -30,10 +30,10 @@ Her ser vi en illustrasjon av et i prosjekt organisert to grener, Master og Feat
 
 Vi ser også noen andre viktige elementer i Git, nemlig:
 
-- pekeren HEAD, som peker på aktivt øyeblikksbilde i treet, samt
+- pekeren HEAD, som peker på aktivt øyeblikksbilde, samt
 - to gren-pekere (her kalt MAIN og FEATURE) som peker på de to grenene.
 
-Vi kommer tilbake til hvordan disse egentlig er implementert og fungerer.
+Vi kommer tilbake til hvordan disse egentlig er implementert.
 
  Den grunnleggende arbeidsflyten er som følger:
 
@@ -41,15 +41,17 @@ Vi kommer tilbake til hvordan disse egentlig er implementert og fungerer.
 2. Brukeren velger hvilke forandringer som skal være med i neste *commit* ved å legge disse til INDEKS
 3. Bruker gjør en *commit*, hvilket tar filene slik de er i INDEKS og lagrer alt (hele øyeblikksbildet) i REPO.
 
-Ettersom prosjektet vokser, kan prosjektet grene ut i flere versjoner. Disse vil likevel være lagret i samme REPO. Alt av data, alt av historikk og referanser for å kunne gjenskape ulike versjoner i sin helhet, er lagret der. Vi kommer nærmere tilbake til detaljer her.
+Ved bruk av esktern versjonskontroll, som f.eks. ved bruk av GitHub, må man foreta et innledende `git pull` (for hente inn nyeste tre fra ekstartn REPO) og et avsluttende `git push` (for å synce lokalt REPO med ekstern REPO) i tillegg. GitHub vil ble behandlet spesielt senere i dokumentet.
+
+Ettersom prosjektet vokser, kan prosjektet grene ut i flere versjoner. Disse vil likevel være lagret i samme REPO. Alt av data, alt av historikk og referanser for å kunne gjenskape ulike versjoner i sin helhet, er lagret der. Vi kommer tilbake til flere detaljer.
 
 Vi bør i oppstarten også nevne at vi kan skjerme bestemte filer og kataloger fra Git ved å inkludere dem i en tekstfil **.gitignore** øverst i arbeidskatalogen. Avhengig av type prosjekt, kan man velge å ikke følge bestemt filer.
 
 ## ➕ Grunnleggende eksempler
 
-Før vi går inn på flere Git-detaljer og ser nærmere på hvordan ting egentlig henger sammen, kan vi vise noen grunnleggende eksempler og kommandoer for grunnleggende bruk. Dette dekker normal hovedaktivitet, og mange vil klare seg kun med dette. FlNoen kommandoer fins riktignok både i eldre og nyere varianter, og vi skal prøve å benytte de nyere. Vi ser her på lokal bruk, og vil snakke senere om hvordan man kan koble se seg på eksterne systemer som GitHub og andre, for backup, samarbeid eller fjernaksess.
+Før vi går inn på flere Git-detaljer og ser nærmere på hvordan ting henger sammen, kan vi vise noen grunnleggende eksempler og kommandoer for grunnleggende bruk. Dette dekker normal hovedaktivitet, og mange vil klare seg kun med dette. Noen kommandoer fins riktignok både i eldre og nyere varianter, og vi skal her prøve å benytte de nyere. Vi fokuserer først på lokal bruk, og tar for oss hvordan man kobler seg på eksterne systemer som GitHub, for backup, samarbeid eller fjernaksess senere.
 
-### ▶️ Initialisering
+### ▶️ Initialisering (init)
 
 Man kan initialiser Git for et prosjekt med å gjøre
 
@@ -62,127 +64,328 @@ på toppen av aktuelle arbeidskatalog. Ved første initialisering, for aller fø
 Default *branch name* ved initialisering er *master* eller *main*, avhenging av distro. Ønsker man å spesifisere navnet nærmere, kan man benytte **`-b`**-opsjonen.
 
 ```html
-git init -b <branch-navn>
+git init -b <grennavn>
 ```
 
-### ▶️ Legge til indeks
+### ▶️ Legge til indeks (add)
 
-Man sender, enten en bestemt fil eller alle modifiserte filer, til INDEKS ved hhv.:
+Man sender en bestemt fil til INDEKS ved:
 
-```r
+```html
 git  add <fil>
 ```
 
+`add` tillater globbing, som f.eks. `*.md`, for å sende en familie av filer til INDEKS.
+
+Man kan legge til alle modifiserte filer ved
+
 ```r
-git  add -a
+git  add -A
 ```
+
+eller
+
+```r
+git  add .
+```
+
+Sistnevnte gjelder bare for **nåværende katalog**.
+
+Man kan også foreta et *dry run* for å se hvilke filer som vil bli sendt til INDEKS ved:
+
+```r
+git add -n -A
+```
+
+Kommandoen
+
+```r
+git add -u
+```
+
+tar med endringer og slettinger, men ikke nye filer.
+
 
 ### ▶️ Se Git-infomasjon
 
-Man kan til se hvilke filer som er *staged* og *modifisert* ved `git status`. Under ser vi noen varianter. Disse viser hhv. alle slike filer i en long output eller i kort output, samt branch-info:
+Man kan til se hvilke filer som er *modifisert* og hvilke som er sendt til INDEKS ved `git status`. Under ser vi noen varianter. Disse viser hhv. alle slike filer i en long output eller i kort output, samt branch-info:
 filerfilerfiler
 
 ```nginx
 git status
 ```
 
-```nginx
+```r
 git status -s
 ```
 
-```nginx
+```html
 git status -b <branch>
 ```
 
-Vi kan få informasjon om øyeblikksbilder ved `gir log`. Her ser vi noen varianter som viser hhv. alle i et langt format, nyeste bilde, de to nyeste bildene, en kort, fargeformatert output samt en som viser et spesifiktbilde med utvidet informasjon om, bl.a. om fil-endringer.
+Vi kan få informasjon om øyeblikksbilder ved `git log`. Her ser vi også et eksempel på noe fra en output her.
 
 ```nginx
 git log
 ```
 
-```nginx
+```yaml
+commit bbf9a583e00cf19be7d7714a0d24be6af9ffc00b
+Author: <navn> <e-post>
+Date:   Wed Feb 11 10:29:13 2026 +0100
+
+    On branch <gren>
+    Your branch is up to date with 'origin/<gren>'.
+    
+    Changes to be committed:
+            modified:   file-1.md
+            modified:   file-4.md
+    
+    More details.
+```
+
+Alt under datolinjen eher r brukerens beskrivelse, enten gitt ved `-m`-opsjonen til `commit` eller (mer sannsynnlig i dette tilfellet) via en editor som VSCode. Øverst ser vi hashen til øyeblikksbildet, som kan benyttes som entydig *commit*-refereranse (ofte bare i kortform, de 7 første tegnene).
+
+Under ser vi flere `git log`-varianter. Disse viser hhv. nyeste øyeblikksbilde, de to nyeste bildene, en kort, fargeformatert output samt en som viser et spesifiktbilde med utvidet informasjon om, bl.a. om fil-endringer.
+
+
+```r
 git log -1
 ```
 
-```nginx
+```r
 git log -2
 ```
 
-```nginx
+```r
 git log --oneline --graph --decorate --all
 ```
 
-```nginx
+```html
 git log <hash> --stat
 ```
 
-### ▶️ Forgreninger
+### ▶️ Forgreninger (branch)
 
 Man kan lage en ny gren ved:
 
-### ▶️ Se endringer
+```html
+git branch <navn>
+```
+
+Og man kan hoppe til en bestemt gren ved:
+
+```html
+git switch <navn>
+```
+
+Følgende kommando viser alle lokale grener:
+
+```nginx
+git branch
+```
+
+Denne viser i tillegg alle ikke-lokale:
+
+```r
+git branch -a
+```
+
+og denne bare de ikke-lokale:
+
+```r
+git branch -r
+```
+
+Mer spesifikk informasjon relatert til ekstern REPO får fra:
+
+```r
+git branch -vv
+```
+
+Det følgende oppretter branch fra en bestemt commit;
+
+```html
+git branch <navn> <commit>
+```
+
+### ▶️ Se endringer (diff)
 
 Man kan se forskjellen mellom to øyeblikksbilder ved:
 
-### ▶️ Foreta commit
+```html
+git diff <commit1> <commit2>
+```
 
-Mar foreta *commit* ved:
+Denne baserer seg på den klassiske `diff`-kommadoen i Linux. Det fins bedre moderne alternativer, som `delta` `difft` (som begge må installeres spesielt), og det er mulig å sette opp GitHub til å bruke disse isteden. Piping fungerer dessuten også for `delta`, slik at det følgende gjerne er mer brukervennlig:
+
+```html
+git diff <commit1> <commit2> | delta
+```
+
+Man kan referer absolutt til *connit* med å angi hash-verdien (typisk i kortform) eller relativt som f.eks:
 
 ```nginx
+git diff HEAD~3 HEAD
+```
+
+(her refereres siste commit (HEAD) og den tredje før det).
+
+```nginx
+git diff HEAD^ HEAD
+```
+
+(her refereres siste og den før det).
+
+For bare å se hvilke *filer* som skiller seg, kan man gjøre:
+
+```html
+git diff --name-only <commit1> <commit2>
+```
+
+Man kan også sammenlikne grener:
+
+```html
+git diff <gren-1> <gren-2>
+```
+
+Om man vil se hva som er endret siden siste commit, kan man gjøre:
+
+```nginx
+git diff HEAD
+```
+
+Om man vil sammenligne INDKES OG HEAD, kan man gjøre:
+
+```r
+git diff --staged
+```
+
+Disse eksemplene, som er på formen`git diff A B` sammenlikninger to *commits* A og B direkte. Man kan også gjøre
+
+```nginx
+git diff A...B
+```
+
+(kun aktuell i forgreninger) som sammenlikner B med siste felles *commit* for A og B.
+
+### ▶️ Foreta commit
+
+Man foretar *commit* ved:
+
+```html
 git commit -m "<Passende beskrivelse>"
 ```
 
-Evt. kan man sende alt til INDEKS og *commit* samtidig ved:
+Evt. kan man sende alt både til INDEKS og til *commit* samtidig ved:
 
-```nginx
+```html
 git commit -a -m "<Beskrivelse>"
 ```
 
-### ▶️ Merkalapper
-
-Man har to typer merkelapper, tags: *lightweight* og *annotated*. Førstnevnte er for korte tags, som v-1.0 og liknende. Den gis ved:
+Droppes opsjonen `-m`
 
 ```nginx
+git commit
+```
+
+åpnes standard editor, og man kan skrive en lengre, mer detaljert melding som også støtter multiline *commit*-beskrivelser.
+
+### ▶️ Merkalapper (tags)
+
+Tags er merkelapper (pekere) til konkrete øyeblikksbilder. Man har to typer: *lightweight* og *annotated*. Førstnevnte er for korte tags, som v-1.0 og liknende. Den gis ved:
+
+```html
 git tag <tag-navn> <commit-hash>
 ```
 
 Den andre er for lengre, mer sammensatte tags og er et egt Git-objekt med innehold:
 
+```yaml
 -hvem som tager
 -dato
 -melding
 -mulighet for kryptografisk signering
 -peker på commit
+```
 
 Den settes vef:
 
-```nginx
+```html
 git tag -a <tag-navn> -m "melding" <commit>
 ```
 
 Vi kan liste tags ved
 
-```nginx
+```r
+git tag
+```
+
+evt. ved
+
+```r
 git tag -l
 ```
 
-Man kan få manualsider for ulike kommandoer i kort eller langt format (den første er for kort, de to andre gir samme, lange output):
+der siste kan kombineres med et mønster som `v-2*` for å vise alle versjon 2-tags f.eks., altså slik:
+
+```r
+git tag -l "-2*"
+```
+
+Kommandoen
+
+```nginx
+git show v1.0
+```
+
+viser *commit*-tag og eventuelle annotasjoner.
+
+Man sletter en bestemt tag ved:
+
+```r
+git tag -d <tag>
+```
+
+❗ Det er viktig å være klar over at tags er lokale. De kan oppfattes som lokale bokmerker, og er ikke en del av en *commit*/*push* og vil ikke være synlige eksternt (f.eks. på GitGub).
+
+Man kan pushe en bestemt tag ved:
+
+```html
+git push origin <tag>>
+```
+
+eller alle ved
+
+```ngirnx
+git push origin --tags
+```
+
+Dermed kan man deretter hente tags ned på en annen PC ved:
+
+```ngirnx
+git fetch --tags
+```
+
+### ▶️ Hjelp
+
+Man kan få hjelp via manualsider til ulike kommandoer, både i kort eller langt format. Den første her er for korte beskrivelser, de to andre gir lengre (og like) output:
 
 ```nginx
 git <comand> -h
   ```
 
-```nginx
+```html
 git <comand> --help
   ```
 
-```nginx
+```html
 git help <comand>
 ```
 
 Man kan også få en liste over alle kommandoer ved:
 
-```nginx
+```r
 git help -a
 ```
 
@@ -207,7 +410,7 @@ Et øyeblikksbilde inneholder:
    - *Commit*-melding
 4. Commit-hash
 
-Den vanskeligste å forklare her er tre-hashen, så vi tar den til slutt. De øvrige er relativt selvforklarende. Normalt her et øyeblikksbilde bare ett forelderbilde, men ifm. sammenfletting av grener (*merge*), er flere foreldre involvert. Metadataene trenger ingen forklaring, og man kan også se disse dataene for ett bilde ved:
+Den vanskeligste å forklare her er tre-hashen, så vi tar den til slutt. De øvrige er relativt selvforklarende. Normalt her et øyeblikksbilde bare ett forelderbilde, men ifm. sammenfletting av grener (*merge*), kan flere foreldre involvert, og dtte fremkommer da her. Metadataene trenger ingen forklaring, og man kan også se disse dataene for ett bilde ved:
 
 ```html
 git cat-file -p <commit-hash>
