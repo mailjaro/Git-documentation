@@ -391,13 +391,80 @@ git help -a
 
 ## ➕ Git: En detaljert kikk
 
-For å forstå Git bedre og å kunne håndtere enkelte kommandoer riktig, trenger vi å dykke mer ned i detaljene. Vi må vite litt om hvordan et øyeblikksbilde egentlig ser ut og hvordan de ulike pekerne fungerer. Dessuten må se på hvordan man kan referere øyeblikksbilder i kommandoer. Dette er enkelt nok, og vi kan starte der.
+For å forstå Git bedre og å kunne håndtere enkelte kommandoer riktig, trenger vi å dykke mer ned i detaljene. Vi må vite litt om hvordan et øyeblikksbilde egentlig ser ut og hvordan de ulike pekerne fungerer. Dessuten må se på hvordan man kan referere ting i git-kommandoer, hovedsaklig *commits*, og vi velger å starte der.
 
-### ▶️ Hvordan referer øyeblikksbilder?
+### ▶️ Hvordan referere?
 
-Man kan referer øyeblikksbilder både absolutt og relativt.
+Man kan generelt referer både absolutt og relativt, både utfra øyeblikksbilder, merkelapper og grener. Det grunnleggende (og i normaltilstander) er oppsummert under og kan typisk testes ved:
 
-### ▶️ Innhold i øyeblikksbilde
+```html
+git show -s <ref>
+```
+
+Her det mest grunnleggende:
+
+```yaml
+RELATIVE
+  HEAD               : Aktiv commit
+  HEAD^    HEAD~1    : Forelder
+  HEAD^^   HEAD~2    : Besteforelder
+  HEAD^^^  HEAD~3    : Oldeforelder
+  osv
+  <tag>^   <tag>~1   : Commit før den tag-refererte
+  osv
+  <gren>^  <gren>~1  : Commit før den gren-refererte
+  osv
+
+ABSOLUTTE
+  Full hash
+  Kort hash
+  Tag
+  Branch
+
+REFLOG-BASERTE
+  HEAD@{0}:   nåværende HEAD
+  HEAD@{1}:   forrige posisjon ift. reflog
+  HEAD@{2}:   posisjonen før det ift reflog
+  osv
+  <gren>@{1}: forrige commit gren pekte på ift reflog
+  osv
+```
+
+Man kan ikke referere ut fra meldingstekst eller filinnhold, men man kan gjøre det indirekte ved:
+
+```yaml
+git log --grep="<mønster>"  : Meldingstekst
+git log -S "<mønster>"      : Filinnhold
+git log -G "<mønster>"      : Endret filinnhold
+```
+
+Refreansene `^` og `~` betyr ikke nøyaktig det samme. Den første teller antall foreldre bakover inklusive tilfeller der en *commit* har flere foreldre (som kan forekomme ifm `merge`), mens den siste teller bare førsteforeldre bakover.
+
+Når det gjelder `reflog`, så lagrer Git en lokal logg over
+
+- checkout
+- commit
+- merge
+- reset
+- rebase
+
+og dette kan vises med:
+
+```nginx
+git reflog
+```
+
+Output sier noe slikt:
+
+```text
+16c54e5 (HEAD -> NyMain, origin/<gren> ...
+96d8ea0 HEAD@{1}: commit: On branch ...
+bbf9a58 HEAD: clone: from github.com ...
+``` 
+hvilket forklarer `@{n}`-notasjonen.
+
+
+### ▶️ Innhold i øyeblikksbilder
 
 Et øyeblikksbilde inneholder:
 
@@ -410,7 +477,7 @@ Et øyeblikksbilde inneholder:
    - *Commit*-melding
 4. Commit-hash
 
-Den vanskeligste å forklare her er tre-hashen, så vi tar den til slutt. De øvrige er relativt selvforklarende. Normalt her et øyeblikksbilde bare ett forelderbilde, men ifm. sammenfletting av grener (*merge*), kan flere foreldre involvert, og dtte fremkommer da her. Metadataene trenger ingen forklaring, og man kan også se disse dataene for ett bilde ved:
+Den vanskeligste å forklare her er tre-hashen, så vi tar den til slutt. De øvrige er relativt selvforklarende. Normalt her et øyeblikksbilde bare ett forelderbilde, men ifm. sammenfletting av grener (*merge*), kan flere foreldre involvert, og dette fremkommer da her. Metadataene trenger ingen forklaring, og man kan også se disse dataene for ett bilde ved:
 
 ```html
 git cat-file -p <commit-hash>
@@ -424,7 +491,7 @@ Det er selvsagt mulig å grave enda dypere i dette, men dette holder trolig for 
 
 ### ▶️ HEAD og gren-pekere
 
-Vi må se litt nærmere på hvordan peker HEAD og gren-pekere er implementert og virker. Vi husker at HEAD (konseptuelt) peker på aktivt øyeblikksbilde, mens gren-pekere peker (konseptuelt) på hver sin gren. Begge deler er egentlig vanlige tekstfiler. HEAD ligger på `.git`, mens de sistnevnt har grennavn som filnavn (én fil for hver gren) og ligger på `.git/refs/heads`.
+Vi må se litt nærmere på hvordan peker HEAD og gren-pekere er implementert og virker. Vi husker at HEAD (konseptuelt) peker på aktivt øyeblikksbilde, mens gren-pekere peker (konseptuelt) på hver sin gren. Begge deler er egentlig vanlige tekstfiler. HEAD ligger på `.git`, mens de sistnevnt har grennavn som filnavn (én @{2}fil for hver gren) og ligger på `.git/refs/heads`.
 
 En grenpeker, som f.eks. MAIN, inneholder hash-verdien til et øyeblikksbilde (normalt siste øyeblikksbilde på grenen), som f.eks:
 
