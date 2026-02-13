@@ -1,5 +1,7 @@
 # 📗 Git: En grundig introduksjon
 
+---
+
 ## 📕 Systemet
 
 Her ser vi strukturen Git-systemet bygger på. Man har
@@ -47,9 +49,13 @@ Ettersom prosjektet vokser, kan prosjektet grene ut i flere versjoner. Disse vil
 
 Vi bør i oppstarten også nevne at vi kan skjerme bestemte filer og kataloger fra Git ved å inkludere dem i en tekstfil **.gitignore** øverst i arbeidskatalogen. Avhengig av type prosjekt, kan man velge å ikke følge bestemt filer.
 
+---
+
 ## 📕 Grunnleggende bruk
 
 Før vi går inn på flere Git-detaljer og ser nærmere på hvordan ting henger sammen, kan vi vise noen eksempler og kommandoer for grunnleggende bruk. Dette dekker normal aktivitet, og mange vil klare seg kun med dette. Noen kommandoer fins i både eldre og nyere varianter, og vi skal prøve å benytte de nyere. Vi fokuserer først på lokal bruk, og tar for oss hvordan man kobler seg på eksterne systemer som GitHub, for backup, samarbeid eller fjernaksess senere.
+
+---
 
 ### ▶️ Initialisering (init)
 
@@ -66,6 +72,8 @@ Default *branch name* ved initialisering er *master* eller *main*, avhenging av 
 ```html
 git init -b <grennavn>
 ```
+
+---
 
 ### ▶️ Legge til indeks (add)
 
@@ -105,11 +113,11 @@ git add -u
 
 tar med endringer og slettinger, men ikke nye filer.
 
+---
 
 ### ▶️ Se Git-infomasjon
 
 Man kan til se hvilke filer som er *modifisert* og hvilke som er sendt til INDEKS ved `git status`. Under ser vi noen varianter. Disse viser hhv. alle slike filer i en long output eller i kort output, samt branch-info:
-filerfilerfiler
 
 ```nginx
 git status
@@ -123,7 +131,7 @@ git status -s
 git status -b <branch>
 ```
 
-Vi kan få informasjon om øyeblikksbilder ved `git log`. Her ser vi også et eksempel på noe fra en output her.
+Vi kan få informasjon om øyeblikksbilder ved `git log`. Et eksempel på en output er også vist.
 
 ```nginx
 git log
@@ -144,9 +152,9 @@ Date:   Wed Feb 11 10:29:13 2026 +0100
     More details.
 ```
 
-Alt under datolinjen eher r brukerens beskrivelse, enten gitt ved `-m`-opsjonen til `commit` eller (mer sannsynnlig i dette tilfellet) via en editor som VSCode. Øverst ser vi hashen til øyeblikksbildet, som kan benyttes som entydig *commit*-refereranse (ofte bare i kortform, de 7 første tegnene).
+Alt under datolinjen her er brukerens beskrivelse, enten gitt ved `-m`-opsjonen til `commit` eller (mer sannsynnlig i dette tilfellet) via en editor som VSCode. Øverst ser vi hashen til øyeblikksbildet, som kan benyttes som entydig *commit*-refereranse (ofte bare i kortform, de 7 første tegnene).
 
-Under ser vi flere `git log`-varianter. Disse viser hhv. nyeste øyeblikksbilde, de to nyeste bildene, en kort, fargeformatert output samt en som viser et spesifiktbilde med utvidet informasjon om, bl.a. om fil-endringer.
+Under ser vi flere `git log`-varianter. Disse viser hhv. nyeste øyeblikksbilde, de to nyeste bildene, en kort, fargeformatert output samt en som viser et spesifikt bilde med utvidet informasjon om bl.a. fil-endringer.
 
 
 ```r
@@ -165,6 +173,68 @@ git log --oneline --graph --decorate --all
 git log <hash> --stat
 ```
 
+---
+
+### ▶️ Endre filnavn
+
+For å endre navnet til en fil i TRE, kan man gjøre:
+
+```html
+git mv <fil> <ny-fil>
+```
+
+Navnet endres på arbeidskatalogen, og endringen legges til på INDEKS, klar for neste *commit*.
+
+Alternativt kan man navnendre filen og legge den til indeksen selv. Altså gjøre:
+
+```html
+mv <filnavn> <nytt-fil-navn>
+git <ny-fil>
+```
+
+Kun dette blir endret:
+
+```yaml
+rename: TRE → INDEKS
+```
+
+så alt er klargjort for en oppfølgende *commit*.
+
+---
+
+### ▶️ Slette fil
+
+For å slette en fil i TRE kan man gjøre
+
+```bash
+git rm <fil>
+```
+
+Dette krever at filen er *commited*. Kommandoen gjør to ting samtidig:
+
+- Fjerner filen fra arbeidskatalogen
+- Legger inn endringen på INDEKS
+
+Man kan for så vidt også slette filen fra arbeidskatalogen (ved `rm`) og legge til INDEKS selv (ved `add`), med samme resultat.
+
+Dersom man ønsker å beholde filen lokalt, men bare fjerne den fra Git, kan man dessuten gjøre
+
+```bash
+git rm --cached <fil>
+```
+
+(og deretter også oppdatere **.gitignore** tilsvarende).
+
+Kun INDEKS blir endret
+
+```yaml
+delete: TRE → INDEKS
+```
+
+Prosessen krever en avsluttende *commit*.
+
+---
+
 ### ▶️ Forgreninger (branch)
 
 Man kan lage en ny gren ved:
@@ -173,7 +243,7 @@ Man kan lage en ny gren ved:
 git branch <navn>
 ```
 
-Og man kan hoppe til en bestemt gren ved:
+Man kan hoppe til en bestemt gren ved:
 
 ```html
 git switch <navn>
@@ -197,7 +267,7 @@ og denne bare de ikke-lokale:
 git branch -r
 ```
 
-Mer spesifikk informasjon relatert til ekstern REPO får fra:
+Mer spesifikk informasjon relatert til ekstern REPO fås fra:
 
 ```r
 git branch -vv
@@ -208,6 +278,8 @@ Det følgende oppretter branch fra en bestemt commit;
 ```html
 git branch <navn> <commit>
 ```
+
+---
 
 ### ▶️ Se endringer (diff)
 
@@ -223,7 +295,7 @@ Denne baserer seg på den klassiske `diff`-kommadoen i Linux. Det fins bedre mod
 git diff <commit1> <commit2> | delta
 ```
 
-Man kan referer absolutt til *connit* med å angi hash-verdien (typisk i kortform) eller relativt som f.eks:
+Man kan referer absolutt til *commit* med å angi hash-verdien (typisk i kortform) eller relativt som f.eks:
 
 ```nginx
 git diff HEAD~3 HEAD
@@ -237,13 +309,15 @@ git diff HEAD^ HEAD
 
 (her refereres siste og den før det).
 
+Ulike refereringsmåter er behandlet senere i dokumnetet.
+
 For bare å se hvilke *filer* som skiller seg, kan man gjøre:
 
 ```html
 git diff --name-only <commit1> <commit2>
 ```
 
-Man kan også sammenlikne grener:
+Man kan også sammenlikne grener ved:
 
 ```html
 git diff <gren-1> <gren-2>
@@ -261,13 +335,15 @@ Om man vil sammenligne INDKES OG HEAD, kan man gjøre:
 git diff --staged
 ```
 
-Disse eksemplene, som er på formen`git diff A B` sammenlikninger to *commits* A og B direkte. Man kan også gjøre
+Disse eksemplene, som er på formen `git diff A B` sammenlikninger to *commits* A og B direkte. Man kan også gjøre
 
 ```nginx
 git diff A...B
 ```
 
 (kun aktuell i forgreninger) som sammenlikner B med siste felles *commit* for A og B.
+
+---
 
 ### ▶️ Foreta commit
 
@@ -291,15 +367,17 @@ git commit
 
 åpnes standard editor, og man kan skrive en lengre, mer detaljert melding som også støtter multiline *commit*-beskrivelser.
 
+---
+
 ### ▶️ Merkalapper (tags)
 
-Tags er merkelapper (pekere) til konkrete øyeblikksbilder. Man har to typer: *lightweight* og *annotated*. Førstnevnte er for korte tags, som v-1.0 og liknende. Den gis ved:
+Tags er merkelapper (pekere) til konkrete øyeblikksbilder. Man har to typer: *lightweight* og *annotated*. Førstnevnte er for korte tags, som v-1.0 og liknende. Denne gis ved:
 
 ```html
 git tag <tag-navn> <commit-hash>
 ```
 
-Den andre er for lengre, mer sammensatte tags og er et egt Git-objekt med innehold:
+Den andre er for lengre, mer sammensatte tags, og er et eget Git-objekt med følgende innehold:
 
 ```yaml
 -hvem som tager
@@ -336,7 +414,7 @@ git tag -l "-2*"
 Kommandoen
 
 ```nginx
-git show v1.0
+git show <tag>
 ```
 
 viser *commit*-tag og eventuelle annotasjoner.
@@ -347,9 +425,9 @@ Man sletter en bestemt tag ved:
 git tag -d <tag>
 ```
 
-❗ Det er viktig å være klar over at tags er lokale. De kan oppfattes som lokale bokmerker, og er ikke en del av en *commit*/*push* og vil ikke være synlige eksternt (f.eks. på GitGub).
+❗ Husk at alle tags er lokale. De kan oppfattes som lokale bokmerker, og er ikke en del av en *commit*/*push* og vil ikke være synlige eksternt (f.eks. på GitGub).
 
-Man kan pushe en bestemt tag ved:
+Man kan pushe en bestemt tag ved
 
 ```html
 git push origin <tag>>
@@ -361,15 +439,17 @@ eller alle ved
 git push origin --tags
 ```
 
-Dermed kan man deretter hente tags ned på en annen PC ved:
+Etter dette kan man hente ned tags på en annen PC ved:
 
 ```ngirnx
 git fetch --tags
 ```
 
+---
+
 ### ▶️ Archive
 
-`git archive` lar deg pakke innholdet av en *commit*, *branch* eller *tag* i en arkivfil (f.eks. .zip eller .tar) uten å inkludere hele Git-historikken. Den brukes ofte når man vil dele kode som et snapshot, eller lage en kildekodepakke til en distribusjon.
+`git archive` lar bruker pakke innholdet av en *commit*, *branch* eller *tag* i en arkivfil (f.eks. .zip eller .tar) uten å inkludere hele Git-historikken. Den brukes ofte for å dele kode som et snapshot, eller lage en kildekodepakke til en distribusjon.
 
 Syntaksen er
 
@@ -391,17 +471,19 @@ git archive -o project.tar 1a2b3c4
 git archive main | tar -x -C /tmp/project
 ```
 
+---
+
 ### ▶️ Stash
 
-`git stash` gjør at man kan legge til side endringer i arbeidsområdet uten å lage en ny *commit*.
-
-Dette er nyttig når man vil:
+`git stash` gjør at man kan legge til side endringer i arbeidsområdet uten å lage en ny *commit*. Dette er nyttig når man vil:
 
 - bytte branch uten å *commite* halvferdige endringer
 - teste noe midlertidig
 - rydde arbeidsområdet midlertidig
 
-Typisk pusher man en eller flere arbeidsfiler filer til et stash-område. Deretter kan man jobbe videre med rasten av prsojektet som vanlig, gjerne *commite* endringer osv. uten at ednringer i arbeidsfilene har blitt med. Senere kan man poppe arbeidsfilene tilbake og jobbe/commite med disse filene inkludert.
+Typisk pusher man en eller flere arbeidsfiler filer til et stash-område. Deretter kan man jobbe videre med resten av prsojektet som vanlig, gjerne *commite* endringer osv. uten at ednringer i arbeidsfilene har blitt med. Senere kan man poppe arbeidsfilene tilbake og jobbe/commite med disse filene inkludert.
+
+Her ser vi push uten og med en beskrivelse:
 
 ```bash
 git stash push <fil-1> <fil-2>
@@ -411,26 +493,36 @@ git stash push <fil-1> <fil-2>
 git stash push -m "Beskrivelse" <fil-1>
 ```
 
+Globbing av filer er ikke støttet her.
+
+Slik stashes alle modifiserte filer:
+
 ```bash
 git stash
 ```
+
+Dette lister alle:
 
 ```bash
 git stash list
 ```
 
-```bash
-git stash apply
-```
+Her hentes arbeidsfilene tilbake: 
 
 ```bash
 git stash pop
 ```
 
+og det samme skjer her,  men man lar dem bli liggende på stash-området:
+```bash
+git stash apply
+```
+
+---
 
 ### ▶️ Hjelp
 
-Man kan få hjelp via manualsider til ulike kommandoer, både i kort eller langt format. Den første her er for korte beskrivelser, de to andre gir lengre (og like) output:
+Man kan få hjelp via manualsider til ulike kommandoer, både i kort og langt format. Den første er for korte beskrivelser, de to andre for lengre (like) output:
 
 ```nginx
 git <comand> -h
@@ -450,9 +542,13 @@ Man kan også få en liste over alle kommandoer ved:
 git help -a
 ```
 
+---
+
 ## 📕 Git: En detaljert kikk
 
 For å forstå Git bedre og å kunne håndtere enkelte kommandoer riktig, trenger vi å dykke mer ned i detaljene. Vi må vite litt om hvordan et øyeblikksbilde egentlig ser ut og hvordan de ulike pekerne fungerer. Dessuten må se på hvordan man kan referere ting i git-kommandoer, hovedsaklig *commits*, og vi velger å starte der.
+
+---
 
 ### ▶️ Hvordan referere?
 
@@ -499,7 +595,7 @@ git log -S "<mønster>"      : Filinnhold
 git log -G "<mønster>"      : Endret filinnhold
 ```
 
-Refreansene `^` og `~` betyr ikke nøyaktig det samme. Den første teller antall foreldre bakover inklusive tilfeller der en *commit* har flere foreldre (som kan forekomme ifm `merge`), mens den siste teller bare førsteforeldre bakover.
+Refreansene `^` og `~` betyr ikke nøyaktig det samme. Den første teller antall foreldre bakover inklusive tilfeller der en *commit* har flere foreldre (som kan forekomme ifm `merge`). Den siste teller bare førsteforeldre bakover.
 
 Når det gjelder `reflog`, så lagrer Git en lokal logg over
 
@@ -521,9 +617,11 @@ Output sier noe slikt:
 16c54e5 (HEAD -> NyMain, origin/<gren> ...
 96d8ea0 HEAD@{1}: commit: On branch ...
 bbf9a58 HEAD: clone: from github.com ...
-``` 
-hvilket forklarer `@{n}`-notasjonen.
+```
 
+og dette forklarer `@{n}`-notasjonen.
+
+---
 
 ### ▶️ Innhold i øyeblikksbilder
 
@@ -538,7 +636,7 @@ Et øyeblikksbilde inneholder:
    - *Commit*-melding
 4. Commit-hash
 
-Den vanskeligste å forklare her er tre-hashen, så vi tar den til slutt. De øvrige er relativt selvforklarende. Normalt her et øyeblikksbilde bare ett forelderbilde, men ifm. sammenfletting av grener (*merge*), kan flere foreldre involvert, og dette fremkommer da her. Metadataene trenger ingen forklaring, og man kan også se disse dataene for ett bilde ved:
+Bortsett fra den første er alle disse relativt selvforklarende. Normalt her et øyeblikksbilde bare ett forelderbilde, men ifm. sammenfletting av grener (*merge*), kan flere foreldre involvert, og dette fremkommer da her. Metadataene trenger ingen forklaring, og man kan også se disse dataene for ett bilde ved:
 
 ```html
 git cat-file -p <commit-hash>
@@ -546,13 +644,15 @@ git cat-file -p <commit-hash>
 
 *Commit*-hash er hash-verdien av hele denne datastrukturen.
 
-Så hva da med tre-hashen? Kort fortalt er den hash av en binærrepresentasjon av *commit*-treet (den som man illustrativt kan tenke på som et tegnet nodenettverk med en eller flere forgreninger), altså en referanse til binærrepresentasjonen. Men i denne representasjonen inngår også referanser til binærutgaver av filene, lagret som såkalte BLOBs (binary large objects). Referanser er gjerne hashede-verdier, slik kan Git kan holde oversikt over filtrær og innhold, oppdage endringer og gjøre nye nye hash-beregninger etter behov. Trær og blobs gjenbrukes, og Git operer effektivt både mht til ytelse og lagringsmessig.
+Tre-hashen er kort fortalt er hash av en binærrepresentasjon av *commit*-treet (den som man illustrativt kan tenke på som et tegnet nodenettverk med en eller flere forgreninger), altså en referanse til  en konkret binærrepresentasjon. Med i denne representasjonen inngår også referanser til binærutgaver av filene, lagret som såkalte BLOBs (*binary large objects*). Referanser er gjerne hashede-verdier, slik kan Git kan holde oversikt over filtrær og innhold, oppdage endringer og gjøre nye nye hash-beregninger etter behov. Trær og blobs gjenbrukes, og Git operer effektivt både mht til ytelse og lagringsmessig.
 
-Det er selvsagt mulig å grave enda dypere i dette, men dette holder trolig for vårt formål.
+Det er mulig å grave enda dypere i dette, men dette holder trolig for vårt formål.
+
+---
 
 ### ▶️ HEAD og gren-pekere
 
-Vi må se litt nærmere på hvordan peker HEAD og gren-pekere er implementert og virker. Vi husker at HEAD (konseptuelt) peker på aktivt øyeblikksbilde, mens gren-pekere peker (konseptuelt) på hver sin gren. Begge deler er egentlig vanlige tekstfiler. HEAD ligger på `.git`, mens de sistnevnt har grennavn som filnavn (én @{2}fil for hver gren) og ligger på `.git/refs/heads`.
+Vi må se litt nærmere på hvordan peker HEAD og gren-pekere er implementert og virker. Vi husker at HEAD (konseptuelt) peker på aktivt øyeblikksbilde, mens gren-pekere (konseptuelt) peker på hver sin gren. Begge deler er imidlertid vanlige tekstfiler. HEAD ligger på `.git`, mens de sistnevnt ligger på `.git/refs/heads` og har filnavn som tilsvarer grennavnet (én fil for hver gren).
 
 En grenpeker, som f.eks. MAIN, inneholder hash-verdien til et øyeblikksbilde (normalt siste øyeblikksbilde på grenen), som f.eks:
 
@@ -560,7 +660,7 @@ En grenpeker, som f.eks. MAIN, inneholder hash-verdien til et øyeblikksbilde (n
 436ab61d81d052cd320f3a8a4dc532f33e5d1a13
 ```
 
-HEAD, på sin side, inneholder (i normal tilstand) referanse til en gren, i form av sti/filnavn til en grenpeker, f.eks.
+HEAD, på sin side, inneholder (i normal tilstand) referanse til en gren i form av sti/filnavn til en grenpeker som eksemplifisert her:
 
 ```yaml
 ref: refs/heads/main
@@ -568,161 +668,90 @@ ref: refs/heads/main
 
 I noen tilfeller (som vi skal se) inneholder den imidlertid bare hash-verdien til et bestemt øyeblikksbilde. HEAD sises da å være *detached* eller i *detached* tilstand, hvilket er utnyttes av enkelt kommandoer.
 
-Men i normaltilstand, når man sier "HEAD peker på øyeblikksbilde D", så betyr det egentlig at HEAD peker på MAIN som i sin tur peker på bilde D:
+Men i normaltilstand, når man sier "HEAD peker på øyeblikksbilde D", så betyr det egentlig at HEAD peker på MAIN, som i sin tur peker på bilde D:
 
 ```yaml
 HEAD → MAIN → D
 ```
 
-**SITAT**  
-En commit inneholder snapshot av prosjektet og referanser til foreldre.
-Hele commit-grafen kan rekonstrueres ved å følge parent-referansene bakover.
+---
 
-### ▶️ Add
+### ▶️ Forutsetninger og antakelser videre
 
-Vi har sett på de vanligste kommandoen, som `add`, i *Grunnleggende eksempler*. Men vi kan nå forklare mer detaljert hva som skjer og ikke skjer ifm. `git add`, `git commit` og (særlig) andre kommandoer. Det vi ønsker å se, er se hva som endres av TRE, INDEKS, REPO, HEAD og gren-pekere. I kommandoer som bare involvere én gren, antar vi da at denne er MAIN.
+Vi skal nå se mer detaljer på hva som endrer seg og ikke ifm. viktige kommandoer. Dette er ofte helt avgørende for å forstå og se forskjeller på beslektede kommandoer. Konkret ønsker vi å se hva som endres av 
 
-Man sender altså filer til INDEKS (*staging*) ved
+- **TRE**
+- **INDEKS**
+- **REPO**
+- **HEAD**
+- **MAIN**
 
-```r
-git  add <fil>
-git  add -a
-```
+Vi antar her at MAIN er aktuell gren. VI antar videre at vi i utgansgpunktet er i normaltiltsand der MAIN og HEAD peker ut siste commit på aktiv gren.
 
-Dette påvirker ikke REPO, HEAD, eller grenpeker, men et øyeblikksbilde av TRE sendes til INDEKS, hvilket vi kan illustrere ved:
+Vi lar også
+
+- **REPO.commit**
+
+referer *commiten* det refereres til i kommandoer.
+
+For å eksemplifisere: Vi har sett på kommandoene `add` og `commit`. Disse er enkle i denne sammenheng. `add` påvirker ikke REPO, HEAD, eller MAIN, men sørger for at et øyeblikksbilde av TRE sendes til INDEKS. *Commit* legger øyeblikksbildet på INDEKS over i følgen av øyeblikksbilder på REPO, mens HEAD her fortsatt peker på MAIN, og MAIN oppdateres til å peke på ny *commit*.
+
+Dette kan vi da ha illustrere ved:
 
 ```yaml
 add:
     TRE → INDEKS
+commit:
+    INDEKS → REPO, MAIN++
 ```
 
-Dermed har man en presis oversikt over hvordan kommandoen virker (hvilket blir viktigere for andre kommandoer).
+Det som ikke nevnes er altså uforandret.
 
-### ▶️ Commit
 
-Vi kan foreta *commit* med en passende beskrivelse, ved
+---
 
-```bash
-git commit -m "First commit of prosjekt git-TEST."
-```
+### ▶️ git mv
 
-```yaml
-[Branch-NO-1 (root-commit) 57f8ab9] First commit of prosjekt git-TEST.
- 5 files changed, 215 insertions(+)
- create mode 100644 doc.md
- create mode 100644 git.png
- create mode 100644 kap-1.adoc
- create mode 100644 kap-2.adoc
- create mode 100644 kap-3.md
- ```
+Ikke ferdig
 
-Dette legger øyeblikksbildet på INDEKS over i følgen av øyeblikksbilder på REPO, og HEAD oppdateres til å peke på dette. Endringene på Git-systemet kan illustreres ved:
+---
 
-```yaml
-commit: INDEKS → REPO, HEAD++
-```
+### ▶️ git rm
 
-Mer informasjon over alle øyeblikksbilder på REPO fås (i lang versjon) ved:
+Ikke ferdig
 
-```nginx
-git log
-```
-
-```yaml
-commit 57f8ab9901e13b03f5074bef52fb4e66d7bfb391 (HEAD -> Branch-NO-1)
-Author: Jan Roger Sandbakken <mailjaro@gmail.com>
-Date:   Thu Feb 5 19:16:43 2026 +0100
-
-    First commit of prosjekt git-TEST.
-
-…/git-TEST on 🌿 Branch-NO-1 [!] 
-```
-
-Evt gir følgende et fargeformatert konsentrat (kortversjon) får ved:
-
-```r
-git log --oneline --graph --decorate --all
-```
-
-Hash-verdien vi ser (oftest en SHA-1--hash, men i noen tilfeller også SHA-256) beregnes av filer og kataloger i øyeblikksbilde, av tidligere øyeblikksbilder, forfatter og *commit*-melding. Hashen benyttes både som en unik identifikator og for integritetskontroll (av hele historikken). En kortversjon av hash-en (minimum de fire første tegnede, ofte de syv første) benyttes ofte til å referere øyeblikksbilder på REPO.
-
-Man kan også legge til INDEKS og foreta *commit* av *alle* modifiserte filer i en og samme kommando ved:
-
-```nginx
-git commit -a -m "First commit of prosjekt git-TEST."
-```
-
-### ▶️ Rename
-
-For å endre navnet til en fil, kan man gjøre:
-
-```html
-git mv <fil> <ny-fil>
-```
-
-Navnet endres på arbeidskatalogen, og endringen legges til på INDEKS, klar for neste *commit*.
-
-Alternativt kan man navnendre filen og legge den til indeksen selv. Altså gjøre:
-
-```html
-mv <filnavn> <nytt-fil-navn>
-git <ny-fil>
-```
-
-Kun dette blir endret:
-
-```yaml
-rename: TRE → INDEKS
-```
-
-så alt er klargjort for en oppfølgende *commit*.
-
-### ▶️ Delete
-
-For å slette en fil kan man gjøre
-
-```bash
-git rm <fil>
-```
-
-Dette krever at filen er *commited*. Kommandoen gjør to ting samtidig:
-
-- Fjerner filen fra arbeidskatalogen
-- Legger inn endringen på INDEKS
-
-Man kan for så vidt også slette filen fra arbeidskatalogen (ved `rm`) og legge til INDEKS selv (ved `add`), med samme resultat.
-
-Dersom man ønsker å beholde filen lokalt, men bare fjerne den fra Git, kan man dessuten gjøre
-
-```bash
-git rm --cached <fil>
-```
-
-(og deretter også oppdatere **.gitignore** tilsvarende).
-
-Kun INDEKS blir endret
-
-```yaml
-delete: TRE → INDEKS
-```
-
-Prosessen krever en avsluttende *commit*.
+---
 
 ### ▶️ Reset
 
-`reset` er en kommando med rike muligheter til å endre tingenes tilstand i pekere, i TRE og INDEKS. Vi har tre grunnleggende versjoner (med flere mulige opsjoner):
+`git reset` er en kommando med rike muligheter til å endre tingenes tilstand. Vi har tre grunnleggende versjoner: **soft**, **mixed** og **hard** (med flere mulige opsjoner).
+
+Man kaller
+
+```bash
+git reset <styrke> <commit>
+```
+
+Vi kan oppsummere virkingen med:
 
 ```yaml
-- Soft reset:  Endrer HEAD
+Soft reset:
+    MAIN → commit
 
-- Mixed reset: Endrer HEAD         INDEKS ← REPO
+Mixed reset: 
+    MAIN → commit, INDEKS ← REPO.commit
 
-- HARD reset:  Endrer HEAD   TRE ← INDEKS ← REPO
+HARD reset:
+    MAIN → commit, TRE ← INDEKS ← REPO.commit
 ```
+
+HEAD peker fortsatt på MAIN.
 
 Ved *hard reset* kan man dessuten benytte opsjonene `--Merged` og `--Keep`, som på to måterbeskytter filer i TRE fra overskrivelse.
 
-La oss se nærmere hva som skjer også med pekerne våre ved *reset*.
+Mixed er default.
+
+La oss se nærmere hva som skjer også med pekerne i et annet `reset`-eksempel.
 
 Anta vi har en følge av øyeblikksbilder A → B → C → D på MAIN, og at D er aktivt. Hva skjer om vi foretar:
 
@@ -738,38 +767,64 @@ HEAD → MAIN → B
 
 Dvs. MAIN peker på øyeblikksbilde B, og HEAD peker på gren MAIN. Dette gjør B aktivt. Ved *soft reset* endres verken TRE eller INDEKS (slik at disse i utgangspunktet fortsatt har verdi D). REPO er uansett uforandret.
 
-Merk nå at dersom vi commit'er modifiseringer, får vi en etterfølger vi kan betegn C' som vil være ulik C (uansett om modifiseringene skulle være identiske). C og D risikerer nå å bli hengende (selv om forgjenger B er uendret). Dersom intet annet refererer dem, en tag eller noe, risikerer disse (med tid og studer, kanskje etter 30 dager) å bli slettet av *garbage collector* (GC). Disse risikerer å bli såkalt *unreachable*.
+Merk nå at dersom vi commit'er modifiseringer, får vi en etterfølger vi kan betegn C' som vil være ulik C (uansett om modifiseringene skulle være identiske). C og D risikerer nå å bli hengende (selv om forgjenger B er uendret). Dersom intet annet refererer dem, en tag eller noe, risikerer disse (med tid og stunder, kanskje etter 30 dager) å bli slettet av *garbage collector* (GC). Disse risikerer å bli såkalt *unreachable*.
 
 Dette betyr at *reset* primært er ment for å rulle tilbake i versjoner, kanskje angre en *commit* ved feilskrevet melding etc. Lite endres direkte (særlig ved *soft reset*), men etterfølgende modifisering vil endre historikken og gjøre kommandoene nokså gjennomgripende like fullt.
 
 La oss nå se på den beslektede kommandoen `switch`.
 
+---
+
 ### ▶️ Switch
 
-Som vi har sett, kan `switch` benyttes til å bytte gren. Men vi kan også hoppe til et hvilket som helst øyeblikksbilde, slik som *reset*.
+Switch kommer i to varaienter: `git switch <gren>` som hopper til ny gren, og `git switch --detached <commit>` som hopper et spesifikt *commit*. I den første blir HEAD satt til å peke på ny gren, i den andre havner den i detached mode og peker på den aktuelle *commiten*.
 
-La oss anta samme utgangspunkt som over: A → B → C → D på MAIN, og D er aktivt. Hva skjer om vi hopper til B ved `switch`?
-
-```nginx
-git switch --detached <B>
-```
-
-(detached er påkrevet når man hopper innen samme gren.) Her er virkningen oppsummert:
+Vi kan oppsummere virkningene ved
 
 ```yaml
-HEAD → B
-WD ← INDEKS ← B
+git switch GREN:
+    HEAD → GREN
+    TRE ← INDEKS ← REPO.commit
 ```
 
-HEAD blir satt til å peke på øyeblikksbilde B (dvs. det vil inneholde hash-verdien til B, ikke lenger referanse til en gren). MAIN endres ikke og peker fortsatt på D (siste commit i gren MAIN), og REPO forblir også uforandret. B blir aktivt også i dette eksempelet, men merk at D (og dermed også historikken fram) fortsatt er *reachable* her.
+og
 
-### ▶️ Checkout
+```yaml
+git switch --detached commit:
+    HEAD → REPO.commit (detached)
+    TRE ← INDEKS ← REPO.commit
+```
+
+I den første skjer det intet med MAIN. Den peker fortsatt på siste *commit* på sin gren. HEAD blir isteden satt til å peke på en annen gren, referert til med GREN, og denne igjen peker på sin siste *commit* på grenen. Dette øyeblikksbilde overføres så både til både INDEKS og TRE, slik totaltilstanden blir identisk med hva den var da det aktuelle øyeblikksbildet ble *commited*. Dette er nettopp hva man ønsker om man vil jobbe men en annen versjon av prosjektet.
+
+I den andre skjer heller ingenting med MAIN. HEAD peker altså direkte på den spesifiserte *commiten* (HEAD-filen får hash-verdien som innhold, *detached*-mode), og øyeblikksbildet overføres både til INDEKS og TRE.
+
+---
 
 ### ▶️ Restore
 
-### ▶️ Merge
+`git restore` er en kommando som opierer filer fra en kilde til INDEKS og/eller TRE, styrt ved opsjoner.
+
+```yaml
+git restore <fil>:
+    TRE ← INDEKS
+
+git restore --staged <fil>:
+    INDEKS ← REPO.commit (HEAD)
+
+git restore --source=<commit> <fil>:
+    TRE ← REPO.commit
+
+git restore --source=<commit> --staged --worktree <fil>:
+    TRE ← INDEKS ← REPO.commit
+```
+
+---
+
 
 ### ▶️ Merging
+
+---
 
 Som antydet, kan man lage én eller flere forgreninger fra et øyeblikksbilde. Kommandoen er slik:
 
@@ -777,15 +832,15 @@ Som antydet, kan man lage én eller flere forgreninger fra et øyeblikksbilde. K
 git branch <ny gren>
 ```
 
-Dette oppretter en peker (egentlig fil, se nedenfor) med dette navnet, og denne grenen og dette øyeblikksbildet blir aktivt.
+Dette oppretter en peker (fil) med dette navnet, og denne grenen og dette øyeblikksbildet blir aktivt.
 
-Vi kan liste alle grener ved:
+Vi kan liste alle grener ved
 
 ```nginx
 git branch
 ```
 
-Man kan bytte gren ved
+og man kan bytte gren ved
 
 ```nginx
 git switch <gren>
@@ -799,7 +854,11 @@ HEAD → <gren> → latest commit
 TRE ← INDEKS ← REPO
 ```
 
+---
+
 ### ▶️ Rebase
+
+---
 
 ### ▶️ *Restore og Unstage (Endres)
 
@@ -894,6 +953,8 @@ git restore --staged --source=<commit>
 
 Vi kommer tilbake til hvordan man refererer tidligere øyeblikksbilder senere.
 
+---
+
 ### ▶️ *Reset og checkout (endres)
 
 Man kan også hente inn fil eller øyeblikksbilde fra REPO helt over i TREen. Da skjer egentlig først en *unstage* og så en *restore*, altså operasjonen:
@@ -946,6 +1007,8 @@ reset      : HEAD flyttes
 ```
 
 Forskjellen har en viktig relevans for hva som skjer videre etter modifiseringer og ny *commit*. Når man foretar en *checkout* eller *reset* fra tidligere *commit* igjen, flyttes nemlig HEAD bakover til aktuelt øyeblikksbilde. Foretas ny commit, vil man få et nytt etterfølgende øyeblikksbilde, og de tidligere etterfølgerne blir hengende fritt. Kanskje ønsket bruker å rulle tilbake til tidligere tilstand og forkaste alle etterfølgere. Men hvis ikke, står de hengende øyeblikksbildene i fare for å bli slettet av *garbage collector*. Normalt tar dette 3-6 uker, og fram til da er øyeblikksbildene og nødvendige referanser likevel ikke tapt.
+
+---
 
 ### ▶️ *Branching (Endres og flyttes)
 
@@ -1047,11 +1110,15 @@ Vi ser at HEAD peker på nyeste av to *commits* i gren 2. Gren 1 inneholder fire
 
 Vi kan referer de enkelte øyeblikksbildene på flere måter. Kortversjonen av hash-verdien
 
+---
+
 ## 📕 GitHub
 
 For å sette et prosjekt opp mot GitHub, må man først sørge for:
 
-### ▶️ 1: Konto og nøkler
+---
+
+### 1️⃣ Konto og nøkler
 
 Dvs, man må
 
@@ -1090,24 +1157,26 @@ Man kan teste nøkkeloppsettet ved:
 ```nginx
 ssh -T git@github.com
 ```
+---
 
-### ▶️ 2. Opprette eksternt repository på GitHub
+### 2️⃣ Opprette eksternt repository på GitHub
 
 Neste steg er å opprette eksternt REPO. Velg et passende prosjektnavn, avgjør om det skal være privat eller offentlig tilgjengelig etc.
 
 ❗ IKKE huk av for:
 
 - Add README
- -Add .gitignore
- -Add license
+- Add .gitignore
+- Add license
 
 om du allerede har et prosjektet med slike filer allerede.
 
 
 ℹ️ *Default branch* i prosjektet på GitGub forlanges fordi en av versjonene (grenene) av prosjektet må være prosjektet ansikt utad.
 
+---
 
-### ▶️ 3. Forbinde remote med det lokale
+### 3️⃣ Forbinde remote med det lokale
 
 Om du ikke har et lokalt Git-prosjket, lag ett på aktuell arbeidskatalog, f.eks. ved
 
@@ -1140,6 +1209,8 @@ For å eksemplifisere kommandoen, mitt brukernavn er `mailjaro`. For et REPO på
 git remote add origin git@github.com:mailjaro/git-doc
 ```
 
+---
+
 ### ▶️ Vanlig bruk
 
 Man kan foreta vanlige `push` og `pull` ved:
@@ -1151,8 +1222,6 @@ git push
 ```nginx
 git pull
 ```
-
-###
 
 Man kan også senere spesifisere gren spesifikt ved:
 
@@ -1200,6 +1269,8 @@ git log --graph --decorate --all origin/<gren>
 git log -p origin/NyMain
 ```
 
+---
+
 ### ▶️ Flere PC-er eller brukere
 
 Om man vil jobbe med prosjektet på annen PC, bør man først ha initialisert Git med samme bruker og e-post som den opprinnelige PC-en. Deretter kan man klone prosjektet over fra GitHub med:
@@ -1238,6 +1309,8 @@ fd -u -t d '^\.git$' ~ -x sh -c \
    'echo "Repo: $(dirname "$1")"; \
    git -C "$(dirname "$1")" remote; echo' sh {}
 
+---
+
 ## 📕 Oppsummering
 
 Langt fra ferdig. Må ha med HEAD og gren-peker, samt flere kommandoer
@@ -1255,6 +1328,8 @@ Merk at disse Git-kommandoene ikke hopper over ledd i følgen:
 ```yaml
 INDEKS  ↔  TRE  ↔  REPO
 ```
+
+---
 
 ## 📕 Nettressurser
 
