@@ -1,6 +1,6 @@
 # 📗 Git: En grundig introduksjon
 
-## ➕ Systemet
+## 📕 Systemet
 
 Her ser vi strukturen Git-systemet bygger på. Man har
 
@@ -47,9 +47,9 @@ Ettersom prosjektet vokser, kan prosjektet grene ut i flere versjoner. Disse vil
 
 Vi bør i oppstarten også nevne at vi kan skjerme bestemte filer og kataloger fra Git ved å inkludere dem i en tekstfil **.gitignore** øverst i arbeidskatalogen. Avhengig av type prosjekt, kan man velge å ikke følge bestemt filer.
 
-## ➕ Grunnleggende eksempler
+## 📕 Grunnleggende bruk
 
-Før vi går inn på flere Git-detaljer og ser nærmere på hvordan ting henger sammen, kan vi vise noen grunnleggende eksempler og kommandoer for grunnleggende bruk. Dette dekker normal hovedaktivitet, og mange vil klare seg kun med dette. Noen kommandoer fins riktignok både i eldre og nyere varianter, og vi skal her prøve å benytte de nyere. Vi fokuserer først på lokal bruk, og tar for oss hvordan man kobler seg på eksterne systemer som GitHub, for backup, samarbeid eller fjernaksess senere.
+Før vi går inn på flere Git-detaljer og ser nærmere på hvordan ting henger sammen, kan vi vise noen eksempler og kommandoer for grunnleggende bruk. Dette dekker normal aktivitet, og mange vil klare seg kun med dette. Noen kommandoer fins i både eldre og nyere varianter, og vi skal prøve å benytte de nyere. Vi fokuserer først på lokal bruk, og tar for oss hvordan man kobler seg på eksterne systemer som GitHub, for backup, samarbeid eller fjernaksess senere.
 
 ### ▶️ Initialisering (init)
 
@@ -367,6 +367,67 @@ Dermed kan man deretter hente tags ned på en annen PC ved:
 git fetch --tags
 ```
 
+### ▶️ Archive
+
+`git archive` lar deg pakke innholdet av en *commit*, *branch* eller *tag* i en arkivfil (f.eks. .zip eller .tar) uten å inkludere hele Git-historikken. Den brukes ofte når man vil dele kode som et snapshot, eller lage en kildekodepakke til en distribusjon.
+
+Syntaksen er
+
+```bash
+git archive [options] <commit/branch/tag> [paths]
+```
+
+Her ser vi noen eksempler:
+
+```bash
+git archive -o project-main.zip main
+```
+
+```bash
+git archive -o project.tar 1a2b3c4
+```
+
+```bash
+git archive main | tar -x -C /tmp/project
+```
+
+### ▶️ Stash
+
+`git stash` gjør at man kan legge til side endringer i arbeidsområdet uten å lage en ny *commit*.
+
+Dette er nyttig når man vil:
+
+- bytte branch uten å *commite* halvferdige endringer
+- teste noe midlertidig
+- rydde arbeidsområdet midlertidig
+
+Typisk pusher man en eller flere arbeidsfiler filer til et stash-område. Deretter kan man jobbe videre med rasten av prsojektet som vanlig, gjerne *commite* endringer osv. uten at ednringer i arbeidsfilene har blitt med. Senere kan man poppe arbeidsfilene tilbake og jobbe/commite med disse filene inkludert.
+
+```bash
+git stash push <fil-1> <fil-2>
+```
+
+```bash
+git stash push -m "Beskrivelse" <fil-1>
+```
+
+```bash
+git stash
+```
+
+```bash
+git stash list
+```
+
+```bash
+git stash apply
+```
+
+```bash
+git stash pop
+```
+
+
 ### ▶️ Hjelp
 
 Man kan få hjelp via manualsider til ulike kommandoer, både i kort eller langt format. Den første her er for korte beskrivelser, de to andre gir lengre (og like) output:
@@ -389,7 +450,7 @@ Man kan også få en liste over alle kommandoer ved:
 git help -a
 ```
 
-## ➕ Git: En detaljert kikk
+## 📕 Git: En detaljert kikk
 
 For å forstå Git bedre og å kunne håndtere enkelte kommandoer riktig, trenger vi å dykke mer ned i detaljene. Vi må vite litt om hvordan et øyeblikksbilde egentlig ser ut og hvordan de ulike pekerne fungerer. Dessuten må se på hvordan man kan referere ting i git-kommandoer, hovedsaklig *commits*, og vi velger å starte der.
 
@@ -986,15 +1047,17 @@ Vi ser at HEAD peker på nyeste av to *commits* i gren 2. Gren 1 inneholder fire
 
 Vi kan referer de enkelte øyeblikksbildene på flere måter. Kortversjonen av hash-verdien
 
-### ▶️ Archive
+## 📕 GitHub
 
-Her kommer det mer.
+For å sette et prosjekt opp mot GitHub, må man først sørge for:
 
-## ➕ GitHub
+### ▶️ 1: Konto og nøkler
 
-- Lag konto på GitHub
+Dvs, man må
 
-- Generer SSH-nøkler
+- Lage konto på [GitHub](https://github.com/).
+
+- Generere SSH-nøkler lokalt. (Dette må senere også gjøre på andre PC-er man vil bruke)
 
 ```bash
 ssh-keygen -t ed25519 -C <e-post>
@@ -1008,27 +1071,29 @@ Fingerprint kan vises senere ved:
 ssh-keygen -lf ~/.ssh/id_ed25519.pub
 ```
 
-og random art kan vises ved:
+og random art ved:
 
 ```nginx
 ssh-keygen -lvf ~/.ssh/id_ed25519.pub
 ```
 
-Skal man sette opp eksternt REPO fra flere PC-er, må SSH-nøkler generes også her.
-
-Neste steg er å legge til den offentlige SSH-nøkkelen på GitHub. Man har knapp tilgjengelig for å legge til nye SSH-nøkler. Lokalt må man skrive ut sin offentlige nøkkel ved
+Deretter må man legge til den offentlige SSH-nøkkelen på GitHub. Man må kopiere sin lokale offentlige nøkkel ved hjelp av 
 
 ```nginx
 cat ~/.ssh/id_ed25519.pub
 ```
 
-og deretter lime inn output på GitHub. Dette må man gjøre også fra neste PC. Om alt det går fint, kan man teste dette SSH-oppsettet ved:
+finne fram på GotHub stedet man kan legge til SSH-vøkle, og deretter lime nøkkelkopien der. Om flere PC-er skal benyttes, må SSH-nøkler legges inn fra hver.
+
+Man kan teste nøkkeloppsettet ved:
 
 ```nginx
 ssh -T git@github.com
 ```
 
-Deretter kan man sette opp et nytt REPO på GitHub.
+### ▶️ 2. Opprette eksternt repository på GitHub
+
+Neste steg er å opprette eksternt REPO. Velg et passende prosjektnavn, avgjør om det skal være privat eller offentlig tilgjengelig etc.
 
 ❗ IKKE huk av for:
 
@@ -1036,38 +1101,60 @@ Deretter kan man sette opp et nytt REPO på GitHub.
  -Add .gitignore
  -Add license
 
-siden prosjektet allerede finnes lokalt. Velg et passende prosjektnavn, avgjør om det skal være privat eller offentlig tilgjengelig etc. Deretter, fra prosjektkatalogen, utfør:
+om du allerede har et prosjektet med slike filer allerede.
 
-```nginx
-git remote add origin git@github.com:<brukernavn>/<prosjektnavn>
+
+ℹ️ *Default branch* i prosjektet på GitGub forlanges fordi en av versjonene (grenene) av prosjektet må være prosjektet ansikt utad.
+
+
+### ▶️ 3. Forbinde remote med det lokale
+
+Om du ikke har et lokalt Git-prosjket, lag ett på aktuell arbeidskatalog, f.eks. ved
+
+```bash
+echo "# <prosjektnavn>" >> README.md
+git init -b <gren>
+git add README.md
+git commit -m "First commit"
 ```
 
-Man kan se eksempler hvor prosjektnavnet også etterfølges av .git. Begge deler er OK og oversettes likt.
+  Om du har et lokalt Git-prosjekt, sørg for å gjøre `add` og `commit` og sjekk at du står på riktig gren.
 
-F.eks., mitt brukernavn er `mailjaro`, og får et REPO på GitHub med navnet f.eks. `gpg-doc`, blir kommandoen:
+Deretter gjør:
 
-```nginx
-git remote add origin git@github.com:mailjaro/gpg-doc
-```
-
-eller ekvivalent:
-
-```nginx
-git remote add origin git@github.com:mailjaro/gpg-doc.git
-```
-
-Man kan dermed pushe over prosjektet ved:
-
-```nginx
-git push -u origin <hovedgren>
+```bash
+git remote add origin git@github.com:<brukernavn>/<prosjektnavn>.git
+git push -u origin <gren>
 ```
 
 Fordelen ved å benytte opsjonen `-u`, er at man:
 
 1. siden slipper og angi gren i ``pull` og `push`
 2. *Default branch* i prosjektet på GitHub settes iht. til dette.
+3. 
+Endelsen `.git` kan droppes i ovennevnte kommando.
 
-Man kan spesifisere gren spesifikt ved:
+For å eksemplifisere kommandoen, mitt brukernavn er `mailjaro`. For et REPO på GitHub med navnet f.eks. `git-doc`, blir kommandoen:
+
+```nginx
+git remote add origin git@github.com:mailjaro/git-doc
+```
+
+### ▶️ Vanlig bruk
+
+Man kan foreta vanlige `push` og `pull` ved:
+
+```nginx
+git push
+```
+
+```nginx
+git pull
+```
+
+###
+
+Man kan også senere spesifisere gren spesifikt ved:
 
 ```nginx
 git push origin <gren>
@@ -1077,27 +1164,25 @@ git push origin <gren>
 git pull origin <gren>
 ```
 
-*Default branch* i prosjektet på GitGub forlanges fordi en av versjonene (grenene) av prosjektet må være prosjektet ansikt utad.
-
-For å se om noe er skjedd før man evt. foretar en pull kan man foreta en *fetch*. Følgende henter informasjon om nye commits på GitHub:
+For å se om noe er skjedd siden sist, før man evt. foretar en `pull`, kan man gjøre en `fetch`. Følgende henter nemlig informasjon om nye *commits* på GitHub:
 
 ```nginx
 git fetch origin
 ```
 
-Etter fetch kan man sjekke status:
+Etter `fetch` kan man sjekke status ved:
 
 ```nginx
 git status
 ```
 
-Det følgende viser ekstern commit-log i kort-format.
+Det følgende viser ekstern *commit*-log i kort format.
 
 ```nginx
 git log origin/<gren> --oneline
 ```
 
-Under ser du noen varianter med lengre output:
+og under ser du noen varianter med lengre output:
 
 ```nginx
 git log origin/<gren>
@@ -1115,7 +1200,9 @@ git log --graph --decorate --all origin/<gren>
 git log -p origin/NyMain
 ```
 
-Om man vil jobbe med prosjektet på annen PC, bør man først ha initialsiert Git med samme bruker og e-post som den opprinnelige PC-en. Deretter kan man klone prosjektet over fra GitHub med:
+### ▶️ Flere PC-er eller brukere
+
+Om man vil jobbe med prosjektet på annen PC, bør man først ha initialisert Git med samme bruker og e-post som den opprinnelige PC-en. Deretter kan man klone prosjektet over fra GitHub med:
 
 ```nginx
 git clone git@github.com:<bruker>/<prosjekt>.git
@@ -1123,9 +1210,9 @@ git clone git@github.com:<bruker>/<prosjekt>.git
 
 fra katalogen arbeidskatalogen (som blir opprettet i kallet) skal ligge på. Selve katalognavnet for prosjektet kan godt navnendres om prosjektnavnet ikke skal være katalognavnet.
 
-Dersom man ønsker å samarbeide ned prosjektet med eksterne brukere må man først gi brukerne tilgang til GitHub-repoet. De må ha Git installert og ha SSH-nøkler etc. før prosjektet klones. Konflikter i filer kan forkeomme når flere modifiserer, commiter og pusher. Konflikter må løses lokalt.
+Dersom man ønsker å samarbeide med eksterne brukere, må de først gis tilgang til GitHub-repoet. De må ha Git installert og ha SSH-nøkler etc. før prosjektet klones. Konflikter i filer kan forkeomme når flere modifiserer, commiter og pusher. Konflikter løses lokalt.
 
-Har man mange Git-prosjekter man jobber med, kan man kanskje over tid glemme hvilke som er lokale og hvilke som er ikke-lokale. Kommandoene
+Har man mange Git-prosjekter, kan man over tid glemme hvilke som er lokale og hvilke som er ikke-lokale. Kommandoene
 
 ```nginx
 git remote
@@ -1151,7 +1238,7 @@ fd -u -t d '^\.git$' ~ -x sh -c \
    'echo "Repo: $(dirname "$1")"; \
    git -C "$(dirname "$1")" remote; echo' sh {}
 
-## ➕ Oppsummering
+## 📕 Oppsummering
 
 Langt fra ferdig. Må ha med HEAD og gren-peker, samt flere kommandoer
 
@@ -1169,7 +1256,7 @@ Merk at disse Git-kommandoene ikke hopper over ledd i følgen:
 INDEKS  ↔  TRE  ↔  REPO
 ```
 
-## ➕ Nettressurser
+## 📕 Nettressurser
 
 [Pro Git Book](https://git-scm.com/book/en/v2)
 
