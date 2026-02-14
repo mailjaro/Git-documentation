@@ -1,4 +1,4 @@
-# 📗 Git: En grundig introduksjon
+# 📗 En introduksjon til Git
 
 ---
 
@@ -644,7 +644,9 @@ git cat-file -p <commit-hash>
 
 *Commit*-hash er hash-verdien av hele denne datastrukturen.
 
-Tre-hashen er kort fortalt er hash av en binærrepresentasjon av *commit*-treet (den som man illustrativt kan tenke på som et tegnet nodenettverk med en eller flere forgreninger), altså en referanse til  en konkret binærrepresentasjon. Med i denne representasjonen inngår også referanser til binærutgaver av filene, lagret som såkalte BLOBs (*binary large objects*). Referanser er gjerne hashede-verdier, slik kan Git kan holde oversikt over filtrær og innhold, oppdage endringer og gjøre nye nye hash-beregninger etter behov. Trær og blobs gjenbrukes, og Git operer effektivt både mht til ytelse og lagringsmessig.
+Tre-hashen er kort fortalt er hash av en binær serialisering av lister over filer og mapper, navn og typer, samt hash til BLOBs (*binary large objects*) og subtrær. Slik kan Git kan holde oversikt over filtrær og innhold, oppdage endringer og gjøre nye nye hash-beregninger etter behov. Trær og blobs gjenbrukes, og Git operer effektivt både mht til ytelse og lagringsmessig.
+
+Et øyeblikksbilde kjenner sine foreldre, men ingen av sine besteforeldre osv. Historikken kan imildertid nøstes opp ved å følge rekker av foreldre bakover.
 
 Det er mulig å grave enda dypere i dette, men dette holder trolig for vårt formål.
 
@@ -678,7 +680,7 @@ HEAD → MAIN → D
 
 ### ▶️ Forutsetninger og antakelser videre
 
-Vi skal nå se mer detaljer på hva som endrer seg og ikke ifm. viktige kommandoer. Dette er ofte helt avgørende for å forstå og se forskjeller på beslektede kommandoer. Konkret ønsker vi å se hva som endres av 
+Vi skal nå se mer detaljer på hva som endrer seg og ikke ifm. viktige kommandoer. Dette er ofte helt avgørende for å forstå og se forskjeller på beslektede kommandoer. Konkret bør man se på hva som endres av 
 
 - **TRE**
 - **INDEKS**
@@ -706,19 +708,6 @@ commit:
 ```
 
 Det som ikke nevnes er altså uforandret.
-
-
----
-
-### ▶️ git mv
-
-Ikke ferdig
-
----
-
-### ▶️ git rm
-
-Ikke ferdig
 
 ---
 
@@ -803,7 +792,7 @@ I den andre skjer heller ingenting med MAIN. HEAD peker altså direkte på den s
 
 ### ▶️ Restore
 
-`git restore` er en kommando som opierer filer fra en kilde til INDEKS og/eller TRE, styrt ved opsjoner.
+`git restore` er en kommando som kopierer filer fra en kilde til INDEKS og/eller TRE, styrt av opsjoner. Verken HEAD eller grenpeker endres av `restore`.
 
 ```yaml
 git restore <fil>:
@@ -819,296 +808,199 @@ git restore --source=<commit> --staged --worktree <fil>:
     TRE ← INDEKS ← REPO.commit
 ```
 
+Filer kan evt. spesifiseres med globbing som `*.md`. Uten filspesifisering vil alle filer i aktuell *commit* gjenskapes.
+
+Uten `--source` er det *commit* utpekt av HEAD og aktiv gren som legges til grunn i utvelgelse av kildefiler. Man kan også si at INDEKS er default som kilde og TRE default som mål (når de ikke spesifisere og innenfor det som gir mening).
+
+- I den første kommandoen, `git restore <fil>`, velges kildefilene fra INDEKS og kopieres til TRE (siden verken kilde eller mål er oppgitt).
+
+- I `git restore --staged <fil>` er mål INDEKS oppgitt (`--staged`) oppgitt, så kildefiler velges nødvendigvis fra **commit.repo** og kopieres over i INDEKS.
+
+- I `git restore --source=<commit> <fil>:` oppgis **REPO.commit** som kilde, men intet mål, så filer kopier fra derfra over i TRE.
+
+- I `git restore --source=<commit> --staged --worktree <fil>:` oppgis to mål, både INDEKS og TRE. Kilde, en konkret *commit* på REPO, er oppgitt og kopieres dermed over som vist.
+
+Man kan også benytte git restore opsjonen `---patch` for å få en interaktiv *restore*.
+
 ---
 
+### ▶️ Merge
 
-### ▶️ Merging
+Kommandoen
+
+```bash
+git merge <gren-1> <gren-2>
+```
+
+*fletter* sammen to grener. Man kan godt tenke seg at Git *slår sammen* de to grenene til én, hvilket gjerne er det man ønsker. Fra en hovedversjon har man kanskje grenet seg ut for å eksperimentere med en ny funksjon. Og man kan ønske å slå disse sammen når funksjonen er moden for det. Men Git er tro mot sitt prinsipp om at alt skal kunne gjenskapes, så den fletter dem sammen til en gren hvor historikken ligger som en slags løkke i historikken. Vi skal først se på et lineært eksempel (**fast forward merge**) før to eksempler med overlappende grener i **no fast forward megre**.
+
+#### 🔸 Fast forward merge
+
+Anta vi har følgende tre av *commits*:
+
+```text
+A ── B ── C  ← MAIN ← HEAD
+          \
+           D ── E   ← FEATURE
+```
+
+Komandoene vi trenger her er:
+
+```bash
+git switch main
+git merge feature
+```
+
+Her er det ingen konflikter og alt som skjer er at HEAD settes til å peke på MAIN, samt at TRE og INDEKS fylles med *commit* E.
+
+```text
+A ── B ── C ── D ── E ← MAIN ← HEAD
+TRE ← INDEKS ← E
+```
+
+#### 🔸 No fast forward merge
+
+Anta vi har følgende tre av *commits*:
+
+```text      
+      B   ← MAIN ← HEAD
+     /
+A ──
+     \
+      B' ── C' ← FEATURE
+```
+
+Vi kan flette sammen på to måter:
+
+- *merge* FEATURE på MAIN:
+
+```bash
+git switch MAIN
+git merge FEATURE
+```
+
+eller
+
+- *merge* MAIN på FEATURE:
+
+```bash
+git switch FEATURE
+git merge MAIN
+```
+
+Sammenflettinger kan medføre konflikter, som ikke er direkte vist her, men som vil være en del av bildet M, omtalt mer nedenfor. Sluttresultatet i de to tilfellene kan oppsummeres grafisk med
+
+```text
+      B ──────── M  ← MAIN ← HEAD
+     /         /
+A ──          /
+     \       /
+      B' → C'   ← FEATURE
+
+TRE ← INDEX ← M
+```
+
+og
+
+```text
+      B   ← MAIN
+     / \
+A ──   M  ← FEATURE ← HEAD
+     \ /
+      B' → C'
+
+TRE ← INDEX ← M
+```
+
+I begge tilfeller beregnes et øyeblikkesbilde **M** med to foreldre, som vist i figuren. Ved å følge linjene bakover kan man finne hele historikken, hele nodenettverket.
+
+Ved konflikter blir dialogen en annen, og brukeren får dessuten ansvaret for å løse dem. I dette tilfellet må brukeren også utføre en etterfølgende.
+
+```
+git commit -m "Bedskrivelse"
+```
+
+Dette gjøres automatisk når det ikke er konflikter.
 
 ---
 
-Som antydet, kan man lage én eller flere forgreninger fra et øyeblikksbilde. Kommandoen er slik:
+### ▶️ Cherry picks
 
-```html
-git branch <ny gren>
+En *cherry-pic*k tar endringer fra én *commit* og lager en ny *commit* med samme endringer på grenen man står på. Commiten kopieres ikke. Det lages en ny *commit* med nye foreldre (historikk) og ny hash.
+
+Ant f.eks. vi har følge tre av commits:
+
+
+```text
+ A ── B ── C  ← MAIN ← HEAD
+            \
+             D ── E ← FEATURE
 ```
 
-Dette oppretter en peker (fil) med dette navnet, og denne grenen og dette øyeblikksbildet blir aktivt.
+og ønsker å foreta *cherry-pick* av *commit* E fra FEATURE over på MIAN. Man må da forsikrer seg om at man står på MAIN, og så utfører `git cherry-pick` med referanse til commit E i form av en hash eller tag:
 
-Vi kan liste alle grener ved
+```bash
+git switch main
+git cherry-pick <E>
 
-```nginx
-git branch
+``` 
+
+Sluttresultatet blir
+
+```text
+  A ── B ── C ── E'  ← MAIN ← HEAD
+             \
+              D ── E  ← FEATURE
+
+TRE ← INDEKS ← E'
 ```
 
-og man kan bytte gren ved
-
-```nginx
-git switch <gren>
-```
-
-Vi skal behandle denne kommandoen nærmere, men her blir *gren* aktiv gren, og siste *commit* på denne aktivt øyeblikksbilde. I tillegg oppdateres både arbeidskatalog og INDEKS iht. til dette. Dette kan oppsummeres ved:
-
-```yaml
-switch:
-HEAD → <gren> → latest commit
-TRE ← INDEKS ← REPO
-```
+E' blir altså her den nye *commiten* som inneholder de samme endringene som E, men med ny hash og ny foelder (C).
 
 ---
 
 ### ▶️ Rebase
 
----
+`git rebase` flytter en serie *commits* fra en gren til toppen av en annen. Historikken skrives om, *Committene* blir nye commit-objekter med nye hash-verdier og resultatet blir en lineær historie.
 
-### ▶️ *Restore og Unstage (Endres)
-
-Ettersom vi har sett på *add* og *commit*, er det naturlig også å se på hvordan disse aksjonene kan reverseres. Altså, hvordan foreta *unstage* av en fil på INDEKS eller gjenskape (*restore*) en *commited* fil? For å forklare det, må vi se nærmere på noen detaljer.
-
-INDEKS inneholder alltid snapshot av neste *commit*. Men merk at den ikke nulles eller endres ved en *commit*. INDEKS endres bare dynamisk ved nye *add*. La oss derfor følge en bestemt fil **kap-1.adoc** gjennom Git-systemet. Anta at filen først har innhold (med plassering, fil-attributter osv.) som kan oppsummeres med 'innhold **A**'.
-
-- Når vi legger filen til INDEKS og utfører *commit*, ser alle (TRE, INDEKS og REPO) innhold **A**.
-
-- Om filen modifiseres til **B**, ser TRE innhold **B**, mens INDEKS og REPO ser innhold **A**.
-
-- Om filen legges til INDEKS, ser TRE og INDEKS innhold **B**, mens REPO ser innhold **A**.
-
-- Om man utfører *commit*, ser alle tre innhold **B**.
-
-Ved innfører følgende notasjon
-
-```yaml
-TRE:      arbeidskatalog
-INDEKS:  staging area
-REPO:    .git directory
-```
-
-kan dette kortere illustreres ved:
-
-```yaml
-add:     TRE → INDEKS
-commit:  INDEKS → REPO
-```
-
-#### 🔸 Restore
-
-Kommandoen for å gjøre *restore* av en fil er:
-
-```nginx
-git restore kap-1.adoc
-```
-
-Merk at `restore` gjenskaper filer på TRE fra INDEKS. Som vi har sett, *kan* disse være — men trenger ikke å være — like filene på REPO.
-
-Dette kan kortere illustreres ved:
-
-```yaml
-restore:  TRE ← INDEKS
-```
-
-Ønsker man å utføre *restore* på hele øyeblikksbildet, kan man gjøre:
-
-```nginx
-git restore
-```
-
-Dette kopierer tilsvarende hele øyeblikksbilde over i INDEKS.
-
-Dersom man ønsker å gjøre en *restore* fra et tidligere tilstand, får man til det ved å referere til aktuelt øyeblikksbilde
+Om Git støter på konflikter underveis, stopper den og overlater til brukeren å løse opp. Deretter igangsettes prosessen igjen med:
 
 ```bash
-git restore source=<commit> kap-1.adoc
-git restore source=<commit> 
+git rebase --continue
 ```
 
-for enkeltfiler eller øyeblikksbilde. Vi kommer tilbake til hvordan øyeblikksbilder refereres.
-
-#### 🔸 Unstage
-
-*Unstage* av en fil, fjerning av fil fra INDEKS, foretas med:
-
-```nginx
-git restore --staged kap-1.adoc
-```
-
-For å fjerne hele øyeblikksbildet på INDEKS, gjør:
-
-```nginx
-git restore --staged
-```
-
-Ved en *unstage* kopieres fil/øyeblikksbilde fra REPO over i INDEKS. Virkningen av siste *add* blir dermed kansellert. Merk da at filer i arbeidskatalog ikke berøres av dette. Det blir opp til brukeren å bestemme hva han videre gjør med disse.
-
-En *unstage* kan altså illustreres ved.
-
-```yaml
-unstage:  INDEKS ← REPO
-```
-
-Det er nyeste øyeblikksbildet som legges til grunn her (eller egentlig øyeblikksbildet pekeren HEAD peker på). Om man ønsker *unstage* fra tidligere *commit* (eller eller mer presist en bestemt *commit*), kan man gjøre:
+Bruker kan når som helst abortere en *rebase* og gå tilbake til utgangspunktet med:
 
 ```bash
-git restore --staged --source=<commit> kap-1.adoc
-git restore --staged --source=<commit> 
+git rebase --abort
 ```
 
-Vi kommer tilbake til hvordan man refererer tidligere øyeblikksbilder senere.
+La oss se på detaljene. Anta f.eks. at vi har følgende commit-tre:
 
----
-
-### ▶️ *Reset og checkout (endres)
-
-Man kan også hente inn fil eller øyeblikksbilde fra REPO helt over i TREen. Da skjer egentlig først en *unstage* og så en *restore*, altså operasjonen:
-
-```yaml
-reset      : TRE ← INDEKS ← REPO
+```text
+      B' → C' → D' ← FEATURE ← HEAD 
+     /
+A ── B ── C  ← MAIN
 ```
 
-Dette kan samles i en og samme kommando ved:
-
-```r
-git restore --staged --worktree kap-1.adoc
-git restore --staged --worktree 
-```
-
-for fil eller *commit*. Dette gjenskaper tidligere REParbeidskatalogO-lagret fil eller øyeblikksbilde. Merk for det første at, uten nærmere angivelse, er det siste *commit* som legges til grunn her (eller egentlig *commit* utpekt av HEAD). For det andre, når vi gjenskaper en enkeltfil, har man ingen garanti for at den gjenskapte (gamle) filen lenger gir mening i (den nyere) arbeidskatalogen. Brukeren har likevel lov å gjøre dette. Alt ansvar for mening og konsistens overlates brukeren.
-
-En gjenskaping kalles også en *checkout* eller en *reset*. Følgende kommandoer utfører derfor essensielt det samme (med hensyn til hva de gjenskaper i arbeidskatalogen):
-
-```r
-git checkout -- kap-1.adoc
-git checkout
-```
-
-for fil eller øyeblikksbilde.
-
-*Reset* kan ikke gjøres på enkeltfiler, men man kan reset'e siste øyeblikksbilde:
-
-```nginx
-git reset --hard
-```
-
-Ønsker man å foreta *checkout*/*reset* for et tidligere (eller egentlig spesielt) øyeblikksbilde, må man referere ønsket *commit*:
-
-```html
-git checkout <commit> -- fil.txt
-git checkout <commit>
-git reset --hard <commit>
-```
-
-**Merk**: Som antydet er det likevel subtile forskjeller mellom en gjenskaping via `restore --staged` og en via *checkout*/*reset*. Det har å gjøre med hva statusen blir på REPO i etterkant. REPO har nemlig en peker **HEAD** som hele tiden peker på aktivt øyeblikksbilde. Normalt samsvarer dette til nyeste øyeblikksbilde, men når man begynner å gjenskape filer og øyeblikksbilder, er det et spørsmål om hva som nå skal bli aktivt øyeblikksbilde. Ved bruk av *checkout* og *reset* er tanken at man ønsker å bla tilbake til en eldre versjon, og HEAD endres til å peke på det refererte øyeblikksbildet. Ved bruk av `restore --staged` ser man heller for seg at bruker skal gjøre en større editeringsjobb før en ny *commit*, uten å blande inn nye versjoner og en spesiell historikk.
-
-Oppsummert kan vi si:
-
-```yaml
-unstage    : HEAD flyttes ikke
-restore    : HEAD flyttes ikke
-checkout   : HEAD flyttes
-reset      : HEAD flyttes
-```
-
-Forskjellen har en viktig relevans for hva som skjer videre etter modifiseringer og ny *commit*. Når man foretar en *checkout* eller *reset* fra tidligere *commit* igjen, flyttes nemlig HEAD bakover til aktuelt øyeblikksbilde. Foretas ny commit, vil man få et nytt etterfølgende øyeblikksbilde, og de tidligere etterfølgerne blir hengende fritt. Kanskje ønsket bruker å rulle tilbake til tidligere tilstand og forkaste alle etterfølgere. Men hvis ikke, står de hengende øyeblikksbildene i fare for å bli slettet av *garbage collector*. Normalt tar dette 3-6 uker, og fram til da er øyeblikksbildene og nødvendige referanser likevel ikke tapt.
-
----
-
-### ▶️ *Branching (Endres og flyttes)
-
-Det anbefales å gjøre hyppige *commits*. Av og til ønsker man å dele ut en ny fran av prosjektet. Kanskje ønsker man å eksperimenter med noe, ny funksjonalitet, en omskriving etc. Det er lett å lage en ny gren (*branch*). Det er også lett å bytte (*switche*) tilbake til hovedgrenen eller mellom grener.
-
-Det er flere alternative kommandoer her, men følgende oppretter ny gren **Branch-NO-2** (med forgrening ut fra *commit* som HEAD pekte på før kallet):
-
-```cpp
-git switch -c branch-1
-```
-
-```yaml
-Switched to a new branch 'Branch-NO-2'
-```
-
-```nginx
-git status
-```
-
-```yaml
-On branch Branch-NO-2
-nothing to commit, working tree clean
-```
-
-Her kan man lage nye følger av *commits*, f eks. et par navnendringer:
-
-```css
-git mv A.adoc AA.adoc; git commit -m "Første commit på gren 2."
-git mv B.adoc BB.adoc; git commit -m "Andre commit på gren 2."
-```
-
-Slik lister man grener:
-
-```nginx
-git branch
-```
-
-```yaml
-Branch-NO-1
-Branch-NO-2
-```
-
-Arbeidskatalogen vår er:
+og skal gjøre en rebase fra FEATURE over på MAIN. Man forsikrer seg da at at man står på FEATURe og gjør `rebase main`:
 
 ```bash
-ls -1
+git switch feature
+git rebase main
+``` 
+
+Sluttresultatet blir:
+
+```text
+A ── B ── C ── B'' ── C'' ── D''  ← FEATURE ← HEAD
+
+TRE ← INDEKS ← D''
 ```
 
-```yaml
-AA.adoc
-BB.adoc
-git.png
-kap-3.md
-```
+Legg merke til *commit*-rekkefølgen, og at det vil se ut som om FEATURE ble laget etter MAIN, selv om den opprinnelig forgrenet seg tidligere. *Committene* B', C' og D' får nye hash-verdier, så de er markert med B'', C'' og D'', men de inneholder de samme endringeme som B', C' og D' (som i utgangspunktet blir *unreachable*).
 
-Vi kan bytte tilbake til **Branch-NO-1** ved:
-
-```nginx
-git switch Branch-NO-1
-```
-
-```yaml
-Switched to branch 'Branch-NO-1'
-```
-
-```bash
-ls -1
-```
-
-```yaml
-A.adoc
-B.adoc
-git.png
-kap-3.md
-```
-
-Ved tilsvarende kommando kan vi også bytte til **Branch-NO-2**.
-
-```nginx
-git switch Branch-NO-1
-```
-
-Situasjonen nå er følgende:
-
-```nginx
-git log --oneline
-```
-
-```yaml
-082fecc (HEAD -> Branch-NO-2) Andre commit på gren 2. Nok en navnendring
-7627a6c Første commit på gren 2, en navnendring av A.adoc.
-444f3ee (Branch-NO-1) Ny navnekonvensjon implementert
-d52c4d9 Doc.md er fjernet fra prosjektet.
-8dae426 Doc.md er editert en del.
-57f8ab9 First commit of prosjekt git-TEST.
-```
-
-Vi ser at HEAD peker på nyeste av to *commits* i gren 2. Gren 1 inneholder fire *commits*.
-
-Vi kan referer de enkelte øyeblikksbildene på flere måter. Kortversjonen av hash-verdien
+En *rebase* kan godt ses på som en serie av *cherry-picks*.
 
 ---
 
@@ -1118,7 +1010,7 @@ For å sette et prosjekt opp mot GitHub, må man først sørge for:
 
 ---
 
-### 1️⃣ Konto og nøkler
+### 1️⃣ Opprette konto og nøkler
 
 Dvs, man må
 
