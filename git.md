@@ -1071,7 +1071,6 @@ Neste steg er å opprette eksternt REPO. Velg et passende prosjektnavn, avgjør 
 
 om du allerede har et prosjektet med slike filer allerede.
 
-
 ℹ️ *Default branch* i prosjektet på GitGub forlanges fordi en av versjonene (grenene) av prosjektet må være prosjektet ansikt utad.
 
 ---
