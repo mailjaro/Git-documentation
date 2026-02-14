@@ -2,9 +2,9 @@
 
 Dette heftet gir en introduksjon til bruk av Git. Den viser grunnleggende eksempler og bruk i del 1, og går litt mer i dybden på implementering og detaljer i del 2.
 
-Heftet retter seg mot brukere med ikke altfor avanserte behov, men som likevel ønsker trygghet og forståelse i det man gjør. Det retter seg ikke primært mot kodere eller større samarbeidsprosjekter, men kanskje heller mot folk som skriver, dokumenterer eller koder mer hobbypreget, uten å være del av et større team. Å kunne jobbe sømløst på flere PC-er, ha et enkelt, trygt system for ekstern backup, kunne lage/eksperimentere med ulike versjoner med full oversikt, er likvel viktig. Og Git kan *virkelig* forenkle hverdagen for slike brukere vesentlig. Mange er de som brukt mye energi på å holde orden på backuper og ulike versjoner på hjemmesnekret vis. Mange er de som trenger Git. Kanskje har de slitt med å finne *Tutorials* som verken er for overflatiske eller for avanserte. Dette heftet forsøker uansett å være en middels-nivå-*tutorial*.
+Heftet retter seg mot brukere med ikke altfor avanserte behov, men som likevel ønsker trygghet og forståelse i det man gjør. Det retter seg ikke primært mot kodere eller større samarbeidsprosjekter, men kanskje heller mot folk som skriver, dokumenterer eller koder mer hobbypreget, uten å være del av et større team. Å kunne jobbe sømløst på flere PC-er, ha et enkelt, trygt system for ekstern backup, kunne lage/eksperimentere med ulike versjoner med full oversikt, er likevel viktig. Og Git kan *virkelig* forenkle hverdagen for slike brukere vesentlig. Mange er de som brukt mye energi på å holde orden på backuper og ulike versjoner på hjemmesnekret vis. Mange er de som trenger Git. Kanskje har de slitt med å finne *Tutorials* som verken er for overflatiske eller for avanserte. Dette heftet forsøker uansett å være en middels-nivå-*tutorial*.
 
-Hvordan man setter forbindelse mot [GitHub](https://github.com/) for ekstern overførstel er også vist (for én eller flere PC-er).
+Hvordan man setter forbindelse mot [GitHub](https://github.com/) for ekstern overførsel er også vist (for én eller flere PC-er).
 
 Heftet viser og forklarer ulike Git-kommandoer. Det kan likevel være lurt å benytte en editor som [Visual Code Studio](https://code.visualstudio.com/). Git aksesseres der via et menybasert grensesnitt, og visse operasjoner, som å angre ting, er enklere der. Påminnelser på ting man bør gjøre, får man også der. Men det er uansett nyttig å ha en god forståelse i bunn. Og har man det, er jobbing med systemer som Git på Visual Code Studio enkelt.
 
@@ -533,7 +533,7 @@ git stash apply
 Man kan få hjelp via manualsider til ulike kommandoer, både i kort og langt format. Den første er for korte beskrivelser, de to andre for lengre (like) output:
 
 ```nginx
-git <comand> -h
+git <command> -h
   ```
 
 ```html
