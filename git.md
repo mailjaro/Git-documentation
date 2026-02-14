@@ -1,5 +1,13 @@
 # 📗 En introduksjon til Git
 
+Dette heftet gir en introduksjon til bruk av Git. Den viser grunnleggende eksempler og bruk i del 1, og går litt mer i dybden på implementering og detaljer i del 2.
+
+Heftet retter seg mot brukere med ikke altfor avanserte behov, men som likevel ønsker trygghet og forståelse i det man gjør. Det retter seg ikke primært mot kodere eller større samarbeidsprosjekter, men kanskje heller mot folk som skriver, dokumenterer eller koder mer hobbypreget, uten å være del av et større team. Å kunne jobbe sømløst på flere PC-er, ha et enkelt, trygt system for ekstern backup, kunne lage/eksperimentere med ulike versjoner med full oversikt, er likvel viktig. Og Git kan *virkelig* forenkle hverdagen for slike brukere vesentlig. Mange er de som brukt mye energi på å holde orden på backuper og ulike versjoner på hjemmesnekret vis. Mange er de som trenger Git. Kanskje har de slitt med å finne *Tutorials* som verken er for overflatiske eller for avanserte. Dette heftet forsøker uansett å være en middels-nivå-*tutorial*.
+
+Hvordan man setter forbindelse mot [GitHub](https://github.com/) for ekstern overførstel er også vist (for én eller flere PC-er).
+
+Heftet viser og forklarer ulike Git-kommandoer. Det kan likevel være lurt å benytte en editor som [Visual Code Studio](https://code.visualstudio.com/). Git aksesseres der via et menybasert grensesnitt, og visse operasjoner, som å angre ting, er enklere der. Påminnelser på ting man bør gjøre, får man også der. Men det er uansett nyttig å ha en god forståelse i bunn. Og har man det, er jobbing med systemer som Git på Visual Code Studio enkelt.
+
 ---
 
 ## 📕 Systemet
@@ -1200,26 +1208,6 @@ Og når man er i gang, kan man godt lage en `fd`-kommando som ved opsjonen `-x` 
 fd -u -t d '^\.git$' ~ -x sh -c \
    'echo "Repo: $(dirname "$1")"; \
    git -C "$(dirname "$1")" remote; echo' sh {}
-
----
-
-## 📕 Oppsummering
-
-Langt fra ferdig. Må ha med HEAD og gren-peker, samt flere kommandoer
-
-```yaml
-add        : INDEKS  ←  TRE
-commit     : REPO    ←  INDEKS
-restore    : TRE     ←  INDEKS
-unstage    : INDEKS  ←  REPO
-reset      : TRE     ←  INDEKS ← REPO
-```
-
-Merk at disse Git-kommandoene ikke hopper over ledd i følgen:
-
-```yaml
-INDEKS  ↔  TRE  ↔  REPO
-```
 
 ---
 
