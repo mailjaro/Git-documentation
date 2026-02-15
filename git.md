@@ -8,6 +8,10 @@ Hvordan man setter forbindelse mot [GitHub](https://github.com/) for ekstern ove
 
 Heftet viser og forklarer ulike Git-kommandoer. Det kan likevel være lurt å benytte en editor som [Visual Code Studio](https://code.visualstudio.com/). Git aksesseres der via et menybasert grensesnitt, og visse operasjoner, som å angre ting, er enklere der. Påminnelser på ting man bør gjøre, får man også der. Men det er uansett nyttig å ha en god forståelse i bunn. Og har man det, er jobbing med systemer som Git på Visual Code Studio enkelt.
 
+Det kan også nevnes at Git har et et godt, gjennomtenkt design. Filosofien er at alt skal kunne gjenskapes, intet skal gå tapt og brukeren kan vanskelig gjøre feil som gjør at data og versjoner forsvinner. Som det ofte sies:
+
+-- *If it’s hard to do something stupid, the design is good.*
+
 ---
 
 ## 📕 Systemet
@@ -930,6 +934,12 @@ git commit -m "Beskrivelse"
 
 Dette gjøres automatisk når det ikke er konflikter.
 
+En merge kan aborteres ved:
+
+```bash
+git merge --abort
+```
+
 ---
 
 ### ▶️ Cherry picks
@@ -964,19 +974,31 @@ TRE ← INDEKS ← E'
 
 E' blir altså her den nye *commiten* som inneholder de samme endringene som E, men med ny hash og ny forelder (C).
 
+Om Git støter på konflikter underveis, stopper den og overlater til brukeren å løse opp. Deretter igangsettes prosessen igjen med:
+
+```bash
+git cherry-pick --continue
+```
+
+Bruker kan når som helst abortere en *cherry-pick* og gå tilbake til utgangspunktet med:
+
+```bash
+git cherry-pick --abort
+```
+
 ---
 
 ### ▶️ Rebase
 
 `git rebase` flytter en serie *commits* fra en gren til toppen av en annen. Historikken skrives om, *Committene* blir nye commit-objekter med nye hash-verdier og resultatet blir en lineær historie.
 
-Om Git støter på konflikter underveis, stopper den og overlater til brukeren å løse opp. Deretter igangsettes prosessen igjen med:
+Om Git støter på konflikter underveis, stopper så brukeren kan løse opp. Prosessen igangsettes igjen med:
 
 ```bash
 git rebase --continue
 ```
 
-Bruker kan når som helst abortere en *rebase* og gå tilbake til utgangspunktet med:
+Bruker kan når som helst abortere og gå tilbake til utgangspunktet med:
 
 ```bash
 git rebase --abort
@@ -1144,6 +1166,8 @@ Etter `fetch` kan man sjekke status ved:
 git status
 ```
 
+❗ Husk, hvis en konflikt oppstår, hvilket det kan gjøre når man editerer fra flere PC-er, så er *alltid* første punkt å utføre `git status`.
+
 Det følgende viser ekstern *commit*-log i kort format.
 
 ```nginx
@@ -1207,6 +1231,63 @@ Og når man er i gang, kan man godt lage en `fd`-kommando som ved opsjonen `-x` 
 fd -u -t d '^\.git$' ~ -x sh -c \
    'echo "Repo: $(dirname "$1")"; \
    git -C "$(dirname "$1")" remote; echo' sh {}
+
+---
+
+### ▶️ Konflikthåndtering
+
+Konflikter kan oppstå når det editeres fra flere steder. Man kan f.eks. glemme å utføre `git fetch origin` og `git pull` før en editering, og dermed ikke få med tidligere fileditering.
+
+Dette er uproblematisk. Git har et gjennomtenkt design, og konflikter lar seg gjerne fint løse.
+
+- Første punkt er *alltid* å utføre
+
+```nginx
+git status
+```
+
+Output kan se noe slik ut:
+
+```yaml
+On branch main
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+
+Unmerged paths:
+  both modified:   chapter/01.md
+  both modified:   chapter/35.md
+```
+
+- Andre punkt er åpne filene (f.eks i VSCode). På steder i filene vil konfliktene være markert noe tilsvarende dette:
+
+```yaml
+<<<<<<< HEAD
+din tekst
+=======
+den andre teksten
+>>>>>>> feature
+```
+
+Du har så ansvaret for å løse opp i dette. Fjern tilslutt alle konfliktmarkeringene og lagre filene.
+
+- Tredje punkt er å utføre `git add` på filene.
+
+Utføre gjerne `git status` underveis om antall filer er stort.
+
+- Fjerde punk er å forsette (utføre *continue*) på operasjonen Git ble avbrutt i.
+
+I noen tilfeller er dette greit og forståelig, som hvis avbruddet oppstod under en `rebase` eller `cherry-pick`. Disse har en egen `--continue`-opsjon som skal benyttes. Andre operasjoner som `merge`, `git push`, en **sync** i VSCode m.fl. har ikke denne opsjonen, og det er mindre klart hva som menes med "å fortsette". Ikke nok med det, VSCode kan liste tips med flere alternativer, så hva gjør man?
+
+Igjen ligger løsningen i output fra `git status`. Den forteller også som skal fortsettes, og oversikten under viser hvilke kall som fortsetter og fullfører den tilhørende operasjonen:
+
+```yaml
+KONFLIKT OPPSTOD UNDER   UTFØR            
+merge / pull:            git commit
+rebase:                  git rebase --continue
+cherry-pick:             git cherry-pick --continue`
+```
+
+I `git status`-eksemplet over kan vi se at det nevnes **unmerged paths** der, dvs. en **merge** ble avbrutt, og riktig fortsettelse ville vært `git commit`.
 
 ---
 
