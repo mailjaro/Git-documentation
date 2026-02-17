@@ -2,11 +2,11 @@
 
 Dette heftet gir en introduksjon til Git. Den viser grunnleggende eksempler og bruk i del 1, og går litt mer i dybden på implementering og detaljer i del 2.
 
-Heftet retter seg mot brukere med ikke altfor avanserte behov, men som likevel ønsker trygghet og forståelse i det man gjør. Det retter seg ikke primært mot kodere eller større samarbeidsprosjekter, men kanskje heller mot folk som skriver, dokumenterer eller koder mer hobbypreget, uten å være del av et større team. Å kunne jobbe sømløst på flere PC-er, ha et enkelt, trygt system for ekstern backup, kunne lage/eksperimentere med ulike versjoner med full oversikt, er likevel viktig. Og Git kan *virkelig* forenkle hverdagen for slike brukere vesentlig. Mange er de som brukt mye energi på å holde orden på backuper og ulike versjoner på hjemmesnekret vis. Kanskje har de også slitt med å finne *Tutorials* som verken er for overflatiske eller for avanserte. Dette heftet forsøker å være til hjelp for slike brukere.
+Heftet retter seg mot brukere med ikke altfor avanserte behov, men som likevel ønsker trygghet og forståelse i det man gjør. Det retter seg ikke primært mot kodere eller større samarbeidsprosjekter, men kanskje heller mot folk som skriver, dokumenterer eller koder mer hobbypreget, uten å være del av et større team. Å kunne jobbe sømløst på flere PC-er, ha et enkelt, trygt system for ekstern backup, kunne eksperimentere med ulike versjoner med full oversikt, er likevel viktig. Og Git kan *virkelig* forenkle hverdagen for slike brukere vesentlig. Mange er de som brukt mye energi på å holde orden på backuper og ulike versjoner på hjemmesnekret vis. Kanskje har de også slitt med å finne *Tutorials* som verken er for overflatiske eller for avanserte. Dette heftet forsøker å være til hjelp for slike brukere.
 
-Heftet tar bl.a. for seg hvordan man setter opp forbindelser mot [GitHub](https://github.com/) (for ekstern overførsel) fra en eller flere PC-er. Linux legges til grunn som operativsystem, og Git er der inkludert i de fleste distroer (eller lar seg lett installere).
+Heftet tar bl.a. for seg hvordan man setter opp forbindelser mot [GitHub](https://github.com/) (for ekstern overførsel) fra en eller flere PC-er. Linux legges til grunn som operativsystem, er Git er inkludert i de fleste distroer (eller lett lar seg installere).
 
-Ulike Git-kommandoer blir vist og forklart. Det kan likevel være lurt å benytte en editor som [Visual Code Studio](https://code.visualstudio.com/). Git aksesseres der via et menybasert grensesnitt, og visse operasjoner, som å angre ting, er enklere der. Påminnelser på ting man bør gjøre, får man også. Men det er uansett nyttig å ha en god forståelse i bunn. Og har man det, er jobbing med systemer som Git på Visual Code Studio enkelt, og vil ikke bli behandlet spesielt.
+Ulike Git-kommandoer blir vist og forklart. Det kan likevel være lurt å benytte en editor som [Visual Code Studio](https://code.visualstudio.com/). Git aksesseres der via et menybasert grensesnitt, og visse operasjoner, som å angre ting, er enklere. Påminnelser på ting man bør gjøre, får man også. Men det er uansett nyttig å ha en god forståelse i bunn. Og har man det, er jobbing med systemer som Git på Visual Code Studio enkelt, og det vil ikke bli behandlet spesielt.
 
 Det kan også nevnes at Git har et et godt, gjennomtenkt design. Filosofien er at alt skal kunne gjenskapes, intet skal gå tapt, og brukeren kan vanskelig gjøre feil som gjør at data og versjoner forsvinner. Som det ofte sies:
 
@@ -51,7 +51,7 @@ Man har
 - **Staging area** (her kalt **INDEKS**) og
 - **Git directory** (her kalt **REPO**)
 
-Ved bruk av et fjernsystem som GitHub, kommer det inn som et fjerde element i tillegg (hvilket behandles senere i dokumentet). De tre elementene korresponderer til de tre stadiene en fil kan være i under Git:
+Ved bruk av et fjernsystem som GitHub, kommer *det* inn som et fjerde element i tillegg (hvilket behandles senere i dokumentet). De tre elementene korresponderer til de tre stadiene en fil kan være i under Git:
 
 - Modifisert: Filen er endret, men ennå ikke sendt videre i Git-systemet
 - Sendt til INDEKS: Filen er markert i sin nåværende versjon for å bli med i neste *commit*
@@ -73,7 +73,7 @@ A---B---C---D---E  ← MAIN
                         HEAD
 ```
 
-Her ser vi en illustrasjon av et i prosjekt organisert to grener av øyeblikksbilder. Vi ser også noen andre viktige elementer i Git her, nemlig:
+Her ser vi en illustrasjon av et i prosjekt organisert to grener av øyeblikksbilder. Vi ser også noen andre viktige elementer i Git, nemlig:
 
 - pekeren HEAD, som indirekte peker på aktivt øyeblikksbilde, samt
 - to gren-pekere (her kalt MAIN og FEATURE) som peker på de to grenene.
@@ -83,8 +83,8 @@ Vi kommer tilbake til hvordan disse egentlig er implementert.
  Den grunnleggende arbeidsflyten er som følger:
 
 1. Brukeren endrer eller oppretter filer i arbeidskatalogen
-2. Brukeren velger hvilke forandringer som skal være med i neste *commit*, legger disse til INDEKS
-3. Bruker gjør en *commit*, hvilket tar filene slik de er i INDEKS og lagrer alt (hele øyeblikksbildet) i REPO.
+2. Brukeren velger hvilke forandringer som skal være med i neste *commit*v(legger disse til INDEKS)
+3. Bruker gjør en *commit*, hvilket tar filene slik de er i INDEKS og lagrer alt (hele øyeblikksbildet) i REPO
 
 Ved ekstern versjonskontroll, som f.eks. ved bruk av GitHub, må man foreta et innledende `git pull` (for hente inn nyeste tre fra ekstern REPO) og et avsluttende `git push` (for å *synce* lokalt REPO med ekstern REPO) i tillegg.
 
@@ -174,7 +174,7 @@ git status -s
 git status -b <branch>
 ```
 
-Vi kan få informasjon om øyeblikksbilder ved `git log`. Et eksempel på en output er også inkludert.
+Vi kan videre få informasjon om øyeblikksbilder ved `git log`. Output fra en slik kommando er vist under.
 
 ```nginx
 git log
@@ -241,7 +241,7 @@ rename:
     TRE → INDEKS
 ```
 
-så alt er klargjort for en oppfølgende *commit*.
+slik at alt er klargjort for en oppfølgende *commit*.
 
 ---
 
@@ -339,7 +339,7 @@ Denne baserer seg på den klassiske `diff`-kommandoen i Linux. Det fins bedre mo
 git diff <commit1> <commit2> | delta
 ```
 
-Man kan referer absolutt til *commit* med å angi hash-verdien (typisk i kortform) eller relativt som f.eks:
+Man kan referere absolutt til en *commit* med å angi hash-verdien (typisk i kortform) eller relativt som f.eks:
 
 ```nginx
 git diff HEAD~3 HEAD
@@ -689,7 +689,7 @@ git cat-file -p <commit>
 
 *Commit*-hash er hash-verdien av hele datastrukturen.
 
-Tre-hashen er kort fortalt er hash av en binær serialisering av lister over filer og mapper, navn og typer, samt hash til BLOBs (*binary large objects*) og subtrær. BLOBs kan vi si utgjør en binærrepresentasjon filinnhold. Systemet gjør nye hash-beregninger etter behov. Trær og blobs gjenbrukes, og Git operer effektivt både mht til ytelse og lagringsmessig.
+Tre-hashen er kort fortalt er hash av en binær serialisering av lister over filer og mapper, navn og typer, samt hash til BLOBs (*binary large objects*) og subtrær. BLOBs kan vi si utgjør en binærrepresentasjon av filinnhold. Systemet gjør nye hash-beregninger etter behov. Trær og blobs gjenbrukes, og Git operer effektivt både mht. til ytelse og lagringsmessig.
 
 Et øyeblikksbilde kjenner sine foreldre, men ingen av sine besteforeldre osv. Historikken kan imidlertid nøstes opp ved å følge rekker av foreldre bakover.
 
@@ -743,7 +743,7 @@ referer den spesifikke *commiten* det refereres til i kommandoer (evt. velges n�
 
 For å eksemplifisere: Vi har sett på kommandoene `add` og `commit`. Disse er enkle i denne sammenheng. `add` påvirker ikke REPO, HEAD, eller MAIN, men sørger for at et øyeblikksbilde av TRE sendes til INDEKS. *Commit* legger på sin side øyeblikksbildet på INDEKS over i følgen av øyeblikksbilder på REPO, mens HEAD fortsatt peker på MAIN, og MAIN oppdateres til å peke på ny *commit*.
 
-Dette kan vi illustrere ved:
+Dette kan illustreres ved:
 
 ```yaml
 add:
@@ -787,7 +787,7 @@ Ved *hard reset* kan man dessuten benytte opsjonene `--Merged` og `--Keep`, som 
 
 Mixed er default.
 
-La oss se nærmere hva som skjer med pekerne i et annet `reset`-eksempel.
+La oss se nærmere hva som skjer med pekerne i et `reset`-eksempel.
 
 Anta vi har en følge av øyeblikksbilder A → B → C → D på MAIN, og at D er aktivt. Hva skjer om vi foretar:
 
@@ -803,7 +803,7 @@ HEAD → MAIN → B
 
 Dvs. MAIN peker på øyeblikksbilde B, og HEAD peker på gren MAIN. Dette gjør B aktivt. Ved *soft reset* endres verken TRE eller INDEKS (slik at disse i utgangspunktet fortsatt har verdi D). REPO er uansett uforandret.
 
-Merk nå at dersom vi commit'er modifiseringer, får vi en etterfølger vi kan betegn C', som vil være ulik C (uansett om modifiseringene skulle være identiske). C og D risikerer nå å bli hengende (selv om forgjenger B er uendret). Dersom intet annet refererer dem, en tag eller noe, risikerer disse (med tid og stunder, kanskje etter 30 dager) å bli slettet av *garbage collector* (GC). Disse risikerer å bli såkalt *unreachable*.
+Merk nå at dersom vi *commit*'er modifiseringer, får vi en etterfølger vi kan betegn C', som vil være ulik C (uansett om modifiseringene skulle være identiske). C og D risikerer nå å bli hengende (selv om forgjenger B er uendret). Dersom intet annet refererer dem, en tag eller noe, risikerer disse (med tid og stunder, kanskje etter 30 dager) å bli slettet av *garbage collector* (GC). Disse risikerer å bli såkalt *unreachable* (man kan gjenskapes via **reflog** fram til en GC finner sted).
 
 Dette betyr at *reset* primært er ment for å rulle tilbake i versjoner, kanskje angre en *commit* ved feilskrevet melding etc. Lite endres direkte (særlig ved *soft reset*), men etterfølgende modifisering vil endre referansene og gjøre kommandoene nokså gjennomgripende like fullt.
 
@@ -831,7 +831,7 @@ git switch --detached commit:
     TRE ← INDEKS ← REPO.commit
 ```
 
-I den første skjer det intet med MAIN. Den peker fortsatt på siste *commit* på sin gren. HEAD blir isteden satt til å peke på en annen gren, referert til med GREN, og denne igjen peker på sin siste *commit* på grenen. Dette øyeblikksbilde overføres så både til både INDEKS og TRE, slik totaltilstanden blir identisk med hva den var da det aktuelle øyeblikksbildet ble *commited*. Dette er nettopp hva man ønsker om man vil jobbe men en annen versjon av prosjektet.
+I den første skjer det intet med MAIN. Den peker fortsatt på siste *commit* på sin gren. HEAD blir isteden satt til å peke på en annen gren, referert til med GREN, og denne igjen peker på sin siste *commit* på grenen. Dette øyeblikksbilde overføres så både til både INDEKS og TRE, slik totaltilstanden blir identisk med hva den var da det aktuelle øyeblikksbildet ble *commited*. Dette er nettopp hva man ønsker, om man vil jobbe med en annen versjon av prosjektet.
 
 I den andre skjer heller ingenting med MAIN. HEAD peker altså direkte på den spesifiserte *commiten* (HEAD-filen får hash-verdien som innhold, *detached*-mode), og øyeblikksbildet overføres både til INDEKS og TRE.
 
@@ -861,7 +861,7 @@ Uten `--source` er det *commit* utpekt av HEAD og aktiv gren som legges til grun
 
 - I den første kommandoen, `git restore <fil>`, velges kildefilene fra INDEKS og kopieres til TRE (siden verken kilde eller mål er oppgitt).
 
-- I `git restore --staged <fil>` er mål INDEKS oppgitt (`--staged`) oppgitt, så kildefiler velges nødvendigvis fra **commit.repo** og kopieres over i INDEKS.
+- I `git restore --staged <fil>` er mål INDEKS (`--staged`) oppgitt, så kildefiler velges nødvendigvis fra **commit.repo** og kopieres over i INDEKS.
 
 - I `git restore --source=<commit> <fil>:` oppgis **REPO.commit** som kilde, men intet mål, så filer kopier fra derfra over i TRE.
 
@@ -879,7 +879,7 @@ Kommandoen
 git merge <gren-1> <gren-2>
 ```
 
-*fletter* sammen to grener. Man kan godt tenke seg at Git *slår sammen* de to grenene til én, hvilket gjerne er det man ønsker, men strengt att er det ikke nøyaktig det som skjer. Situasjoner er typisk et en ekstra gren er satt opp for å eksperimentere med en ny funksjon. Og, når funksjonen er moden for det, kan man ønske å slå disse sammen igjen. Men Git er tro mot sitt prinsipp om at alt skal kunne gjenskapes, så den fletter dem egentlig sammen til en gren hvor historikken ligger som en slags løkke i historikken. For å forklare dette skal vi først se på et lineært eksempel (**fast forward merge**) før vi ser på to eksempler med overlappende grener i **no fast forward merge**.
+*fletter* sammen to grener. Man kan godt tenke seg at Git *slår sammen* de to grenene til én, hvilket gjerne er det man ønsker, men strengt tatt er det ikke nøyaktig det som skjer. Situasjoner er typisk at en ekstra gren er satt opp for å eksperimentere med en ny funksjon. Og, når funksjonen er moden for det, kan man ønske å slå disse sammen igjen. Men Git er tro mot sitt prinsipp om at alt skal kunne gjenskapes, så den fletter dem egentlig sammen til en gren hvor historikken ligger som en slags løkke i historikken. For å forklare dette skal vi først se på et lineært eksempel (**fast forward merge**) før vi ser på to eksempler med overlappende grener i **no fast forward merge**.
 
 #### 🔸 Fast forward merge
 
@@ -935,7 +935,7 @@ git switch FEATURE
 git merge MAIN
 ```
 
-Sammenflettinger kan medføre konflikter, som ikke er direkte vist her, men som vil være en del av bildet M, omtalt mer nedenfor. Sluttresultatet i de to tilfellene kan oppsummeres grafisk med
+Sammenflettinger kan medføre konflikter, som ikke er direkte vist her, men som vil være en del av bildet M, omtalt nedenfor. Sluttresultatet i de to tilfellene kan oppsummeres grafisk med
 
 ```text
       B ──────── M  ← MAIN ← HEAD
@@ -1015,7 +1015,7 @@ Om Git støter på konflikter underveis, stopper prosessen og overlater til bruk
 git cherry-pick --continue
 ```
 
-Se kapittelet om **Konflikthåndtering**.
+Se kapittelet om **Konflikthåndtering** for flere detaljer.
 
 Bruker kan når som helst abortere en *cherry-pick* og gå tilbake til utgangspunktet med:
 
@@ -1084,7 +1084,7 @@ Dvs, man må
 
 - Generere SSH-nøkler lokalt.
 
-❗Merk at det krever to passordfraser, ett for GitHub-kontoen og ett for SSH-nøklene. (Ved bruke av ekstra-PC, kreves ytterliger ett sett SSH og et tilhørende passord.)
+❗Merk at det krever to passordfraser, ett for GitHub-kontoen og ett for SSH-nøklene. (Ved bruke av ekstra-PC, kreves ytterliger ett sett SSH med tilhørende passord.)
 
 Kommandoen for å generere SSH-nøkler er:
 
@@ -1126,7 +1126,7 @@ ssh -T git@github.com
 
 ### 2️⃣ Opprette eksternt repository på GitHub
 
-Neste steg er å opprette eksternt REPO. Velg et passende prosjektnavn, avgjør om det skal være privat eller offentlig tilgjengelig etc.
+Neste steg er å opprette eksternt REPO. Velg et passende prosjektnavn og avgjør om det skal være privat eller offentlig tilgjengelig etc.
 
 ❗ Om du allerede har et prosjektet med følgende filer, så ikke huk av for:
 
@@ -1149,7 +1149,7 @@ git add README.md
 git commit -m "First commit"
 ```
 
-Om du allerede har et lokalt Git-prosjekt, sørg for å gjøre `add` og `commit` og sjekk at du står på riktig gren.
+Om du allerede har et lokalt Git-prosjekt, sørg for å gjøre `add` og `commit`, og sjekk at du står på riktig gren.
 
 Uansett vil et lokalt Git-prosjekt eksistere, og du skal gjøre:
 
@@ -1245,7 +1245,7 @@ git clone git@github.com:<bruker>/<prosjekt>.git
 
 fra katalogen arbeidskatalogen (som blir opprettet i kallet) skal ligge på. Selve katalognavnet for prosjektet kan godt navnendres om prosjektnavnet ikke skal være katalognavnet.
 
-Dersom man ønsker å samarbeide med eksterne brukere, må de først gis tilgang til GitHub-repoet. De må ha Git installert og ha SSH-nøkler etc. før prosjektet klones. Konflikter i filer kan forekomme når flere modifiserer, *commiter* og pusher. Konflikter løses lokalt.
+Dersom man ønsker å samarbeide med eksterne brukere, må de først gis tilgang til GitHub-repoet. De må ha Git installert og ha SSH-nøkler etc. før prosjektet klones. Konflikter i filer kan forekomme når flere modifiserer, *commiter* og pusher. Konflikter løses lokalt (se neste kapittel).
 
 Har man mange Git-prosjekter, kan man over tid glemme hvilke som er lokale og hvilke som er ikke-lokale. Kommandoene
 
@@ -1258,8 +1258,6 @@ git remote -v
 ```
 
 fra prosjektets hjemmekatalog sjekker dette. For ikke-lokale REPO gir førstnevnte `origin` som svar, den andre nærmere informasjon om navn mm. Lokale REPO gir ingen output.
-
-Man kan også
 
 For å se hvilke Git-prosjekter man har, både lokal og ikke-lokale, kan man utføre følgende (denne finner alle `.git`-kataloger)
 
