@@ -2,25 +2,29 @@
 
 Dette heftet gir en introduksjon til Git. Den viser grunnleggende eksempler og bruk i del 1, og går litt mer i dybden på implementering og detaljer i del 2.
 
-Heftet retter seg mot brukere med ikke altfor avanserte behov, men som likevel ønsker trygghet og forståelse i det man gjør. Det retter seg ikke primært mot kodere eller større samarbeidsprosjekter, men kanskje heller mot folk som skriver, dokumenterer eller koder mer hobbypreget, uten å være del av et større team. Å kunne jobbe sømløst på flere PC-er, ha et enkelt, trygt system for ekstern backup, kunne lage/eksperimentere med ulike versjoner med full oversikt, er likevel viktig. Og Git kan *virkelig* forenkle hverdagen for slike brukere vesentlig. Mange er de som brukt mye energi på å holde orden på backuper og ulike versjoner på hjemmesnekret vis. Kanskje har de slitt med å finne *Tutorials* som verken er for overflatiske eller for avanserte. Dette heftet forsøker å være til hjelp for slike brukere.
+Heftet retter seg mot brukere med ikke altfor avanserte behov, men som likevel ønsker trygghet og forståelse i det man gjør. Det retter seg ikke primært mot kodere eller større samarbeidsprosjekter, men kanskje heller mot folk som skriver, dokumenterer eller koder mer hobbypreget, uten å være del av et større team. Å kunne jobbe sømløst på flere PC-er, ha et enkelt, trygt system for ekstern backup, kunne lage/eksperimentere med ulike versjoner med full oversikt, er likevel viktig. Og Git kan *virkelig* forenkle hverdagen for slike brukere vesentlig. Mange er de som brukt mye energi på å holde orden på backuper og ulike versjoner på hjemmesnekret vis. Kanskje har de også slitt med å finne *Tutorials* som verken er for overflatiske eller for avanserte. Dette heftet forsøker å være til hjelp for slike brukere.
 
-Heftet tar bl.a. for seg hvordan man setter opp forbindelser mot [GitHub](https://github.com/) (for ekstern overførsel) fra en eller flere PC-er.
+Heftet tar bl.a. for seg hvordan man setter opp forbindelser mot [GitHub](https://github.com/) (for ekstern overførsel) fra en eller flere PC-er. Linux legges til grunn som operativsystem, og Git er der inkludert i de fleste distroer (eller lar seg lett installere).
 
-Ulike Git-kommandoer blir vist og forklart. Det kan likevel være lurt å benytte en editor som [Visual Code Studio](https://code.visualstudio.com/). Git aksesseres der via et menybasert grensesnitt, og visse operasjoner, som å angre ting, er enklere der. Påminnelser på ting man bør gjøre, får man også. Men det er uansett nyttig å ha en god forståelse i bunn. Og har man det, er jobbing med systemer som Git på Visual Code Studio enkelt og vil ikke bli behandlet spesielt.
+Ulike Git-kommandoer blir vist og forklart. Det kan likevel være lurt å benytte en editor som [Visual Code Studio](https://code.visualstudio.com/). Git aksesseres der via et menybasert grensesnitt, og visse operasjoner, som å angre ting, er enklere der. Påminnelser på ting man bør gjøre, får man også. Men det er uansett nyttig å ha en god forståelse i bunn. Og har man det, er jobbing med systemer som Git på Visual Code Studio enkelt, og vil ikke bli behandlet spesielt.
 
-Det kan også nevnes at Git har et et godt, gjennomtenkt design. Filosofien er at alt skal kunne gjenskapes, intet skal gå tapt og brukeren kan vanskelig gjøre feil som gjør at data og versjoner forsvinner. Som det ofte sies:
+Det kan også nevnes at Git har et et godt, gjennomtenkt design. Filosofien er at alt skal kunne gjenskapes, intet skal gå tapt, og brukeren kan vanskelig gjøre feil som gjør at data og versjoner forsvinner. Som det ofte sies:
 
 -- *If it’s hard to do something stupid, the design is good.*
+
+```text
+   ____ _ _   
+  / ___(_) |_ 
+ | |  _| | __|
+ | |_| | | |_ 
+  \____|_|\__|
+```
 
 ---
 
 ## 📕 Systemet
 
-Her ser vi strukturen Git-systemet bygger på. Man har
-
-- **Working directory** (her kalt **TRE**)
-- **Staging area** (her kalt **INDEKS**) og
-- **Git directory** (her kalt **REPO**):
+Her ser vi strukturen Git-systemet bygger på:
 
 ```text
 ┌──────────────────────┐
@@ -33,7 +37,7 @@ Her ser vi strukturen Git-systemet bygger på. Man har
 │     Staging Area     │
 │       (INDEX)        │
 └──────────┬───────────┘
-           │  git commit
+           │ 
            ▼
 ┌──────────────────────┐
 │    Git Directory     │
@@ -41,9 +45,13 @@ Her ser vi strukturen Git-systemet bygger på. Man har
 └──────────────────────┘
 ```
 
-Ved bruk av et fjernsystem som GitHub, kommer det inn som et fjerde element i tillegg. (Behandles senere i dokumentet.)
+Man har
 
-De tre elementene korresponderer til de tre stadiene en fil kan være i under Git:
+- **Working directory** (her kalt **TRE**)
+- **Staging area** (her kalt **INDEKS**) og
+- **Git directory** (her kalt **REPO**)
+
+Ved bruk av et fjernsystem som GitHub, kommer det inn som et fjerde element i tillegg (hvilket behandles senere i dokumentet). De tre elementene korresponderer til de tre stadiene en fil kan være i under Git:
 
 - Modifisert: Filen er endret, men ennå ikke sendt videre i Git-systemet
 - Sendt til INDEKS: Filen er markert i sin nåværende versjon for å bli med i neste *commit*
@@ -65,11 +73,9 @@ A---B---C---D---E  ← MAIN
                         HEAD
 ```
 
-Her ser vi en illustrasjon av et i prosjekt organisert to grener som består av hhv. fire og to øyeblikksbilder. Sistnevnte gren forgrenes ut fra hovedgrenens andre øyeblikksbilde.
+Her ser vi en illustrasjon av et i prosjekt organisert to grener av øyeblikksbilder. Vi ser også noen andre viktige elementer i Git her, nemlig:
 
-Vi ser også noen andre viktige elementer i Git, nemlig:
-
-- pekeren HEAD, som peker på aktivt øyeblikksbilde, samt
+- pekeren HEAD, som indirekte peker på aktivt øyeblikksbilde, samt
 - to gren-pekere (her kalt MAIN og FEATURE) som peker på de to grenene.
 
 Vi kommer tilbake til hvordan disse egentlig er implementert.
@@ -124,13 +130,13 @@ git  add <fil>
 
 Man kan legge til alle modifiserte filer ved
 
-```r
+```nginx
 git  add -A
 ```
 
 eller
 
-```r
+```nginx
 git  add .
 ```
 
@@ -138,13 +144,13 @@ Sistnevnte gjelder bare for **nåværende katalog**.
 
 Man kan også foreta et *dry run* for å se hvilke filer som vil bli sendt til INDEKS ved:
 
-```r
+```nginx
 git add -n -A
 ```
 
 Kommandoen
 
-```r
+```nginx
 git add -u
 ```
 
@@ -160,7 +166,7 @@ Man kan til se hvilke filer som er *modifisert* og hvilke som er sendt til INDEK
 git status
 ```
 
-```r
+```nginx
 git status -s
 ```
 
@@ -243,7 +249,7 @@ så alt er klargjort for en oppfølgende *commit*.
 
 For å slette en fil i TRE kan man gjøre
 
-```bash
+```html
 git rm <fil>
 ```
 
@@ -256,7 +262,7 @@ Man kan for så vidt også slette filen fra arbeidskatalogen (ved `rm`) og legge
 
 Dersom man ønsker å beholde filen lokalt, men bare fjerne den fra Git, kan man dessuten gjøre
 
-```bash
+```html
 git rm --cached <fil>
 ```
 
@@ -295,19 +301,19 @@ git branch
 
 Denne viser i tillegg alle ikke-lokale:
 
-```r
+```nginx
 git branch -a
 ```
 
 og denne bare de ikke-lokale:
 
-```r
+```nginx
 git branch -r
 ```
 
 Mer spesifikk informasjon relatert til ekstern REPO fås fra:
 
-```r
+```nginx
 git branch -vv
 ```
 
@@ -369,7 +375,7 @@ git diff HEAD
 
 Om man vil sammenligne INDEKS OG HEAD, kan man gjøre:
 
-```r
+```nginx
 git diff --staged
 ```
 
@@ -433,19 +439,19 @@ git tag -a <tag-navn> -m "melding" <commit>
 
 Vi kan liste tags ved
 
-```r
+```nginx
 git tag
 ```
 
 evt. ved
 
-```r
+```nginx
 git tag -l
 ```
 
 der siste kan kombineres med et mønster som `v-2*` for eksempelvis å vise alle *versjon 2-tags*, altså slik:
 
-```r
+```nginx
 git tag -l "-2*"
 ```
 
@@ -459,7 +465,7 @@ viser *commit*-tag og eventuelle annotasjoner.
 
 Man sletter en bestemt tag ved:
 
-```r
+```html
 git tag -d <tag>
 ```
 
@@ -491,21 +497,21 @@ git fetch --tags
 
 Syntaksen er
 
-```bash
+```nginx
 git archive [options] <commit/branch/tag> [paths]
 ```
 
 Her ser vi noen eksempler:
 
-```bash
+```nginx
 git archive -o project-main.zip main
 ```
 
-```bash
+```nginx
 git archive -o project.tar 1a2b3c4
 ```
 
-```bash
+```nginx
 git archive main | tar -x -C /tmp/project
 ```
 
@@ -523,11 +529,11 @@ Typisk pusher man en eller flere arbeidsfiler til et stash-område. Deretter kan
 
 Her ser vi push uten og med en beskrivelse:
 
-```bash
+```html
 git stash push <fil-1> <fil-2>
 ```
 
-```bash
+```html
 git stash push -m "Beskrivelse" <fil-1>
 ```
 
@@ -535,25 +541,25 @@ Globbing av filer er ikke støttet her.
 
 Man kan *stashe* alle modifiserte filer ved:
 
-```bash
+```nginx
 git stash
 ```
 
 Dette følgende lister alle:
 
-```bash
+```nginx
 git stash list
 ```
 
 Her hentes arbeidsfilene tilbake:
 
-```bash
+```nginx
 git stash pop
 ```
 
 og det samme skjer her,  men man lar dem bli værende på *stash*-området:
 
-```bash
+```nginx
 git stash apply
 ```
 
@@ -563,7 +569,7 @@ git stash apply
 
 Man kan få hjelp via manualsider til ulike kommandoer, både i kort og langt format. Den første er for korte beskrivelser, de to andre for lengre (like) output:
 
-```nginx
+```html
 git <command> -h
   ```
 
@@ -577,7 +583,7 @@ git help <command>
 
 Man kan også få en liste over alle kommandoer ved:
 
-```r
+```nginx
 git help -a
 ```
 
@@ -756,7 +762,7 @@ Det som ikke nevnes er uforandret.
 
 Man kaller
 
-```bash
+```html
 git reset <styrke> <commit>
 ```
 
@@ -869,7 +875,7 @@ Man kan også benytte git restore opsjonen `---patch` for å få en interaktiv *
 
 Kommandoen
 
-```bash
+```html
 git merge <gren-1> <gren-2>
 ```
 
@@ -887,7 +893,7 @@ A ── B ── C  ← MAIN ← HEAD
 
 For å utføre `merge` her må man første sørge for å stå på gren MAIN,og så kalle `merge` som følger:
 
-```bash
+```h
 git switch main
 git merge feature
 ```
@@ -915,7 +921,7 @@ Vi kan flette sammen på to måter:
 
 - *merge* FEATURE på MAIN (hvilket skjer ved):
 
-```bash
+```h
 git switch MAIN
 git merge FEATURE
 ```
@@ -924,7 +930,7 @@ eller
 
 - *merge* MAIN på FEATURE (hvilket skjer ved):
 
-```bash
+```h
 git switch FEATURE
 git merge MAIN
 ```
@@ -957,7 +963,7 @@ I begge tilfeller beregnes et øyeblikksbilde **M** med oppdatert innhold og to 
 
 Ved konflikter blir dialogen annerledes, og brukeren får dessuten ansvaret for å løse dem. I dette tilfellet må brukeren også utføre en etterfølgende.
 
-```bash
+```nginx
 git commit -m "Beskrivelse"
 ```
 
@@ -965,7 +971,7 @@ Dette gjøres automatisk når det ikke er konflikter.
 
 En merge kan dessuten aborteres underveis ved:
 
-```bash
+```nginx
 git merge --abort
 ```
 
@@ -985,7 +991,7 @@ Ant f.eks. vi har følge tre av commits:
 
 og ønsker å foreta *cherry-pick* av *commit* E fra FEATURE over på MAIN. Man må da forsikrer seg om at man står på MAIN, og så utfører `git cherry-pick` med referanse til commit E i form av en hash eller tag:
 
-```bash
+```h
 git switch main
 git cherry-pick <E>
 
@@ -1005,7 +1011,7 @@ E' blir altså her den nye *commiten* som inneholder de samme endringene som E, 
 
 Om Git støter på konflikter underveis, stopper prosessen og overlater til brukeren å løse opp. Deretter igangsettes prosessen igjen med:
 
-```bash
+```nginx
 git cherry-pick --continue
 ```
 
@@ -1013,7 +1019,7 @@ Se kapittelet om **Konflikthåndtering**.
 
 Bruker kan når som helst abortere en *cherry-pick* og gå tilbake til utgangspunktet med:
 
-```bash
+```nginx
 git cherry-pick --abort
 ```
 
@@ -1025,13 +1031,13 @@ git cherry-pick --abort
 
 Om Git støter på konflikter underveis, stopper prosessen så brukeren kan løse opp. Prosessen igangsettes igjen med:
 
-```bash
+```h
 git rebase --continue
 ```
 
 Bruker kan når som helst abortere og gå tilbake til utgangspunktet med:
 
-```bash
+```h
 git rebase --abort
 ```
 
@@ -1045,7 +1051,7 @@ A ── B ── C  ← MAIN
 
 og skal gjøre en rebase fra FEATURE over på MAIN. Man forsikrer seg da at at man står på FEATURE, og så gjøre `rebase main`:
 
-```bash
+```h
 git switch feature
 git rebase main
 ```
@@ -1082,7 +1088,7 @@ Dvs, man må
 
 Kommandoen for å generere SSH-nøkler er:
 
-```bash
+```html
 ssh-keygen -t ed25519 -C <e-post>
 ```
 
@@ -1147,7 +1153,7 @@ Om du allerede har et lokalt Git-prosjekt, sørg for å gjøre `add` og `commit`
 
 Uansett vil et lokalt Git-prosjekt eksistere, og du skal gjøre:
 
-```bash
+```html
 git remote add origin git@github.com:<brukernavn>/<prosjektnavn>.git
 git push -u origin <gren>
 ```
