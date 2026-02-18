@@ -591,7 +591,7 @@ git help -a
 
 ## 📕 Git: En detaljert kikk
 
-For å forstå Git bedre og å kunne håndtere enkelte kommandoer riktig, trenger vi å dykke mer ned i detaljene. Vi må vite litt om hvordan øyeblikksbilder egentlig ser ut og hvordan de ulike pekerne fungerer. Dessuten må se på hvordan man kan referere ting i git-kommandoer. La oss starte der.
+For å forstå Git bedre og å kunne håndtere enkelte kommandoer riktig, trenger vi å dykke mer ned i detaljene. Vi må vite litt om hvordan øyeblikksbilder egentlig ser ut og hvordan de ulike pekerne fungerer. Dessuten må vi se på hvordan man kan referere ting i git-kommandoer. La oss starte der.
 
 ---
 
@@ -689,7 +689,7 @@ git cat-file -p <commit>
 
 *Commit*-hash er hash-verdien av hele datastrukturen.
 
-Tre-hashen er kort fortalt er hash av en binær serialisering av lister over filer og mapper, navn og typer, samt hash til BLOBs (*binary large objects*) og subtrær. BLOBs kan vi si utgjør en binærrepresentasjon av filinnhold. Systemet gjør nye hash-beregninger etter behov. Trær og blobs gjenbrukes, og Git operer effektivt både mht. til ytelse og lagringsmessig.
+Tre-hashen er kort fortalt en hash av en binær serialisering av lister over filer og mapper, navn og typer, samt hash til BLOBs (*binary large objects*) og subtrær. BLOBs kan vi si utgjør en binærrepresentasjon av filinnhold. Systemet gjør nye hash-beregninger etter behov. Trær og blobs gjenbrukes, og Git operer effektivt både mht. til ytelse og lagringsmessig.
 
 Et øyeblikksbilde kjenner sine foreldre, men ingen av sine besteforeldre osv. Historikken kan imidlertid nøstes opp ved å følge rekker av foreldre bakover.
 
@@ -699,7 +699,7 @@ Det er mulig å grave enda dypere ned, men dette holder trolig for vårt formål
 
 ### ▶️ HEAD og gren-pekere
 
-Vi må se litt nærmere på hvordan peker HEAD og gren-pekere er implementert og virker. Vi husker at HEAD (konseptuelt) peker på aktivt øyeblikksbilde, mens gren-pekere (konseptuelt) peker på hver sin gren. Begge deler er imidlertid vanlige tekstfiler. HEAD ligger på `.git`, mens de sistnevnt ligger på `.git/refs/heads` og har filnavn som tilsvarer grennavnet (én fil for hver gren).
+Vi må se litt nærmere på hvordan peker HEAD og gren-pekere er implementert. Vi husker at HEAD (konseptuelt) peker på aktivt øyeblikksbilde, mens gren-pekere (konseptuelt) peker på hver sin gren. Begge deler er imidlertid vanlige tekstfiler. HEAD ligger på `.git`, mens de sistnevnt ligger på `.git/refs/heads` og har filnavn som tilsvarer grennavnet (én fil for hver gren).
 
 En grenpeker, som f.eks. MAIN, inneholder hash-verdien til et øyeblikksbilde (normalt siste øyeblikksbilde på grenen), som f.eks:
 
@@ -713,7 +713,7 @@ HEAD, på sin side, inneholder (i normal tilstand) referanse til en gren i form 
 ref: refs/heads/main
 ```
 
-I noen tilfeller (som vi skal se) inneholder den imidlertid bare hash-verdien til et bestemt øyeblikksbilde. HEAD sises da å være *detached* eller i *detached* tilstand, hvilket er utnyttes i enkelt kommandoer.
+I noen tilfeller (som vi skal se) inneholder den imidlertid bare hash-verdien til et bestemt øyeblikksbilde. HEAD sises da å være *detached* eller i *detached* tilstand, hvilket utnyttes i enkelt kommandoer.
 
 Men i normaltilstand, når man sier "HEAD peker på øyeblikksbilde D", så betyr det egentlig at HEAD peker på MAIN, som i sin tur peker på bilde D:
 
@@ -725,7 +725,7 @@ HEAD → MAIN → D
 
 ### ▶️ Forutsetninger og antakelser videre
 
-Vi skal nå se mer detaljer på hva som endrer seg og ikke ifm. viktige kommandoer. Dette er ofte helt avgjørende for å forstå og se forskjeller på beslektede kommandoer. Konkret bør man se på hva som endres av
+Vi skal nå se mer i detalj på hva som endrer seg og ikke ifm. viktige kommandoer. Dette er ofte helt avgjørende for å forstå og se forskjeller på beslektede kommandoer. Konkret bør man se på hva som endres av
 
 - **TRE**
 - **INDEKS**
@@ -733,15 +733,15 @@ Vi skal nå se mer detaljer på hva som endrer seg og ikke ifm. viktige kommando
 - **HEAD**
 - **MAIN**
 
-Vi antar her at MAIN er aktuell gren. VI antar videre at utgangssituasjon er i en normaltilstand der MAIN og HEAD peker ut siste commit på aktiv gren.
+Vi antar her at MAIN er aktuell gren. VI antar videre at utgangssituasjonen er i en normaltilstand der MAIN og HEAD peker ut siste commit på aktiv gren.
 
 Vi lar også
 
 - **REPO.commit**
 
-referer den spesifikke *commiten* det refereres til i kommandoer (evt. velges nærmere angitte bokstavsymboler).
+referere den spesifikke *commiten* det refereres til i kommandoer (evt. velges nærmere angitte bokstavsymboler).
 
-For å eksemplifisere: Vi har sett på kommandoene `add` og `commit`. Disse er enkle i denne sammenheng. `add` påvirker ikke REPO, HEAD, eller MAIN, men sørger for at et øyeblikksbilde av TRE sendes til INDEKS. *Commit* legger på sin side øyeblikksbildet på INDEKS over i følgen av øyeblikksbilder på REPO, mens HEAD fortsatt peker på MAIN, og MAIN oppdateres til å peke på ny *commit*.
+For å eksemplifisere: Vi har sett på kommandoene `add` og `commit`. Disse er enkle i denne sammenheng. `add` påvirker ikke REPO, HEAD eller MAIN, men sørger for at et øyeblikksbilde av TRE sendes til INDEKS. *Commit* legger på sin side øyeblikksbildet på INDEKS over i følgen av øyeblikksbilder på REPO, mens HEAD fortsatt peker på MAIN, og MAIN oppdateres til å peke på ny *commit*.
 
 Dette kan illustreres ved:
 
@@ -813,7 +813,7 @@ La oss nå se på den beslektede kommandoen `switch`.
 
 ### ▶️ Switch
 
-Switch kommer i to varianter: `git switch <gren>` som hopper til ny gren, og `git switch --detached <commit>` som hopper et spesifikt *commit*. I den første blir HEAD satt til å peke på ny gren, i den andre havner HEAD i detached mode og pekende på den aktuelle *commiten*.
+Switch kommer i to varianter: `git switch <gren>` som hopper til ny gren, og `git switch --detached <commit>` som hopper til et spesifikt *commit*. I den første blir HEAD satt til å peke på ny gren, i den andre havner HEAD i *detached mode* og pekende på den aktuelle *commiten*.
 
 Vi kan oppsummere virkningene ved
 
@@ -831,7 +831,7 @@ git switch --detached commit:
     TRE ← INDEKS ← REPO.commit
 ```
 
-I den første skjer det intet med MAIN. Den peker fortsatt på siste *commit* på sin gren. HEAD blir isteden satt til å peke på en annen gren, referert til med GREN, og denne igjen peker på sin siste *commit* på grenen. Dette øyeblikksbilde overføres så både til både INDEKS og TRE, slik totaltilstanden blir identisk med hva den var da det aktuelle øyeblikksbildet ble *commited*. Dette er nettopp hva man ønsker, om man vil jobbe med en annen versjon av prosjektet.
+I den første skjer det intet med MAIN. Den peker fortsatt på siste *commit* på sin gren. HEAD blir isteden satt til å peke på en annen gren, referert til med GREN, og denne igjen peker på sin siste *commit* på grenen. Dette øyeblikksbilde overføres så både til både INDEKS og TRE, slik at totaltilstanden blir identisk med hva den var da det aktuelle øyeblikksbildet ble *commited*. Dette er nettopp hva man ønsker, om man vil jobbe med en annen versjon av prosjektet.
 
 I den andre skjer heller ingenting med MAIN. HEAD peker altså direkte på den spesifiserte *commiten* (HEAD-filen får hash-verdien som innhold, *detached*-mode), og øyeblikksbildet overføres både til INDEKS og TRE.
 
@@ -857,7 +857,7 @@ git restore --source=<commit> --staged --worktree <fil>:
 
 Filer kan evt. spesifiseres med globbing som `*.md`. Uten filspesifisering vil alle filer i aktuell *commit* gjenskapes.
 
-Uten `--source` er det *commit* utpekt av HEAD og aktiv gren som legges til grunn i utvelgelse av kildefiler. Man kan også si at INDEKS er default som kilde og TRE default som mål (når de ikke spesifisere og innenfor det som gir mening).
+Uten `--source` er det *commit* utpekt av HEAD og aktiv gren som legges til grunn i utvelgelse av kildefiler. Man kan også si at INDEKS er default som kilde og TRE default som mål (når de ikke spesifiseres, og innenfor det som gir mening).
 
 - I den første kommandoen, `git restore <fil>`, velges kildefilene fra INDEKS og kopieres til TRE (siden verken kilde eller mål er oppgitt).
 
@@ -1027,7 +1027,7 @@ git cherry-pick --abort
 
 ### ▶️ Rebase
 
-`git rebase` flytter en serie *commits* fra en gren til toppen av en annen. Historikken skrives om, *Committene* blir nye commit-objekter med nye hash-verdier, og resultatet blir en lineær historie.
+`git rebase` flytter en serie *commits* fra en gren til toppen av en annen. Historikken skrives om, *Committene* blir nye *commit*-objekter med nye hash-verdier, og resultatet blir en lineær historie.
 
 Om Git støter på konflikter underveis, stopper prosessen så brukeren kan løse opp. Prosessen igangsettes igjen med:
 
@@ -1080,11 +1080,11 @@ For å sette et prosjekt opp mot GitHub, må man først sørge for:
 
 Dvs, man må
 
-- Lage konto på [GitHub](https://github.com/).
+- lage konto på [GitHub](https://github.com/).
 
-- Generere SSH-nøkler lokalt.
+- generere SSH-nøkler lokalt.
 
-❗Merk at det krever to passordfraser, ett for GitHub-kontoen og ett for SSH-nøklene. (Ved bruke av ekstra-PC, kreves ytterliger ett sett SSH med tilhørende passord.)
+❗Merk at det kreves to passordfraser, ett for GitHub-kontoen og ett for SSH-nøklene. (Ved bruke av ekstra-PC, kreves ytterliger ett sett SSH-nøkler med tilhørende passord.)
 
 Kommandoen for å generere SSH-nøkler er:
 
@@ -1094,7 +1094,7 @@ ssh-keygen -t ed25519 -C <e-post>
 
 (Argumentet `ed25519` ber bare om en public-key signaturalgoritme basert på elliptiske kurver.)
 
-Kommandoen outputer informasjon om hvor nøklene lagres samt fingerprint til offentlig nøkkel og en såkalt *random art* av nøkkelen.
+Kommandoen outputer informasjon om hvor nøklene lagres, samt fingerprint til offentlig nøkkel og en såkalt *random art* av nøkkelen.
 
 Fingerprint kan vises senere ved
 
@@ -1134,7 +1134,7 @@ Neste steg er å opprette eksternt REPO. Velg et passende prosjektnavn og avgjø
 - Add .gitignore
 - Add license
 
-ℹ️ *Default branch* i prosjektet på GitGub forlanges fordi en av versjonene (grenene) av prosjektet må være prosjektet ansikt utad.
+*Default branch* i prosjektet på GitGub forlanges fordi en av versjonene (grenene) av prosjektet må være prosjektets ansikt utad.
 
 ---
 
@@ -1161,7 +1161,7 @@ git push -u origin <gren>
 Fordelen ved å benytte opsjonen `-u`, er at man:
 
 1. siden slipper og angi gren i ``pull` og `push`
-2. *Default branch* i prosjektet på GitHub settes iht. til dette.
+2. *default branch* i prosjektet på GitHub settes iht. til dette.
 
 Endelsen `.git` kan droppes i ovennevnte kommando.
 
@@ -1243,7 +1243,7 @@ Om man vil jobbe med prosjektet på annen PC, bør man først ha initialisert Gi
 git clone git@github.com:<bruker>/<prosjekt>.git
 ```
 
-fra katalogen arbeidskatalogen (som blir opprettet i kallet) skal ligge på. Selve katalognavnet for prosjektet kan godt navnendres om prosjektnavnet ikke skal være katalognavnet.
+fra der arbeidskatalogen (som blir opprettet i kallet) skal ligge på. Selve katalognavnet for prosjektet kan godt navnendres om prosjektnavnet ikke skal være katalognavnet.
 
 Dersom man ønsker å samarbeide med eksterne brukere, må de først gis tilgang til GitHub-repoet. De må ha Git installert og ha SSH-nøkler etc. før prosjektet klones. Konflikter i filer kan forekomme når flere modifiserer, *commiter* og pusher. Konflikter løses lokalt (se neste kapittel).
 
@@ -1299,7 +1299,7 @@ Unmerged paths:
   both modified:   chapter/35.md
 ```
 
-- Andre punkt er åpne filene (f.eks i VSCode). På steder i filene vil konfliktene være markert noe tilsvarende dette:
+- Andre punkt er åpne disse filene (f.eks i VSCode). På steder i filene vil konfliktene være markert noe tilsvarende dette:
 
 ```yaml
 <<<<<<< HEAD
@@ -1319,7 +1319,7 @@ Utføre gjerne `git status` underveis om antall filer er stort.
 
 I noen tilfeller er dette greit og forståelig, som hvis avbruddet oppstod under en `rebase` eller `cherry-pick`. Disse har en egen `--continue`-opsjon som skal benyttes. Andre operasjoner som `merge`, `git push`, en **sync** i VSCode m.fl. har ikke denne opsjonen, og det er mindre klart hva som menes med "å fortsette". Ikke nok med det, VSCode kan liste tips med flere alternativer, så hva gjør man?
 
-Igjen ligger løsningen i output fra `git status`. Den forteller også som skal fortsettes, og oversikten under viser hvilke kall som fortsetter og fullfører den tilhørende operasjonen:
+Igjen ligger løsningen i output fra `git status`. Den forteller også om hva som skal fortsettes, og oversikten under viser hvilke kall som fortsetter og fullfører den tilhørende operasjonen:
 
 ```yaml
 KONFLIKT OPPSTOD UNDER   UTFØR            
@@ -1328,7 +1328,7 @@ rebase:                  git rebase --continue
 cherry-pick:             git cherry-pick --continue`
 ```
 
-I `git status`-eksemplet over kan vi se at det nevnes **unmerged paths** der, dvs. en **merge** ble avbrutt, og riktig fortsettelse ville vært `git commit`.
+I `git status`-eksemplet over kan vi se at det nevnes **unmerged paths**, dvs. en **merge** ble avbrutt, og riktig fortsettelse ville vært `git commit`.
 
 ---
 
