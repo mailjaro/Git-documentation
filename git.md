@@ -1084,7 +1084,7 @@ Dvs, man må
 
 - generere SSH-nøkler lokalt.
 
-❗Merk at det kreves to passordfraser, ett for GitHub-kontoen og ett for SSH-nøklene. (Ved bruke av ekstra-PC, kreves ytterliger ett sett SSH-nøkler med tilhørende passord.)
+❗ Merk at det kreves to passordfraser, ett for GitHub-kontoen og ett for SSH-nøklene. (Ved bruke av ekstra-PC, kreves ytterliger ett sett SSH-nøkler med tilhørende passord.)
 
 Kommandoen for å generere SSH-nøkler er:
 
