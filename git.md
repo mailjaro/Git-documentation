@@ -1330,6 +1330,19 @@ cherry-pick:             git cherry-pick --continue`
 
 I `git status`-eksemplet over kan vi se at det nevnes **unmerged paths**, dvs. en **merge** ble avbrutt, og riktig fortsettelse ville vært `git commit`.
 
+Det kan også oppstå situasjoner som minner om en konflikt, men som egentlig er bedre å tenke på som *divergerende grener*. Selv når bare én bruker oppdaterer et prosjekt fra to PC-er, kan dette lett oppstå. Det typisk er at man gjør en liten modifisering på én PC og synes mengden er for liten til å foreta `add + commit`. Og når man siden gjør en større endring (med `add + commit`) på annen PC, har man divergerende grener. Foreløpig er det ingen konflikt (det blir det først når man prøver å slå den sammen), så `git status` og `git pull` vet ikke hva de skal gjøre (men lister alternativer f). Da må man vurdere situasjonen, se nærmere på hvordan `merge`, `rebase`, `cherry-picks` etc. vil virke. Men i det beskrevne (vanlige) tilfellet, der en ubetydelig gren og en mer betydelig gren skal forenes, kan det beste alternativet å foreta en **hard reset** fra "ubetydelig versjon":
+
+```bash
+git reset --hard origin/main
+```
+
+(eller hva nå den "viktige" grenen heter). Etter dette blir PC-ene enige om situasjonen og har "betydelige bilde" reflektert i TRE, INDEKS og REPO.
+
+**Moral**: Særlig når man editerer fra flere PC-er, er det viktig å:
+
+- alltid starte med `git fetch origin` og `git pull`
+- alltid avslutte med `git add -A` og `git commit`
+
 ---
 
 ## 📕 Nettressurser
