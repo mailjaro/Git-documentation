@@ -1341,7 +1341,7 @@ git reset --hard origin/main
 **Moral**: Særlig når man editerer fra flere PC-er, er det viktig å:
 
 - alltid starte med `git fetch origin` og `git pull`
-- alltid avslutte med `git add -A` og `git commit`
+- alltid avslutte med `git add -A`, `git commit` og `git push`
 
 ---
 
