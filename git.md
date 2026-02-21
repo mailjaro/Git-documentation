@@ -4,9 +4,9 @@ Dette heftet gir en introduksjon til Git. Den viser grunnleggende eksempler og b
 
 Heftet retter seg mot brukere med ikke altfor avanserte behov, men som likevel ønsker trygghet og forståelse i det man gjør. Det retter seg ikke primært mot kodere eller større samarbeidsprosjekter, men kanskje heller mot folk som skriver, dokumenterer eller koder mer hobbypreget, uten å være del av et større team. Å kunne jobbe sømløst på flere PC-er, ha et enkelt, trygt system for ekstern backup, kunne eksperimentere med ulike versjoner med full oversikt, er likevel viktig. Og Git kan *virkelig* forenkle hverdagen for slike brukere vesentlig. Mange er de som brukt mye energi på å holde orden på backuper og ulike versjoner på hjemmesnekret vis. Kanskje har de også slitt med å finne *Tutorials* som verken er for overflatiske eller for avanserte. Dette heftet forsøker å være til hjelp for slike brukere.
 
-Heftet tar bl.a. for seg hvordan man setter opp forbindelser mot [GitHub](https://github.com/) (for ekstern overførsel) fra en eller flere PC-er. Linux legges til grunn som operativsystem, er Git er inkludert i de fleste distroer (eller lett lar seg installere).
+Heftet tar bl.a. for seg hvordan man setter opp forbindelser mot [GitHub](https://github.com/) (for ekstern overførsel) fra en eller flere PC-er. Linux legges til grunn som operativsystem, der Git er inkludert i de fleste distroer (eller lett lar seg installere).
 
-Ulike Git-kommandoer blir vist og forklart. Det kan likevel være lurt å benytte en editor som [Visual Code Studio](https://code.visualstudio.com/). Git aksesseres der via et menybasert grensesnitt, og visse operasjoner, som å angre ting, er enklere. Påminnelser på ting man bør gjøre, får man også. Men det er uansett nyttig å ha en god forståelse i bunn. Og har man det, er jobbing med systemer som Git på Visual Code Studio enkelt, og det vil ikke bli behandlet spesielt.
+Ulike Git-kommandoer blir vist og forklart. Det kan likevel være lurt å benytte en editor som [Visual Code Studio](https://code.visualstudio.com/). Git aksesseres der via et menybasert grensesnitt, og visse operasjoner, som å angre ting, er enklere der. Påminnelser på ting man bør gjøre, får man også. Men det er uansett nyttig å ha en god forståelse i bunn. Og har man det, er jobbing med systemer som Git på Visual Code Studio enkelt, og dette vil ikke bli behandlet spesielt.
 
 Det kan også nevnes at Git har et et godt, gjennomtenkt design. Filosofien er at alt skal kunne gjenskapes, intet skal gå tapt, og brukeren kan vanskelig gjøre feil som gjør at data og versjoner forsvinner. Som det ofte sies:
 
@@ -61,9 +61,9 @@ Arbeidskatalogen utgjør den aktive, lokale utgaven av filtreet til prosjektet. 
 
 INDEKS er rent fysisk en fil og holder oversikt over om hva som skal med i neste *commit*.
 
-REPO inneholder objektdatabasen for prosjektet og lagrer alle versjoner, all historikk og alt av relasjoner gjennom prosjektet.
+REPO inneholder objektdatabasen for prosjektet og lagrer alle versjoner og alt av relasjoner gjennom prosjektet.
 
-Både INDEKS og REPO opererer på fulle øyeblikksbilder av prosjektet, såkalte *snapshots* eller *commits*. INDEKS inneholder øyeblikksbildet for neste *commit*, mens REPO inneholder hele følgen av øyeblikksbilder, hele historikken, fra oppstart til siste *commit*. Git lagrer selvsagt ikke hele filstrukturen i hver *commit*, men holder orden på endringer og sammenhenger for effektiv og plassbesparende utnyttelse.
+Både INDEKS og REPO opererer på fulle øyeblikksbilder av prosjektet, såkalte *snapshots* eller *commits*. INDEKS inneholder øyeblikksbildet for neste *commit*, mens REPO inneholder hele følgen av øyeblikksbilder fra oppstart til siste *commit*. Git lagrer selvsagt ikke hele filstrukturen i hver *commit*, men holder orden på endringer og sammenhenger for effektiv og plassbesparende utnyttelse.
 
 ```text
 A---B---C---D---E  ← MAIN
@@ -88,7 +88,7 @@ Vi kommer tilbake til hvordan disse egentlig er implementert.
 
 Ved ekstern versjonskontroll, som f.eks. ved bruk av GitHub, må man foreta et innledende `git pull` (for hente inn nyeste tre fra ekstern REPO) og et avsluttende `git push` (for å *synce* lokalt REPO med ekstern REPO) i tillegg.
 
-Ettersom prosjektet vokser, kan prosjektet grene ut i flere versjoner. Disse vil likevel være lagret i samme REPO. Alt av data, alt av historikk og referanser for å kunne gjenskape ulike versjoner i sin helhet, er lagret der.
+Ettersom prosjektet vokser, kan prosjektet grene ut i flere versjoner. Disse vil likevel være lagret i samme REPO. Alt av data og referanser for å kunne gjenskape ulike versjoner i sin helhet, er lagret der.
 
 Vi bør i oppstarten også nevne at vi kan skjerme bestemte filer og kataloger fra Git ved å inkludere dem i en tekstfil **.gitignore** øverst i arbeidskatalogen. Avhengig av type prosjekt, kan man velge å ikke følge bestemt filer.
 
@@ -96,7 +96,7 @@ Vi bør i oppstarten også nevne at vi kan skjerme bestemte filer og kataloger f
 
 ## 📕 Grunnleggende bruk
 
-Før vi går inn på flere Git-detaljer og ser nærmere på hvordan ting henger sammen, kan vi vise noen eksempler og kommandoer for grunnleggende bruk. Dette dekker normal aktivitet, og mange vil klare seg med dette. Noen kommandoer fins i både eldre og nyere varianter, og vi skal prøve å benytte de nyere. Vi fokuserer først på lokal bruk, og tar for oss hvordan man kobler seg på eksterne systemer som GitHub, for backup, samarbeid eller fjernaksess senere.
+Før vi går inn på flere Git-detaljer og ser nærmere på hvordan ting henger sammen, kan vi vise noen eksempler og kommandoer for grunnleggende bruk. Dette dekker normal aktivitet, og mange vil klare seg med dette. Noen kommandoer fins i både eldre og nyere varianter, og vi skal prøve å benytte de nyere. Vi fokuserer først på lokal bruk og senere ta for oss hvordan man kobler seg på eksterne systemer som GitHub, for backup, samarbeid eller fjernaksess.
 
 ---
 
