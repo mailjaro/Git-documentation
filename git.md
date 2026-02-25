@@ -1345,6 +1345,18 @@ git reset --hard origin/main
 
 ---
 
+## 📚 Andre hefter i serien
+
+📘 Linux: Det neste steget
+
+📘 Litt om VS Code
+
+📘 Litt om GPG
+
+📘 Litt om CSS
+
+---
+
 ## 📕 Nettressurser
 
 Her er et utvalg Git-ressurser tilgjengelig på nettet. I tillegg er det selvsagt mye å finne på [YouTube](https://www.youtube.com)
