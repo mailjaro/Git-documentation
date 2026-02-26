@@ -93,6 +93,7 @@ Ettersom prosjektet vokser, kan prosjektet grene ut i flere versjoner. Disse vil
 Vi bør i oppstarten også nevne at vi kan skjerme bestemte filer og kataloger fra Git ved å inkludere dem i en tekstfil **.gitignore** øverst i arbeidskatalogen. Avhengig av type prosjekt, kan man velge å ikke følge bestemt filer.
 
 **Merk**: Det anbefales å **ikke** følge filer som genereres av andre, som o- og exe-filer under C, eller filer produsert i andre formater fra en hovedfil. Dette er ikke primært for å spare plass, men å ikke forvanske en eventuelle konflikthåndteringer.  Konflikthåndtering er beskrevet nærmere i et eget underkapittel av GitHub-kapittelet, ettersom konflikter lettere oppstår i en *remote* situasjon med editering fra flere steder.
+
 ---
 
 ## 📕 Grunnleggende bruk
