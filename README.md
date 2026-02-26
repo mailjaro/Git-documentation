@@ -3,6 +3,10 @@
 > Et kort, lite og praktisk hefte om Git på Linux.  
 > Skrevet av Jan R Sandbakken.
 
+## Hovedfil
+
+Hovedfilen heter **git.md**. Øvrige filer og resten av denne README-filen er kun for stiling og produksjon i øvrige formater.
+
 ---
 
 ## ❗ Viktig info
@@ -26,7 +30,7 @@
 
 ## 📌 Om prosjektet
 
-Dette prosjektet inneholder kildematerialet (**git.md**) til heftet **"Litt om git"**.
+Dette prosjektet inneholder kildematerialet (**git.md**) til heftet **"Litt om git"**. Andre filer har med stiling og produksjon til andre formater å gjøre.
 
 Heftet er skrevet for Linux-brukere.
 
