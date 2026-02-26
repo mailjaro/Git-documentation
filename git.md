@@ -92,6 +92,7 @@ Ettersom prosjektet vokser, kan prosjektet grene ut i flere versjoner. Disse vil
 
 Vi bør i oppstarten også nevne at vi kan skjerme bestemte filer og kataloger fra Git ved å inkludere dem i en tekstfil **.gitignore** øverst i arbeidskatalogen. Avhengig av type prosjekt, kan man velge å ikke følge bestemt filer.
 
+**Merk**: Det anbefales å **ikke** følge filer som genereres av andre, som o- og exe-filer under C, eller filer produsert i andre formater fra en hovedfil. Dette er ikke primært for å spare plass, men å ikke forvanske en eventuelle konflikthåndteringer.  Konflikthåndtering er beskrevet nærmere i et eget underkapittel av GitHub-kapittelet, ettersom konflikter lettere oppstår i en *remote* situasjon med editering fra flere steder.
 ---
 
 ## 📕 Grunnleggende bruk
@@ -1279,9 +1280,9 @@ fd -u -t d '^\.git$' ~ -x sh -c \
 
 Konflikter kan oppstå når det editeres fra flere steder. Man kan f.eks. glemme å utføre `git fetch origin` og `git pull` før en editering, og dermed ikke få med tidligere fileditering.
 
-Dette er uproblematisk. Git har et gjennomtenkt design, og konflikter lar seg gjerne fint løse.
+Dette bør være ufarlig. Git har et gjennomtenkt design, og konflikter lar seg gjerne fint løse. Men det betyr ikke at man ikke kan føle en grad av forvirring underveis.
 
-- Første punkt er *alltid* å utføre
+- Første punkt er imidlertid *alltid* å utføre
 
 ```nginx
 git status
@@ -1299,7 +1300,7 @@ Unmerged paths:
   both modified:   chapter/35.md
 ```
 
-- Andre punkt er åpne disse filene (f.eks i VSCode). På steder i filene vil konfliktene være markert noe tilsvarende dette:
+- I så fall er andre punkt er åpne disse filene (f.eks i VSCode). På steder i filene vil konfliktene være markert noe tilsvarende dette:
 
 ```yaml
 <<<<<<< HEAD
@@ -1330,18 +1331,30 @@ cherry-pick:             git cherry-pick --continue`
 
 I `git status`-eksemplet over kan vi se at det nevnes **unmerged paths**, dvs. en **merge** ble avbrutt, og riktig fortsettelse ville vært `git commit`.
 
-Det kan også oppstå situasjoner som minner om en konflikt, men som egentlig er bedre å tenke på som *divergerende grener*. Selv når bare én bruker oppdaterer et prosjekt fra to PC-er, kan dette lett oppstå. Det typisk er at man gjør en liten modifisering på én PC og synes mengden er for liten til å foreta `add + commit`. Og når man siden gjør en større endring (med `add + commit`) på annen PC, har man divergerende grener. Foreløpig er det ingen konflikt (det blir det først når man prøver å slå den sammen), så `git status` og `git pull` vet ikke hva de skal gjøre (men lister alternativer f). Da må man vurdere situasjonen, se nærmere på hvordan `merge`, `rebase`, `cherry-picks` etc. vil virke. Men i det beskrevne (vanlige) tilfellet, der en ubetydelig gren og en mer betydelig gren skal forenes, kan det beste alternativet å foreta en **hard reset** fra "ubetydelig versjon":
+Dette så vel og bra ut. Men det kan også oppstå situasjoner som minner om en konflikt, men som egentlig er å tenke på som *divergerende grener*. Selv når bare én bruker oppdaterer et prosjekt fra to PC-er, kan dette lett oppstå. Git stopper da opp og vil prøve å fortelle hva som er problemet.
+
+Ett typisk tilfelle er at man gjør en liten modifisering på én PC og synes mengden er for liten til å foreta `add + commit`. Og når man siden gjør en større endring (med `add + commit`) på annen PC, har man divergerende grener. Foreløpig er det ingen konflikt (det blir det først når man prøver å slå den sammen), så `git status` og `git pull` vet ikke hva de skal gjøre (men lister alternativer). Da må man vurdere situasjonen, se nærmere på hvordan `merge`, `rebase`, `cherry-picks` etc. vil virke. Meldingen Git gir kan dessuten googles. Det er mange som har stått i nøyaktig din situasjon, og det er råd å få. Men i det beskrevne (vanlige) tilfellet, der en ubetydelig gren og en mer betydelig gren skal forenes, kan det beste alternativet å foreta en **hard reset** fra "ubetydelig versjon":
 
 ```bash
 git reset --hard origin/main
 ```
 
-(eller hva nå den "viktige" grenen heter). Etter dette blir PC-ene enige om situasjonen og har "betydelige bilde" reflektert i TRE, INDEKS og REPO.
+(eller hva nå den "viktige" grenen heter). Etter dette blir PC-ene enige om situasjonen (som er i samsvar "betydelige gren" og reflektert i TRE, INDEKS og REPO).
 
-**Moral**: Særlig når man editerer fra flere PC-er, er det viktig å:
+Det kan også oppstå situasjoner der Git rapportere flertydighet rundt **push**. Igjen bør man kartlegge best mulig, søke opp råd på nettet osv. Men *hvis* man f.eks. er sikker på at situasjonen på PC -1 er korrekt, kan man foreta en *forced push* derfra ved:
 
-- alltid starte med `git fetch origin` og `git pull`
-- alltid avslutte med `git add -A`, `git commit` og `git push`
+```bash
+git push -f origin main
+```
+
+Da må siden rette opp ift. dette på PC-2, f.eks. ved å foreta en **hard reset** der.
+
+Dessuten, i en situasjoner der man har en korrekt versjon PC-1, men har kommet i utakt på PC-2 på en måte som ikke lett lar seg løse, *kan* man alltids slette prosjektet på PC-2 og klone det tilbake fra GitHub (eller kopiere det fra en backup). Det er neppe hva en proff ville gjort, men muligheten kan virke beroligende for ferske brukere av Git.
+
+Men beste medisin er uansett å unngå utakt og konflikter i utgangspunktet. Så moralen er:
+
+- alltid starte en redigeringsøkt med `git status`, `git fetch origin` og `git pull`
+- alltid avslutte en redigeringsøkt med `git add -A`, `git commit` og `git push`
 
 ---
 
