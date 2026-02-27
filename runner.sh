@@ -1,5 +1,6 @@
 #!/usr/bin/fish
 pushd ~/Documents/doc/git-doc
+mkdir -p builds
 
 pandoc git.md  \
    --metadata-file=config/common.yaml \

@@ -1,29 +1,83 @@
-epub: git.md common.yaml
-	$(info Building EPUB:)
-	@pandoc git.md --metadata-file=common.yaml \
-	-o git.epub
+# Makefile GIT-DOC project
 
-open-epub:
-	@xdg-open "git.epub"
+# source markdown and configuration
+MD = git.md
+COMMON = config/common.yaml
+BUILD = builds
 
-preview: open-epub
+# output files
+EPUB_DARK = $(BUILD)/git-dark.epub
+EPUB_LIGHT = $(BUILD)/git-light.epub
+HTML1 = $(BUILD)/git-1.html
+HTML2 = $(BUILD)/git-2.html
+PDF = $(BUILD)/git.pdf
 
-spellcheck:
-	@hunspell -d nb_NO -p .hunspell_ignore -l git.md | sort | uniq
+ASCIIDOC_CSS = styles/asciidoctor-default.css
+ASCIIDOCTOR_THEME = styles/asciidoctor-default.yml
 
-add-word:
-ifndef word
-	$(error Usage: make add-word word=someword)
-endif
-	@echo "$(word)" >> .hunspell_ignore
-	@sort -u .hunspell_ignore -o .hunspell_ignore
+.PHONY: all epub html1 html2 pdf clean
 
+all: epub html1 html2 pdf
+
+# ensure build directory exists
+$(BUILD):
+	@mkdir -p $@
+
+# --- EPUB ------------------------------------------------------------------
+epub: $(BUILD) $(EPUB_DARK) $(EPUB_LIGHT)
+
+$(EPUB_DARK): $(MD) $(COMMON) | $(BUILD)
+	@pandoc $(MD) --metadata-file=$(COMMON) \
+	       --css=styles/epub-dark.css -o $@
+	@echo "✅ EPUB DARK successfully built."
+
+$(EPUB_LIGHT): $(MD) $(COMMON) | $(BUILD)
+	@pandoc $(MD) --metadata-file=$(COMMON) \
+	       --css=styles/epub-light.css -o $@
+	@echo "✅ EPUB LIGHT successfully built."
+
+# --- intermediate AsciiDoc files -------------------------------------------
+
+# converted directly from markdown once per build chain
+git-1.adoc: $(MD) $(COMMON)
+	@pandoc $(MD) --metadata-file=$(COMMON) --wrap=none \
+	       -f markdown-smart -o $@
+
+# remove emojis when generating HTML2/PDF
+git-2.adoc: git-1.adoc
+	@cp $< $@
+	@sd '\p{Extended_Pictographic}\uFE0F? ' '' $@
+
+# add unbreakable attributes before certain source blocks for PDF
+git-3.adoc: git-2.adoc
+	@cp $< $@
+	@sd '\[source,output\]' '[%unbreakable]\n[source,output]' $@
+	@sd '\[source,bash\]' '[%unbreakable]\n[source,bash]' $@
+
+# --- HTML 1 ----------------------------------------------------------------
+html1: $(HTML1)
+
+$(HTML1): config/masterHTML-1.adoc git-1.adoc | $(BUILD)
+	@asciidoctor -a stylesheet=../$(ASCIIDOC_CSS) \
+	            -a data-uri config/masterHTML-1.adoc -o $@
+	@echo "✅ HTML 1 successfully built."
+
+# --- HTML 2 ----------------------------------------------------------------
+html2: $(HTML2)
+
+$(HTML2): config/masterHTML-2.adoc git-2.adoc | $(BUILD)
+	@asciidoctor -a stylesheet=../$(ASCIIDOC_CSS) \
+	            -a data-uri config/masterHTML-2.adoc -o $@
+	@echo "✅ HTML 2 successfully built."
+# --- PDF -------------------------------------------------------------------
+pdf: $(PDF)
+
+$(PDF): config/masterPDF.adoc git-3.adoc | $(BUILD)
+	@asciidoctor-pdf config/masterPDF.adoc --theme=$(ASCIIDOCTOR_THEME) \
+	                -o $@
+	@echo "✅ PDF successfully built."
+
+# --- cleanup ---------------------------------------------------------------
 clean:
-	@rm -f git.epub
-	@echo "Git-book in EPUB format removed."
-
-TARGET := /media/jan/3364c0f4-4d82-474d-bad7-71d44eb0418b/home/jan/Documents
-backup:
-	@tar -czvf git-$(shell date +%d-%b-%g).tar.gz $(TARGET)
-	@echo "	"
-	@echo "Done."
+	@rm -rf $(BUILD) git-1.adoc git-2.adoc git-3.adoc
+	@echo "✅ Cleaned up build artifacts."
