@@ -614,7 +614,7 @@ pre.rouge .gs {
 <li><a href="#_konflikthåndtering">Konflikthåndtering</a></li>
 </ul>
 </li>
-<li><a href="#_andre_bøker_og_hefter_i_serien">Andre bøker og hefter i serien</a></li>
+<li><a href="#_andre_hefter_i_serien">Andre hefter i serien</a></li>
 <li><a href="#_nettressurser">Nettressurser</a></li>
 </ul>
 </li>
@@ -780,6 +780,9 @@ pre.rouge .gs {
 </div>
 <div class="paragraph">
 <p>Vi bør i oppstarten også nevne at vi kan skjerme bestemte filer og kataloger fra Git ved å inkludere dem i en tekstfil <strong>.gitignore</strong> øverst i arbeidskatalogen. Avhengig av type prosjekt, kan man velge å ikke følge bestemt filer.</p>
+</div>
+<div class="paragraph">
+<p><strong>Merk</strong>: Det anbefales å <strong>ikke</strong> følge filer som genereres av andre, som o- og exe-filer under C, eller filer produsert i andre formater fra en hovedfil. Dette er ikke primært for å spare plass, men å ikke forvanske en eventuelle konflikthåndteringer. Konflikthåndtering er beskrevet nærmere i et eget underkapittel av GitHub-kapittelet, ettersom konflikter lettere oppstår i en <em>remote</em> situasjon med editering fra flere steder.</p>
 </div>
 <hr>
 </div>
@@ -2398,12 +2401,12 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 <p>Konflikter kan oppstå når det editeres fra flere steder. Man kan f.eks. glemme å utføre <code>git fetch origin</code> og <code>git pull</code> før en editering, og dermed ikke få med tidligere fileditering.</p>
 </div>
 <div class="paragraph">
-<p>Dette er uproblematisk. Git har et gjennomtenkt design, og konflikter lar seg gjerne fint løse.</p>
+<p>Dette bør være ufarlig. Git har et gjennomtenkt design, og konflikter lar seg gjerne fint løse. Men det betyr ikke at man ikke kan føle en grad av forvirring underveis.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Første punkt er <em>alltid</em> å utføre</p>
+<p>Første punkt er imidlertid <em>alltid</em> å utføre</p>
 </li>
 </ul>
 </div>
@@ -2429,7 +2432,7 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p>Andre punkt er åpne disse filene (f.eks i VSCode). På steder i filene vil konfliktene være markert noe tilsvarende dette:</p>
+<p>I så fall er andre punkt er åpne disse filene (f.eks i VSCode). På steder i filene vil konfliktene være markert noe tilsvarende dette:</p>
 </li>
 </ul>
 </div>
@@ -2480,7 +2483,10 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 <p>I <code>git status</code>-eksemplet over kan vi se at det nevnes <strong>unmerged paths</strong>, dvs. en <strong>merge</strong> ble avbrutt, og riktig fortsettelse ville vært <code>git commit</code>.</p>
 </div>
 <div class="paragraph">
-<p>Det kan også oppstå situasjoner som minner om en konflikt, men som egentlig er bedre å tenke på som <em>divergerende grener</em>. Selv når bare én bruker oppdaterer et prosjekt fra to PC-er, kan dette lett oppstå. Det typisk er at man gjør en liten modifisering på én PC og synes mengden er for liten til å foreta <code>add &#43; commit</code>. Og når man siden gjør en større endring (med <code>add &#43; commit</code>) på annen PC, har man divergerende grener. Foreløpig er det ingen konflikt (det blir det først når man prøver å slå den sammen), så <code>git status</code> og <code>git pull</code> vet ikke hva de skal gjøre (men lister alternativer f). Da må man vurdere situasjonen, se nærmere på hvordan <code>merge</code>, <code>rebase</code>, <code>cherry-picks</code> etc. vil virke. Men i det beskrevne (vanlige) tilfellet, der en ubetydelig gren og en mer betydelig gren skal forenes, kan det beste alternativet å foreta en <strong>hard reset</strong> fra "ubetydelig versjon":</p>
+<p>Dette så vel og bra ut. Men det kan også oppstå situasjoner som minner om en konflikt, men som egentlig er å tenke på som <em>divergerende grener</em>. Selv når bare én bruker oppdaterer et prosjekt fra to PC-er, kan dette lett oppstå. Git stopper da opp og vil prøve å fortelle hva som er problemet.</p>
+</div>
+<div class="paragraph">
+<p>Ett typisk tilfelle er at man gjør en liten modifisering på én PC og synes mengden er for liten til å foreta <code>add &#43; commit</code>. Og når man siden gjør en større endring (med <code>add &#43; commit</code>) på annen PC, har man divergerende grener. Foreløpig er det ingen konflikt (det blir det først når man prøver å slå den sammen), så <code>git status</code> og <code>git pull</code> vet ikke hva de skal gjøre (men lister alternativer). Da må man vurdere situasjonen, se nærmere på hvordan <code>merge</code>, <code>rebase</code>, <code>cherry-picks</code> etc. vil virke. Meldingen Git gir kan dessuten googles. Det er mange som har stått i nøyaktig din situasjon, og det er råd å få. Men i det beskrevne (vanlige) tilfellet, der en ubetydelig gren og en mer betydelig gren skal forenes, kan det beste alternativet å foreta en <strong>hard reset</strong> fra "ubetydelig versjon":</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2488,18 +2494,32 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>(eller hva nå den "viktige" grenen heter). Etter dette blir PC-ene enige om situasjonen og har "betydelige bilde" reflektert i TRE, INDEKS og REPO.</p>
+<p>(eller hva nå den "viktige" grenen heter). Etter dette blir PC-ene enige om situasjonen (som er i samsvar "betydelige gren" og reflektert i TRE, INDEKS og REPO).</p>
 </div>
 <div class="paragraph">
-<p><strong>Moral</strong>: Særlig når man editerer fra flere PC-er, er det viktig å:</p>
+<p>Det kan også oppstå situasjoner der Git rapportere flertydighet rundt <strong>push</strong>. Igjen bør man kartlegge best mulig, søke opp råd på nettet osv. Men <em>hvis</em> man f.eks. er sikker på at situasjonen på PC -1 er korrekt, kan man foreta en <em>forced push</em> derfra ved:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git push <span class="nt">-f</span> origin main</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Da må siden rette opp ift. dette på PC-2, f.eks. ved å foreta en <strong>hard reset</strong> der.</p>
+</div>
+<div class="paragraph">
+<p>Dessuten, i en situasjoner der man har en korrekt versjon PC-1, men har kommet i utakt på PC-2 på en måte som ikke lett lar seg løse, <em>kan</em> man alltids slette prosjektet på PC-2 og klone det tilbake fra GitHub (eller kopiere det fra en backup). Det er neppe hva en proff ville gjort, men muligheten kan virke beroligende for ferske brukere av Git.</p>
+</div>
+<div class="paragraph">
+<p>Men beste medisin er uansett å unngå utakt og konflikter i utgangspunktet. Så moralen er:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>alltid starte med <code>git fetch origin</code> og <code>git pull</code></p>
+<p>alltid starte en redigeringsøkt med <code>git status</code>, <code>git fetch origin</code> og <code>git pull</code></p>
 </li>
 <li>
-<p>alltid avslutte med <code>git add -A</code>, <code>git commit</code> og <code>git push</code></p>
+<p>alltid avslutte en redigeringsøkt med <code>git add -A</code>, <code>git commit</code> og <code>git push</code></p>
 </li>
 </ul>
 </div>
@@ -2507,7 +2527,7 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_andre_bøker_og_hefter_i_serien"><a class="anchor" href="#_andre_bøker_og_hefter_i_serien"></a>Andre bøker og hefter i serien</h3>
+<h3 id="_andre_hefter_i_serien"><a class="anchor" href="#_andre_hefter_i_serien"></a>Andre hefter i serien</h3>
 <div class="paragraph">
 <p>Linux: Det neste steget</p>
 </div>
@@ -2549,7 +2569,7 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 1.0 2026-02-19<br>
-Last updated 2026-02-25 13:55:50 +0100
+Last updated 2026-02-27 14:52:05 +0100
 </div>
 </div>
 </body>
