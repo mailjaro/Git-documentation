@@ -22,16 +22,7 @@ asciidoctor -a stylesheet=../styles/asciidoctor-default.css \
 cp git-1.adoc git-2.adoc
 sd '\[source,text\]' '[%unbreakable]\n[source,text]' git-2.adoc
 sd '\[source,json\]' '[%unbreakable]\n[source,json]' git-2.adoc
-sd '📗 ' '' git-2.adoc
-sd '📕 ' '' git-2.adoc
-sd '▶️ ' '' git-2.adoc
-sd '🔸 ' '' git-2.adoc
-sd '1️⃣ ' '1. ' git-2.adoc
-sd '2️⃣ ' '2. ' git-2.adoc
-sd '3️⃣ ' '3. ' git-2.adoc
-sd '📚 ' '' git-2.adoc
-sd '📘 ' '' git-2.adoc
-
+sd '\p{Extended_Pictographic}\uFE0F? ' '' git-2.adoc  # Fjerner emojis
 
 asciidoctor -a stylesheet=../styles/asciidoctor-default.css \
             -a data-uri \
