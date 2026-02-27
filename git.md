@@ -2,7 +2,9 @@
 
 Dette heftet gir en introduksjon til Git. Den viser grunnleggende eksempler og bruk i del 1, og går litt mer i dybden på implementering og detaljer i del 2.
 
-Heftet retter seg mot brukere med ikke altfor avanserte behov, men som likevel ønsker trygghet og forståelse i det man gjør. Det retter seg ikke primært mot kodere eller større samarbeidsprosjekter, men kanskje heller mot folk som skriver, dokumenterer eller koder mer hobbypreget, uten å være del av et større team. Å kunne jobbe sømløst på flere PC-er, ha et enkelt, trygt system for ekstern backup, kunne eksperimentere med ulike versjoner med full oversikt, er likevel viktig. Og Git kan *virkelig* forenkle hverdagen for slike brukere vesentlig. Mange er de som brukt mye energi på å holde orden på backuper og ulike versjoner på hjemmesnekret vis. Kanskje har de også slitt med å finne *Tutorials* som verken er for overflatiske eller for avanserte. Dette heftet forsøker å være til hjelp for slike brukere.
+Heftet retter seg mot brukere med ikke altfor avanserte behov, men som likevel ønsker trygghet og forståelse i det man gjør. Det retter seg ikke primært mot kodere eller større samarbeidsprosjekter, men heller mot folk som skriver, dokumenterer eller koder mer hobbypreget. I et prosjekt med flere deltakere bør man nok sørge for god opplæring for å unngå å påføre andre unødvendige versjonskonflikter eller sogar tap av arbeid.
+
+Å kunne jobbe sømløst på flere PC-er, ha et enkelt, trygt system for ekstern backup, kunne eksperimentere med ulike versjoner med full oversikt, er likevel viktig. Og Git kan *virkelig* forenkle hverdagen for slike brukere vesentlig. Mange er de som brukt mye energi på å holde orden på backuper og ulike versjoner på hjemmesnekret vis. Kanskje har de også slitt med å finne *Tutorials* som verken er for overflatiske eller for avanserte. Dette heftet forsøker å være til hjelp for slike brukere.
 
 Heftet tar bl.a. for seg hvordan man setter opp forbindelser mot [GitHub](https://github.com/) (for ekstern overførsel) fra en eller flere PC-er. Linux legges til grunn som operativsystem, der Git er inkludert i de fleste distroer (eller lett lar seg installere).
 
@@ -1363,11 +1365,11 @@ Men beste medisin er uansett å unngå utakt og konflikter i utgangspunktet. Så
 
 📘 Linux: Det neste steget
 
-📘 Litt om VS Code
+📘 [Litt om VS Code](https://mailjaro.github.io/vscode-repo/)
 
-📘 Litt om GPG
+📘 [Litt om GPG](https://mailjaro.github.io/gpg-repo/)
 
-📘 Litt om CSS
+[📘 Litt om CSS](https://mailjaro.github.io/css-repo/)
 
 ---
 
