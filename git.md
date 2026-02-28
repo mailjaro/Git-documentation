@@ -2,7 +2,9 @@
 
 Dette heftet gir en introduksjon til Git. Den viser grunnleggende eksempler og bruk i del 1, og går litt mer i dybden på implementering og detaljer i del 2.
 
-Heftet retter seg mot brukere med ikke altfor avanserte behov, men som likevel ønsker trygghet og forståelse i det man gjør. Det retter seg ikke primært mot kodere eller større samarbeidsprosjekter, men heller mot folk som skriver, dokumenterer eller koder mer hobbypreget. I et prosjekt med flere deltakere bør man nok sørge for god opplæring for å unngå å påføre andre unødvendige versjonskonflikter eller sogar tap av arbeid.
+Heftet retter seg mot brukere med ikke altfor avanserte behov, men som likevel ønsker trygghet og forståelse i det man gjør. Det retter seg ikke primært mot kodere eller større samarbeidsprosjekter, men heller mot folk som skriver, dokumenterer eller koder mer hobbypreget.
+
+❗ I et prosjekt med flere deltakere bør man nok sørge for god opplæring for å unngå å påføre andre unødvendige versjonskonflikter eller sogar tap av arbeid.
 
 Å kunne jobbe sømløst på flere PC-er, ha et enkelt, trygt system for ekstern backup, kunne eksperimentere med ulike versjoner med full oversikt, er likevel viktig. Og Git kan *virkelig* forenkle hverdagen for slike brukere vesentlig. Mange er de som brukt mye energi på å holde orden på backuper og ulike versjoner på hjemmesnekret vis. Kanskje har de også slitt med å finne *Tutorials* som verken er for overflatiske eller for avanserte. Dette heftet forsøker å være til hjelp for slike brukere.
 
@@ -75,7 +77,9 @@ A---B---C---D---E  ← MAIN
                         HEAD
 ```
 
-Her ser vi en illustrasjon av et i prosjekt organisert to grener av øyeblikksbilder. Vi ser også noen andre viktige elementer i Git, nemlig:
+Her ser vi en illustrasjon av et prosjekt organisert i to grener av øyeblikksbilder. Hvert øyeblikksbilde har referanse bakover til sin forelder, men aldri til sine barn. I figuren skjer commits fra venstre mot høyre, slik at f.eks. F og D har referanse til C (men ikke omvendt), og C har referanse til B (men ikke omvendt).
+
+Vi ser også noen andre viktige elementer i Git, nemlig:
 
 - pekeren HEAD, som indirekte peker på aktivt øyeblikksbilde, samt
 - to gren-pekere (her kalt MAIN og FEATURE) som peker på de to grenene.
@@ -326,6 +330,8 @@ Det følgende oppretter branch fra en bestemt commit;
 ```html
 git branch <navn> <commit>
 ```
+
+❗ Ved bruk av GitHub og editering fra flere PC-er, er det viktig å være klar over at grener opprettet på én, ikke uten videre blir synlig/tilgjengelig på en annen. Kommandoene for å bøte på dette er vist i senere kapittel.
 
 ---
 
@@ -787,7 +793,7 @@ HARD reset:
 
 HEAD peker fortsatt på MAIN.
 
-Ved *hard reset* kan man dessuten benytte opsjonene `--Merged` og `--Keep`, som på to måter beskytter filer i TRE fra overskrivelse.
+Ved *hard reset* kan man dessuten benytte opsjonene `--Merged` og `--Keep`, som på to måter beskytter filer i TRE fra overskrivelse (som jo er en reell fare ved *hard reset*).
 
 Mixed er default.
 
@@ -1199,21 +1205,36 @@ git push origin <gren>
 git pull origin <gren>
 ```
 
-For å se om noe er skjedd siden sist, før man evt. foretar en `pull`, kan man gjøre en `fetch`. Følgende henter nemlig informasjon om nye *commits* på GitHub:
+❗ Origin Git er bare navnet (eller kanskje bedre adressen) til remote repository. Det er mulig å flere slike, men det ses bort fra her.
+
+For å få en oversikt over hva som har skjedd siden sist, før man evt. foretar en `pull`, kan man gjøre en `fetch`. Kort fortalt får man returnert hvilke nye commits GitHub har registrert, men uten å gjøre endringer i lokale grener:
 
 ```nginx
 git fetch origin
 ```
 
-Etter `fetch` kan man sjekke status ved:
+(som i våre tilfeller er det samme som `git fetch`). I tillegg, før man foretar en `git pull`, bør man også gjøre:
 
 ```nginx
 git status
 ```
 
-❗ Husk, hvis en konflikt oppstår, hvilket det kan gjøre når man editerer fra flere PC-er, så er *alltid* første punkt å utføre `git status`.
+Det er nemlig fort gjort å glemme at man har gjort lokale modifiseringer som evt. kan komme i konflikt med `git pull`.
 
-Det følgende viser ekstern *commit*-log i kort format.
+❗ Husk også at hvis en konflikt oppstår, på den ene eller andre måten, så er *alltid* første punkt å utføre `git status`.
+
+Det er også viktig å være klar over at **push** bare overfører endringer på aktiv gren. Har man modifisert på flere grener, må disse pushes separat. Tilsvarende henter **pull** bare ned oppdateringer til aktiv gren. Operasjonen må gjentas på alle grener.
+
+Vi skal se på bruk oppsett for bruk av flere PC-er i neste kapittel, men det er verdt å merke seg at for at en gren **ny-gren** på PC-1 skal bli synlig og tilgjengelig på PC-2, må man der utføre:
+
+```nginx
+git fetch
+git switch --track origin/<ny-gren>
+```
+
+REPO på GitHub vil kjenne til alle grener, men altså ikke nødvendigvis alle PC-er. Dette
+
+Når det gjelder å få oversikt over øyeblikksbilder, har man fler varianter av `git log` som kan brukes også på grener. Den første viser et kort format
 
 ```nginx
 git log origin/<gren> --oneline
@@ -1285,6 +1306,8 @@ Konflikter kan oppstå når det editeres fra flere steder. Man kan f.eks. glemme
 
 Dette bør være ufarlig. Git har et gjennomtenkt design, og konflikter lar seg gjerne fint løse. Men det betyr ikke at man ikke kan føle en grad av forvirring underveis.
 
+❗ Merk at vi her ser på personlig bruk og relativt enkle prosjekter. I større samarbeidsprosjekter fins det gjerne sett av prosedyrer og definerte strukturer man opererer etter. Det som diskuteres her er neppe iht. til profesjonell bruk.
+
 - Første punkt er imidlertid *alltid* å utføre
 
 ```nginx
@@ -1336,13 +1359,13 @@ I `git status`-eksemplet over kan vi se at det nevnes **unmerged paths**, dvs. e
 
 Dette så vel og bra ut. Men det kan også oppstå situasjoner som minner om en konflikt, men som egentlig er å tenke på som *divergerende grener*. Selv når bare én bruker oppdaterer et prosjekt fra to PC-er, kan dette lett oppstå. Git stopper da opp og vil prøve å fortelle hva som er problemet.
 
-Ett typisk tilfelle er at man gjør en liten modifisering på én PC og synes mengden er for liten til å foreta `add + commit`. Og når man siden gjør en større endring (med `add + commit`) på annen PC, har man divergerende grener. Foreløpig er det ingen konflikt (det blir det først når man prøver å slå den sammen), så `git status` og `git pull` vet ikke hva de skal gjøre (men lister alternativer). Da må man vurdere situasjonen, se nærmere på hvordan `merge`, `rebase`, `cherry-picks` etc. vil virke. Meldingen Git gir kan dessuten googles. Det er mange som har stått i nøyaktig din situasjon, og det er råd å få. Men i det beskrevne (vanlige) tilfellet, der en ubetydelig gren og en mer betydelig gren skal forenes, kan det beste alternativet å foreta en **hard reset** fra "ubetydelig versjon":
+Ett typisk tilfelle er at man gjør en liten modifisering på én PC og synes mengden er for liten til å foreta `add + commit`. Og når man siden gjør en større endring (med `add + commit`) på annen PC, har man divergerende grener. Foreløpig er det ingen konflikt (det blir det først når man prøver å slå den sammen), så `git status` og `git pull` vet ikke hva de skal gjøre (men lister alternativer). Da må man vurdere situasjonen, se nærmere på hvordan `merge`, `rebase`, `cherry-picks` etc. vil virke. Meldingen Git gir kan dessuten googles. Det er mange som har stått i nøyaktig din situasjon, og det er råd å få. Men i det beskrevne tilfellet, der en ubetydelig gren og en mer betydelig gren skal forenes, *kan* det beste alternativet å foreta en **hard reset** fra "ubetydelig versjon":
 
 ```bash
 git reset --hard origin/main
 ```
 
-(eller hva nå den "viktige" grenen heter). Etter dette blir PC-ene enige om situasjonen (som er i samsvar "betydelige gren" og reflektert i TRE, INDEKS og REPO).
+(eller hva nå hovedgrenen heter). Etter dette blir PC-ene enige om situasjonen (som er i samsvar "betydelige gren" og reflektert i TRE, INDEKS og REPO).
 
 Det kan også oppstå situasjoner der Git rapportere flertydighet rundt **push**. Igjen bør man kartlegge best mulig, søke opp råd på nettet osv. Men *hvis* man f.eks. er sikker på at situasjonen på PC -1 er korrekt, kan man foreta en *forced push* derfra ved:
 
@@ -1352,11 +1375,13 @@ git push -f origin main
 
 Da må siden rette opp ift. dette på PC-2, f.eks. ved å foreta en **hard reset** der.
 
-Dessuten, i en situasjoner der man har en korrekt versjon PC-1, men har kommet i utakt på PC-2 på en måte som ikke lett lar seg løse, *kan* man alltids slette prosjektet på PC-2 og klone det tilbake fra GitHub (eller kopiere det fra en backup). Det er neppe hva en proff ville gjort, men muligheten kan virke beroligende for ferske brukere av Git.
+❗ Husk at **hard reset** alltid risikerer å overskrive lokale filer
+
+Dessuten, i en situasjoner der man har en korrekt versjon PC-1 (og er 100 % sikker på det), men har kommet i utakt på PC-2 på en måte som ikke lett lar seg løse, *kan* man alltids slette prosjektet på PC-2 og klone det tilbake fra GitHub (eller kopiere det fra en backup). Det er neppe hva en proff ville gjort, men muligheten kan virke beroligende for ferske brukere av Git.
 
 Men beste medisin er uansett å unngå utakt og konflikter i utgangspunktet. Så moralen er:
 
-- alltid starte en redigeringsøkt med `git status`, `git fetch origin` og `git pull`
+- alltid starte en redigeringsøkt med `git status`, `git fetch origin` før `git pull`
 - alltid avslutte en redigeringsøkt med `git add -A`, `git commit` og `git push`
 
 ---
