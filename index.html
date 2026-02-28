@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.26">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <meta name="description" content="Dette heftet forsøker å hjelpe til med å få oversikt over VGit">
 <meta name="author" content="Jan R Sandbakken">
 <title>Litt om Git</title>
@@ -606,9 +606,9 @@ pre.rouge .gs {
 </li>
 <li><a href="#_github">GitHub</a>
 <ul class="sectlevel3">
-<li><a href="#_1_opprette_konto_og_nøkler">1. Opprette konto og nøkler</a></li>
-<li><a href="#_2_opprette_eksternt_repository_på_github">2. Opprette eksternt repository på GitHub</a></li>
-<li><a href="#_3_forbinde_remote_med_det_lokale">3. Forbinde remote med det lokale</a></li>
+<li><a href="#_1️⃣_opprette_konto_og_nøkler">1️⃣ Opprette konto og nøkler</a></li>
+<li><a href="#_2️⃣_opprette_eksternt_repository_på_github">2️⃣ Opprette eksternt repository på GitHub</a></li>
+<li><a href="#_3️⃣_forbinde_remote_med_det_lokale">3️⃣ Forbinde remote med det lokale</a></li>
 <li><a href="#_vanlig_bruk">Vanlig bruk</a></li>
 <li><a href="#_flere_pc_er_eller_brukere">Flere PC-er eller brukere</a></li>
 <li><a href="#_konflikthåndtering">Konflikthåndtering</a></li>
@@ -638,7 +638,10 @@ pre.rouge .gs {
 <p>Dette heftet gir en introduksjon til Git. Den viser grunnleggende eksempler og bruk i del 1, og går litt mer i dybden på implementering og detaljer i del 2.</p>
 </div>
 <div class="paragraph">
-<p>Heftet retter seg mot brukere med ikke altfor avanserte behov, men som likevel ønsker trygghet og forståelse i det man gjør. Det retter seg ikke primært mot kodere eller større samarbeidsprosjekter, men heller mot folk som skriver, dokumenterer eller koder mer hobbypreget. I et prosjekt med flere deltakere bør man nok sørge for god opplæring for å unngå å påføre andre unødvendige versjonskonflikter eller sogar tap av arbeid.</p>
+<p>Heftet retter seg mot brukere med ikke altfor avanserte behov, men som likevel ønsker trygghet og forståelse i det man gjør. Det retter seg ikke primært mot kodere eller større samarbeidsprosjekter, men heller mot folk som skriver, dokumenterer eller koder mer hobbypreget.</p>
+</div>
+<div class="paragraph">
+<p>I et prosjekt med flere deltakere bør man nok sørge for god opplæring for å unngå å påføre andre unødvendige versjonskonflikter eller sogar tap av arbeid.</p>
 </div>
 <div class="paragraph">
 <p>Å kunne jobbe sømløst på flere PC-er, ha et enkelt, trygt system for ekstern backup, kunne eksperimentere med ulike versjoner med full oversikt, er likevel viktig. Og Git kan <em>virkelig</em> forenkle hverdagen for slike brukere vesentlig. Mange er de som brukt mye energi på å holde orden på backuper og ulike versjoner på hjemmesnekret vis. Kanskje har de også slitt med å finne <em>Tutorials</em> som verken er for overflatiske eller for avanserte. Dette heftet forsøker å være til hjelp for slike brukere.</p>
@@ -744,7 +747,10 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="paragraph">
-<p>Her ser vi en illustrasjon av et i prosjekt organisert to grener av øyeblikksbilder. Vi ser også noen andre viktige elementer i Git, nemlig:</p>
+<p>Her ser vi en illustrasjon av et prosjekt organisert i to grener av øyeblikksbilder. Hvert øyeblikksbilde har referanse bakover til sin forelder, men aldri til sine barn. I figuren skjer commits fra venstre mot høyre, slik at f.eks. F og D har referanse til C (men ikke omvendt), og C har referanse til B (men ikke omvendt).</p>
+</div>
+<div class="paragraph">
+<p>Vi ser også noen andre viktige elementer i Git, nemlig:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1088,6 +1094,9 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 <pre class="rouge highlight"><code data-lang="html">git branch <span class="nt">&lt;navn&gt;</span> <span class="nt">&lt;commit&gt;</span></code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Ved bruk av GitHub og editering fra flere PC-er, er det viktig å være klar over at grener opprettet på én, ikke uten videre blir synlig/tilgjengelig på en annen. Kommandoene for å bøte på dette er vist i senere kapittel.</p>
+</div>
 <hr>
 </div>
 <div class="sect3">
@@ -1280,7 +1289,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>❗ Det er viktig å være klar over at alle tags er <em>lokale</em>. De kan oppfattes som bokmerker, er ikke en del av en <em>commit</em>/<em>push</em> og vil ikke være synlige eksternt (f.eks. på GitGub).</p>
+<p>Det er viktig å være klar over at alle tags er <em>lokale</em>. De kan oppfattes som bokmerker, er ikke en del av en <em>commit</em>/<em>push</em> og vil ikke være synlige eksternt (f.eks. på GitGub).</p>
 </div>
 <div class="paragraph">
 <p>Man kan pushe en bestemt tag ved</p>
@@ -1734,7 +1743,7 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 <p>HEAD peker fortsatt på MAIN.</p>
 </div>
 <div class="paragraph">
-<p>Ved <em>hard reset</em> kan man dessuten benytte opsjonene <code>--Merged</code> og <code>--Keep</code>, som på to måter beskytter filer i TRE fra overskrivelse.</p>
+<p>Ved <em>hard reset</em> kan man dessuten benytte opsjonene <code>--Merged</code> og <code>--Keep</code>, som på to måter beskytter filer i TRE fra overskrivelse (som jo er en reell fare ved <em>hard reset</em>).</p>
 </div>
 <div class="paragraph">
 <p>Mixed er default.</p>
@@ -2121,7 +2130,7 @@ TRE ← INDEKS ← D''</code></pre>
 </div>
 <hr>
 <div class="sect3">
-<h4 id="_1_opprette_konto_og_nøkler"><a class="anchor" href="#_1_opprette_konto_og_nøkler"></a>1. Opprette konto og nøkler</h4>
+<h4 id="_1️⃣_opprette_konto_og_nøkler"><a class="anchor" href="#_1️⃣_opprette_konto_og_nøkler"></a>1️⃣ Opprette konto og nøkler</h4>
 <div class="paragraph">
 <p>Dvs, man må</p>
 </div>
@@ -2136,7 +2145,7 @@ TRE ← INDEKS ← D''</code></pre>
 </ul>
 </div>
 <div class="paragraph">
-<p>❗ Merk at det kreves to passordfraser, ett for GitHub-kontoen og ett for SSH-nøklene. (Ved bruke av ekstra-PC, kreves ytterliger ett sett SSH-nøkler med tilhørende passord.)</p>
+<p>Merk at det kreves to passordfraser, ett for GitHub-kontoen og ett for SSH-nøklene. (Ved bruke av ekstra-PC, kreves ytterliger ett sett SSH-nøkler med tilhørende passord.)</p>
 </div>
 <div class="paragraph">
 <p>Kommandoen for å generere SSH-nøkler er:</p>
@@ -2190,12 +2199,12 @@ TRE ← INDEKS ← D''</code></pre>
 <hr>
 </div>
 <div class="sect3">
-<h4 id="_2_opprette_eksternt_repository_på_github"><a class="anchor" href="#_2_opprette_eksternt_repository_på_github"></a>2. Opprette eksternt repository på GitHub</h4>
+<h4 id="_2️⃣_opprette_eksternt_repository_på_github"><a class="anchor" href="#_2️⃣_opprette_eksternt_repository_på_github"></a>2️⃣ Opprette eksternt repository på GitHub</h4>
 <div class="paragraph">
 <p>Neste steg er å opprette eksternt REPO. Velg et passende prosjektnavn og avgjør om det skal være privat eller offentlig tilgjengelig etc.</p>
 </div>
 <div class="paragraph">
-<p>❗ Om du allerede har et prosjektet med følgende filer, så ikke huk av for:</p>
+<p>Om du allerede har et prosjektet med følgende filer, så ikke huk av for:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2216,7 +2225,7 @@ TRE ← INDEKS ← D''</code></pre>
 <hr>
 </div>
 <div class="sect3">
-<h4 id="_3_forbinde_remote_med_det_lokale"><a class="anchor" href="#_3_forbinde_remote_med_det_lokale"></a>3. Forbinde remote med det lokale</h4>
+<h4 id="_3️⃣_forbinde_remote_med_det_lokale"><a class="anchor" href="#_3️⃣_forbinde_remote_med_det_lokale"></a>3️⃣ Forbinde remote med det lokale</h4>
 <div class="paragraph">
 <p>Om du ikke har et lokalt Git-prosjekt, lag ett på aktuell arbeidskatalog, f.eks. ved</p>
 </div>
@@ -2246,7 +2255,7 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>siden slipper og angi gren i `<code>pull</code> og <code>push</code></p>
+<p>siden slipper og angi gren i <code>`pull</code> og <code>push</code></p>
 </li>
 <li>
 <p><em>default branch</em> i prosjektet på GitHub settes iht. til dette.</p>
@@ -2295,7 +2304,10 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>For å se om noe er skjedd siden sist, før man evt. foretar en <code>pull</code>, kan man gjøre en <code>fetch</code>. Følgende henter nemlig informasjon om nye <em>commits</em> på GitHub:</p>
+<p>Origin Git er bare navnet (eller kanskje bedre adressen) til remote repository. Det er mulig å flere slike, men det ses bort fra her.</p>
+</div>
+<div class="paragraph">
+<p>For å få en oversikt over hva som har skjedd siden sist, før man evt. foretar en <code>pull</code>, kan man gjøre en <code>fetch</code>. Kort fortalt får man returnert hvilke nye commits GitHub har registrert, men uten å gjøre endringer i lokale grener:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2303,7 +2315,7 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Etter <code>fetch</code> kan man sjekke status ved:</p>
+<p>(som i våre tilfeller er det samme som <code>git fetch</code>). I tillegg, før man foretar en <code>git pull</code>, bør man også gjøre:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2311,10 +2323,28 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>❗ Husk, hvis en konflikt oppstår, hvilket det kan gjøre når man editerer fra flere PC-er, så er <em>alltid</em> første punkt å utføre <code>git status</code>.</p>
+<p>Det er nemlig fort gjort å glemme at man har gjort lokale modifiseringer som evt. kan komme i konflikt med <code>git pull</code>.</p>
 </div>
 <div class="paragraph">
-<p>Det følgende viser ekstern <em>commit</em>-log i kort format.</p>
+<p>Husk også at hvis en konflikt oppstår, på den ene eller andre måten, så er <em>alltid</em> første punkt å utføre <code>git status</code>.</p>
+</div>
+<div class="paragraph">
+<p>Det er også viktig å være klar over at <strong>push</strong> bare overfører endringer på aktiv gren. Har man modifisert på flere grener, må disse pushes separat. Tilsvarende henter <strong>pull</strong> bare ned oppdateringer til aktiv gren. Operasjonen må gjentas på alle grener.</p>
+</div>
+<div class="paragraph">
+<p>Vi skal se på bruk oppsett for bruk av flere PC-er i neste kapittel, men det er verdt å merke seg at for at en gren <strong>ny-gren</strong> på PC-1 skal bli synlig og tilgjengelig på PC-2, må man der utføre:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">fetch</span>
+<span class="s">git</span> <span class="s">switch</span> <span class="s">--track</span> <span class="s">origin/&lt;ny-gren&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>REPO på GitHub vil kjenne til alle grener, men altså ikke nødvendigvis alle PC-er. Dette</p>
+</div>
+<div class="paragraph">
+<p>Når det gjelder å få oversikt over øyeblikksbilder, har man fler varianter av <code>git log</code> som kan brukes også på grener. Den første viser et kort format</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2406,6 +2436,9 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 <div class="paragraph">
 <p>Dette bør være ufarlig. Git har et gjennomtenkt design, og konflikter lar seg gjerne fint løse. Men det betyr ikke at man ikke kan føle en grad av forvirring underveis.</p>
 </div>
+<div class="paragraph">
+<p>Merk at vi her ser på personlig bruk og relativt enkle prosjekter. I større samarbeidsprosjekter fins det gjerne sett av prosedyrer og definerte strukturer man opererer etter. Det som diskuteres her er neppe iht. til profesjonell bruk.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -2489,7 +2522,7 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 <p>Dette så vel og bra ut. Men det kan også oppstå situasjoner som minner om en konflikt, men som egentlig er å tenke på som <em>divergerende grener</em>. Selv når bare én bruker oppdaterer et prosjekt fra to PC-er, kan dette lett oppstå. Git stopper da opp og vil prøve å fortelle hva som er problemet.</p>
 </div>
 <div class="paragraph">
-<p>Ett typisk tilfelle er at man gjør en liten modifisering på én PC og synes mengden er for liten til å foreta <code>add &#43; commit</code>. Og når man siden gjør en større endring (med <code>add &#43; commit</code>) på annen PC, har man divergerende grener. Foreløpig er det ingen konflikt (det blir det først når man prøver å slå den sammen), så <code>git status</code> og <code>git pull</code> vet ikke hva de skal gjøre (men lister alternativer). Da må man vurdere situasjonen, se nærmere på hvordan <code>merge</code>, <code>rebase</code>, <code>cherry-picks</code> etc. vil virke. Meldingen Git gir kan dessuten googles. Det er mange som har stått i nøyaktig din situasjon, og det er råd å få. Men i det beskrevne (vanlige) tilfellet, der en ubetydelig gren og en mer betydelig gren skal forenes, kan det beste alternativet å foreta en <strong>hard reset</strong> fra "ubetydelig versjon":</p>
+<p>Ett typisk tilfelle er at man gjør en liten modifisering på én PC og synes mengden er for liten til å foreta <code>add + commit</code>. Og når man siden gjør en større endring (med <code>add + commit</code>) på annen PC, har man divergerende grener. Foreløpig er det ingen konflikt (det blir det først når man prøver å slå den sammen), så <code>git status</code> og <code>git pull</code> vet ikke hva de skal gjøre (men lister alternativer). Da må man vurdere situasjonen, se nærmere på hvordan <code>merge</code>, <code>rebase</code>, <code>cherry-picks</code> etc. vil virke. Meldingen Git gir kan dessuten googles. Det er mange som har stått i nøyaktig din situasjon, og det er råd å få. Men i det beskrevne tilfellet, der en ubetydelig gren og en mer betydelig gren skal forenes, <em>kan</em> det beste alternativet å foreta en <strong>hard reset</strong> fra "ubetydelig versjon":</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2497,7 +2530,7 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>(eller hva nå den "viktige" grenen heter). Etter dette blir PC-ene enige om situasjonen (som er i samsvar "betydelige gren" og reflektert i TRE, INDEKS og REPO).</p>
+<p>(eller hva nå hovedgrenen heter). Etter dette blir PC-ene enige om situasjonen (som er i samsvar "betydelige gren" og reflektert i TRE, INDEKS og REPO).</p>
 </div>
 <div class="paragraph">
 <p>Det kan også oppstå situasjoner der Git rapportere flertydighet rundt <strong>push</strong>. Igjen bør man kartlegge best mulig, søke opp råd på nettet osv. Men <em>hvis</em> man f.eks. er sikker på at situasjonen på PC -1 er korrekt, kan man foreta en <em>forced push</em> derfra ved:</p>
@@ -2511,7 +2544,10 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 <p>Da må siden rette opp ift. dette på PC-2, f.eks. ved å foreta en <strong>hard reset</strong> der.</p>
 </div>
 <div class="paragraph">
-<p>Dessuten, i en situasjoner der man har en korrekt versjon PC-1, men har kommet i utakt på PC-2 på en måte som ikke lett lar seg løse, <em>kan</em> man alltids slette prosjektet på PC-2 og klone det tilbake fra GitHub (eller kopiere det fra en backup). Det er neppe hva en proff ville gjort, men muligheten kan virke beroligende for ferske brukere av Git.</p>
+<p>Husk at <strong>hard reset</strong> alltid risikerer å overskrive lokale filer</p>
+</div>
+<div class="paragraph">
+<p>Dessuten, i en situasjoner der man har en korrekt versjon PC-1 (og er 100 % sikker på det), men har kommet i utakt på PC-2 på en måte som ikke lett lar seg løse, <em>kan</em> man alltids slette prosjektet på PC-2 og klone det tilbake fra GitHub (eller kopiere det fra en backup). Det er neppe hva en proff ville gjort, men muligheten kan virke beroligende for ferske brukere av Git.</p>
 </div>
 <div class="paragraph">
 <p>Men beste medisin er uansett å unngå utakt og konflikter i utgangspunktet. Så moralen er:</p>
@@ -2519,7 +2555,7 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p>alltid starte en redigeringsøkt med <code>git status</code>, <code>git fetch origin</code> og <code>git pull</code></p>
+<p>alltid starte en redigeringsøkt med <code>git status</code>, <code>git fetch origin</code> før <code>git pull</code></p>
 </li>
 <li>
 <p>alltid avslutte en redigeringsøkt med <code>git add -A</code>, <code>git commit</code> og <code>git push</code></p>
@@ -2572,7 +2608,7 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 1.0 2026-02-19<br>
-Last updated 2026-02-27 16:22:14 +0100
+Last updated 2026-02-28 10:07:36 +0100
 </div>
 </div>
 </body>
