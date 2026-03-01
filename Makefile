@@ -38,21 +38,31 @@ $(EPUB_LIGHT): $(MD) $(COMMON) | $(BUILD)
 
 # --- intermediate AsciiDoc files -------------------------------------------
 
-# converted directly from markdown once per build chain
+# converted directly from markdown
 git-1.adoc: $(MD) $(COMMON)
 	@pandoc $(MD) --metadata-file=$(COMMON) --wrap=none \
 	       -f markdown-smart -o $@
 
-# remove emojis when generating HTML2/PDF
 git-2.adoc: git-1.adoc
 	@cp $< $@
-	@sd '\p{Extended_Pictographic}\uFE0F? ' '' $@
-
-# add unbreakable attributes before certain source blocks for PDF
-git-3.adoc: git-2.adoc
-	@cp $< $@
+# add unbreakable attributes before certain source blocks
 	@sd '\[source,output\]' '[%unbreakable]\n[source,output]' $@
-	@sd '\[source,bash\]' '[%unbreakable]\n[source,bash]' $@
+	@sd '\[source,bash\]'   '[%unbreakable]\n[source,bash]' $@
+	@sd '\[source,text\]'   '[%unbreakable]\n[source,text]' $@
+	@sd '\[source,yaml\]'   '[%unbreakable]\n[source,text]' $@
+	@sd '\[source,bash\]'   '[%unbreakable]\n[source,bash]' $@
+	@sd '\[source,html\]'   '[%unbreakable]\n[source,bash]' $@
+	@sd '\[source,h\]'      '[%unbreakable]\n[source,bash]' $@
+	@sd '\[source,r\]'      '[%unbreakable]\n[source,bash]' $@
+	@sd '\[source,python\]' '[%unbreakable]\n[source,bash]' $@
+	@sd '\[source,nginx\]'  '[%unbreakable]\n[source,bash]' $@
+	@sd '❗' 'NOTE:' $@
+	@sd '‼️' 'CAUTION:' $@
+# remove emojis when generating HTML2/PDF
+	@sd '\p{Extended_Pictographic}\uFE0F? ' '' $@
+	@sd '1️⃣' '1.' $@
+	@sd '2️⃣' '2.' $@
+	@sd '3️⃣' '3.' $@
 
 # --- HTML 1 ----------------------------------------------------------------
 html1: $(HTML1)
@@ -72,6 +82,9 @@ $(HTML2): config/masterHTML-2.adoc git-2.adoc | $(BUILD)
 # --- PDF -------------------------------------------------------------------
 pdf: $(PDF)
 
+git-3.adoc: git-2.adoc
+	@cp $< $@
+	
 $(PDF): config/masterPDF.adoc git-3.adoc | $(BUILD)
 	@asciidoctor-pdf config/masterPDF.adoc --theme=$(ASCIIDOCTOR_THEME) \
 	                -o $@

@@ -98,28 +98,28 @@ Ettersom prosjektet vokser, kan prosjektet grene ut i flere versjoner. Disse vil
 
 Vi bør i oppstarten også nevne at vi kan skjerme bestemte filer og kataloger fra Git ved å inkludere dem i en tekstfil **.gitignore** øverst i arbeidskatalogen. Avhengig av type prosjekt, kan man velge å ikke følge bestemt filer.
 
-❗ Det anbefales å **ikke** la Git følge filer som genereres av andre, som o- og exe-filer under C, eller filer produsert i andre formater fra en hovedfil. Dette er ikke primært for å spare plass, men for å ikke forvanske en eventuelle konflikthåndteringer.
+❗ Det anbefales å **ikke** la Git følge genererte filer som o- og exe-filer under C, eller filer produsert i andre formater fra en hovedfil. Dette er ikke primært for å spare plass, men for å ikke forvanske eventuelle konflikthåndteringer.
 
-Vi skal se litt på konflikthåndtering i et eget underkapittel av GitHub-kapittelet, ettersom konflikter lettere oppstår i en *remote* situasjon med editering fra flere steder.
+Vi skal se litt på konflikthåndtering i et eget underkapittel av GitHub-kapittelet, ettersom konflikter lettere oppstår i en *remote* situasjon og editering fra flere steder.
 
 ---
 
 ## 📕 Grunnleggende bruk
 
-Før vi går inn på flere Git-detaljer og ser nærmere på hvordan ting henger sammen, kan vi vise noen eksempler og kommandoer for grunnleggende bruk. Noen kommandoer fins i både eldre og nyere varianter, og vi skal prøve å benytte de nyere. Vi fokuserer først på lokal bruk og senere ta for oss hvordan man kobler seg på GitHub for backup og/eller fjernaksess.
+Før vi går inn på flere Git-detaljer og ser nærmere på hvordan ting henger sammen, kan vi vise noen eksempler og kommandoer for grunnleggende bruk. Noen kommandoer fins i både eldre og nyere varianter, og vi skal prøve å benytte de nyere. Vi fokuserer først på lokal bruk og skal senere ta for oss hvordan man kobler seg på GitHub for backup og/eller fjernaksess.
 
 ---
 
 ### ▶️ Initialisering (init)
 
-For å initiere Git første gang kan man gjøre noe som vil likne:
+For å initiere Git første gang kan man gjøre noe som likner:
 
 ```bash
 git config --global user.name 'Ola Nordmann'
 git config --global user.email 'ola.nordmann@gmail.com'
 ```
 
-Brukerdataene blir globale på maskinen etter det. Deretter kan man sette opp Git ved
+Brukerdataene blir globale på maskinen. Deretter kan man sette opp Git for et prosjekt ved
 
 
 ```nginx
@@ -146,19 +146,19 @@ git  add <fil>
 
 `add` tillater globbing, som f.eks. `*.md`, for å sende en familie av filer til INDEKS.
 
-Man kan legge til alle modifiserte filer ved
+Man kan legge til *alle* modifiserte filer (nye, endrede og slettede) ved
 
 ```nginx
 git  add -A
 ```
 
-eller
+eller ved en som bare *nesten* gjør det samme:
 
 ```nginx
 git  add .
 ```
 
-Sistnevnte gjelder bare for **nåværende katalog**.
+som strengt tatt ikke tar med slettede filer utenfor nåværende katalog. 
 
 Man kan også foreta et *dry run* for å se hvilke filer som vil bli sendt til INDEKS ved:
 
@@ -176,6 +176,46 @@ tar med endringer og slettinger, men ikke nye filer.
 
 ---
 
+### ▶️ Foreta commit
+
+Man foretar *commit* ved:
+
+```html
+git commit -m "<Passende beskrivelse>"
+```
+
+Evt. kan man sende alt både til INDEKS og til *commit* samtidig ved:
+
+```html
+git commit -a -m "<Beskrivelse>"
+```
+
+Droppes opsjonen `-m`, altså ved
+
+```nginx
+git commit
+```
+
+åpnes standard editor, og man kan skrive en lengre, mer detaljert melding. Linux (og andre OS-er) har gjerne en standard editor (som f.eks. **nano**), men man kan også sette den ekspilsitt for Git ved
+
+```nginx
+git config --global core.editor "code --wait"
+```
+
+```nginx
+git config --global core.editor "nano"
+```
+
+for hhv. VS Code og **nano**.
+
+Man kan sjekke hva, eller om noe er satt, ved
+
+```nginx
+git config --list --show-origin
+```
+
+---
+
 ### ▶️ Se Git-informasjon
 
 Man kan se hvilke filer som er *modifisert* og hvilke som er sendt til INDEKS ved `git status`. Under ser vi noen varianter. Disse viser hhv. alle slike filer i en lang eller kort output:
@@ -188,7 +228,7 @@ git status
 git status -s
 ```
 
-Vi kan videre få informasjon om øyeblikksbilder ved `git log`. Eksempel på toppen av en output er vist under.
+Man kan videre få listet følgen av øyeblikksbilder ved `git log`. Eksempel på toppen av en slik output er vist under.
 
 ```nginx
 git log
@@ -204,7 +244,11 @@ Date:   Wed Feb 11 10:29:13 2026 +0100
 
 Alt under datolinjen vil være brukerens beskrivelse av endringene, enten gitt ved `-m`-opsjonen til `commit` eller via en editor som VS Code. Vi ser også hashen til øyeblikksbildet, som kan benyttes som entydig *commit*-referanse (ofte bare i kortform).
 
-Under ser vi flere `git log`-varianter. Disse viser hhv. nyeste øyeblikksbilde, de to nyeste bildene, en kort, fargeformatert output samt en som viser et spesifikt bilde med utvidet informasjon om bl.a. fil-endringer.
+Under ser vi flere `git log`-varianter. Disse viser hhv. bare det referte øyeblikksbildet, bare det nyeste, bare de to nyeste bildene, en liste med kort, fargekodet info, samt en liste med litt esktra info.
+
+```r
+git log -1 <hash>
+```
 
 ```r
 git log -1
@@ -219,8 +263,23 @@ git log --oneline --graph --decorate --all
 ```
 
 ```html
-git log <hash> --stat
+git log --stat
 ```
+
+Man har også varianter som:
+
+
+```nginx
+git log A..B
+```
+
+og 
+
+```nginx
+git log A...B
+```
+
+Den første viser commits som er i B, men ikke i A; den andre commits som er i A eller B, men ikke i begge.
 
 ---
 
@@ -267,13 +326,13 @@ Dette forutsetter at filen er *commited*. Denne kommandoen gjør to ting samtidi
 
 Man kan for så vidt også slette filen fra arbeidskatalogen (ved `rm`) og legge til INDEKS selv (ved `add`), med samme resultat.
 
-Dersom man ønsjer å ta en allerede fulgt fil ut av versjonskontrollene, kan man gjøre:
+Dersom man ønsjer å ta en allerede fulgt fil ut av versjonskontrollen, kan man gjøre:
 
 ```html
 git rm --cached <fil>
 ```
 
-etterfulgt av en *commit*. Filen blr værende på arbeidskatalogen, så man vil typisk også oppdatere **.gitignore** tilsvarende.
+etterfulgt av en *commit*. Filen blr værende på arbeidskatalogen. Man vil typisk også oppdatere **.gitignore** tilsvarende.
 
 ---
 
@@ -297,27 +356,37 @@ Følgende kommando viser alle lokale grener:
 git branch
 ```
 
-og denne bare de på remote:
+og output kan se noe slik ut:
+
+```text
+  gh-pages
+* main
+```
+
+Vi ser to lokale grener her, **main** og **gh-pages**, og vi står på førstnevnte (vist ved `*`).
+
+
+Følgende kommando viser dem på remote:
 
 ```nginx
 git branch -r
 ```
 
-Denne viser begge, og en eksempel-output er også vist:
-
-```nginx
-git branch -a
-```
+som f.eks.
 
 ```text
-  gh-pages
-* main
   remotes/origin/HEAD -> origin/main
   remotes/origin/gh-pages
   remotes/origin/main
 ```
 
-Vi ser to lokale grener her, **main** og **gh-pages**, og vi står på førstnevnte (`*`). Videre er **origin** adressen på rot i remote repository, slik at grenene der omtales som **origin/main** og **origin/gh-page**. HEAD peker dessuten på førstnevnte.
+  **origin** adressen på rot i remote repository, og grenene der omtales generelt som **origin/main** og **origin/gh-page**. I eksempelet peker HEAD peker på førstnevnte.
+
+For å vise begge deler kan man gjøre:
+
+```nginx
+git branch -a
+```
 
 ❗ Strengt tatt får man ikke remote-brancher direkte fra serveren her, men det viser egentlig hvordan det så ut sist det ble hentet (ved `git fetch`).
 
@@ -339,7 +408,7 @@ Det følgende oppretter branch fra en bestemt commit;
 git branch <navn> <commit>
 ```
 
-❗ Ved bruk av GitHub og editering fra flere PC-er, er det viktig å være klar over at grener opprettet på én, ikke uten videre blir synlig/tilgjengelig på en annen. Kommandoene for å bøte på dette er vist i senere kapittel.
+‼️ Merk at ved bruk av GitHub og editering fra flere PC-er, vil ikke grener opprettet på én uten videre blir synlig/tilgjengelig på en annen. Kommandoene for å sørge for det er vist i senere kapittel.
 
 ---
 
@@ -371,7 +440,7 @@ git diff HEAD^ HEAD
 
 (her refereres siste og den før det).
 
-Ulike refereringsmåter er behandlet senere i dokumentet.
+Ulike refereringsmåter behandles mer fullstendig senere i dokumentet.
 
 For bare å se hvilke *filer* som skiller seg fra hverandre, kan man gjøre:
 
@@ -404,30 +473,6 @@ git diff A...B
 ```
 
 (kun aktuell i forgreninger) som sammenlikner B med siste felles *commit* for A og B.
-
----
-
-### ▶️ Foreta commit
-
-Man foretar *commit* ved:
-
-```html
-git commit -m "<Passende beskrivelse>"
-```
-
-Evt. kan man sende alt både til INDEKS og til *commit* samtidig ved:
-
-```html
-git commit -a -m "<Beskrivelse>"
-```
-
-Droppes opsjonen `-m`
-
-```nginx
-git commit
-```
-
-åpnes standard editor, og man kan skrive en lengre, mer detaljert melding som også støtter multiline *commit*-beskrivelser.
 
 ---
 
@@ -487,7 +532,7 @@ Man sletter en bestemt tag ved:
 git tag -d <tag>
 ```
 
-❗ Det er viktig å være klar over at alle tags er *lokale*. De kan oppfattes som bokmerker, er ikke en del av en *commit*/*push* og vil ikke være synlige eksternt (f.eks. på GitGub).
+‼️ Merk at alle tags er *lokale*. De kan oppfattes som bokmerker, er ikke en del av en *commit*/*push* og vil ikke automatisk være synlige eksternt (f.eks. på GitGub).
 
 Man kan pushe en bestemt tag ved
 
@@ -507,11 +552,13 @@ Etter dette kan man hente ned tags på en annen PC ved:
 git fetch --tags
 ```
 
+❗ Om PC-1 har tag som peker på et øyeblikksbilde på en gren PC-2 ikke kjenner, gir kommandoen en feilmelding.
+
 ---
 
 ### ▶️ Archive
 
-`git archive` lar bruker pakke innholdet av en *commit*, *branch* eller *tag* i en arkivfil (f.eks. .zip eller .tar) uten å inkludere hele Git-historikken. Den brukes ofte for å dele kode som et snapshot, eller lage en kildekodepakke til en distribusjon.
+`git archive` lar bruker pakke innholdet av en *commit*, *branch* eller *tag* i en arkivfil (f.eks. **.zip** eller **.tar**) uten å inkludere hele Git-historikken. Den brukes ofte for å dele kode som et snapshot, eller lage en kildekodepakke til en distribusjon.
 
 Syntaksen er
 
@@ -609,7 +656,7 @@ git help -a
 
 ## 📕 Git: En detaljert kikk
 
-For å forstå Git bedre og å kunne håndtere enkelte kommandoer riktig, trenger vi å dykke mer ned i detaljene. Vi må vite litt om hvordan øyeblikksbilder egentlig ser ut og hvordan de ulike pekerne fungerer. Dessuten må vi se på hvordan man kan referere ting i git-kommandoer. La oss starte der.
+For å forstå Git bedre og å kunne håndtere enkelte kommandoer riktig, trenger vi å dykke mer ned i detaljene. Vi må vite litt om hvordan øyeblikksbilder egentlig ser ut og hvordan de ulike pekerne fungerer. Dessuten må vi se på hvordan man kan referere ting i Git-kommandoer. La oss starte der.
 
 ---
 
@@ -677,9 +724,11 @@ git reflog
 Output sier noe slikt:
 
 ```text
-16c54e5 (HEAD -> NyMain, origin/<gren> ...
-96d8ea0 HEAD@{1}: commit: On branch ...
-bbf9a58 HEAD: clone: from github.com ...
+7f53139 (HEAD -> main, origin/main, origin/HEAD) HEAD@{0}: commit ...
+402a952 HEAD@{1}: checkout: moving from gh-pages to main
+72e0747 (origin/gh-pages, gh-pages) HEAD@{2}: pull ...
+0555a2d HEAD@{3}: checkout: moving from main to gh-pages
+402a952 HEAD@{4}: pull: Fast-forward
 ```
 
 og dette forklarer `@{n}`-notasjonen.
@@ -743,7 +792,7 @@ HEAD → MAIN → D
 
 ### ▶️ Forutsetninger og antakelser videre
 
-Vi skal nå se mer i detalj på hva som endrer seg og ikke ifm. viktige kommandoer. Dette er ofte helt avgjørende for å forstå og se forskjeller på beslektede kommandoer. Konkret bør man se på hva som endres av
+Vi skal nå se mer i detalj på hva som endrer seg og ikke ifm. viktige kommandoer. Dette er ofte avgjørende for å forstå forskjeller på beslektede kommandoer. Konkret bør man se på hva som endres av
 
 - **TRE**
 - **INDEKS**
@@ -776,7 +825,7 @@ Det som ikke nevnes er uforandret.
 
 ### ▶️ Reset
 
-`git reset` er en kommando med rike muligheter til å endre tingenes tilstand. Vi har tre grunnleggende versjoner: **soft**, **mixed** og **hard** (med flere mulige opsjoner).
+`git reset` har tre grunnleggende versjoner: **soft**, **mixed** og **hard** (med flere mulige opsjoner).
 
 Man kaller
 
@@ -801,7 +850,7 @@ HARD reset:
 
 HEAD peker fortsatt på MAIN.
 
-Ved *hard reset* kan man dessuten benytte opsjonene `--Merged` og `--Keep`, som på to måter beskytter filer i TRE fra overskrivelse (som jo er en reell fare ved *hard reset*).
+Ved *hard reset* kan man dessuten benytte opsjonene `--Merged` og `--Keep`, som på to måter beskytter filer i TRE fra overskrivelse (som er en reell fare ved *hard reset*).
 
 Mixed er default.
 
@@ -823,9 +872,7 @@ Dvs. MAIN peker på øyeblikksbilde B, og HEAD peker på gren MAIN. Dette gjør 
 
 Merk nå at dersom vi *commit*'er modifiseringer, får vi en etterfølger vi kan betegn C', som vil være ulik C (uansett om modifiseringene skulle være identiske). C og D risikerer nå å bli hengende (selv om forgjenger B er uendret). Dersom intet annet refererer dem, en tag eller noe, risikerer disse (med tid og stunder, kanskje etter 30 dager) å bli slettet av *garbage collector* (GC). Disse risikerer å bli såkalt *unreachable* (man kan gjenskapes via **reflog** fram til en GC finner sted).
 
-Dette betyr at *reset* primært er ment for å rulle tilbake i versjoner, kanskje angre en *commit* ved feilskrevet melding etc. Lite endres direkte (særlig ved *soft reset*), men etterfølgende modifisering vil endre referansene og gjøre kommandoene nokså gjennomgripende like fullt.
-
-La oss nå se på den beslektede kommandoen `switch`.
+Dette betyr at *reset* primært er ment for å rulle tilbake i versjoner, kanskje angre en *commit* ved feilskrevet melding etc.
 
 ---
 
@@ -897,7 +944,7 @@ Kommandoen
 git merge <gren-1> <gren-2>
 ```
 
-*fletter* sammen to grener. Man kan godt tenke seg at Git *slår sammen* de to grenene til én, hvilket gjerne er det man ønsker, men strengt tatt er det ikke nøyaktig det som skjer. Situasjoner er typisk at en ekstra gren er satt opp for å eksperimentere med en ny funksjon. Og, når funksjonen er moden for det, kan man ønske å slå disse sammen igjen. Men Git er tro mot sitt prinsipp om at alt skal kunne gjenskapes, så den fletter dem egentlig sammen til en gren hvor historikken ligger som en slags løkke i historikken. For å forklare dette skal vi først se på et lineært eksempel (**fast forward merge**) før vi ser på to eksempler med overlappende grener i **no fast forward merge**.
+*fletter* sammen to grener. Ordet *merge* betyr *slå sammen*, men det er ikke nøyaktig det som skjer. Situasjoner er typisk at en ekstra gren er satt opp for å eksperimentere med en ny funksjon. Og, når funksjonen er moden for det, kan man ønske å slå disse sammen igjen. Men Git er tro mot sitt prinsipp om at alt skal kunne gjenskapes, så den fletter dem egentlig sammen til en gren hvor nærhistorikken ligger som en slags løkke av commits. For å forklare dette skal vi først se på et lineært eksempel (**fast forward merge**) før vi ser på to eksempler med overlappende grener i **no fast forward merge**.
 
 #### 🔸 Fast forward merge
 
@@ -911,8 +958,7 @@ A ── B ── C  ← MAIN ← HEAD
 
 For å utføre `merge` her må man første sørge for å stå på gren MAIN,og så kalle `merge` som følger:
 
-```h
-git switch main
+```nginx
 git merge feature
 ```
 
@@ -977,7 +1023,7 @@ A ──   M  ← FEATURE ← HEAD
 TRE ← INDEX ← M
 ```
 
-I begge tilfeller beregnes et øyeblikksbilde **M** med oppdatert innhold og to foreldre, som vist i figuren. Ved å følge linjene bakover kan man finne hele historikken, hele nodenettverket.
+I begge tilfeller beregnes et øyeblikksbilde **M** med oppdatert innhold og to foreldre, som vist i figuren. Ved å følge linjene bakover kan man se hele historikken, hele nodenettverket.
 
 Ved konflikter blir dialogen annerledes, og brukeren får dessuten ansvaret for å løse dem. I dette tilfellet må brukeren også utføre en etterfølgende.
 
@@ -1010,7 +1056,6 @@ Ant f.eks. vi har følge tre av commits:
 og ønsker å foreta *cherry-pick* av *commit* E fra FEATURE over på MAIN. Man må da forsikrer seg om at man står på MAIN, og så utfører `git cherry-pick` med referanse til commit E i form av en hash eller tag:
 
 ```h
-git switch main
 git cherry-pick <E>
 
 ```
@@ -1070,7 +1115,6 @@ A ── B ── C  ← MAIN
 og skal gjøre en rebase fra FEATURE over på MAIN. Man forsikrer seg da at at man står på FEATURE, og så gjøre `rebase main`:
 
 ```h
-git switch feature
 git rebase main
 ```
 
@@ -1102,7 +1146,7 @@ Dvs, man må
 
 - generere SSH-nøkler lokalt.
 
-❗ Merk at det kreves to passordfraser, ett for GitHub-kontoen og ett for SSH-nøklene. (Ved bruke av ekstra-PC, kreves ytterliger ett sett SSH-nøkler med tilhørende passord.)
+❗ Merk at det kreves to passordfraser, ett for GitHub-kontoen og ett for SSH-nøklene. (Ved bruk av flere PC-er, kreves ytterligere sett av SSH-nøkler med passord.)
 
 Kommandoen for å generere SSH-nøkler er:
 
@@ -1110,7 +1154,13 @@ Kommandoen for å generere SSH-nøkler er:
 ssh-keygen -t ed25519 -C <e-post>
 ```
 
-(Argumentet `ed25519` ber bare om en public-key signaturalgoritme basert på elliptiske kurver.)
+Argumentet `ed25519` ber bare om en public-key signaturalgoritme basert på elliptiske kurver, som er vanlig å bruke i dag. Man har andre alternativer, som f.eks. 4096-bits RSA
+
+```python
+ssh-keygen -t rsa -b 4096 -C <e-post>
+```
+
+som var vanligere før. I fortsettelsen forutsetter vi førstnevnte valg.
 
 Kommandoen outputer informasjon om hvor nøklene lagres, samt fingerprint til offentlig nøkkel og en såkalt *random art* av nøkkelen.
 
@@ -1144,19 +1194,17 @@ ssh -T git@github.com
 
 ### 2️⃣ Opprette eksternt repository på GitHub
 
-Neste steg er å opprette eksternt REPO. Velg et passende prosjektnavn og avgjør om det skal være privat eller offentlig tilgjengelig etc.
+Neste steg er å opprette et eksternt REPO (*remote repository*). Velg et passende prosjektnavn og avgjør om det skal være privat eller offentlig tilgjengelig etc.
 
-❗ Om du allerede har et prosjektet med følgende filer, så ikke huk av for:
+❗ Om du allerede har et prosjektet med noen av filene **README**, **.gitignore** eller **license**, så ikke huk av for dem under opprettelsen.
 
-- Add README
-- Add .gitignore
-- Add license
+*Default branch* i prosjektet på GitGub må angis spesielt. Tanken er at om man har flere grener, må én av disse være hovegren, være prosjektets "ansikt utad".
 
-*Default branch* i prosjektet på GitGub forlanges fordi en av versjonene (grenene) av prosjektet må være prosjektets ansikt utad.
+Eksternt REPO vil inntil videre være tomt etter opprettelsen.
 
 ---
 
-### 3️⃣ Forbinde remote med det lokale
+### 3️⃣ Forbinde remote repository med det lokale
 
 Om du ikke har et lokalt Git-prosjekt, lag ett på aktuell arbeidskatalog, f.eks. ved
 
@@ -1169,80 +1217,73 @@ git commit -m "First commit"
 
 Om du allerede har et lokalt Git-prosjekt, sørg for å gjøre `add` og `commit`, og sjekk at du står på riktig gren.
 
-Uansett vil et lokalt Git-prosjekt eksistere, og du skal gjøre:
+Uansett vil et lokalt Git-prosjekt eksistere, og det neste vi vil gjøre, er å knytte dette prosjektet til det eksterne repoet vi har opprettet på GitHub. Vi gjør da:
 
 ```html
 git remote add origin git@github.com:<brukernavn>/<prosjektnavn>.git
 git push -u origin <gren>
 ```
 
-Fordelen ved å benytte opsjonen `-u`, er at man:
+fra hovedgrenen.
 
-1. siden slipper og angi gren i ``pull` og `push`
-2. *default branch* i prosjektet på GitHub settes iht. til dette.
-
-Endelsen `.git` kan droppes i ovennevnte kommando.
-
-For å eksemplifisere kommandoen, mitt brukernavn er `mailjaro`. For et REPO på GitHub med navnet f.eks. `git-doc`, blir kommandoen:
-
-```nginx
-git remote add origin git@github.com:mailjaro/git-doc
-```
+Endelsen `.git` kan strengt tatt droppes i ovennevnte kommando.
 
 ---
 
 ### ▶️ Vanlig bruk
 
-Man kan foreta vanlige `push` og `pull` ved:
-
-```nginx
-git push
-```
-
-```nginx
-git pull
-```
-
-Man kan også senere spesifisere gren spesifikt ved:
+Etter man har utført *commit* er det naturlig å pushe dette til eksternt REPO. Kommandoen for dette er `git push`. Det en god vane å inkludere `-u origin <gren>` i første **push**/**pull** etter at man har flyttet seg dit, altså gjøre
 
 ```nginx
 git push origin <gren>
 ```
 
+Dette minner en gjerne om å stå på grenen man ønsker å pushe fra, pluss at man unngår en *mulig* feilmelding fra Git om annen underforstått gren.
+
+Siden kan man bare gjøre
+
+```nginx
+git push
+```
+
+Før man starter en ny editering, ønsker man typisk å foreta en **pull** for å hente nyeste versjon av prosjektet å jobbe med. Men før man gjøre det, er det lurt å
+
+1. sjekke at man står på rett gren
+2. utføre `git status` for å se om man har glemt noen lokale modifiserte filer eller har noen på INDEKS
+3. utføre `git fetch origin` for info om hva som har skjedd mot eksternt REPO siden sist (info om nye *commits*) 
+
+Etter det kan man (aller tryggest) gjøre
+
 ```nginx
 git pull origin <gren>
 ```
 
-❗ Origin Git er bare navnet (eller kanskje bedre adressen) til remote repository. Det er mulig å flere slike, men det ses bort fra her.
+eller bare 
 
-For å få en oversikt over hva som har skjedd siden sist, før man evt. foretar en `pull`, kan man gjøre en `fetch`. Kort fortalt får man returnert hvilke nye commits GitHub har registrert, men uten å gjøre endringer i lokale grener:
-
-```nginx
-git fetch origin
+```
+git pull
 ```
 
-(som i våre tilfeller er det samme som `git fetch`). I tillegg, før man foretar en `git pull`, bør man også gjøre:
+For å oppsummere kommandoen man bør gjøre ifm. henting av filer:
 
 ```nginx
 git status
+git fetch
+git pull
 ```
 
-Det er nemlig fort gjort å glemme at man har gjort lokale modifiseringer som evt. kan komme i konflikt med `git pull`.
+Det er viktig å være klar over at **push** bare overfører endringer på aktiv gren. Har man modifisert på flere grener, må disse pushes separat. Tilsvarende henter **pull** bare ned oppdateringer til én gren (aktiv gren). Operasjonen må gjentas på alle grener.
 
-❗ Husk også at hvis en konflikt oppstår, på den ene eller andre måten, så er *alltid* første punkt å utføre `git status`.
-
-Det er også viktig å være klar over at **push** bare overfører endringer på aktiv gren. Har man modifisert på flere grener, må disse pushes separat. Tilsvarende henter **pull** bare ned oppdateringer til aktiv gren. Operasjonen må gjentas på alle grener.
-
-Vi skal se på bruk oppsett for bruk av flere PC-er i neste kapittel, men det er verdt å merke seg at for at en gren **ny-gren** på PC-1 skal bli synlig og tilgjengelig på PC-2, må man der utføre:
+Det betyr også at om man oppretter en gren på en PC, på PC-1, la oss si, så blir ikke den uten videre synlig på PC-2. Vi skal se på oppsett for bruk av flere PC-er i neste kapittel, men for at **ny-gren** på PC-1 skal bli tilgjengelig på PC-2, må man der utføre:
 
 ```nginx
 git fetch
-git switch --track origin/<ny-gren>
+git switch --track origin/ny-gren
 ```
 
-REPO på GitHub vil kjenne til alle grener, men altså ikke nødvendigvis alle PC-er. Dette
+REPO på GitHub vil kjenne til alle grener, men altså ikke nødvendigvis alle PC-er (selv om det er å foretrekke).
 
-Når det gjelder å få oversikt over øyeblikksbilder, har man fler varianter av `git log` som kan brukes også på grener. Den første viser et kort format
+Før vi går over til oppsette på flere PC-er, må vi se litt på noen `git log`-varianter som kan brukes også på grener. Den første av de følgende viser et kort format
 
 ```nginx
 git log origin/<gren> --oneline
@@ -1276,11 +1317,15 @@ Om man vil jobbe med prosjektet på annen PC, bør man først ha initialisert Gi
 git clone git@github.com:<bruker>/<prosjekt>.git
 ```
 
-fra der arbeidskatalogen (som blir opprettet i kallet) skal ligge på. Selve katalognavnet for prosjektet kan godt navnendres om prosjektnavnet ikke skal være katalognavnet.
+fra der arbeidskatalogen (som blir opprettet i kallet) skal ligge. Selve katalognavnet for prosjektet kan godt navnendres om prosjektnavnet ikke skal være katalognavnet.
 
-Dersom man ønsker å samarbeide med eksterne brukere, må de først gis tilgang til GitHub-repoet. De må ha Git installert og ha SSH-nøkler etc. før prosjektet klones. Konflikter i filer kan forekomme når flere modifiserer, *commiter* og pusher. Konflikter løses lokalt (se neste kapittel).
+Verre er ikke det. Etter dette kan man jobbe med prosjekter fra flere PC-er: hjemmefra, på jobb på hytta. Det viktige da er å jobbe slik at man unngår unødvendige konflikter. Selv når man jobber alene, som vi forutsetter, er det fort gjort å glemme ting, komme i utilsiktet i utakt. Det viktige er å:
 
-Har man mange Git-prosjekter, kan man over tid glemme hvilke som er lokale og hvilke som er ikke-lokale. Kommandoene
+  - avslutte alle editeringer med **commit**/**push** (for alle aktuelle grener)
+  - alltid starte editeringer med å **status**/**fetch**/**pull** (for alle aktuelle grener)
+
+
+En annem utfordring kan være at man etter hvert har mange Git-prosjekter. Over tid kan man kanskje glemme hvilke som er lokale og hvilke som er ikke-lokale. Kommandoene
 
 ```nginx
 git remote
@@ -1314,7 +1359,7 @@ Konflikter kan oppstå når det editeres fra flere steder. Man kan f.eks. glemme
 
 Dette bør være ufarlig. Git har et gjennomtenkt design, og konflikter lar seg gjerne fint løse. Men det betyr ikke at man ikke kan føle en grad av forvirring underveis.
 
-❗ Merk at vi her ser på personlig bruk og relativt enkle prosjekter. I større samarbeidsprosjekter fins det gjerne sett av prosedyrer og definerte strukturer man opererer etter. Det som diskuteres her er neppe iht. til profesjonell bruk.
+‼️ Merk at vi her ser på personlig bruk og relativt enkle prosjekter. I større samarbeidsprosjekter fins det gjerne sett av prosedyrer og definerte strukturer man opererer etter. Det som diskuteres her er neppe iht. til profesjonell bruk.
 
 - Første punkt er imidlertid *alltid* å utføre
 
@@ -1367,13 +1412,15 @@ I `git status`-eksemplet over kan vi se at det nevnes **unmerged paths**, dvs. e
 
 Dette så vel og bra ut. Men det kan også oppstå situasjoner som minner om en konflikt, men som egentlig er å tenke på som *divergerende grener*. Selv når bare én bruker oppdaterer et prosjekt fra to PC-er, kan dette lett oppstå. Git stopper da opp og vil prøve å fortelle hva som er problemet.
 
-Ett typisk tilfelle er at man gjør en liten modifisering på én PC og synes mengden er for liten til å foreta `add + commit`. Og når man siden gjør en større endring (med `add + commit`) på annen PC, har man divergerende grener. Foreløpig er det ingen konflikt (det blir det først når man prøver å slå den sammen), så `git status` og `git pull` vet ikke hva de skal gjøre (men lister alternativer). Da må man vurdere situasjonen, se nærmere på hvordan `merge`, `rebase`, `cherry-picks` etc. vil virke. Meldingen Git gir kan dessuten googles. Det er mange som har stått i nøyaktig din situasjon, og det er råd å få. Men i det beskrevne tilfellet, der en ubetydelig gren og en mer betydelig gren skal forenes, *kan* det beste alternativet å foreta en **hard reset** fra "ubetydelig versjon":
+Ett typisk tilfelle er at man gjør en liten modifisering på én PC og synes mengden er for liten til å foreta `add + commit`. Og når man siden gjør en større endring (med `add + commit`) på annen PC, har man divergerende grener. Foreløpig er det ingen konflikt (det blir det først når man prøver å slå den sammen), så `git status` og `git pull` vet ikke hva de skal gjøre (men lister alternativer). Da må man vurdere situasjonen, bruke `git diff` aktivt på aktuelle *commits* før man ser nærmere på hvordan `merge`, `rebase`, `cherry-picks` etc. vil virke. Meldingen Git gir kan dessuten googles. Det er mange som har stått i nøyaktig din situasjon, og det er råd å få. Men i det beskrevne tilfellet, der en ubetydelig gren og en mer betydelig gren skal forenes, *kan* det beste alternativet å foreta en **hard reset** fra "ubetydelig versjon":
 
 ```bash
 git reset --hard origin/main
 ```
 
 (eller hva nå hovedgrenen heter). Etter dette blir PC-ene enige om situasjonen (som er i samsvar "betydelige gren" og reflektert i TRE, INDEKS og REPO).
+
+Man kan også ta kopier av tekst og filer underveis som kan limes inn på rette steder siden. Proffene klarer seg sikkert uten sånt, men dette kan redde amatøren fra å tape arbeid ifm. konfliktløsing som kan føles innfløkt.
 
 Det kan også oppstå situasjoner der Git rapportere flertydighet rundt **push**. Igjen bør man kartlegge best mulig, søke opp råd på nettet osv. Men *hvis* man f.eks. er sikker på at situasjonen på PC -1 er korrekt, kan man foreta en *forced push* derfra ved:
 
@@ -1383,14 +1430,17 @@ git push -f origin main
 
 Da må siden rette opp ift. dette på PC-2, f.eks. ved å foreta en **hard reset** der.
 
-❗ Husk at **hard reset** alltid risikerer å overskrive lokale filer
+‼️ Husk at **hard reset** alltid risikerer å overskrive lokale filer
 
-Dessuten, i en situasjoner der man har en korrekt versjon PC-1 (og er 100 % sikker på det), men har kommet i utakt på PC-2 på en måte som ikke lett lar seg løse, *kan* man alltids slette prosjektet på PC-2 og klone det tilbake fra GitHub (eller kopiere det fra en backup). Det er neppe hva en proff ville gjort, men muligheten kan virke beroligende for ferske brukere av Git.
+Dessuten, i en situasjoner der man har en korrekt versjon på PC-1 (og er 100 % sikker på det), men har kommet i utakt på PC-2 på en måte som ikke lett lar seg løse, *kan* man alltids slette prosjektet på PC-2 og klone det tilbake fra GitHub (eller kopiere det fra en backup). Det er neppe hva en proff ville gjort, men muligheten kan virke beroligende for ferske brukere av Git.
 
-Men beste medisin er uansett å unngå utakt og konflikter i utgangspunktet. Så moralen er:
+Men beste medisin er uansett å unngå utakt og konflikter i utgangspunktet. La oss gjenta moralen her:
 
-- alltid starte en redigeringsøkt med `git status`, `git fetch origin` før `git pull`
-- alltid avslutte en redigeringsøkt med `git add -A`, `git commit` og `git push`
+  - avslutte alle editeringer med
+    - **add**/**commit**/**push** (for alle aktuelle grener)
+  - starte alle editeringer med
+    -  **status**/**fetch**/**pull** (for alle aktuelle grener)
+
 
 ---
 
