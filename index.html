@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.23">
+<meta name="generator" content="Asciidoctor 2.0.26">
 <meta name="description" content="Dette heftet forsøker å hjelpe til med å få oversikt over VGit">
 <meta name="author" content="Jan R Sandbakken">
 <title>Litt om Git</title>
@@ -573,12 +573,12 @@ pre.rouge .gs {
 <ul class="sectlevel3">
 <li><a href="#_initialisering_init">Initialisering (init)</a></li>
 <li><a href="#_legge_til_indeks_add">Legge til indeks (add)</a></li>
+<li><a href="#_foreta_commit">Foreta commit</a></li>
 <li><a href="#_se_git_informasjon">Se Git-informasjon</a></li>
 <li><a href="#_endre_filnavn">Endre filnavn</a></li>
 <li><a href="#_slette_fil">Slette fil</a></li>
 <li><a href="#_forgreninger_branch">Forgreninger (branch)</a></li>
 <li><a href="#_se_endringer_diff">Se endringer (diff)</a></li>
-<li><a href="#_foreta_commit">Foreta commit</a></li>
 <li><a href="#_merkalapper_tags">Merkalapper (tags)</a></li>
 <li><a href="#_archive">Archive</a></li>
 <li><a href="#_stash">Stash</a></li>
@@ -606,9 +606,9 @@ pre.rouge .gs {
 </li>
 <li><a href="#_github">GitHub</a>
 <ul class="sectlevel3">
-<li><a href="#_1️⃣_opprette_konto_og_nøkler">1️⃣ Opprette konto og nøkler</a></li>
-<li><a href="#_2️⃣_opprette_eksternt_repository_på_github">2️⃣ Opprette eksternt repository på GitHub</a></li>
-<li><a href="#_3️⃣_forbinde_remote_med_det_lokale">3️⃣ Forbinde remote med det lokale</a></li>
+<li><a href="#_1_opprette_konto_og_nøkler">1. Opprette konto og nøkler</a></li>
+<li><a href="#_2_opprette_eksternt_repository_på_github">2. Opprette eksternt repository på GitHub</a></li>
+<li><a href="#_3_forbinde_remote_repository_med_det_lokale">3. Forbinde remote repository med det lokale</a></li>
 <li><a href="#_vanlig_bruk">Vanlig bruk</a></li>
 <li><a href="#_flere_pc_er_eller_brukere">Flere PC-er eller brukere</a></li>
 <li><a href="#_konflikthåndtering">Konflikthåndtering</a></li>
@@ -638,22 +638,31 @@ pre.rouge .gs {
 <p>Dette heftet gir en introduksjon til Git. Den viser grunnleggende eksempler og bruk i del 1, og går litt mer i dybden på implementering og detaljer i del 2.</p>
 </div>
 <div class="paragraph">
-<p>Heftet retter seg mot brukere med ikke altfor avanserte behov, men som likevel ønsker trygghet og forståelse i det man gjør. Det retter seg ikke primært mot kodere eller større samarbeidsprosjekter, men heller mot folk som skriver, dokumenterer eller koder mer hobbypreget.</p>
+<p>Heftet retter seg mot brukere med ikke altfor avanserte behov, men som likevel ønsker trygghet og forståelse i det man gjør. Det retter seg ikke mot kodere eller større samarbeidsprosjekter, men heller mot folk som skriver, dokumenterer eller koder mer hobbypreget.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+I et prosjekt med flere deltakere bør man sikkert sørge for god opplæring for å unngå å påføre andre unødvendige versjonskonflikter eller sogar tap av arbeid.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>I et prosjekt med flere deltakere bør man nok sørge for god opplæring for å unngå å påføre andre unødvendige versjonskonflikter eller sogar tap av arbeid.</p>
+<p>Å kunne jobbe sømløst på flere PC-er, ha et enkelt system for ekstern backup, kunne eksperimentere med ulike versjoner med full oversikt, er likevel viktig. Og Git kan forenkle hverdagen for slike brukere vesentlig. Mange er de som brukt mye energi på å holde orden på backuper og ulike versjoner på hjemmesnekret vis. Dette heftet forsøker å være til hjelp for slike brukere.</p>
 </div>
 <div class="paragraph">
-<p>Å kunne jobbe sømløst på flere PC-er, ha et enkelt, trygt system for ekstern backup, kunne eksperimentere med ulike versjoner med full oversikt, er likevel viktig. Og Git kan <em>virkelig</em> forenkle hverdagen for slike brukere vesentlig. Mange er de som brukt mye energi på å holde orden på backuper og ulike versjoner på hjemmesnekret vis. Kanskje har de også slitt med å finne <em>Tutorials</em> som verken er for overflatiske eller for avanserte. Dette heftet forsøker å være til hjelp for slike brukere.</p>
+<p>Heftet tar bl.a. for seg hvordan man setter opp forbindelser mot <a href="https://github.com/">GitHub</a> (for ekstern overførsel) fra en eller flere PC-er. Linux legges til grunn som operativsystem.</p>
 </div>
 <div class="paragraph">
-<p>Heftet tar bl.a. for seg hvordan man setter opp forbindelser mot <a href="https://github.com/">GitHub</a> (for ekstern overførsel) fra en eller flere PC-er. Linux legges til grunn som operativsystem, der Git er inkludert i de fleste distroer (eller lett lar seg installere).</p>
+<p>Ulike Git-kommandoer blir vist og forklart. Det kan likevel være lurt å benytte en editor som <a href="https://code.visualstudio.com/">Visual Code Studio</a>. Git aksesseres der via et menybasert grensesnitt, og visse operasjoner, særlig det å angre ting, er enklere der. Det er uansett nyttig å ha en god forståelse i bunn. Og har man det, er jobbing med systemer som Git på Visual Code Studio enkelt (og vil ikke bli behandlet spesielt).</p>
 </div>
 <div class="paragraph">
-<p>Ulike Git-kommandoer blir vist og forklart. Det kan likevel være lurt å benytte en editor som <a href="https://code.visualstudio.com/">Visual Code Studio</a>. Git aksesseres der via et menybasert grensesnitt, og visse operasjoner, som å angre ting, er enklere der. Påminnelser på ting man bør gjøre, får man også. Men det er uansett nyttig å ha en god forståelse i bunn. Og har man det, er jobbing med systemer som Git på Visual Code Studio enkelt, og dette vil ikke bli behandlet spesielt.</p>
-</div>
-<div class="paragraph">
-<p>Det kan også nevnes at Git har et et godt, gjennomtenkt design. Filosofien er at alt skal kunne gjenskapes, intet skal gå tapt, og brukeren kan vanskelig gjøre feil som gjør at data og versjoner forsvinner. Som det ofte sies:</p>
+<p>Det kan også nevnes at Git har et et godt, gjennomtenkt design. Filosofien er at alt skal kunne gjenskapes og at intet permanent skal gå tapt. Som det ofte sies:</p>
 </div>
 <div class="paragraph">
 <p>&#8201;&#8212;&#8201;<em>If it’s hard to do something stupid, the design is good.</em></p>
@@ -710,7 +719,7 @@ pre.rouge .gs {
 </ul>
 </div>
 <div class="paragraph">
-<p>Ved bruk av et fjernsystem som GitHub, kommer <em>det</em> inn som et fjerde element i tillegg (hvilket behandles senere i dokumentet). De tre elementene korresponderer til de tre stadiene en fil kan være i under Git:</p>
+<p>Ved bruk av et fjernsystem som GitHub, kommer et fjerde element inn i tillegg (behandles senere i dokumentet). De tre elementene korresponderer til de tre hovedstadiene en fil kan være i under Git:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -729,7 +738,7 @@ pre.rouge .gs {
 <p>Arbeidskatalogen utgjør den aktive, lokale utgaven av filtreet til prosjektet. Filene er hentet ut fra REPO og plassert på disken klar for bruk eller videre modifisering.</p>
 </div>
 <div class="paragraph">
-<p>INDEKS er rent fysisk en fil og holder oversikt over om hva som skal med i neste <em>commit</em>.</p>
+<p>INDEKS holder oversikt over om hva som skal med i neste <em>commit</em>.</p>
 </div>
 <div class="paragraph">
 <p>REPO inneholder objektdatabasen for prosjektet og lagrer alle versjoner og alt av relasjoner gjennom prosjektet.</p>
@@ -750,7 +759,7 @@ pre.rouge .gs {
 <p>Her ser vi en illustrasjon av et prosjekt organisert i to grener av øyeblikksbilder. Hvert øyeblikksbilde har referanse bakover til sin forelder, men aldri til sine barn. I figuren skjer commits fra venstre mot høyre, slik at f.eks. F og D har referanse til C (men ikke omvendt), og C har referanse til B (men ikke omvendt).</p>
 </div>
 <div class="paragraph">
-<p>Vi ser også noen andre viktige elementer i Git, nemlig:</p>
+<p>Vi ser også andre viktige elementer i Git, nemlig:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -782,44 +791,65 @@ pre.rouge .gs {
 </ol>
 </div>
 <div class="paragraph">
-<p>Ved ekstern versjonskontroll, som f.eks. ved bruk av GitHub, må man foreta et innledende <code>git pull</code> (for hente inn nyeste tre fra ekstern REPO) og et avsluttende <code>git push</code> (for å <em>synce</em> lokalt REPO med ekstern REPO) i tillegg.</p>
+<p>Ved ekstern versjonskontroll foretar man typisk et innledende <code>git pull</code> (for hente inn nyeste tre fra ekstern REPO) og et avsluttende <code>git push</code> (for å <em>synce</em> lokalt REPO med ekstern REPO) i tillegg.</p>
 </div>
 <div class="paragraph">
-<p>Ettersom prosjektet vokser, kan prosjektet grene ut i flere versjoner. Disse vil likevel være lagret i samme REPO. Alt av data og referanser for å kunne gjenskape ulike versjoner i sin helhet, er lagret der.</p>
+<p>Ettersom prosjektet vokser, kan prosjektet grene ut i flere versjoner. Disse vil likevel være lagret i samme REPO. Alt av data og referanser for å kunne gjenskape ulike versjoner, er lagret der.</p>
 </div>
 <div class="paragraph">
 <p>Vi bør i oppstarten også nevne at vi kan skjerme bestemte filer og kataloger fra Git ved å inkludere dem i en tekstfil <strong>.gitignore</strong> øverst i arbeidskatalogen. Avhengig av type prosjekt, kan man velge å ikke følge bestemt filer.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Det anbefales å <strong>ikke</strong> la Git følge genererte filer som o- og exe-filer under C, eller filer produsert i andre formater fra en hovedfil. Dette er ikke primært for å spare plass, men for å ikke forvanske eventuelle konflikthåndteringer.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
-<p><strong>Merk</strong>: Det anbefales å <strong>ikke</strong> følge filer som genereres av andre, som o- og exe-filer under C, eller filer produsert i andre formater fra en hovedfil. Dette er ikke primært for å spare plass, men å ikke forvanske en eventuelle konflikthåndteringer. Konflikthåndtering er beskrevet nærmere i et eget underkapittel av GitHub-kapittelet, ettersom konflikter lettere oppstår i en <em>remote</em> situasjon med editering fra flere steder.</p>
+<p>Vi skal se litt på konflikthåndtering i et eget underkapittel av GitHub-kapittelet, ettersom konflikter lettere oppstår i en <em>remote</em> situasjon og editering fra flere steder.</p>
 </div>
 <hr>
 </div>
 <div class="sect2">
 <h3 id="_grunnleggende_bruk"><a class="anchor" href="#_grunnleggende_bruk"></a>Grunnleggende bruk</h3>
 <div class="paragraph">
-<p>Før vi går inn på flere Git-detaljer og ser nærmere på hvordan ting henger sammen, kan vi vise noen eksempler og kommandoer for grunnleggende bruk. Dette dekker normal aktivitet, og mange vil klare seg med dette. Noen kommandoer fins i både eldre og nyere varianter, og vi skal prøve å benytte de nyere. Vi fokuserer først på lokal bruk og senere ta for oss hvordan man kobler seg på eksterne systemer som GitHub, for backup, samarbeid eller fjernaksess.</p>
+<p>Før vi går inn på flere Git-detaljer og ser nærmere på hvordan ting henger sammen, kan vi vise noen eksempler og kommandoer for grunnleggende bruk. Noen kommandoer fins i både eldre og nyere varianter, og vi skal prøve å benytte de nyere. Vi fokuserer først på lokal bruk og skal senere ta for oss hvordan man kobler seg på GitHub for backup og/eller fjernaksess.</p>
 </div>
 <hr>
 <div class="sect3">
 <h4 id="_initialisering_init"><a class="anchor" href="#_initialisering_init"></a>Initialisering (init)</h4>
 <div class="paragraph">
-<p>Man kan initialiser Git for et prosjekt med å gjøre</p>
+<p>For å initiere Git første gang kan man gjøre noe som likner:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">init</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git config <span class="nt">--global</span> user.name <span class="s1">'Ola Nordmann'</span>
+git config <span class="nt">--global</span> user.email <span class="s1">'ola.nordmann@gmail.com'</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>på toppen av aktuelle arbeidskatalog. Ved første initialisering, for aller første prosjekt, oppgis navn og e-postadresse. Senere benyttes disse valgene automatisk.</p>
-</div>
-<div class="paragraph">
-<p>Default <em>branch name</em> ved initialisering er <em>master</em> eller <em>main</em>, avhenging av distro. Ønsker man å spesifisere navnet nærmere, kan man benytte <strong><code>-b</code></strong>-opsjonen.</p>
+<p>Brukerdataene blir globale på maskinen. Deretter kan man sette opp Git for et prosjekt ved</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git init -b <span class="nt">&lt;grennavn&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git init</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>på toppen av aktuelle arbeidskatalog.</p>
+</div>
+<div class="paragraph">
+<p>Default <em>branch name</em> ved initialisering er <em>main</em> eller <em>master</em>, avhenging av distro. Ønsker man å spesifisere navnet nærmere, kan man benytte <strong><code>-b</code></strong>-opsjonen.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git init <span class="nt">-b</span> &lt;grennavn&gt;</code></pre>
 </div>
 </div>
 <hr>
@@ -831,37 +861,37 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git  add <span class="nt">&lt;fil&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git  add &lt;fil&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p><code>add</code> tillater globbing, som f.eks. <code>*.md</code>, for å sende en familie av filer til INDEKS.</p>
 </div>
 <div class="paragraph">
-<p>Man kan legge til alle modifiserte filer ved</p>
+<p>Man kan legge til <em>alle</em> modifiserte filer (nye, endrede og slettede) ved</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span>  <span class="s">add</span> <span class="s">-A</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git  add <span class="nt">-A</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>eller</p>
+<p>eller ved en som bare <em>nesten</em> gjør det samme:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span>  <span class="s">add</span> <span class="s">.</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git  add .</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Sistnevnte gjelder bare for <strong>nåværende katalog</strong>.</p>
+<p>som strengt tatt ikke tar med slettede filer utenfor nåværende katalog.</p>
 </div>
 <div class="paragraph">
 <p>Man kan også foreta et <em>dry run</em> for å se hvilke filer som vil bli sendt til INDEKS ved:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">add</span> <span class="s">-n</span> <span class="s">-A</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git add <span class="nt">-n</span> <span class="nt">-A</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -869,7 +899,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">add</span> <span class="s">-u</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git add <span class="nt">-u</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -878,74 +908,138 @@ pre.rouge .gs {
 <hr>
 </div>
 <div class="sect3">
+<h4 id="_foreta_commit"><a class="anchor" href="#_foreta_commit"></a>Foreta commit</h4>
+<div class="paragraph">
+<p>Man foretar <em>commit</em> ved:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git commit <span class="nt">-m</span> <span class="s2">"&lt;Passende beskrivelse&gt;"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Evt. kan man sende alt både til INDEKS og til <em>commit</em> samtidig ved:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git commit <span class="nt">-a</span> <span class="nt">-m</span> <span class="s2">"&lt;Beskrivelse&gt;"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Droppes opsjonen <code>-m</code>, altså ved</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git commit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>åpnes standard editor, og man kan skrive en lengre, mer detaljert melding. Linux (og andre OS-er) har gjerne en standard editor (som f.eks. <strong>nano</strong>), men man kan også sette den ekspilsitt for Git ved</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git config <span class="nt">--global</span> core.editor <span class="s2">"code --wait"</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git config <span class="nt">--global</span> core.editor <span class="s2">"nano"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>for hhv. VS Code og <strong>nano</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Man kan sjekke hva, eller om noe er satt, ved</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git config <span class="nt">--list</span> <span class="nt">--show-origin</span></code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect3">
 <h4 id="_se_git_informasjon"><a class="anchor" href="#_se_git_informasjon"></a>Se Git-informasjon</h4>
 <div class="paragraph">
-<p>Man kan til se hvilke filer som er <em>modifisert</em> og hvilke som er sendt til INDEKS ved <code>git status</code>. Under ser vi noen varianter. Disse viser hhv. alle slike filer i en lang eller kort output, samt <em>branch</em>-info:</p>
+<p>Man kan se hvilke filer som er <em>modifisert</em> og hvilke som er sendt til INDEKS ved <code>git status</code>. Under ser vi noen varianter. Disse viser hhv. alle slike filer i en lang eller kort output:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">status</span></code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">status</span> <span class="s">-s</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git status</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git status -b <span class="nt">&lt;branch&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git status <span class="nt">-s</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Vi kan videre få informasjon om øyeblikksbilder ved <code>git log</code>. Output fra en slik kommando er vist under.</p>
+<p>Man kan videre få listet følgen av øyeblikksbilder ved <code>git log</code>. Eksempel på toppen av en slik output er vist under.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">log</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git log</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="s">commit bbf9a583e00cf19be7d7714a0d24be6af9ffc00b</span>
-<span class="na">Author</span><span class="pi">:</span> <span class="s">&lt;navn&gt; &lt;e-post&gt;</span>
-<span class="na">Date</span><span class="pi">:</span>   <span class="s">Wed Feb 11 10:29:13 2026 +0100</span>
+<pre class="rouge highlight"><code data-lang="text">commit bbf9a583e00cf19be7d7714a0d24be6af9ffc00b
+Author: &lt;navn&gt; &lt;e-post&gt;
+Date:   Wed Feb 11 10:29:13 2026 +0100
 
-    <span class="s">On branch &lt;gren&gt;</span>
-    <span class="s">Your branch is up to date with 'origin/&lt;gren&gt;'.</span>
-
-    <span class="s">Changes to be committed</span><span class="err">:</span>
-            <span class="na">modified</span><span class="pi">:</span>   <span class="s">file-1.md</span>
-            <span class="na">modified</span><span class="pi">:</span>   <span class="s">file-4.md</span>
-
-    <span class="s">More details.</span></code></pre>
+    &lt;Beskrivelse&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Alt under datolinjen her er brukerens beskrivelse av de siste endringene, enten gitt ved <code>-m</code>-opsjonen til <code>commit</code> eller (mer sannsynlig i dette tilfellet) via en editor som VSCode. Øverst ser vi hashen til øyeblikksbildet, som kan benyttes som entydig <em>commit</em>-referanse (ofte bare i kortform, de 7 første tegnene).</p>
+<p>Alt under datolinjen vil være brukerens beskrivelse av endringene, enten gitt ved <code>-m</code>-opsjonen til <code>commit</code> eller via en editor som VS Code. Vi ser også hashen til øyeblikksbildet, som kan benyttes som entydig <em>commit</em>-referanse (ofte bare i kortform).</p>
 </div>
 <div class="paragraph">
-<p>Under ser vi flere <code>git log</code>-varianter. Disse viser hhv. nyeste øyeblikksbilde, de to nyeste bildene, en kort, fargeformatert output samt en som viser et spesifikt bilde med utvidet informasjon om bl.a. fil-endringer.</p>
+<p>Under ser vi flere <code>git log</code>-varianter. Disse viser hhv. bare det referte øyeblikksbildet, bare det nyeste, bare de to nyeste bildene, en liste med kort, fargekodet info, samt en liste med litt esktra info.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="r"><span class="n">git</span><span class="w"> </span><span class="n">log</span><span class="w"> </span><span class="m">-1</span></code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="r"><span class="n">git</span><span class="w"> </span><span class="n">log</span><span class="w"> </span><span class="m">-2</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git log <span class="nt">-1</span> &lt;<span class="nb">hash</span><span class="o">&gt;</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="r"><span class="n">git</span><span class="w"> </span><span class="n">log</span><span class="w"> </span><span class="o">--</span><span class="n">oneline</span><span class="w"> </span><span class="o">--</span><span class="n">graph</span><span class="w"> </span><span class="o">--</span><span class="n">decorate</span><span class="w"> </span><span class="o">--</span><span class="n">all</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git log <span class="nt">-1</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git log <span class="nt">&lt;hash&gt;</span> --stat</code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git log <span class="nt">-2</span></code></pre>
 </div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git log <span class="nt">--oneline</span> <span class="nt">--graph</span> <span class="nt">--decorate</span> <span class="nt">--all</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git log <span class="nt">--stat</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Man har også varianter som:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git log A..B</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>og</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git log A...B</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Den første viser commits som er i B, men ikke i A; den andre commits som er i A eller B, men ikke i begge.</p>
 </div>
 <hr>
 </div>
@@ -956,19 +1050,19 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git mv <span class="nt">&lt;fil&gt;</span> <span class="nt">&lt;ny-fil&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git <span class="nb">mv</span> &lt;fil&gt; &lt;ny-fil&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>Navnet endres på arbeidskatalogen, og endringen legges til på INDEKS, klar for neste <em>commit</em>.</p>
 </div>
 <div class="paragraph">
-<p>Alternativt kan man navnendre filen og legge den til indeksen selv. Altså gjøre:</p>
+<p>Alternativt kan man navnendre filen og legge den til INDEKS selv. Altså gjøre:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">mv <span class="nt">&lt;filnavn&gt;</span> <span class="nt">&lt;nytt-fil-navn&gt;</span>
-git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash"><span class="nb">mv</span> &lt;filnavn&gt; &lt;nytt-fil-navn&gt;
+git &lt;ny-fil&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -976,8 +1070,8 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="na">rename</span><span class="pi">:</span>
-    <span class="s">TRE → INDEKS</span></code></pre>
+<pre class="rouge highlight"><code data-lang="text">rename:
+    TRE → INDEKS</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -992,7 +1086,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git rm <span class="nt">&lt;fil&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git <span class="nb">rm</span> &lt;fil&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1012,27 +1106,15 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 <p>Man kan for så vidt også slette filen fra arbeidskatalogen (ved <code>rm</code>) og legge til INDEKS selv (ved <code>add</code>), med samme resultat.</p>
 </div>
 <div class="paragraph">
-<p>Dersom man ønsker å beholde filen lokalt, men bare fjerne den fra Git, kan man dessuten gjøre</p>
+<p>Dersom man ønsjer å ta en allerede fulgt fil ut av versjonskontrollen, kan man gjøre:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git rm --cached <span class="nt">&lt;fil&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git <span class="nb">rm</span> <span class="nt">--cached</span> &lt;fil&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>(og deretter også oppdatere <strong>.gitignore</strong> tilsvarende).</p>
-</div>
-<div class="paragraph">
-<p>Kun INDEKS blir endret, dvs.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="na">delete</span><span class="pi">:</span>
-    <span class="s">TRE → INDEKS</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Prosessen krever en avsluttende <em>commit</em>.</p>
+<p>etterfulgt av en <em>commit</em>. Filen blr værende på arbeidskatalogen. Man vil typisk også oppdatere <strong>.gitignore</strong> tilsvarende.</p>
 </div>
 <hr>
 </div>
@@ -1043,7 +1125,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git branch <span class="nt">&lt;navn&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git branch &lt;navn&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1051,7 +1133,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git switch <span class="nt">&lt;navn&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git switch &lt;navn&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1059,31 +1141,76 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">branch</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git branch</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Denne viser i tillegg alle ikke-lokale:</p>
+<p>og output kan se noe slik ut:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">branch</span> <span class="s">-a</span></code></pre>
+<pre class="rouge highlight"><code data-lang="text">  gh-pages
+* main</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>og denne bare de ikke-lokale:</p>
+<p>Vi ser to lokale grener her, <strong>main</strong> og <strong>gh-pages</strong>, og vi står på førstnevnte (vist ved <code>*</code>).</p>
+</div>
+<div class="paragraph">
+<p>Følgende kommando viser dem på remote:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">branch</span> <span class="s">-r</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git branch <span class="nt">-r</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Mer spesifikk informasjon relatert til ekstern REPO fås fra:</p>
+<p>som f.eks.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">branch</span> <span class="s">-vv</span></code></pre>
+<pre class="rouge highlight"><code data-lang="text">  remotes/origin/HEAD -&gt; origin/main
+  remotes/origin/gh-pages
+  remotes/origin/main</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>origin</strong> adressen på rot i remote repository, og grenene der omtales generelt som <strong>origin/main</strong> og <strong>origin/gh-page</strong>. I eksempelet peker HEAD peker på førstnevnte.</p>
+</div>
+<div class="paragraph">
+<p>For å vise begge deler kan man gjøre:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git branch <span class="nt">-a</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Strengt tatt får man ikke remote-brancher direkte fra serveren her, men det viser egentlig hvordan det så ut sist det ble hentet (ved <code>git fetch</code>).
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Mer spesifikk lokal greninformasjon fås fra:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git branch <span class="nt">-vv</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>og den tlnærmet ekvivalente kommandoen for remote blir:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git branch <span class="nt">-vr</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1091,11 +1218,20 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git branch <span class="nt">&lt;navn&gt;</span> <span class="nt">&lt;commit&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git branch &lt;navn&gt; &lt;commit&gt;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Ved bruk av GitHub og editering fra flere PC-er, er det viktig å være klar over at grener opprettet på én, ikke uten videre blir synlig/tilgjengelig på en annen. Kommandoene for å bøte på dette er vist i senere kapittel.</p>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Merk at ved bruk av GitHub og editering fra flere PC-er, vil ikke grener opprettet på én uten videre blir synlig/tilgjengelig på en annen. Kommandoene for å sørge for det er vist i senere kapittel.
+</td>
+</tr>
+</table>
 </div>
 <hr>
 </div>
@@ -1106,7 +1242,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git diff <span class="nt">&lt;commit1&gt;</span> <span class="nt">&lt;commit2&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git diff &lt;commit1&gt; &lt;commit2&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1114,7 +1250,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git diff <span class="nt">&lt;commit1&gt;</span> <span class="nt">&lt;commit2&gt;</span> | delta</code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git diff &lt;commit1&gt; &lt;commit2&gt; | delta</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1122,7 +1258,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">diff</span> <span class="s">HEAD~3</span> <span class="s">HEAD</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git diff HEAD~3 HEAD</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1130,21 +1266,21 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">diff</span> <span class="s">HEAD^</span> <span class="s">HEAD</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git diff HEAD^ HEAD</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>(her refereres siste og den før det).</p>
 </div>
 <div class="paragraph">
-<p>Ulike refereringsmåter er behandlet senere i dokumentet.</p>
+<p>Ulike refereringsmåter behandles mer fullstendig senere i dokumentet.</p>
 </div>
 <div class="paragraph">
 <p>For bare å se hvilke <em>filer</em> som skiller seg fra hverandre, kan man gjøre:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git diff --name-only <span class="nt">&lt;commit1&gt;</span> <span class="nt">&lt;commit2&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git diff <span class="nt">--name-only</span> &lt;commit1&gt; &lt;commit2&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1152,7 +1288,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git diff <span class="nt">&lt;gren-1&gt;</span> <span class="nt">&lt;gren-2&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git diff &lt;gren-1&gt; &lt;gren-2&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1160,7 +1296,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">diff</span> <span class="s">HEAD</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git diff HEAD</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1168,7 +1304,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">diff</span> <span class="s">--staged</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git diff <span class="nt">--staged</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1176,42 +1312,11 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">diff</span> <span class="s">A...B</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git diff A...B</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>(kun aktuell i forgreninger) som sammenlikner B med siste felles <em>commit</em> for A og B.</p>
-</div>
-<hr>
-</div>
-<div class="sect3">
-<h4 id="_foreta_commit"><a class="anchor" href="#_foreta_commit"></a>Foreta commit</h4>
-<div class="paragraph">
-<p>Man foretar <em>commit</em> ved:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="html">git commit -m "<span class="nt">&lt;Passende</span> <span class="na">beskrivelse</span><span class="nt">&gt;</span>"</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Evt. kan man sende alt både til INDEKS og til <em>commit</em> samtidig ved:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="html">git commit -a -m "<span class="nt">&lt;Beskrivelse&gt;</span>"</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Droppes opsjonen <code>-m</code></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">commit</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>åpnes standard editor, og man kan skrive en lengre, mer detaljert melding som også støtter multiline <em>commit</em>-beskrivelser.</p>
 </div>
 <hr>
 </div>
@@ -1222,7 +1327,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git tag <span class="nt">&lt;tag-navn&gt;</span> <span class="nt">&lt;commit-hash&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git tag &lt;tag-navn&gt; &lt;commit-hash&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1230,11 +1335,11 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="s">-hvem som tager</span>
-<span class="s">-dato</span>
-<span class="s">-melding</span>
-<span class="s">-mulighet for kryptografisk signering</span>
-<span class="s">-peker på commit</span></code></pre>
+<pre class="rouge highlight"><code data-lang="text">-hvem som tager
+-dato
+-melding
+-mulighet for kryptografisk signering
+-peker på commit</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1242,7 +1347,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git tag -a <span class="nt">&lt;tag-navn&gt;</span> -m "melding" <span class="nt">&lt;commit&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git tag <span class="nt">-a</span> &lt;tag-navn&gt; <span class="nt">-m</span> <span class="s2">"melding"</span> &lt;commit&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1250,7 +1355,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">tag</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git tag</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1258,7 +1363,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">tag</span> <span class="s">-l</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git tag <span class="nt">-l</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1266,7 +1371,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">tag</span> <span class="s">-l</span> <span class="s">"-2*"</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git tag <span class="nt">-l</span> <span class="s2">"-2*"</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1274,7 +1379,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">show</span> <span class="s">&lt;tag&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git show &lt;tag&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1285,18 +1390,27 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git tag -d <span class="nt">&lt;tag&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git tag <span class="nt">-d</span> &lt;tag&gt;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Det er viktig å være klar over at alle tags er <em>lokale</em>. De kan oppfattes som bokmerker, er ikke en del av en <em>commit</em>/<em>push</em> og vil ikke være synlige eksternt (f.eks. på GitGub).</p>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Merk at alle tags er <em>lokale</em>. De kan oppfattes som bokmerker, er ikke en del av en <em>commit</em>/<em>push</em> og vil ikke automatisk være synlige eksternt (f.eks. på GitGub).
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Man kan pushe en bestemt tag ved</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git push origin <span class="nt">&lt;tag&gt;</span>&gt;</code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git push origin &lt;tag&gt;&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1304,7 +1418,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">push</span> <span class="s">origin</span> <span class="s">--tags</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git push origin <span class="nt">--tags</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1312,22 +1426,34 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">fetch</span> <span class="s">--tags</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git fetch <span class="nt">--tags</span></code></pre>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Om PC-1 har tag som peker på et øyeblikksbilde på en gren PC-2 ikke kjenner, gir kommandoen en feilmelding.
+</td>
+</tr>
+</table>
 </div>
 <hr>
 </div>
 <div class="sect3">
 <h4 id="_archive"><a class="anchor" href="#_archive"></a>Archive</h4>
 <div class="paragraph">
-<p><code>git archive</code> lar bruker pakke innholdet av en <em>commit</em>, <em>branch</em> eller <em>tag</em> i en arkivfil (f.eks. .zip eller .tar) uten å inkludere hele Git-historikken. Den brukes ofte for å dele kode som et snapshot, eller lage en kildekodepakke til en distribusjon.</p>
+<p><code>git archive</code> lar bruker pakke innholdet av en <em>commit</em>, <em>branch</em> eller <em>tag</em> i en arkivfil (f.eks. <strong>.zip</strong> eller <strong>.tar</strong>) uten å inkludere hele Git-historikken. Den brukes ofte for å dele kode som et snapshot, eller lage en kildekodepakke til en distribusjon.</p>
 </div>
 <div class="paragraph">
 <p>Syntaksen er</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">archive</span> <span class="s">[options]</span> <span class="s">&lt;commit/branch/tag&gt;</span> <span class="s">[paths]</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git archive <span class="o">[</span>options] &lt;commit/branch/tag&gt; <span class="o">[</span>paths]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1335,17 +1461,17 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">archive</span> <span class="s">-o</span> <span class="s">project-main.zip</span> <span class="s">main</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git archive <span class="nt">-o</span> project-main.zip main</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">archive</span> <span class="s">-o</span> <span class="s">project.tar</span> <span class="s">1a2b3c4</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git archive <span class="nt">-o</span> project.tar 1a2b3c4</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">archive</span> <span class="s">main</span> <span class="s">|</span> <span class="s">tar</span> <span class="s">-x</span> <span class="s">-C</span> <span class="n">/tmp/project</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git archive main | <span class="nb">tar</span> <span class="nt">-x</span> <span class="nt">-C</span> /tmp/project</code></pre>
 </div>
 </div>
 <hr>
@@ -1376,12 +1502,12 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git stash push <span class="nt">&lt;fil-1&gt;</span> <span class="nt">&lt;fil-2&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git stash push &lt;fil-1&gt; &lt;fil-2&gt;</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git stash push -m "Beskrivelse" <span class="nt">&lt;fil-1&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git stash push <span class="nt">-m</span> <span class="s2">"Beskrivelse"</span> &lt;fil-1&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1392,7 +1518,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">stash</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git stash</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1400,7 +1526,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">stash</span> <span class="s">list</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git stash list</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1408,7 +1534,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">stash</span> <span class="s">pop</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git stash pop</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1416,7 +1542,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">stash</span> <span class="s">apply</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git stash apply</code></pre>
 </div>
 </div>
 <hr>
@@ -1428,17 +1554,17 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git <span class="nt">&lt;command&gt;</span> -h</code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git &lt;<span class="nb">command</span><span class="o">&gt;</span> <span class="nt">-h</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git <span class="nt">&lt;command&gt;</span> --help</code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git &lt;<span class="nb">command</span><span class="o">&gt;</span> <span class="nt">--help</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git help <span class="nt">&lt;command&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git <span class="nb">help</span> &lt;<span class="nb">command</span><span class="o">&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1446,7 +1572,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">help</span> <span class="s">-a</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git <span class="nb">help</span> <span class="nt">-a</span></code></pre>
 </div>
 </div>
 <hr>
@@ -1455,7 +1581,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 <div class="sect2">
 <h3 id="_git_en_detaljert_kikk"><a class="anchor" href="#_git_en_detaljert_kikk"></a>Git: En detaljert kikk</h3>
 <div class="paragraph">
-<p>For å forstå Git bedre og å kunne håndtere enkelte kommandoer riktig, trenger vi å dykke mer ned i detaljene. Vi må vite litt om hvordan øyeblikksbilder egentlig ser ut og hvordan de ulike pekerne fungerer. Dessuten må vi se på hvordan man kan referere ting i git-kommandoer. La oss starte der.</p>
+<p>For å forstå Git bedre og å kunne håndtere enkelte kommandoer riktig, trenger vi å dykke mer ned i detaljene. Vi må vite litt om hvordan øyeblikksbilder egentlig ser ut og hvordan de ulike pekerne fungerer. Dessuten må vi se på hvordan man kan referere ting i Git-kommandoer. La oss starte der.</p>
 </div>
 <hr>
 <div class="sect3">
@@ -1465,7 +1591,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git show -s <span class="nt">&lt;ref&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git show <span class="nt">-s</span> &lt;ref&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1473,30 +1599,30 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="s">RELATIVT</span>
-  <span class="s">HEAD</span>               <span class="err">:</span> <span class="s">Aktiv commit</span>
-  <span class="s">HEAD^    HEAD~1</span>    <span class="err">:</span> <span class="s">Forelder</span>
-  <span class="s">HEAD^^   HEAD~2</span>    <span class="err">:</span> <span class="s">Besteforelder</span>
-  <span class="s">HEAD^^^  HEAD~3</span>    <span class="err">:</span> <span class="s">Oldeforelder</span>
-  <span class="s">osv</span>
-  <span class="s">&lt;tag&gt;^   &lt;tag&gt;~1</span>   <span class="err">:</span> <span class="s">Commit før den tag-refererte</span>
-  <span class="s">osv</span>
-  <span class="s">&lt;gren&gt;^  &lt;gren&gt;~1</span>  <span class="err">:</span> <span class="s">Commit før den gren-refererte</span>
-  <span class="s">osv</span>
+<pre class="rouge highlight"><code data-lang="text">RELATIVT
+  HEAD               : Aktiv commit
+  HEAD^    HEAD~1    : Forelder
+  HEAD^^   HEAD~2    : Besteforelder
+  HEAD^^^  HEAD~3    : Oldeforelder
+  osv
+  &lt;tag&gt;^   &lt;tag&gt;~1   : Commit før den tag-refererte
+  osv
+  &lt;gren&gt;^  &lt;gren&gt;~1  : Commit før den gren-refererte
+  osv
 
-<span class="s">ABSOLUTT</span>
-  <span class="s">Full hash</span>
-  <span class="s">Kort hash</span>
-  <span class="s">Tag</span>
-  <span class="s">Branch</span>
+ABSOLUTT
+  Full hash
+  Kort hash
+  Tag
+  Branch
 
-<span class="s">REFLOG-BASERTE</span>
-  <span class="s">HEAD@{0}</span><span class="err">:</span>   <span class="s">nåværende HEAD</span>
-  <span class="s">HEAD@{1}</span><span class="err">:</span>   <span class="s">forrige posisjon ift. reflog</span>
-  <span class="s">HEAD@{2}</span><span class="err">:</span>   <span class="s">posisjonen før det ift reflog</span>
-  <span class="s">osv</span>
-  <span class="s">&lt;gren&gt;@{1}</span><span class="err">:</span> <span class="s">forrige commit-gren pekt på ift reflog</span>
-  <span class="s">osv</span></code></pre>
+REFLOG-BASERTE
+  HEAD@{0}:   nåværende HEAD
+  HEAD@{1}:   forrige posisjon ift. reflog
+  HEAD@{2}:   posisjonen før det ift reflog
+  osv
+  &lt;gren&gt;@{1}: forrige commit-gren pekt på ift reflog
+  osv</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1504,9 +1630,9 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="s">git log --grep="&lt;mønster&gt;"</span>  <span class="err">:</span> <span class="s">Meldingstekst</span>
-<span class="s">git log -S "&lt;mønster&gt;"</span>      <span class="err">:</span> <span class="s">Filinnhold</span>
-<span class="s">git log -G "&lt;mønster&gt;"</span>      <span class="err">:</span> <span class="s">Endret filinnhold</span></code></pre>
+<pre class="rouge highlight"><code data-lang="text">git log --grep="&lt;mønster&gt;"  : Meldingstekst
+git log -S "&lt;mønster&gt;"      : Filinnhold
+git log -G "&lt;mønster&gt;"      : Endret filinnhold</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1539,7 +1665,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">reflog</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git reflog</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1547,9 +1673,11 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="text">16c54e5 (HEAD -&gt; NyMain, origin/&lt;gren&gt; ...
-96d8ea0 HEAD@{1}: commit: On branch ...
-bbf9a58 HEAD: clone: from github.com ...</code></pre>
+<pre class="rouge highlight"><code data-lang="text">7f53139 (HEAD -&gt; main, origin/main, origin/HEAD) HEAD@{0}: commit ...
+402a952 HEAD@{1}: checkout: moving from gh-pages to main
+72e0747 (origin/gh-pages, gh-pages) HEAD@{2}: pull ...
+0555a2d HEAD@{3}: checkout: moving from main to gh-pages
+402a952 HEAD@{4}: pull: Fast-forward</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1599,7 +1727,7 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git cat-file -p <span class="nt">&lt;commit&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git cat-file <span class="nt">-p</span> &lt;commit&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1626,7 +1754,7 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="s">436ab61d81d052cd320f3a8a4dc532f33e5d1a13</span></code></pre>
+<pre class="rouge highlight"><code data-lang="text">436ab61d81d052cd320f3a8a4dc532f33e5d1a13</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1634,7 +1762,7 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="na">ref</span><span class="pi">:</span> <span class="s">refs/heads/main</span></code></pre>
+<pre class="rouge highlight"><code data-lang="text">ref: refs/heads/main</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1645,7 +1773,7 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="s">HEAD → MAIN → D</span></code></pre>
+<pre class="rouge highlight"><code data-lang="text">HEAD → MAIN → D</code></pre>
 </div>
 </div>
 <hr>
@@ -1653,7 +1781,7 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 <div class="sect3">
 <h4 id="_forutsetninger_og_antakelser_videre"><a class="anchor" href="#_forutsetninger_og_antakelser_videre"></a>Forutsetninger og antakelser videre</h4>
 <div class="paragraph">
-<p>Vi skal nå se mer i detalj på hva som endrer seg og ikke ifm. viktige kommandoer. Dette er ofte helt avgjørende for å forstå og se forskjeller på beslektede kommandoer. Konkret bør man se på hva som endres av</p>
+<p>Vi skal nå se mer i detalj på hva som endrer seg og ikke ifm. viktige kommandoer. Dette er ofte avgjørende for å forstå forskjeller på beslektede kommandoer. Konkret bør man se på hva som endres av</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1698,10 +1826,10 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="na">add</span><span class="pi">:</span>
-    <span class="s">TRE → INDEKS</span>
-<span class="na">commit</span><span class="pi">:</span>
-    <span class="s">INDEKS → REPO, MAIN++</span></code></pre>
+<pre class="rouge highlight"><code data-lang="text">add:
+    TRE → INDEKS
+commit:
+    INDEKS → REPO, MAIN++</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1712,14 +1840,14 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 <div class="sect3">
 <h4 id="_reset"><a class="anchor" href="#_reset"></a>Reset</h4>
 <div class="paragraph">
-<p><code>git reset</code> er en kommando med rike muligheter til å endre tingenes tilstand. Vi har tre grunnleggende versjoner: <strong>soft</strong>, <strong>mixed</strong> og <strong>hard</strong> (med flere mulige opsjoner).</p>
+<p><code>git reset</code> har tre grunnleggende versjoner: <strong>soft</strong>, <strong>mixed</strong> og <strong>hard</strong> (med flere mulige opsjoner).</p>
 </div>
 <div class="paragraph">
 <p>Man kaller</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git reset <span class="nt">&lt;styrke&gt;</span> <span class="nt">&lt;commit&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git reset &lt;styrke&gt; &lt;commit&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1727,23 +1855,23 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="na">Soft reset</span><span class="pi">:</span>
-    <span class="s">MAIN → commit</span>
+<pre class="rouge highlight"><code data-lang="text">Soft reset:
+    MAIN → commit
 
-<span class="na">Mixed reset</span><span class="pi">:</span>
-    <span class="s">INDEKS ← REPO.commit</span>
-    <span class="s">MAIN → commit</span>
+Mixed reset:
+    INDEKS ← REPO.commit
+    MAIN → commit
 
-<span class="na">HARD reset</span><span class="pi">:</span>
-    <span class="s">TRE ← INDEKS ← REPO.commit</span>
-    <span class="s">MAIN → commit</span></code></pre>
+HARD reset:
+    TRE ← INDEKS ← REPO.commit
+    MAIN → commit</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>HEAD peker fortsatt på MAIN.</p>
 </div>
 <div class="paragraph">
-<p>Ved <em>hard reset</em> kan man dessuten benytte opsjonene <code>--Merged</code> og <code>--Keep</code>, som på to måter beskytter filer i TRE fra overskrivelse (som jo er en reell fare ved <em>hard reset</em>).</p>
+<p>Ved <em>hard reset</em> kan man dessuten benytte opsjonene <code>--Merged</code> og <code>--Keep</code>, som på to måter beskytter filer i TRE fra overskrivelse (som er en reell fare ved <em>hard reset</em>).</p>
 </div>
 <div class="paragraph">
 <p>Mixed er default.</p>
@@ -1756,7 +1884,7 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">reset</span> <span class="s">soft</span> <span class="s">&lt;B&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git reset soft &lt;B&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1764,7 +1892,7 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="s">HEAD → MAIN → B</span></code></pre>
+<pre class="rouge highlight"><code data-lang="text">HEAD → MAIN → B</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1774,10 +1902,7 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 <p>Merk nå at dersom vi <em>commit</em>'er modifiseringer, får vi en etterfølger vi kan betegn C', som vil være ulik C (uansett om modifiseringene skulle være identiske). C og D risikerer nå å bli hengende (selv om forgjenger B er uendret). Dersom intet annet refererer dem, en tag eller noe, risikerer disse (med tid og stunder, kanskje etter 30 dager) å bli slettet av <em>garbage collector</em> (GC). Disse risikerer å bli såkalt <em>unreachable</em> (man kan gjenskapes via <strong>reflog</strong> fram til en GC finner sted).</p>
 </div>
 <div class="paragraph">
-<p>Dette betyr at <em>reset</em> primært er ment for å rulle tilbake i versjoner, kanskje angre en <em>commit</em> ved feilskrevet melding etc. Lite endres direkte (særlig ved <em>soft reset</em>), men etterfølgende modifisering vil endre referansene og gjøre kommandoene nokså gjennomgripende like fullt.</p>
-</div>
-<div class="paragraph">
-<p>La oss nå se på den beslektede kommandoen <code>switch</code>.</p>
+<p>Dette betyr at <em>reset</em> primært er ment for å rulle tilbake i versjoner, kanskje angre en <em>commit</em> ved feilskrevet melding etc.</p>
 </div>
 <hr>
 </div>
@@ -1791,9 +1916,9 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="na">git switch GREN</span><span class="pi">:</span>
-    <span class="s">HEAD → GREN</span>
-    <span class="s">TRE ← INDEKS ← REPO.commit</span></code></pre>
+<pre class="rouge highlight"><code data-lang="text">git switch GREN:
+    HEAD → GREN
+    TRE ← INDEKS ← REPO.commit</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1801,9 +1926,9 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="na">git switch --detached commit</span><span class="pi">:</span>
-    <span class="s">HEAD → REPO.commit (detached)</span>
-    <span class="s">TRE ← INDEKS ← REPO.commit</span></code></pre>
+<pre class="rouge highlight"><code data-lang="text">git switch --detached commit:
+    HEAD → REPO.commit (detached)
+    TRE ← INDEKS ← REPO.commit</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1821,17 +1946,17 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="na">git restore &lt;fil&gt;</span><span class="pi">:</span>
-    <span class="s">TRE ← INDEKS</span>
+<pre class="rouge highlight"><code data-lang="text">git restore &lt;fil&gt;:
+    TRE ← INDEKS
 
-<span class="na">git restore --staged &lt;fil&gt;</span><span class="pi">:</span>
-    <span class="s">INDEKS ← REPO.commit (HEAD)</span>
+git restore --staged &lt;fil&gt;:
+    INDEKS ← REPO.commit (HEAD)
 
-<span class="na">git restore --source=&lt;commit&gt; &lt;fil&gt;</span><span class="pi">:</span>
-    <span class="s">TRE ← REPO.commit</span>
+git restore --source=&lt;commit&gt; &lt;fil&gt;:
+    TRE ← REPO.commit
 
-<span class="na">git restore --source=&lt;commit&gt; --staged --worktree &lt;fil&gt;</span><span class="pi">:</span>
-    <span class="s">TRE ← INDEKS ← REPO.commit</span></code></pre>
+git restore --source=&lt;commit&gt; --staged --worktree &lt;fil&gt;:
+    TRE ← INDEKS ← REPO.commit</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1868,11 +1993,11 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git merge <span class="nt">&lt;gren-1&gt;</span> <span class="nt">&lt;gren-2&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git merge &lt;gren-1&gt; &lt;gren-2&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><em>fletter</em> sammen to grener. Man kan godt tenke seg at Git <em>slår sammen</em> de to grenene til én, hvilket gjerne er det man ønsker, men strengt tatt er det ikke nøyaktig det som skjer. Situasjoner er typisk at en ekstra gren er satt opp for å eksperimentere med en ny funksjon. Og, når funksjonen er moden for det, kan man ønske å slå disse sammen igjen. Men Git er tro mot sitt prinsipp om at alt skal kunne gjenskapes, så den fletter dem egentlig sammen til en gren hvor historikken ligger som en slags løkke i historikken. For å forklare dette skal vi først se på et lineært eksempel (<strong>fast forward merge</strong>) før vi ser på to eksempler med overlappende grener i <strong>no fast forward merge</strong>.</p>
+<p><em>fletter</em> sammen to grener. Ordet <em>merge</em> betyr <em>slå sammen</em>, men det er ikke nøyaktig det som skjer. Situasjoner er typisk at en ekstra gren er satt opp for å eksperimentere med en ny funksjon. Og, når funksjonen er moden for det, kan man ønske å slå disse sammen igjen. Men Git er tro mot sitt prinsipp om at alt skal kunne gjenskapes, så den fletter dem egentlig sammen til en gren hvor nærhistorikken ligger som en slags løkke av commits. For å forklare dette skal vi først se på et lineært eksempel (<strong>fast forward merge</strong>) før vi ser på to eksempler med overlappende grener i <strong>no fast forward merge</strong>.</p>
 </div>
 <div class="sect4">
 <h5 id="_fast_forward_merge"><a class="anchor" href="#_fast_forward_merge"></a>Fast forward merge</h5>
@@ -1891,8 +2016,7 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="h">git switch main
-git merge feature</code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git merge feature</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1931,7 +2055,7 @@ A ──
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="h">git switch MAIN
+<pre class="rouge highlight"><code data-lang="bash">git switch MAIN
 git merge FEATURE</code></pre>
 </div>
 </div>
@@ -1947,7 +2071,7 @@ git merge FEATURE</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="h">git switch FEATURE
+<pre class="rouge highlight"><code data-lang="bash">git switch FEATURE
 git merge MAIN</code></pre>
 </div>
 </div>
@@ -1980,14 +2104,14 @@ TRE ← INDEX ← M</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>I begge tilfeller beregnes et øyeblikksbilde <strong>M</strong> med oppdatert innhold og to foreldre, som vist i figuren. Ved å følge linjene bakover kan man finne hele historikken, hele nodenettverket.</p>
+<p>I begge tilfeller beregnes et øyeblikksbilde <strong>M</strong> med oppdatert innhold og to foreldre, som vist i figuren. Ved å følge linjene bakover kan man se hele historikken, hele nodenettverket.</p>
 </div>
 <div class="paragraph">
 <p>Ved konflikter blir dialogen annerledes, og brukeren får dessuten ansvaret for å løse dem. I dette tilfellet må brukeren også utføre en etterfølgende.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">commit</span> <span class="s">-m</span> <span class="s">"Beskrivelse"</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git commit <span class="nt">-m</span> <span class="s2">"Beskrivelse"</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1998,7 +2122,7 @@ TRE ← INDEX ← M</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">merge</span> <span class="s">--abort</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git merge <span class="nt">--abort</span></code></pre>
 </div>
 </div>
 <hr>
@@ -2024,8 +2148,7 @@ TRE ← INDEX ← M</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="h">git switch main
-git cherry-pick &lt;E&gt;</code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git cherry-pick &lt;E&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2048,7 +2171,7 @@ TRE ← INDEKS ← E'</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">cherry-pick</span> <span class="s">--continue</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git cherry-pick <span class="nt">--continue</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2059,7 +2182,7 @@ TRE ← INDEKS ← E'</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">cherry-pick</span> <span class="s">--abort</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git cherry-pick <span class="nt">--abort</span></code></pre>
 </div>
 </div>
 <hr>
@@ -2074,7 +2197,7 @@ TRE ← INDEKS ← E'</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="h">git rebase --continue</code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git rebase <span class="nt">--continue</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2082,7 +2205,7 @@ TRE ← INDEKS ← E'</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="h">git rebase --abort</code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git rebase <span class="nt">--abort</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2100,8 +2223,7 @@ A ── B ── C  ← MAIN</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="h">git switch feature
-git rebase main</code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git rebase main</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2130,7 +2252,7 @@ TRE ← INDEKS ← D''</code></pre>
 </div>
 <hr>
 <div class="sect3">
-<h4 id="_1️⃣_opprette_konto_og_nøkler"><a class="anchor" href="#_1️⃣_opprette_konto_og_nøkler"></a>1️⃣ Opprette konto og nøkler</h4>
+<h4 id="_1_opprette_konto_og_nøkler"><a class="anchor" href="#_1_opprette_konto_og_nøkler"></a>1. Opprette konto og nøkler</h4>
 <div class="paragraph">
 <p>Dvs, man må</p>
 </div>
@@ -2144,19 +2266,36 @@ TRE ← INDEKS ← D''</code></pre>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>Merk at det kreves to passordfraser, ett for GitHub-kontoen og ett for SSH-nøklene. (Ved bruke av ekstra-PC, kreves ytterliger ett sett SSH-nøkler med tilhørende passord.)</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Merk at det kreves to passordfraser, ett for GitHub-kontoen og ett for SSH-nøklene. (Ved bruk av flere PC-er, kreves ytterligere sett av SSH-nøkler med passord.)
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Kommandoen for å generere SSH-nøkler er:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">ssh-keygen -t ed25519 -C <span class="nt">&lt;e-post&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">ssh-keygen <span class="nt">-t</span> ed25519 <span class="nt">-C</span> &lt;e-post&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>(Argumentet <code>ed25519</code> ber bare om en public-key signaturalgoritme basert på elliptiske kurver.)</p>
+<p>Argumentet <code>ed25519</code> ber bare om en public-key signaturalgoritme basert på elliptiske kurver, som er vanlig å bruke i dag. Man har andre alternativer, som f.eks. 4096-bits RSA</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ssh-keygen <span class="nt">-t</span> rsa <span class="nt">-b</span> 4096 <span class="nt">-C</span> &lt;e-post&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>som var vanligere før. I fortsettelsen forutsetter vi førstnevnte valg.</p>
 </div>
 <div class="paragraph">
 <p>Kommandoen outputer informasjon om hvor nøklene lagres, samt fingerprint til offentlig nøkkel og en såkalt <em>random art</em> av nøkkelen.</p>
@@ -2166,7 +2305,7 @@ TRE ← INDEKS ← D''</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">ssh-keygen</span> <span class="s">-lf</span> <span class="p">~</span><span class="sr">/.ssh/id_ed25519.pub</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">ssh-keygen <span class="nt">-lf</span> ~/.ssh/id_ed25519.pub</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2174,7 +2313,7 @@ TRE ← INDEKS ← D''</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">ssh-keygen</span> <span class="s">-lvf</span> <span class="p">~</span><span class="sr">/.ssh/id_ed25519.pub</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">ssh-keygen <span class="nt">-lvf</span> ~/.ssh/id_ed25519.pub</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2182,7 +2321,7 @@ TRE ← INDEKS ← D''</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">cat</span> <span class="p">~</span><span class="sr">/.ssh/id_ed25519.pub</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash"><span class="nb">cat</span> ~/.ssh/id_ed25519.pub</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2193,39 +2332,38 @@ TRE ← INDEKS ← D''</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">ssh</span> <span class="s">-T</span> <span class="s">git@github.com</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">ssh <span class="nt">-T</span> git@github.com</code></pre>
 </div>
 </div>
 <hr>
 </div>
 <div class="sect3">
-<h4 id="_2️⃣_opprette_eksternt_repository_på_github"><a class="anchor" href="#_2️⃣_opprette_eksternt_repository_på_github"></a>2️⃣ Opprette eksternt repository på GitHub</h4>
+<h4 id="_2_opprette_eksternt_repository_på_github"><a class="anchor" href="#_2_opprette_eksternt_repository_på_github"></a>2. Opprette eksternt repository på GitHub</h4>
 <div class="paragraph">
-<p>Neste steg er å opprette eksternt REPO. Velg et passende prosjektnavn og avgjør om det skal være privat eller offentlig tilgjengelig etc.</p>
+<p>Neste steg er å opprette et eksternt REPO (<em>remote repository</em>). Velg et passende prosjektnavn og avgjør om det skal være privat eller offentlig tilgjengelig etc.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Om du allerede har et prosjektet med noen av filene <strong>README</strong>, <strong>.gitignore</strong> eller <strong>license</strong>, så ikke huk av for dem under opprettelsen.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>Om du allerede har et prosjektet med følgende filer, så ikke huk av for:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Add README</p>
-</li>
-<li>
-<p>Add .gitignore</p>
-</li>
-<li>
-<p>Add license</p>
-</li>
-</ul>
+<p><em>Default branch</em> i prosjektet på GitGub må angis spesielt. Tanken er at om man har flere grener, må én av disse være hovegren, være prosjektets "ansikt utad".</p>
 </div>
 <div class="paragraph">
-<p><em>Default branch</em> i prosjektet på GitGub forlanges fordi en av versjonene (grenene) av prosjektet må være prosjektets ansikt utad.</p>
+<p>Eksternt REPO vil inntil videre være tomt etter opprettelsen.</p>
 </div>
 <hr>
 </div>
 <div class="sect3">
-<h4 id="_3️⃣_forbinde_remote_med_det_lokale"><a class="anchor" href="#_3️⃣_forbinde_remote_med_det_lokale"></a>3️⃣ Forbinde remote med det lokale</h4>
+<h4 id="_3_forbinde_remote_repository_med_det_lokale"><a class="anchor" href="#_3_forbinde_remote_repository_med_det_lokale"></a>3. Forbinde remote repository med det lokale</h4>
 <div class="paragraph">
 <p>Om du ikke har et lokalt Git-prosjekt, lag ett på aktuell arbeidskatalog, f.eks. ved</p>
 </div>
@@ -2241,114 +2379,106 @@ git commit <span class="nt">-m</span> <span class="s2">"First commit"</span></co
 <p>Om du allerede har et lokalt Git-prosjekt, sørg for å gjøre <code>add</code> og <code>commit</code>, og sjekk at du står på riktig gren.</p>
 </div>
 <div class="paragraph">
-<p>Uansett vil et lokalt Git-prosjekt eksistere, og du skal gjøre:</p>
+<p>Uansett vil et lokalt Git-prosjekt eksistere, og det neste vi vil gjøre, er å knytte dette prosjektet til det eksterne repoet vi har opprettet på GitHub. Vi gjør da:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git remote add origin git@github.com:<span class="nt">&lt;brukernavn&gt;</span>/<span class="nt">&lt;prosjektnavn&gt;</span>.git
-git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git remote add origin git@github.com:&lt;brukernavn&gt;/&lt;prosjektnavn&gt;.git
+git push <span class="nt">-u</span> origin &lt;gren&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Fordelen ved å benytte opsjonen <code>-u</code>, er at man:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>siden slipper og angi gren i <code>`pull</code> og <code>push</code></p>
-</li>
-<li>
-<p><em>default branch</em> i prosjektet på GitHub settes iht. til dette.</p>
-</li>
-</ol>
+<p>fra hovedgrenen.</p>
 </div>
 <div class="paragraph">
-<p>Endelsen <code>.git</code> kan droppes i ovennevnte kommando.</p>
-</div>
-<div class="paragraph">
-<p>For å eksemplifisere kommandoen, mitt brukernavn er <code>mailjaro</code>. For et REPO på GitHub med navnet f.eks. <code>git-doc</code>, blir kommandoen:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">remote</span> <span class="s">add</span> <span class="s">origin</span> <span class="s">git@github.com:mailjaro/git-doc</span></code></pre>
-</div>
+<p>Endelsen <code>.git</code> kan strengt tatt droppes i ovennevnte kommando.</p>
 </div>
 <hr>
 </div>
 <div class="sect3">
 <h4 id="_vanlig_bruk"><a class="anchor" href="#_vanlig_bruk"></a>Vanlig bruk</h4>
 <div class="paragraph">
-<p>Man kan foreta vanlige <code>push</code> og <code>pull</code> ved:</p>
+<p>Etter man har utført <em>commit</em> er det naturlig å pushe dette til eksternt REPO. Kommandoen for dette er <code>git push</code>. Det en god vane å inkludere <code>-u origin &lt;gren&gt;</code> i første <strong>push</strong>/<strong>pull</strong> etter at man har flyttet seg dit, altså gjøre</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">push</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git push origin &lt;gren&gt;</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Dette minner en gjerne om å stå på grenen man ønsker å pushe fra, pluss at man unngår en <em>mulig</em> feilmelding fra Git om annen underforstått gren.</p>
+</div>
+<div class="paragraph">
+<p>Siden kan man bare gjøre</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">pull</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git push</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Man kan også senere spesifisere gren spesifikt ved:</p>
+<p>Før man starter en ny editering, ønsker man typisk å foreta en <strong>pull</strong> for å hente nyeste versjon av prosjektet å jobbe med. Men før man gjøre det, er det lurt å</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>sjekke at man står på rett gren</p>
+</li>
+<li>
+<p>utføre <code>git status</code> for å se om man har glemt noen lokale modifiserte filer eller har noen på INDEKS</p>
+</li>
+<li>
+<p>utføre <code>git fetch origin</code> for info om hva som har skjedd mot eksternt REPO siden sist (info om nye <em>commits</em>)</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Etter det kan man (aller tryggest) gjøre</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">push</span> <span class="s">origin</span> <span class="s">&lt;gren&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git pull origin &lt;gren&gt;</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>eller bare</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>git pull</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For å oppsummere kommandoen man bør gjøre ifm. henting av filer:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">pull</span> <span class="s">origin</span> <span class="s">&lt;gren&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git status
+git fetch
+git pull</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Origin Git er bare navnet (eller kanskje bedre adressen) til remote repository. Det er mulig å flere slike, men det ses bort fra her.</p>
+<p>Det er viktig å være klar over at <strong>push</strong> bare overfører endringer på aktiv gren. Har man modifisert på flere grener, må disse pushes separat. Tilsvarende henter <strong>pull</strong> bare ned oppdateringer til én gren (aktiv gren). Operasjonen må gjentas på alle grener.</p>
 </div>
 <div class="paragraph">
-<p>For å få en oversikt over hva som har skjedd siden sist, før man evt. foretar en <code>pull</code>, kan man gjøre en <code>fetch</code>. Kort fortalt får man returnert hvilke nye commits GitHub har registrert, men uten å gjøre endringer i lokale grener:</p>
+<p>Det betyr også at om man oppretter en gren på en PC, på PC-1, la oss si, så blir ikke den uten videre synlig på PC-2. Vi skal se på oppsett for bruk av flere PC-er i neste kapittel, men for at <strong>ny-gren</strong> på PC-1 skal bli tilgjengelig på PC-2, må man der utføre:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">fetch</span> <span class="s">origin</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git fetch
+git switch <span class="nt">--track</span> origin/ny-gren</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>(som i våre tilfeller er det samme som <code>git fetch</code>). I tillegg, før man foretar en <code>git pull</code>, bør man også gjøre:</p>
+<p>REPO på GitHub vil kjenne til alle grener, men altså ikke nødvendigvis alle PC-er (selv om det er å foretrekke).</p>
+</div>
+<div class="paragraph">
+<p>Før vi går over til oppsette på flere PC-er, må vi se litt på noen <code>git log</code>-varianter som kan brukes også på grener. Den første av de følgende viser et kort format</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">status</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Det er nemlig fort gjort å glemme at man har gjort lokale modifiseringer som evt. kan komme i konflikt med <code>git pull</code>.</p>
-</div>
-<div class="paragraph">
-<p>Husk også at hvis en konflikt oppstår, på den ene eller andre måten, så er <em>alltid</em> første punkt å utføre <code>git status</code>.</p>
-</div>
-<div class="paragraph">
-<p>Det er også viktig å være klar over at <strong>push</strong> bare overfører endringer på aktiv gren. Har man modifisert på flere grener, må disse pushes separat. Tilsvarende henter <strong>pull</strong> bare ned oppdateringer til aktiv gren. Operasjonen må gjentas på alle grener.</p>
-</div>
-<div class="paragraph">
-<p>Vi skal se på bruk oppsett for bruk av flere PC-er i neste kapittel, men det er verdt å merke seg at for at en gren <strong>ny-gren</strong> på PC-1 skal bli synlig og tilgjengelig på PC-2, må man der utføre:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">fetch</span>
-<span class="s">git</span> <span class="s">switch</span> <span class="s">--track</span> <span class="s">origin/&lt;ny-gren&gt;</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>REPO på GitHub vil kjenne til alle grener, men altså ikke nødvendigvis alle PC-er. Dette</p>
-</div>
-<div class="paragraph">
-<p>Når det gjelder å få oversikt over øyeblikksbilder, har man fler varianter av <code>git log</code> som kan brukes også på grener. Den første viser et kort format</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">log</span> <span class="s">origin/&lt;gren&gt;</span> <span class="s">--oneline</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git log origin/&lt;gren&gt; <span class="nt">--oneline</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2356,22 +2486,22 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">log</span> <span class="s">origin/&lt;gren&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git log origin/&lt;gren&gt;</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">log</span> <span class="s">--pretty=fuller</span> <span class="s">origin/&lt;gren&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git log <span class="nt">--pretty</span><span class="o">=</span>fuller origin/&lt;gren&gt;</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">log</span> <span class="s">--graph</span> <span class="s">--decorate</span> <span class="s">--all</span> <span class="s">origin/&lt;gren&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git log <span class="nt">--graph</span> <span class="nt">--decorate</span> <span class="nt">--all</span> origin/&lt;gren&gt;</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">log</span> <span class="s">-p</span> <span class="nc">origin/NyMain</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git log <span class="nt">-p</span> origin/NyMain</code></pre>
 </div>
 </div>
 <hr>
@@ -2383,26 +2513,36 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">clone</span> <span class="s">git@github.com:&lt;bruker&gt;/&lt;prosjekt&gt;.git</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git clone git@github.com:&lt;bruker&gt;/&lt;prosjekt&gt;.git</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>fra der arbeidskatalogen (som blir opprettet i kallet) skal ligge på. Selve katalognavnet for prosjektet kan godt navnendres om prosjektnavnet ikke skal være katalognavnet.</p>
+<p>fra der arbeidskatalogen (som blir opprettet i kallet) skal ligge. Selve katalognavnet for prosjektet kan godt navnendres om prosjektnavnet ikke skal være katalognavnet.</p>
 </div>
 <div class="paragraph">
-<p>Dersom man ønsker å samarbeide med eksterne brukere, må de først gis tilgang til GitHub-repoet. De må ha Git installert og ha SSH-nøkler etc. før prosjektet klones. Konflikter i filer kan forekomme når flere modifiserer, <em>commiter</em> og pusher. Konflikter løses lokalt (se neste kapittel).</p>
+<p>Verre er ikke det. Etter dette kan man jobbe med prosjekter fra flere PC-er: hjemmefra, på jobb på hytta. Det viktige da er å jobbe slik at man unngår unødvendige konflikter. Selv når man jobber alene, som vi forutsetter, er det fort gjort å glemme ting, komme i utilsiktet i utakt. Det viktige er å:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>avslutte alle editeringer med <strong>commit</strong>/<strong>push</strong> (for alle aktuelle grener)</p>
+</li>
+<li>
+<p>alltid starte editeringer med å <strong>status</strong>/<strong>fetch</strong>/<strong>pull</strong> (for alle aktuelle grener)</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>Har man mange Git-prosjekter, kan man over tid glemme hvilke som er lokale og hvilke som er ikke-lokale. Kommandoene</p>
+<p>En annem utfordring kan være at man etter hvert har mange Git-prosjekter. Over tid kan man kanskje glemme hvilke som er lokale og hvilke som er ikke-lokale. Kommandoene</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">remote</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git remote</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">remote</span> <span class="s">-v</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git remote <span class="nt">-v</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2413,7 +2553,7 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">fd</span> <span class="s">-u</span> <span class="s">-t</span> <span class="s">d</span> <span class="s">'^</span><span class="err">\</span><span class="s">.git</span>$<span class="s">'</span> <span class="p">~</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">fd <span class="nt">-u</span> <span class="nt">-t</span> d <span class="s1">'^\.git$'</span> ~</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2436,8 +2576,17 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 <div class="paragraph">
 <p>Dette bør være ufarlig. Git har et gjennomtenkt design, og konflikter lar seg gjerne fint løse. Men det betyr ikke at man ikke kan føle en grad av forvirring underveis.</p>
 </div>
-<div class="paragraph">
-<p>Merk at vi her ser på personlig bruk og relativt enkle prosjekter. I større samarbeidsprosjekter fins det gjerne sett av prosedyrer og definerte strukturer man opererer etter. Det som diskuteres her er neppe iht. til profesjonell bruk.</p>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Merk at vi her ser på personlig bruk og relativt enkle prosjekter. I større samarbeidsprosjekter fins det gjerne sett av prosedyrer og definerte strukturer man opererer etter. Det som diskuteres her er neppe iht. til profesjonell bruk.
+</td>
+</tr>
+</table>
 </div>
 <div class="ulist">
 <ul>
@@ -2448,7 +2597,7 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">status</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git status</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2456,13 +2605,13 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="s">On branch main</span>
-<span class="s">You have unmerged paths.</span>
-  <span class="s">(fix conflicts and run "git commit")</span>
+<pre class="rouge highlight"><code data-lang="text">On branch main
+You have unmerged paths.
+  (fix conflicts and run "git commit")
 
-<span class="na">Unmerged paths</span><span class="pi">:</span>
-  <span class="na">both modified</span><span class="pi">:</span>   <span class="s">chapter/01.md</span>
-  <span class="na">both modified</span><span class="pi">:</span>   <span class="s">chapter/35.md</span></code></pre>
+Unmerged paths:
+  both modified:   chapter/01.md
+  both modified:   chapter/35.md</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -2474,11 +2623,11 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="s">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span>
-<span class="s">din tekst</span>
-<span class="s">=======</span>
-<span class="s">den andre teksten</span>
-<span class="pi">&gt;</span><span class="err">&gt;&gt;&gt;&gt;&gt;&gt;</span> <span class="err">feature</span></code></pre>
+<pre class="rouge highlight"><code data-lang="text">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+din tekst
+=======
+den andre teksten
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2502,17 +2651,17 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 </ul>
 </div>
 <div class="paragraph">
-<p>I noen tilfeller er dette greit og forståelig, som hvis avbruddet oppstod under en <code>rebase</code> eller <code>cherry-pick</code>. Disse har en egen <code>--continue</code>-opsjon som skal benyttes. Andre operasjoner som <code>merge</code>, <code>git push</code>, en <strong>sync</strong> i VSCode m.fl. har ikke denne opsjonen, og det er mindre klart hva som menes med "å fortsette". Ikke nok med det, VSCode kan liste tips med flere alternativer, så hva gjør man?</p>
+<p>I noen tilfeller er dette greit og forståelig, som hvis avbruddet oppstod under en <code>rebase</code> eller <code>cherry-pick</code>. Disse har en egen <code>--continue</code>-opsjon som skal benyttes. Andre operasjoner som <code>merge</code>, <code>git push</code>, en <strong>sync</strong> i VS Code, m.fl. har ikke denne opsjonen, og det er mindre klart hva som menes med "å fortsette". Ikke nok med det, VS Code kan liste tips med flere alternativer, så hva gjør man?</p>
 </div>
 <div class="paragraph">
 <p>Igjen ligger løsningen i output fra <code>git status</code>. Den forteller også om hva som skal fortsettes, og oversikten under viser hvilke kall som fortsetter og fullfører den tilhørende operasjonen:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="s">KONFLIKT OPPSTOD UNDER   UTFØR</span>
-<span class="na">merge / pull</span><span class="pi">:</span>            <span class="s">git commit</span>
-<span class="na">rebase</span><span class="pi">:</span>                  <span class="s">git rebase --continue</span>
-<span class="na">cherry-pick</span><span class="pi">:</span>             <span class="s">git cherry-pick --continue`</span></code></pre>
+<pre class="rouge highlight"><code data-lang="text">KONFLIKT OPPSTOD UNDER   UTFØR
+merge / pull:            git commit
+rebase:                  git rebase --continue
+cherry-pick:             git cherry-pick --continue`</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2522,7 +2671,7 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 <p>Dette så vel og bra ut. Men det kan også oppstå situasjoner som minner om en konflikt, men som egentlig er å tenke på som <em>divergerende grener</em>. Selv når bare én bruker oppdaterer et prosjekt fra to PC-er, kan dette lett oppstå. Git stopper da opp og vil prøve å fortelle hva som er problemet.</p>
 </div>
 <div class="paragraph">
-<p>Ett typisk tilfelle er at man gjør en liten modifisering på én PC og synes mengden er for liten til å foreta <code>add + commit</code>. Og når man siden gjør en større endring (med <code>add + commit</code>) på annen PC, har man divergerende grener. Foreløpig er det ingen konflikt (det blir det først når man prøver å slå den sammen), så <code>git status</code> og <code>git pull</code> vet ikke hva de skal gjøre (men lister alternativer). Da må man vurdere situasjonen, se nærmere på hvordan <code>merge</code>, <code>rebase</code>, <code>cherry-picks</code> etc. vil virke. Meldingen Git gir kan dessuten googles. Det er mange som har stått i nøyaktig din situasjon, og det er råd å få. Men i det beskrevne tilfellet, der en ubetydelig gren og en mer betydelig gren skal forenes, <em>kan</em> det beste alternativet å foreta en <strong>hard reset</strong> fra "ubetydelig versjon":</p>
+<p>Ett typisk tilfelle er at man gjør en liten modifisering på én PC og synes mengden er for liten til å foreta <code>add &#43; commit</code>. Og når man siden gjør en større endring (med <code>add &#43; commit</code>) på annen PC, har man divergerende grener. Foreløpig er det ingen konflikt (det blir det først når man prøver å slå den sammen), så <code>git status</code> og <code>git pull</code> vet ikke hva de skal gjøre (men lister alternativer). Da må man vurdere situasjonen, bruke <code>git diff</code> aktivt på aktuelle <em>commits</em> før man ser nærmere på hvordan <code>merge</code>, <code>rebase</code>, <code>cherry-picks</code> etc. vil virke. Meldingen Git gir kan dessuten googles. Det er mange som har stått i nøyaktig din situasjon, og det er råd å få. Men i det beskrevne tilfellet, der en ubetydelig gren og en mer betydelig gren skal forenes, <em>kan</em> det beste alternativet å foreta en <strong>hard reset</strong> fra "ubetydelig versjon":</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2531,6 +2680,9 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 </div>
 <div class="paragraph">
 <p>(eller hva nå hovedgrenen heter). Etter dette blir PC-ene enige om situasjonen (som er i samsvar "betydelige gren" og reflektert i TRE, INDEKS og REPO).</p>
+</div>
+<div class="paragraph">
+<p>Man kan også ta kopier av tekst og filer underveis som kan limes inn på rette steder siden. Proffene klarer seg sikkert uten sånt, men dette kan redde amatøren fra å tape arbeid ifm. konfliktløsing som kan føles innfløkt.</p>
 </div>
 <div class="paragraph">
 <p>Det kan også oppstå situasjoner der Git rapportere flertydighet rundt <strong>push</strong>. Igjen bør man kartlegge best mulig, søke opp råd på nettet osv. Men <em>hvis</em> man f.eks. er sikker på at situasjonen på PC -1 er korrekt, kan man foreta en <em>forced push</em> derfra ved:</p>
@@ -2543,22 +2695,45 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 <div class="paragraph">
 <p>Da må siden rette opp ift. dette på PC-2, f.eks. ved å foreta en <strong>hard reset</strong> der.</p>
 </div>
-<div class="paragraph">
-<p>Husk at <strong>hard reset</strong> alltid risikerer å overskrive lokale filer</p>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Husk at <strong>hard reset</strong> alltid risikerer å overskrive lokale filer
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>Dessuten, i en situasjoner der man har en korrekt versjon PC-1 (og er 100 % sikker på det), men har kommet i utakt på PC-2 på en måte som ikke lett lar seg løse, <em>kan</em> man alltids slette prosjektet på PC-2 og klone det tilbake fra GitHub (eller kopiere det fra en backup). Det er neppe hva en proff ville gjort, men muligheten kan virke beroligende for ferske brukere av Git.</p>
+<p>Dessuten, i en situasjoner der man har en korrekt versjon på PC-1 (og er 100 % sikker på det), men har kommet i utakt på PC-2 på en måte som ikke lett lar seg løse, <em>kan</em> man alltids slette prosjektet på PC-2 og klone det tilbake fra GitHub (eller kopiere det fra en backup). Det er neppe hva en proff ville gjort, men muligheten kan virke beroligende for ferske brukere av Git.</p>
 </div>
 <div class="paragraph">
-<p>Men beste medisin er uansett å unngå utakt og konflikter i utgangspunktet. Så moralen er:</p>
+<p>Men beste medisin er uansett å unngå utakt og konflikter i utgangspunktet. La oss gjenta moralen her:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>alltid starte en redigeringsøkt med <code>git status</code>, <code>git fetch origin</code> før <code>git pull</code></p>
+<p>avslutte alle editeringer med</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>add</strong>/<strong>commit</strong>/<strong>push</strong> (for alle aktuelle grener)</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p>alltid avslutte en redigeringsøkt med <code>git add -A</code>, <code>git commit</code> og <code>git push</code></p>
+<p>starte alle editeringer med</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>status</strong>/<strong>fetch</strong>/<strong>pull</strong> (for alle aktuelle grener)</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -2608,7 +2783,7 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 1.0 2026-02-19<br>
-Last updated 2026-02-28 10:07:36 +0100
+Last updated 2026-02-28 11:55:23 +0100
 </div>
 </div>
 </body>
