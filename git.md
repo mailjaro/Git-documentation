@@ -2,17 +2,17 @@
 
 Dette heftet gir en introduksjon til Git. Den viser grunnleggende eksempler og bruk i del 1, og går litt mer i dybden på implementering og detaljer i del 2.
 
-Heftet retter seg mot brukere med ikke altfor avanserte behov, men som likevel ønsker trygghet og forståelse i det man gjør. Det retter seg ikke primært mot kodere eller større samarbeidsprosjekter, men heller mot folk som skriver, dokumenterer eller koder mer hobbypreget.
+Heftet retter seg mot brukere med ikke altfor avanserte behov, men som likevel ønsker trygghet og forståelse i det man gjør. Det retter seg ikke mot kodere eller større samarbeidsprosjekter, men heller mot folk som skriver, dokumenterer eller koder mer hobbypreget.
 
-❗ I et prosjekt med flere deltakere bør man nok sørge for god opplæring for å unngå å påføre andre unødvendige versjonskonflikter eller sogar tap av arbeid.
+❗ I et prosjekt med flere deltakere bør man sikkert sørge for god opplæring for å unngå å påføre andre unødvendige versjonskonflikter eller sogar tap av arbeid.
 
-Å kunne jobbe sømløst på flere PC-er, ha et enkelt, trygt system for ekstern backup, kunne eksperimentere med ulike versjoner med full oversikt, er likevel viktig. Og Git kan *virkelig* forenkle hverdagen for slike brukere vesentlig. Mange er de som brukt mye energi på å holde orden på backuper og ulike versjoner på hjemmesnekret vis. Kanskje har de også slitt med å finne *Tutorials* som verken er for overflatiske eller for avanserte. Dette heftet forsøker å være til hjelp for slike brukere.
+Å kunne jobbe sømløst på flere PC-er, ha et enkelt system for ekstern backup, kunne eksperimentere med ulike versjoner med full oversikt, er likevel viktig. Og Git kan forenkle hverdagen for slike brukere vesentlig. Mange er de som brukt mye energi på å holde orden på backuper og ulike versjoner på hjemmesnekret vis. Dette heftet forsøker å være til hjelp for slike brukere.
 
-Heftet tar bl.a. for seg hvordan man setter opp forbindelser mot [GitHub](https://github.com/) (for ekstern overførsel) fra en eller flere PC-er. Linux legges til grunn som operativsystem, der Git er inkludert i de fleste distroer (eller lett lar seg installere).
+Heftet tar bl.a. for seg hvordan man setter opp forbindelser mot [GitHub](https://github.com/) (for ekstern overførsel) fra en eller flere PC-er. Linux legges til grunn som operativsystem.
 
-Ulike Git-kommandoer blir vist og forklart. Det kan likevel være lurt å benytte en editor som [Visual Code Studio](https://code.visualstudio.com/). Git aksesseres der via et menybasert grensesnitt, og visse operasjoner, som å angre ting, er enklere der. Påminnelser på ting man bør gjøre, får man også. Men det er uansett nyttig å ha en god forståelse i bunn. Og har man det, er jobbing med systemer som Git på Visual Code Studio enkelt, og dette vil ikke bli behandlet spesielt.
+Ulike Git-kommandoer blir vist og forklart. Det kan likevel være lurt å benytte en editor som [Visual Code Studio](https://code.visualstudio.com/). Git aksesseres der via et menybasert grensesnitt, og visse operasjoner, særlig det å angre ting, er enklere der. Det er uansett nyttig å ha en god forståelse i bunn. Og har man det, er jobbing med systemer som Git på Visual Code Studio enkelt (og vil ikke bli behandlet spesielt).
 
-Det kan også nevnes at Git har et et godt, gjennomtenkt design. Filosofien er at alt skal kunne gjenskapes, intet skal gå tapt, og brukeren kan vanskelig gjøre feil som gjør at data og versjoner forsvinner. Som det ofte sies:
+Det kan også nevnes at Git har et et godt, gjennomtenkt design. Filosofien er at alt skal kunne gjenskapes og at intet permanent skal gå tapt. Som det ofte sies:
 
 -- *If it’s hard to do something stupid, the design is good.*
 
@@ -55,7 +55,7 @@ Man har
 - **Staging area** (her kalt **INDEKS**) og
 - **Git directory** (her kalt **REPO**)
 
-Ved bruk av et fjernsystem som GitHub, kommer *det* inn som et fjerde element i tillegg (hvilket behandles senere i dokumentet). De tre elementene korresponderer til de tre stadiene en fil kan være i under Git:
+Ved bruk av et fjernsystem som GitHub, kommer et fjerde element inn i tillegg (behandles senere i dokumentet). De tre elementene korresponderer til de tre hovedstadiene en fil kan være i under Git:
 
 - Modifisert: Filen er endret, men ennå ikke sendt videre i Git-systemet
 - Sendt til INDEKS: Filen er markert i sin nåværende versjon for å bli med i neste *commit*
@@ -63,7 +63,7 @@ Ved bruk av et fjernsystem som GitHub, kommer *det* inn som et fjerde element i 
 
 Arbeidskatalogen utgjør den aktive, lokale utgaven av filtreet til prosjektet. Filene er hentet ut fra REPO og plassert på disken klar for bruk eller videre modifisering.
 
-INDEKS er rent fysisk en fil og holder oversikt over om hva som skal med i neste *commit*.
+INDEKS holder oversikt over om hva som skal med i neste *commit*.
 
 REPO inneholder objektdatabasen for prosjektet og lagrer alle versjoner og alt av relasjoner gjennom prosjektet.
 
@@ -79,7 +79,7 @@ A---B---C---D---E  ← MAIN
 
 Her ser vi en illustrasjon av et prosjekt organisert i to grener av øyeblikksbilder. Hvert øyeblikksbilde har referanse bakover til sin forelder, men aldri til sine barn. I figuren skjer commits fra venstre mot høyre, slik at f.eks. F og D har referanse til C (men ikke omvendt), og C har referanse til B (men ikke omvendt).
 
-Vi ser også noen andre viktige elementer i Git, nemlig:
+Vi ser også andre viktige elementer i Git, nemlig:
 
 - pekeren HEAD, som indirekte peker på aktivt øyeblikksbilde, samt
 - to gren-pekere (her kalt MAIN og FEATURE) som peker på de to grenene.
@@ -92,33 +92,43 @@ Vi kommer tilbake til hvordan disse egentlig er implementert.
 2. Brukeren velger hvilke forandringer som skal være med i neste *commit*v(legger disse til INDEKS)
 3. Bruker gjør en *commit*, hvilket tar filene slik de er i INDEKS og lagrer alt (hele øyeblikksbildet) i REPO
 
-Ved ekstern versjonskontroll, som f.eks. ved bruk av GitHub, må man foreta et innledende `git pull` (for hente inn nyeste tre fra ekstern REPO) og et avsluttende `git push` (for å *synce* lokalt REPO med ekstern REPO) i tillegg.
+Ved ekstern versjonskontroll foretar man typisk et innledende `git pull` (for hente inn nyeste tre fra ekstern REPO) og et avsluttende `git push` (for å *synce* lokalt REPO med ekstern REPO) i tillegg.
 
-Ettersom prosjektet vokser, kan prosjektet grene ut i flere versjoner. Disse vil likevel være lagret i samme REPO. Alt av data og referanser for å kunne gjenskape ulike versjoner i sin helhet, er lagret der.
+Ettersom prosjektet vokser, kan prosjektet grene ut i flere versjoner. Disse vil likevel være lagret i samme REPO. Alt av data og referanser for å kunne gjenskape ulike versjoner, er lagret der.
 
 Vi bør i oppstarten også nevne at vi kan skjerme bestemte filer og kataloger fra Git ved å inkludere dem i en tekstfil **.gitignore** øverst i arbeidskatalogen. Avhengig av type prosjekt, kan man velge å ikke følge bestemt filer.
 
-**Merk**: Det anbefales å **ikke** følge filer som genereres av andre, som o- og exe-filer under C, eller filer produsert i andre formater fra en hovedfil. Dette er ikke primært for å spare plass, men å ikke forvanske en eventuelle konflikthåndteringer.  Konflikthåndtering er beskrevet nærmere i et eget underkapittel av GitHub-kapittelet, ettersom konflikter lettere oppstår i en *remote* situasjon med editering fra flere steder.
+❗ Det anbefales å **ikke** la Git følge filer som genereres av andre, som o- og exe-filer under C, eller filer produsert i andre formater fra en hovedfil. Dette er ikke primært for å spare plass, men for å ikke forvanske en eventuelle konflikthåndteringer.
+
+Vi skal se litt på konflikthåndtering i et eget underkapittel av GitHub-kapittelet, ettersom konflikter lettere oppstår i en *remote* situasjon med editering fra flere steder.
 
 ---
 
 ## 📕 Grunnleggende bruk
 
-Før vi går inn på flere Git-detaljer og ser nærmere på hvordan ting henger sammen, kan vi vise noen eksempler og kommandoer for grunnleggende bruk. Dette dekker normal aktivitet, og mange vil klare seg med dette. Noen kommandoer fins i både eldre og nyere varianter, og vi skal prøve å benytte de nyere. Vi fokuserer først på lokal bruk og senere ta for oss hvordan man kobler seg på eksterne systemer som GitHub, for backup, samarbeid eller fjernaksess.
+Før vi går inn på flere Git-detaljer og ser nærmere på hvordan ting henger sammen, kan vi vise noen eksempler og kommandoer for grunnleggende bruk. Noen kommandoer fins i både eldre og nyere varianter, og vi skal prøve å benytte de nyere. Vi fokuserer først på lokal bruk og senere ta for oss hvordan man kobler seg på GitHub for backup og/eller fjernaksess.
 
 ---
 
 ### ▶️ Initialisering (init)
 
-Man kan initialiser Git for et prosjekt med å gjøre
+For å initiere Git første gang kan man gjøre noe som vil likne:
+
+```bash
+git config --global user.name 'Ola Nordmann'
+git config --global user.email 'ola.nordmann@gmail.com'
+```
+
+Brukerdataene blir globale på maskinen etter det. Deretter kan man sette opp Git ved
+
 
 ```nginx
 git init
 ```
 
-på toppen av aktuelle arbeidskatalog. Ved første initialisering, for aller første prosjekt, oppgis navn og e-postadresse. Senere benyttes disse valgene automatisk.
+på toppen av aktuelle arbeidskatalog.
 
-Default *branch name* ved initialisering er *master* eller *main*, avhenging av distro. Ønsker man å spesifisere navnet nærmere, kan man benytte **`-b`**-opsjonen.
+Default *branch name* ved initialisering er *main* eller *master*, avhenging av distro. Ønsker man å spesifisere navnet nærmere, kan man benytte **`-b`**-opsjonen.
 
 ```html
 git init -b <grennavn>
@@ -168,7 +178,7 @@ tar med endringer og slettinger, men ikke nye filer.
 
 ### ▶️ Se Git-informasjon
 
-Man kan til se hvilke filer som er *modifisert* og hvilke som er sendt til INDEKS ved `git status`. Under ser vi noen varianter. Disse viser hhv. alle slike filer i en lang eller kort output, samt *branch*-info:
+Man kan se hvilke filer som er *modifisert* og hvilke som er sendt til INDEKS ved `git status`. Under ser vi noen varianter. Disse viser hhv. alle slike filer i en lang eller kort output:
 
 ```nginx
 git status
@@ -178,11 +188,7 @@ git status
 git status -s
 ```
 
-```html
-git status -b <branch>
-```
-
-Vi kan videre få informasjon om øyeblikksbilder ved `git log`. Output fra en slik kommando er vist under.
+Vi kan videre få informasjon om øyeblikksbilder ved `git log`. Eksempel på toppen av en output er vist under.
 
 ```nginx
 git log
@@ -193,17 +199,10 @@ commit bbf9a583e00cf19be7d7714a0d24be6af9ffc00b
 Author: <navn> <e-post>
 Date:   Wed Feb 11 10:29:13 2026 +0100
 
-    On branch <gren>
-    Your branch is up to date with 'origin/<gren>'.
-    
-    Changes to be committed:
-            modified:   file-1.md
-            modified:   file-4.md
-    
-    More details.
+    <Beskrivelse>
 ```
 
-Alt under datolinjen her er brukerens beskrivelse av de siste endringene, enten gitt ved `-m`-opsjonen til `commit` eller (mer sannsynlig i dette tilfellet) via en editor som VSCode. Øverst ser vi hashen til øyeblikksbildet, som kan benyttes som entydig *commit*-referanse (ofte bare i kortform, de 7 første tegnene).
+Alt under datolinjen vil være brukerens beskrivelse av endringene, enten gitt ved `-m`-opsjonen til `commit` eller via en editor som VS Code. Vi ser også hashen til øyeblikksbildet, som kan benyttes som entydig *commit*-referanse (ofte bare i kortform).
 
 Under ser vi flere `git log`-varianter. Disse viser hhv. nyeste øyeblikksbilde, de to nyeste bildene, en kort, fargeformatert output samt en som viser et spesifikt bilde med utvidet informasjon om bl.a. fil-endringer.
 
@@ -235,7 +234,7 @@ git mv <fil> <ny-fil>
 
 Navnet endres på arbeidskatalogen, og endringen legges til på INDEKS, klar for neste *commit*.
 
-Alternativt kan man navnendre filen og legge den til indeksen selv. Altså gjøre:
+Alternativt kan man navnendre filen og legge den til INDEKS selv. Altså gjøre:
 
 ```html
 mv <filnavn> <nytt-fil-navn>
@@ -268,22 +267,13 @@ Dette forutsetter at filen er *commited*. Denne kommandoen gjør to ting samtidi
 
 Man kan for så vidt også slette filen fra arbeidskatalogen (ved `rm`) og legge til INDEKS selv (ved `add`), med samme resultat.
 
-Dersom man ønsker å beholde filen lokalt, men bare fjerne den fra Git, kan man dessuten gjøre
+Dersom man ønsjer å ta en allerede fulgt fil ut av versjonskontrollene, kan man gjøre:
 
 ```html
 git rm --cached <fil>
 ```
 
-(og deretter også oppdatere **.gitignore** tilsvarende).
-
-Kun INDEKS blir endret, dvs.
-
-```yaml
-delete:
-    TRE → INDEKS
-```
-
-Prosessen krever en avsluttende *commit*.
+etterfulgt av en *commit*. Filen blr værende på arbeidskatalogen, så man vil typisk også oppdatere **.gitignore** tilsvarende.
 
 ---
 
@@ -307,22 +297,40 @@ Følgende kommando viser alle lokale grener:
 git branch
 ```
 
-Denne viser i tillegg alle ikke-lokale:
-
-```nginx
-git branch -a
-```
-
-og denne bare de ikke-lokale:
+og denne bare de på remote:
 
 ```nginx
 git branch -r
 ```
 
-Mer spesifikk informasjon relatert til ekstern REPO fås fra:
+Denne viser begge, og en eksempel-output er også vist:
+
+```nginx
+git branch -a
+```
+
+```text
+  gh-pages
+* main
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/gh-pages
+  remotes/origin/main
+```
+
+Vi ser to lokale grener her, **main** og **gh-pages**, og vi står på førstnevnte (`*`). Videre er **origin** adressen på rot i remote repository, slik at grenene der omtales som **origin/main** og **origin/gh-page**. HEAD peker dessuten på førstnevnte.
+
+❗ Strengt tatt får man ikke remote-brancher direkte fra serveren her, men det viser egentlig hvordan det så ut sist det ble hentet (ved `git fetch`).
+
+Mer spesifikk lokal greninformasjon fås fra:
 
 ```nginx
 git branch -vv
+```
+
+og den tlnærmet ekvivalente kommandoen for remote blir:
+
+```nginx
+git branch -vr
 ```
 
 Det følgende oppretter branch fra en bestemt commit;
@@ -1344,7 +1352,7 @@ Utføre gjerne `git status` underveis om antall filer er stort.
 
 - Fjerde punk er å forsette (utføre *continue*) på operasjonen Git ble avbrutt i.
 
-I noen tilfeller er dette greit og forståelig, som hvis avbruddet oppstod under en `rebase` eller `cherry-pick`. Disse har en egen `--continue`-opsjon som skal benyttes. Andre operasjoner som `merge`, `git push`, en **sync** i VSCode m.fl. har ikke denne opsjonen, og det er mindre klart hva som menes med "å fortsette". Ikke nok med det, VSCode kan liste tips med flere alternativer, så hva gjør man?
+I noen tilfeller er dette greit og forståelig, som hvis avbruddet oppstod under en `rebase` eller `cherry-pick`. Disse har en egen `--continue`-opsjon som skal benyttes. Andre operasjoner som `merge`, `git push`, en **sync** i VS Code, m.fl. har ikke denne opsjonen, og det er mindre klart hva som menes med "å fortsette". Ikke nok med det, VS Code kan liste tips med flere alternativer, så hva gjør man?
 
 Igjen ligger løsningen i output fra `git status`. Den forteller også om hva som skal fortsettes, og oversikten under viser hvilke kall som fortsetter og fullfører den tilhørende operasjonen:
 
