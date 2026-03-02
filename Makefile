@@ -42,6 +42,8 @@ $(EPUB_LIGHT): $(MD) $(COMMON) | $(BUILD)
 git-1.adoc: $(MD) $(COMMON)
 	@pandoc $(MD) --metadata-file=$(COMMON) --wrap=none \
 	       -f markdown-smart -o $@
+#  Other formats are called form config/, affecting rel. imagepath:
+	@sd 'image::images' 'image::../images' $@
 
 git-2.adoc: git-1.adoc
 	@cp $< $@

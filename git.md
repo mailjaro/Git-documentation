@@ -30,24 +30,7 @@ Det kan også nevnes at Git har et et godt, gjennomtenkt design. Filosofien er a
 
 Her ser vi strukturen Git-systemet bygger på:
 
-```text
-┌──────────────────────┐
-│  Working Directory   │
-│        (TRE)         │
-└──────────┬───────────┘
-           │ 
-           ▼
-┌──────────────────────┐
-│     Staging Area     │
-│       (INDEX)        │
-└──────────┬───────────┘
-           │ 
-           ▼
-┌──────────────────────┐
-│    Git Directory     │
-│       (REPO)         │
-└──────────────────────┘
-```
+![Git System](images/git-system-small.png)
 
 Man har
 
@@ -89,7 +72,7 @@ Vi kommer tilbake til hvordan disse egentlig er implementert.
  Den grunnleggende arbeidsflyten er som følger:
 
 1. Brukeren endrer eller oppretter filer i arbeidskatalogen
-2. Brukeren velger hvilke forandringer som skal være med i neste *commit*v(legger disse til INDEKS)
+2. Brukeren velger hvilke forandringer som skal være med i neste *commit* (legger disse til INDEKS)
 3. Bruker gjør en *commit*, hvilket tar filene slik de er i INDEKS og lagrer alt (hele øyeblikksbildet) i REPO
 
 Ved ekstern versjonskontroll foretar man typisk et innledende `git pull` (for hente inn nyeste tre fra ekstern REPO) og et avsluttende `git push` (for å *synce* lokalt REPO med ekstern REPO) i tillegg.
@@ -98,7 +81,7 @@ Ettersom prosjektet vokser, kan prosjektet grene ut i flere versjoner. Disse vil
 
 Vi bør i oppstarten også nevne at vi kan skjerme bestemte filer og kataloger fra Git ved å inkludere dem i en tekstfil **.gitignore** øverst i arbeidskatalogen. Avhengig av type prosjekt, kan man velge å ikke følge bestemt filer.
 
-❗ Det anbefales å **ikke** la Git følge genererte filer som o- og exe-filer under C, eller filer produsert i andre formater fra en hovedfil. Dette er ikke primært for å spare plass, men for å ikke forvanske eventuelle konflikthåndteringer.
+❗ Det anbefales å **ikke** la Git følge genererte filer som o- og exe-filer under C, eller filer produsert i andre formater fra en hovedfil. Dette sparer plass, men kanskje viktigere er at det gjør eventuelle konflikthåndteringer ryddigere.
 
 Vi skal se litt på konflikthåndtering i et eget underkapittel av GitHub-kapittelet, ettersom konflikter lettere oppstår i en *remote* situasjon og editering fra flere steder.
 
@@ -766,7 +749,7 @@ Det er mulig å grave enda dypere ned, men dette holder trolig for vårt formål
 
 ### ▶️ HEAD og gren-pekere
 
-Vi må se litt nærmere på hvordan peker HEAD og gren-pekere er implementert. Vi husker at HEAD (konseptuelt) peker på aktivt øyeblikksbilde, mens gren-pekere (konseptuelt) peker på hver sin gren. Begge deler er imidlertid vanlige tekstfiler. HEAD ligger på `.git`, mens de sistnevnt ligger på `.git/refs/heads` og har filnavn som tilsvarer grennavnet (én fil for hver gren).
+Vi må se litt nærmere på hvordan peker HEAD og gren-pekere er implementert. Vi husker at HEAD (konseptuelt) peker på aktivt øyeblikksbilde, mens gren-pekere (konseptuelt) peker på hver sin gren. Begge deler er imidlertid vanlige tekstfiler. HEAD ligger på **.git**, mens de sistnevnt ligger på .**git/refs/heads** og har filnavn som tilsvarer grennavnet (én fil for hver gren).
 
 En grenpeker, som f.eks. MAIN, inneholder hash-verdien til et øyeblikksbilde (normalt siste øyeblikksbilde på grenen), som f.eks:
 
@@ -782,7 +765,7 @@ ref: refs/heads/main
 
 I noen tilfeller (som vi skal se) inneholder den imidlertid bare hash-verdien til et bestemt øyeblikksbilde. HEAD sises da å være *detached* eller i *detached* tilstand, hvilket utnyttes i enkelt kommandoer.
 
-Men i normaltilstand, når man sier "HEAD peker på øyeblikksbilde D", så betyr det egentlig at HEAD peker på MAIN, som i sin tur peker på bilde D:
+Men i normaltilstand, når man sier *"HEAD peker på øyeblikksbilde D"*, så betyr det egentlig at HEAD peker på MAIN, som i sin tur peker på bilde D:
 
 ```yaml
 HEAD → MAIN → D
@@ -899,6 +882,8 @@ git switch --detached commit:
 I den første skjer det intet med MAIN. Den peker fortsatt på siste *commit* på sin gren. HEAD blir isteden satt til å peke på en annen gren, referert til med GREN, og denne igjen peker på sin siste *commit* på grenen. Dette øyeblikksbilde overføres så både til både INDEKS og TRE, slik at totaltilstanden blir identisk med hva den var da det aktuelle øyeblikksbildet ble *commited*. Dette er nettopp hva man ønsker, om man vil jobbe med en annen versjon av prosjektet.
 
 I den andre skjer heller ingenting med MAIN. HEAD peker altså direkte på den spesifiserte *commiten* (HEAD-filen får hash-verdien som innhold, *detached*-mode), og øyeblikksbildet overføres både til INDEKS og TRE.
+
+‼️ Dersom grenen man switcher fra er uferdig (dvs. man har modifiseringer som ennå ikke er *commited*), risikerer man å miste arbeid. Git melder imidlertid ifra om dette.
 
 ---
 
@@ -1070,7 +1055,7 @@ Sluttresultatet blir
 TRE ← INDEKS ← E'
 ```
 
-E' blir altså her den nye *commiten* som inneholder de samme endringene som E, men med ny hash og ny forelder (C).
+E' blir altså her den nye *commiten* som inneholder de samme endringene som E, men med ny hash og ny forelder (*commit* C).
 
 Om Git støter på konflikter underveis, stopper prosessen og overlater til brukeren å løse opp. Deretter igangsettes prosessen igjen med:
 
@@ -1249,7 +1234,7 @@ git push
 Før man starter en ny editering, ønsker man typisk å foreta en **pull** for å hente nyeste versjon av prosjektet å jobbe med. Men før man gjøre det, er det lurt å
 
 1. sjekke at man står på rett gren
-2. utføre `git status` for å se om man har glemt noen lokale modifiserte filer eller har noen på INDEKS
+2. utføre `git status` for å se om man har glemt noen lokale modifiseringer eller har noen på INDEKS
 3. utføre `git fetch origin` for info om hva som har skjedd mot eksternt REPO siden sist (info om nye *commits*) 
 
 Etter det kan man (aller tryggest) gjøre
@@ -1260,7 +1245,7 @@ git pull origin <gren>
 
 eller bare 
 
-```
+```nginx
 git pull
 ```
 
@@ -1272,7 +1257,7 @@ git fetch
 git pull
 ```
 
-Det er viktig å være klar over at **push** bare overfører endringer på aktiv gren. Har man modifisert på flere grener, må disse pushes separat. Tilsvarende henter **pull** bare ned oppdateringer til én gren (aktiv gren). Operasjonen må gjentas på alle grener.
+‼️ Det er viktig å være klar over at **push** bare overfører endringer på aktiv gren. Har man modifisert på flere grener, må disse pushes separat. Tilsvarende henter **pull** bare ned oppdateringer til én gren (aktiv gren). Operasjonen må gjentas på alle grener.
 
 Det betyr også at om man oppretter en gren på en PC, på PC-1, la oss si, så blir ikke den uten videre synlig på PC-2. Vi skal se på oppsett for bruk av flere PC-er i neste kapittel, men for at **ny-gren** på PC-1 skal bli tilgjengelig på PC-2, må man der utføre:
 
@@ -1289,7 +1274,7 @@ Før vi går over til oppsette på flere PC-er, må vi se litt på noen `git log
 git log origin/<gren> --oneline
 ```
 
-og under ser du noen varianter med lengre output:
+og under ser vi noen varianter med lengre output:
 
 ```nginx
 git log origin/<gren>
@@ -1325,7 +1310,7 @@ Verre er ikke det. Etter dette kan man jobbe med prosjekter fra flere PC-er: hje
   - alltid starte editeringer med å **status**/**fetch**/**pull** (for alle aktuelle grener)
 
 
-En annem utfordring kan være at man etter hvert har mange Git-prosjekter. Over tid kan man kanskje glemme hvilke som er lokale og hvilke som er ikke-lokale. Kommandoene
+En annen utfordring kan være at man etter hvert har mange Git-prosjekter. Over tid kan man kanskje glemme hvilke som er lokale og hvilke som er ikke-lokale. Kommandoene
 
 ```nginx
 git remote
@@ -1335,9 +1320,9 @@ git remote
 git remote -v
 ```
 
-fra prosjektets hjemmekatalog sjekker dette. For ikke-lokale REPO gir førstnevnte `origin` som svar, den andre nærmere informasjon om navn mm. Lokale REPO gir ingen output.
+fra prosjektets hjemmekatalog sjekker dette. For ikke-lokale REPO gir førstnevnte **origin** som svar, den andre nærmere informasjon om navn mm. Lokale REPO gir ingen output.
 
-For å se hvilke Git-prosjekter man har, både lokal og ikke-lokale, kan man utføre følgende (denne finner alle `.git`-kataloger)
+For å se hvilke Git-prosjekter man har, både lokal og ikke-lokale, kan man utføre følgende (denne finner alle .**git**-kataloger)
 
 ```nginx
 fd -u -t d '^\.git$' ~
@@ -1359,7 +1344,7 @@ Konflikter kan oppstå når det editeres fra flere steder. Man kan f.eks. glemme
 
 Dette bør være ufarlig. Git har et gjennomtenkt design, og konflikter lar seg gjerne fint løse. Men det betyr ikke at man ikke kan føle en grad av forvirring underveis.
 
-‼️ Merk at vi her ser på personlig bruk og relativt enkle prosjekter. I større samarbeidsprosjekter fins det gjerne sett av prosedyrer og definerte strukturer man opererer etter. Det som diskuteres her er neppe iht. til profesjonell bruk.
+‼️ Merk at vi her ser på personlig bruk og relativt enkle prosjekter. I større samarbeidsprosjekter fins det gjerne sett av prosedyrer og definerte strukturer man opererer etter. Det som diskuteres her er *ikke* dekkende for profesjonell bruk.
 
 - Første punkt er imidlertid *alltid* å utføre
 
@@ -1405,22 +1390,22 @@ Igjen ligger løsningen i output fra `git status`. Den forteller også om hva so
 KONFLIKT OPPSTOD UNDER   UTFØR            
 merge / pull:            git commit
 rebase:                  git rebase --continue
-cherry-pick:             git cherry-pick --continue`
+cherry-pick:             git cherry-pick --continue
 ```
 
 I `git status`-eksemplet over kan vi se at det nevnes **unmerged paths**, dvs. en **merge** ble avbrutt, og riktig fortsettelse ville vært `git commit`.
 
 Dette så vel og bra ut. Men det kan også oppstå situasjoner som minner om en konflikt, men som egentlig er å tenke på som *divergerende grener*. Selv når bare én bruker oppdaterer et prosjekt fra to PC-er, kan dette lett oppstå. Git stopper da opp og vil prøve å fortelle hva som er problemet.
 
-Ett typisk tilfelle er at man gjør en liten modifisering på én PC og synes mengden er for liten til å foreta `add + commit`. Og når man siden gjør en større endring (med `add + commit`) på annen PC, har man divergerende grener. Foreløpig er det ingen konflikt (det blir det først når man prøver å slå den sammen), så `git status` og `git pull` vet ikke hva de skal gjøre (men lister alternativer). Da må man vurdere situasjonen, bruke `git diff` aktivt på aktuelle *commits* før man ser nærmere på hvordan `merge`, `rebase`, `cherry-picks` etc. vil virke. Meldingen Git gir kan dessuten googles. Det er mange som har stått i nøyaktig din situasjon, og det er råd å få. Men i det beskrevne tilfellet, der en ubetydelig gren og en mer betydelig gren skal forenes, *kan* det beste alternativet å foreta en **hard reset** fra "ubetydelig versjon":
+Ett typisk tilfelle er at man gjør en liten modifisering på én PC og synes mengden er for liten til å foreta `add + commit`. Og når man siden gjør en større endring (med `add + commit`) på annen PC, har man divergerende grener. Foreløpig er det ingen konflikt (det blir det først når man prøver å slå den sammen), så `git status` og `git pull` vet ikke hva de skal gjøre (men lister alternativer). Da må man vurdere situasjonen, bruke `git diff` aktivt på aktuelle *commits* før man ser nærmere på hvordan `merge`, `rebase`, `cherry-picks` etc. vil virke. Meldingen Git gir kan dessuten googles. Det er mange som har stått i nøyaktig din situasjon, og det er råd å få. Man kan også ta kopier av tekst og filer underveis som kan limes inn på rette steder siden. Proffene klarer seg sikkert uten sånt, men dette kan redde amatøren fra å tape arbeid ifm. konfliktløsing som kan føles innfløkt.
+
+I det beskrevne tilfellet, der en ubetydelig gren og en mer betydelig gren skal forenes, *kan* det beste alternativet å foreta en **hard reset** fra "ubetydelig versjon":
 
 ```bash
 git reset --hard origin/main
 ```
 
-(eller hva nå hovedgrenen heter). Etter dette blir PC-ene enige om situasjonen (som er i samsvar "betydelige gren" og reflektert i TRE, INDEKS og REPO).
-
-Man kan også ta kopier av tekst og filer underveis som kan limes inn på rette steder siden. Proffene klarer seg sikkert uten sånt, men dette kan redde amatøren fra å tape arbeid ifm. konfliktløsing som kan føles innfløkt.
+(eller hva nå hovedgrenen heter), kanskje i kombinasjon med noen innliming av spesiell, utkopiert tekst. Etter dette blir PC-ene enige om situasjonen (som er i samsvar "betydelige gren" og reflektert i TRE, INDEKS og REPO).
 
 Det kan også oppstå situasjoner der Git rapportere flertydighet rundt **push**. Igjen bør man kartlegge best mulig, søke opp råd på nettet osv. Men *hvis* man f.eks. er sikker på at situasjonen på PC -1 er korrekt, kan man foreta en *forced push* derfra ved:
 
@@ -1440,7 +1425,6 @@ Men beste medisin er uansett å unngå utakt og konflikter i utgangspunktet. La 
     - **add**/**commit**/**push** (for alle aktuelle grener)
   - starte alle editeringer med
     -  **status**/**fetch**/**pull** (for alle aktuelle grener)
-
 
 ---
 

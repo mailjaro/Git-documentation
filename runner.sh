@@ -16,6 +16,8 @@ echo "✅ EPUB LIGHT successfully built."
 
 pandoc git.md --metadata-file=./config/common.yaml \
                  --wrap=none -f markdown-smart -o git-1.adoc
+# Justerer for annet forhold i kall/bildeplassering videre
+sd 'image::images' 'image::../images' git-1.adoc
 
 asciidoctor -a stylesheet=../styles/asciidoctor-default.css \
             -a data-uri \
@@ -48,7 +50,7 @@ echo "✅ HTML 2 successfully built."
 cp git-2.adoc git-3.adoc
 
 asciidoctor-pdf config/masterPDF.adoc --theme=styles/asciidoctor-default.yml \
-                -o builds/git.pdf
+               -a tabsize=12  -o builds/git.pdf
 echo "✅ PDF successfully built."
 
 popd
