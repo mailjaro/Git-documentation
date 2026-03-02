@@ -659,6 +659,34 @@ I et prosjekt med flere deltakere bør man sikkert sørge for god opplæring for
 <p>Heftet tar bl.a. for seg hvordan man setter opp forbindelser mot <a href="https://github.com/">GitHub</a> (for ekstern overførsel) fra en eller flere PC-er. Linux legges til grunn som operativsystem.</p>
 </div>
 <div class="paragraph">
+<p>Det fins gode alternativer til GitHub der ute (med ulike karakteristika), som f.eks.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://about.gitlab.com/">GitLab</a></p>
+</li>
+<li>
+<p><a href="https://gitbucket.github.io/">Bitbucket</a></p>
+</li>
+<li>
+<p><a href="https://about.gitea.com/">Gitea</a></p>
+</li>
+<li>
+<p><a href="https://gogs.io">Gogs</a></p>
+</li>
+<li>
+<p><a href="https://git.sr.ht/">SourceHut</a></p>
+</li>
+<li>
+<p><a href="https://azure.microsoft.com">Azure DevOps Repos</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>og sikkert andre. Men GitHub er mest utbredt og fungerer fint for oss.</p>
+</div>
+<div class="paragraph">
 <p>Ulike Git-kommandoer blir vist og forklart. Det kan likevel være lurt å benytte en editor som <a href="https://code.visualstudio.com/">Visual Code Studio</a>. Git aksesseres der via et menybasert grensesnitt, og visse operasjoner, særlig det å angre ting, er enklere der. Det er uansett nyttig å ha en god forståelse i bunn. Og har man det, er jobbing med systemer som Git på Visual Code Studio enkelt (og vil ikke bli behandlet spesielt).</p>
 </div>
 <div class="paragraph">
@@ -1092,7 +1120,7 @@ git &lt;ny-fil&gt;</code></pre>
 <p>Man kan for så vidt også slette filen fra arbeidskatalogen (ved <code>rm</code>) og legge til INDEKS selv (ved <code>add</code>), med samme resultat.</p>
 </div>
 <div class="paragraph">
-<p>Dersom man ønsjer å ta en allerede fulgt fil ut av versjonskontrollen, kan man gjøre:</p>
+<p>Dersom man ønsker å ta en allerede fulgt fil ut av versjonskontrollen, kan man gjøre:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1930,7 +1958,7 @@ HARD reset:
 <i class="fa icon-caution" title="Caution"></i>
 </td>
 <td class="content">
-Dersom grenen man switcher fra er uferdig (dvs. man har modifiseringer som ennå ikke er <em>commited</em>), risikerer man å miste arbeid. Git melder imidlertid ifra om dette.
+Dersom grenen man switcher fra er uferdig (dvs. man har modifiseringer som ennå ikke er <em>commited</em>), risikerer man å miste arbeid. Git advarer imidlertid om dette.
 </td>
 </tr>
 </table>
@@ -2423,7 +2451,7 @@ git push <span class="nt">-u</span> origin &lt;gren&gt;</code></pre>
 <p>sjekke at man står på rett gren</p>
 </li>
 <li>
-<p>utføre <code>git status</code> for å se om man har glemt noen lokale modifiseringer eller har noen på INDEKS</p>
+<p>utføre <code>git status</code> for å se om man har glemt noen lokale modifiseringer eller har noe på INDEKS</p>
 </li>
 <li>
 <p>utføre <code>git fetch origin</code> for info om hva som har skjedd mot eksternt REPO siden sist (info om nye <em>commits</em>)</p>
@@ -2595,10 +2623,13 @@ Merk at vi her ser på personlig bruk og relativt enkle prosjekter. I større sa
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>La oss først se på situasjonen at en faktisk konflikt har oppstått.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Første punkt er imidlertid <em>alltid</em> å utføre</p>
+<p>Første punkt er <em>alltid</em> å utføre</p>
 </li>
 </ul>
 </div>
@@ -2658,7 +2689,7 @@ den andre teksten
 </ul>
 </div>
 <div class="paragraph">
-<p>I noen tilfeller er dette greit og forståelig, som hvis avbruddet oppstod under en <code>rebase</code> eller <code>cherry-pick</code>. Disse har en egen <code>--continue</code>-opsjon som skal benyttes. Andre operasjoner som <code>merge</code>, <code>git push</code>, en <strong>sync</strong> i VS Code, m.fl. har ikke denne opsjonen, og det er mindre klart hva som menes med "å fortsette". Ikke nok med det, VS Code kan liste tips med flere alternativer, så hva gjør man?</p>
+<p>I noen tilfeller er dette greit og forståelig, som hvis avbruddet oppstod under en <code>rebase</code> eller <code>cherry-pick</code>. Disse har en egen <code>--continue</code>-opsjon som skal benyttes. Andre operasjoner som <code>merge</code>, <code>git push</code>, en <strong>sync</strong> i VS Code m.fl. har ikke denne opsjonen, og det er mindre klart hva som menes med "å fortsette". Ikke nok med det, VS Code kan liste tips med flere alternativer, så hva gjør man?</p>
 </div>
 <div class="paragraph">
 <p>Igjen ligger løsningen i output fra <code>git status</code>. Den forteller også om hva som skal fortsettes, og oversikten under viser hvilke kall som fortsetter og fullfører den tilhørende operasjonen:</p>
@@ -2678,10 +2709,10 @@ cherry-pick:             git cherry-pick --continue</code></pre>
 <p>Dette så vel og bra ut. Men det kan også oppstå situasjoner som minner om en konflikt, men som egentlig er å tenke på som <em>divergerende grener</em>. Selv når bare én bruker oppdaterer et prosjekt fra to PC-er, kan dette lett oppstå. Git stopper da opp og vil prøve å fortelle hva som er problemet.</p>
 </div>
 <div class="paragraph">
-<p>Ett typisk tilfelle er at man gjør en liten modifisering på én PC og synes mengden er for liten til å foreta <code>add &#43; commit</code>. Og når man siden gjør en større endring (med <code>add &#43; commit</code>) på annen PC, har man divergerende grener. Foreløpig er det ingen konflikt (det blir det først når man prøver å slå den sammen), så <code>git status</code> og <code>git pull</code> vet ikke hva de skal gjøre (men lister alternativer). Da må man vurdere situasjonen, bruke <code>git diff</code> aktivt på aktuelle <em>commits</em> før man ser nærmere på hvordan <code>merge</code>, <code>rebase</code>, <code>cherry-picks</code> etc. vil virke. Meldingen Git gir kan dessuten googles. Det er mange som har stått i nøyaktig din situasjon, og det er råd å få. Man kan også ta kopier av tekst og filer underveis som kan limes inn på rette steder siden. Proffene klarer seg sikkert uten sånt, men dette kan redde amatøren fra å tape arbeid ifm. konfliktløsing som kan føles innfløkt.</p>
+<p>Ett typisk tilfelle er at man gjør en liten modifisering på én PC og synes mengden er for liten til å foreta <code>add &#43; commit</code>. Og når man siden gjør en større endring (med <code>add &#43; commit</code>) på annen PC, har man divergerende grener. Foreløpig er det ingen konflikt (det blir det først når man prøver å slå den sammen), men <code>git status</code> og <code>git pull</code> vet ikke hva de skal gjøre (og lister alternativer). Da må man vurdere situasjonen, bruke <code>git diff</code> aktivt på aktuelle <em>commits</em> før man ser nærmere på hvordan <code>merge</code>, <code>rebase</code>, <code>cherry-picks</code> etc. vil virke. Meldingen Git gir kan dessuten googles. Det er mange som har stått i nøyaktig din situasjon, og det er råd å få. Man kan også ta kopier av tekst og filer underveis som kan limes inn på rette steder siden. Proffene klarer seg sikkert uten sånt, men dette kan redde amatøren fra å tape arbeid ifm. konfliktløsing som kan føles innfløkt.</p>
 </div>
 <div class="paragraph">
-<p>I det beskrevne tilfellet, der en ubetydelig gren og en mer betydelig gren skal forenes, <em>kan</em> det beste alternativet å foreta en <strong>hard reset</strong> fra "ubetydelig versjon":</p>
+<p>I det beskrevne tilfellet, der en ubetydelig gren og en mer betydelig gren skal forenes, <em>kan</em> et alternativ være å foreta en <strong>hard reset</strong> fra "ubetydelig versjon":</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2692,7 +2723,41 @@ cherry-pick:             git cherry-pick --continue</code></pre>
 <p>(eller hva nå hovedgrenen heter), kanskje i kombinasjon med noen innliming av spesiell, utkopiert tekst. Etter dette blir PC-ene enige om situasjonen (som er i samsvar "betydelige gren" og reflektert i TRE, INDEKS og REPO).</p>
 </div>
 <div class="paragraph">
-<p>Det kan også oppstå situasjoner der Git rapportere flertydighet rundt <strong>push</strong>. Igjen bør man kartlegge best mulig, søke opp råd på nettet osv. Men <em>hvis</em> man f.eks. er sikker på at situasjonen på PC -1 er korrekt, kan man foreta en <em>forced push</em> derfra ved:</p>
+<p>En vanligere strategi ved divergerende grener er å lage en ny gren, f.eks. <strong>tmp-gren</strong>, på PC-en situasjonen oppstod på ved:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git branch tmp-gren</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Da kjøper man seg litt tid, kan undersøke og teste friere, for siden å foreta</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git merge tmp-gren</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>på hovegrenen (dvs. man må stå der når kommandoen kjøres).</p>
+</div>
+<div class="paragraph">
+<p>Generelt er nok <code>git merge</code> å foretrekke framfor <code>git rebase</code> i situasjoner med divergerende grener. Sistnevnte kan kreve noen etterfølgende kommandoer, og regnes gjerne som mer kompleks. Dessuten er den farligere å bruke i stuasjoner med flere brukere. Vi ser jo ikke på det her, men bare så det er sagt:</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Bruk aldri <code>git rebase</code> på <em>commits</em> som er pushet til gren delt med flere brukere. Da risikerer man at arbeid de har gjort blir <em>unreachable</em>, med komplisert oppryddingsarbeid – eller i verste fall tap av arbeid – som resultat.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Det kan også oppstå situasjoner der Git rapportere flertydighet rundt <strong>push</strong>. Igjen bør man kartlegge best mulig, søke opp råd på nettet osv. Men <em>hvis</em> man f.eks. er helt sikker på at situasjonen på PC-1 er korrekt, kan man foreta en <em>forced push</em> derfra ved:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2718,7 +2783,7 @@ Husk at <strong>hard reset</strong> alltid risikerer å overskrive lokale filer
 <p>Dessuten, i en situasjoner der man har en korrekt versjon på PC-1 (og er 100 % sikker på det), men har kommet i utakt på PC-2 på en måte som ikke lett lar seg løse, <em>kan</em> man alltids slette prosjektet på PC-2 og klone det tilbake fra GitHub (eller kopiere det fra en backup). Det er neppe hva en proff ville gjort, men muligheten kan virke beroligende for ferske brukere av Git.</p>
 </div>
 <div class="paragraph">
-<p>Men beste medisin er uansett å unngå utakt og konflikter i utgangspunktet. La oss gjenta moralen her:</p>
+<p>Men beste medisin er uansett å unngå utakt og konflikter i utgangspunktet. La oss gjenta moralen her. Unngå at halvferdig arbeid blir liggende igjen. Sørg for å</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2790,7 +2855,7 @@ Husk at <strong>hard reset</strong> alltid risikerer å overskrive lokale filer
 <div id="footer">
 <div id="footer-text">
 Version 1.0 2026-02-19<br>
-Last updated 2026-03-02 08:29:14 +0100
+Last updated 2026-03-02 09:44:29 +0100
 </div>
 </div>
 </body>
