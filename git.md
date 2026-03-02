@@ -10,6 +10,17 @@ Heftet retter seg mot brukere med ikke altfor avanserte behov, men som likevel �
 
 Heftet tar bl.a. for seg hvordan man setter opp forbindelser mot [GitHub](https://github.com/) (for ekstern overførsel) fra en eller flere PC-er. Linux legges til grunn som operativsystem.
 
+Det fins gode alternativer til GitHub der ute (med ulike karakteristika), som f.eks.
+
+- [GitLab](https://about.gitlab.com/)
+- [Bitbucket](https://gitbucket.github.io/)
+- [Gitea](https://about.gitea.com/)
+- [Gogs](https://gogs.io)
+- [SourceHut](https://git.sr.ht/)
+- [Azure DevOps Repos](https://azure.microsoft.com)
+
+og sikkert andre. Men GitHub er mest utbredt og fungerer fint for oss.
+
 Ulike Git-kommandoer blir vist og forklart. Det kan likevel være lurt å benytte en editor som [Visual Code Studio](https://code.visualstudio.com/). Git aksesseres der via et menybasert grensesnitt, og visse operasjoner, særlig det å angre ting, er enklere der. Det er uansett nyttig å ha en god forståelse i bunn. Og har man det, er jobbing med systemer som Git på Visual Code Studio enkelt (og vil ikke bli behandlet spesielt).
 
 Det kan også nevnes at Git har et et godt, gjennomtenkt design. Filosofien er at alt skal kunne gjenskapes og at intet permanent skal gå tapt. Som det ofte sies:
@@ -309,7 +320,7 @@ Dette forutsetter at filen er *commited*. Denne kommandoen gjør to ting samtidi
 
 Man kan for så vidt også slette filen fra arbeidskatalogen (ved `rm`) og legge til INDEKS selv (ved `add`), med samme resultat.
 
-Dersom man ønsjer å ta en allerede fulgt fil ut av versjonskontrollen, kan man gjøre:
+Dersom man ønsker å ta en allerede fulgt fil ut av versjonskontrollen, kan man gjøre:
 
 ```html
 git rm --cached <fil>
@@ -883,7 +894,7 @@ I den første skjer det intet med MAIN. Den peker fortsatt på siste *commit* p�
 
 I den andre skjer heller ingenting med MAIN. HEAD peker altså direkte på den spesifiserte *commiten* (HEAD-filen får hash-verdien som innhold, *detached*-mode), og øyeblikksbildet overføres både til INDEKS og TRE.
 
-‼️ Dersom grenen man switcher fra er uferdig (dvs. man har modifiseringer som ennå ikke er *commited*), risikerer man å miste arbeid. Git melder imidlertid ifra om dette.
+‼️ Dersom grenen man switcher fra er uferdig (dvs. man har modifiseringer som ennå ikke er *commited*), risikerer man å miste arbeid. Git advarer imidlertid om dette.
 
 ---
 
@@ -1234,7 +1245,7 @@ git push
 Før man starter en ny editering, ønsker man typisk å foreta en **pull** for å hente nyeste versjon av prosjektet å jobbe med. Men før man gjøre det, er det lurt å
 
 1. sjekke at man står på rett gren
-2. utføre `git status` for å se om man har glemt noen lokale modifiseringer eller har noen på INDEKS
+2. utføre `git status` for å se om man har glemt noen lokale modifiseringer eller har noe på INDEKS
 3. utføre `git fetch origin` for info om hva som har skjedd mot eksternt REPO siden sist (info om nye *commits*) 
 
 Etter det kan man (aller tryggest) gjøre
@@ -1346,7 +1357,9 @@ Dette bør være ufarlig. Git har et gjennomtenkt design, og konflikter lar seg 
 
 ‼️ Merk at vi her ser på personlig bruk og relativt enkle prosjekter. I større samarbeidsprosjekter fins det gjerne sett av prosedyrer og definerte strukturer man opererer etter. Det som diskuteres her er *ikke* dekkende for profesjonell bruk.
 
-- Første punkt er imidlertid *alltid* å utføre
+La oss først se på situasjonen at en faktisk konflikt har oppstått.
+
+- Første punkt er *alltid* å utføre
 
 ```nginx
 git status
@@ -1382,7 +1395,7 @@ Utføre gjerne `git status` underveis om antall filer er stort.
 
 - Fjerde punk er å forsette (utføre *continue*) på operasjonen Git ble avbrutt i.
 
-I noen tilfeller er dette greit og forståelig, som hvis avbruddet oppstod under en `rebase` eller `cherry-pick`. Disse har en egen `--continue`-opsjon som skal benyttes. Andre operasjoner som `merge`, `git push`, en **sync** i VS Code, m.fl. har ikke denne opsjonen, og det er mindre klart hva som menes med "å fortsette". Ikke nok med det, VS Code kan liste tips med flere alternativer, så hva gjør man?
+I noen tilfeller er dette greit og forståelig, som hvis avbruddet oppstod under en `rebase` eller `cherry-pick`. Disse har en egen `--continue`-opsjon som skal benyttes. Andre operasjoner som `merge`, `git push`, en **sync** i VS Code m.fl. har ikke denne opsjonen, og det er mindre klart hva som menes med "å fortsette". Ikke nok med det, VS Code kan liste tips med flere alternativer, så hva gjør man?
 
 Igjen ligger løsningen i output fra `git status`. Den forteller også om hva som skal fortsettes, og oversikten under viser hvilke kall som fortsetter og fullfører den tilhørende operasjonen:
 
@@ -1397,9 +1410,9 @@ I `git status`-eksemplet over kan vi se at det nevnes **unmerged paths**, dvs. e
 
 Dette så vel og bra ut. Men det kan også oppstå situasjoner som minner om en konflikt, men som egentlig er å tenke på som *divergerende grener*. Selv når bare én bruker oppdaterer et prosjekt fra to PC-er, kan dette lett oppstå. Git stopper da opp og vil prøve å fortelle hva som er problemet.
 
-Ett typisk tilfelle er at man gjør en liten modifisering på én PC og synes mengden er for liten til å foreta `add + commit`. Og når man siden gjør en større endring (med `add + commit`) på annen PC, har man divergerende grener. Foreløpig er det ingen konflikt (det blir det først når man prøver å slå den sammen), så `git status` og `git pull` vet ikke hva de skal gjøre (men lister alternativer). Da må man vurdere situasjonen, bruke `git diff` aktivt på aktuelle *commits* før man ser nærmere på hvordan `merge`, `rebase`, `cherry-picks` etc. vil virke. Meldingen Git gir kan dessuten googles. Det er mange som har stått i nøyaktig din situasjon, og det er råd å få. Man kan også ta kopier av tekst og filer underveis som kan limes inn på rette steder siden. Proffene klarer seg sikkert uten sånt, men dette kan redde amatøren fra å tape arbeid ifm. konfliktløsing som kan føles innfløkt.
+Ett typisk tilfelle er at man gjør en liten modifisering på én PC og synes mengden er for liten til å foreta `add + commit`. Og når man siden gjør en større endring (med `add + commit`) på annen PC, har man divergerende grener. Foreløpig er det ingen konflikt (det blir det først når man prøver å slå den sammen), men `git status` og `git pull` vet ikke hva de skal gjøre (og lister alternativer). Da må man vurdere situasjonen, bruke `git diff` aktivt på aktuelle *commits* før man ser nærmere på hvordan `merge`, `rebase`, `cherry-picks` etc. vil virke. Meldingen Git gir kan dessuten googles. Det er mange som har stått i nøyaktig din situasjon, og det er råd å få. Man kan også ta kopier av tekst og filer underveis som kan limes inn på rette steder siden. Proffene klarer seg sikkert uten sånt, men dette kan redde amatøren fra å tape arbeid ifm. konfliktløsing som kan føles innfløkt.
 
-I det beskrevne tilfellet, der en ubetydelig gren og en mer betydelig gren skal forenes, *kan* det beste alternativet å foreta en **hard reset** fra "ubetydelig versjon":
+I det beskrevne tilfellet, der en ubetydelig gren og en mer betydelig gren skal forenes, *kan* et alternativ være å foreta en **hard reset** fra "ubetydelig versjon":
 
 ```bash
 git reset --hard origin/main
@@ -1407,7 +1420,26 @@ git reset --hard origin/main
 
 (eller hva nå hovedgrenen heter), kanskje i kombinasjon med noen innliming av spesiell, utkopiert tekst. Etter dette blir PC-ene enige om situasjonen (som er i samsvar "betydelige gren" og reflektert i TRE, INDEKS og REPO).
 
-Det kan også oppstå situasjoner der Git rapportere flertydighet rundt **push**. Igjen bør man kartlegge best mulig, søke opp råd på nettet osv. Men *hvis* man f.eks. er sikker på at situasjonen på PC -1 er korrekt, kan man foreta en *forced push* derfra ved:
+En vanligere strategi ved divergerende grener er å lage en ny gren, f.eks. **tmp-gren**, på PC-en situasjonen oppstod på ved:
+
+```nginx
+git branch tmp-gren
+```
+
+Da kjøper man seg litt tid, kan undersøke og teste friere, for siden å foreta
+
+```nginx
+git merge tmp-gren
+```
+
+på hovegrenen (dvs. man må stå der når kommandoen kjøres).
+
+Generelt er nok `git merge` å foretrekke framfor `git rebase` i situasjoner med divergerende grener. Sistnevnte kan kreve noen etterfølgende kommandoer, og regnes gjerne som mer kompleks. Dessuten er den farligere å bruke i stuasjoner med flere brukere. Vi ser jo ikke på det her, men bare så det er sagt:
+
+‼️ Bruk aldri  `git rebase` på *commits* som er pushet til gren delt med flere brukere. Da risikerer man at arbeid de har gjort blir *unreachable*, med komplisert oppryddingsarbeid – eller i verste fall tap av arbeid – som resultat.
+
+
+Det kan også oppstå situasjoner der Git rapportere flertydighet rundt **push**. Igjen bør man kartlegge best mulig, søke opp råd på nettet osv. Men *hvis* man f.eks. er helt sikker på at situasjonen på PC-1 er korrekt, kan man foreta en *forced push* derfra ved:
 
 ```bash
 git push -f origin main
@@ -1419,7 +1451,7 @@ Da må siden rette opp ift. dette på PC-2, f.eks. ved å foreta en **hard reset
 
 Dessuten, i en situasjoner der man har en korrekt versjon på PC-1 (og er 100 % sikker på det), men har kommet i utakt på PC-2 på en måte som ikke lett lar seg løse, *kan* man alltids slette prosjektet på PC-2 og klone det tilbake fra GitHub (eller kopiere det fra en backup). Det er neppe hva en proff ville gjort, men muligheten kan virke beroligende for ferske brukere av Git.
 
-Men beste medisin er uansett å unngå utakt og konflikter i utgangspunktet. La oss gjenta moralen her:
+Men beste medisin er uansett å unngå utakt og konflikter i utgangspunktet. La oss gjenta moralen her. Unngå at halvferdig arbeid blir liggende igjen. Sørg for å
 
   - avslutte alle editeringer med
     - **add**/**commit**/**push** (for alle aktuelle grener)

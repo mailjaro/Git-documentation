@@ -7,5 +7,6 @@
         "filtreet",
         "hashede",
         "lagringsmessig"
-    ]
+    ],
+    "makefile.configureOnOpen": false
 }
