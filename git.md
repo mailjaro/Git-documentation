@@ -116,7 +116,7 @@ git config --global user.email 'ola.nordmann@gmail.com'
 Brukerdataene blir globale på maskinen. Deretter kan man sette opp Git for et prosjekt ved
 
 
-```nginx
+```bash
 git init
 ```
 
@@ -124,7 +124,7 @@ på toppen av aktuelle arbeidskatalog.
 
 Default *branch name* ved initialisering er *main* eller *master*, avhenging av distro. Ønsker man å spesifisere navnet nærmere, kan man benytte **`-b`**-opsjonen.
 
-```html
+```bash
 git init -b <grennavn>
 ```
 
@@ -134,7 +134,7 @@ git init -b <grennavn>
 
 Man sender en bestemt fil til INDEKS ved:
 
-```html
+```bash
 git  add <fil>
 ```
 
@@ -142,13 +142,13 @@ git  add <fil>
 
 Man kan legge til *alle* modifiserte filer (nye, endrede og slettede) ved
 
-```nginx
+```bash
 git  add -A
 ```
 
 eller ved en som bare *nesten* gjør det samme:
 
-```nginx
+```bash
 git  add .
 ```
 
@@ -156,13 +156,13 @@ som strengt tatt ikke tar med slettede filer utenfor nåværende katalog.
 
 Man kan også foreta et *dry run* for å se hvilke filer som vil bli sendt til INDEKS ved:
 
-```nginx
+```bash
 git add -n -A
 ```
 
 Kommandoen
 
-```nginx
+```bash
 git add -u
 ```
 
@@ -174,29 +174,29 @@ tar med endringer og slettinger, men ikke nye filer.
 
 Man foretar *commit* ved:
 
-```html
+```bash
 git commit -m "<Passende beskrivelse>"
 ```
 
 Evt. kan man sende alt både til INDEKS og til *commit* samtidig ved:
 
-```html
+```bash
 git commit -a -m "<Beskrivelse>"
 ```
 
 Droppes opsjonen `-m`, altså ved
 
-```nginx
+```bash
 git commit
 ```
 
 åpnes standard editor, og man kan skrive en lengre, mer detaljert melding. Linux (og andre OS-er) har gjerne en standard editor (som f.eks. **nano**), men man kan også sette den ekspilsitt for Git ved
 
-```nginx
+```bash
 git config --global core.editor "code --wait"
 ```
 
-```nginx
+```bash
 git config --global core.editor "nano"
 ```
 
@@ -204,7 +204,7 @@ for hhv. VS Code og **nano**.
 
 Man kan sjekke hva, eller om noe er satt, ved
 
-```nginx
+```bash
 git config --list --show-origin
 ```
 
@@ -214,17 +214,17 @@ git config --list --show-origin
 
 Man kan se hvilke filer som er *modifisert* og hvilke som er sendt til INDEKS ved `git status`. Under ser vi noen varianter. Disse viser hhv. alle slike filer i en lang eller kort output:
 
-```nginx
+```bash
 git status
 ```
 
-```nginx
+```bash
 git status -s
 ```
 
 Man kan videre få listet følgen av øyeblikksbilder ved `git log`. Eksempel på toppen av en slik output er vist under.
 
-```nginx
+```bash
 git log
 ```
 
@@ -240,36 +240,36 @@ Alt under datolinjen vil være brukerens beskrivelse av endringene, enten gitt v
 
 Under ser vi flere `git log`-varianter. Disse viser hhv. bare det referte øyeblikksbildet, bare det nyeste, bare de to nyeste bildene, en liste med kort, fargekodet info, samt en liste med litt esktra info.
 
-```r
+```bash
 git log -1 <hash>
 ```
 
-```r
+```bash
 git log -1
 ```
 
-```r
+```bash
 git log -2
 ```
 
-```r
+```bash
 git log --oneline --graph --decorate --all
 ```
 
-```html
+```bash
 git log --stat
 ```
 
 Man har også varianter som:
 
 
-```nginx
+```bash
 git log A..B
 ```
 
 og 
 
-```nginx
+```bash
 git log A...B
 ```
 
@@ -281,7 +281,7 @@ Den første viser commits som er i B, men ikke i A; den andre commits som er i A
 
 For å endre navnet til en fil i TRE, kan man gjøre:
 
-```html
+```bash
 git mv <fil> <ny-fil>
 ```
 
@@ -289,7 +289,7 @@ Navnet endres på arbeidskatalogen, og endringen legges til på INDEKS, klar for
 
 Alternativt kan man navnendre filen og legge den til INDEKS selv. Altså gjøre:
 
-```html
+```bash
 mv <filnavn> <nytt-fil-navn>
 git <ny-fil>
 ```
@@ -309,7 +309,7 @@ slik at alt er klargjort for en oppfølgende *commit*.
 
 For å slette en fil i TRE kan man gjøre
 
-```html
+```bash
 git rm <fil>
 ```
 
@@ -322,7 +322,7 @@ Man kan for så vidt også slette filen fra arbeidskatalogen (ved `rm`) og legge
 
 Dersom man ønsker å ta en allerede fulgt fil ut av versjonskontrollen, kan man gjøre:
 
-```html
+```bash
 git rm --cached <fil>
 ```
 
@@ -334,19 +334,19 @@ etterfulgt av en *commit*. Filen blr værende på arbeidskatalogen. Man vil typi
 
 Man kan lage en ny gren ved:
 
-```html
+```bash
 git branch <navn>
 ```
 
 Man kan hoppe til en bestemt gren ved:
 
-```html
+```bash
 git switch <navn>
 ```
 
 Følgende kommando viser alle lokale grener:
 
-```nginx
+```bash
 git branch
 ```
 
@@ -362,7 +362,7 @@ Vi ser to lokale grener her, **main** og **gh-pages**, og vi står på førstnev
 
 Følgende kommando viser dem på remote:
 
-```nginx
+```bash
 git branch -r
 ```
 
@@ -378,7 +378,7 @@ som f.eks.
 
 For å vise begge deler kan man gjøre:
 
-```nginx
+```bash
 git branch -a
 ```
 
@@ -386,19 +386,19 @@ git branch -a
 
 Mer spesifikk lokal greninformasjon fås fra:
 
-```nginx
+```bash
 git branch -vv
 ```
 
 og den tlnærmet ekvivalente kommandoen for remote blir:
 
-```nginx
+```bash
 git branch -vr
 ```
 
 Det følgende oppretter branch fra en bestemt commit;
 
-```html
+```bash
 git branch <navn> <commit>
 ```
 
@@ -410,25 +410,25 @@ git branch <navn> <commit>
 
 Man kan se forskjellen mellom to øyeblikksbilder ved:
 
-```html
+```bash
 git diff <commit1> <commit2>
 ```
 
 Denne baserer seg på den klassiske `diff`-kommandoen i Linux. Det fins bedre moderne alternativer, som `delta` og `difft` (som begge må installeres spesielt), og det er mulig å sette opp GitHub til å bruke disse isteden. Piping fungerer dessuten også for `delta`, slik at det følgende gjerne er mer brukervennlig:
 
-```html
+```bash
 git diff <commit1> <commit2> | delta
 ```
 
 Man kan referere absolutt til en *commit* med å angi hash-verdien (typisk i kortform) eller relativt som f.eks:
 
-```nginx
+```bash
 git diff HEAD~3 HEAD
 ```
 
 (her refereres siste commit (HEAD) og den tredje før det).
 
-```nginx
+```bash
 git diff HEAD^ HEAD
 ```
 
@@ -438,31 +438,31 @@ Ulike refereringsmåter behandles mer fullstendig senere i dokumentet.
 
 For bare å se hvilke *filer* som skiller seg fra hverandre, kan man gjøre:
 
-```html
+```bash
 git diff --name-only <commit1> <commit2>
 ```
 
 Man kan også sammenlikne grener ved:
 
-```html
+```bash
 git diff <gren-1> <gren-2>
 ```
 
 Om man vil se hva som er endret siden siste *commit*, kan man gjøre:
 
-```nginx
+```bash
 git diff HEAD
 ```
 
 Om man vil sammenligne INDEKS OG HEAD, kan man gjøre:
 
-```nginx
+```bash
 git diff --staged
 ```
 
 Disse eksemplene, som er på formen `git diff A B` sammenlikninger to *commits* A og B direkte. Man kan også gjøre
 
-```nginx
+```bash
 git diff A...B
 ```
 
@@ -474,7 +474,7 @@ git diff A...B
 
 Tags er merkelapper (pekere) til konkrete øyeblikksbilder. Man har to typer: *lightweight* og *annotated*. Førstnevnte er for korte tags, som v-1.0 og liknende. Denne gis ved:
 
-```html
+```bash
 git tag <tag-navn> <commit-hash>
 ```
 
@@ -490,31 +490,31 @@ Den andre er for lengre, mer sammensatte tags, og er et eget Git-objekt med føl
 
 Den settes ved:
 
-```html
+```bash
 git tag -a <tag-navn> -m "melding" <commit>
 ```
 
 Vi kan liste tags ved
 
-```nginx
+```bash
 git tag
 ```
 
 evt. ved
 
-```nginx
+```bash
 git tag -l
 ```
 
 der siste kan kombineres med et mønster som `v-2*` for eksempelvis å vise alle *versjon 2-tags*, altså slik:
 
-```nginx
+```bash
 git tag -l "-2*"
 ```
 
 Kommandoen
 
-```nginx
+```bash
 git show <tag>
 ```
 
@@ -522,7 +522,7 @@ viser *commit*-tag og eventuelle annotasjoner.
 
 Man sletter en bestemt tag ved:
 
-```html
+```bash
 git tag -d <tag>
 ```
 
@@ -530,19 +530,19 @@ git tag -d <tag>
 
 Man kan pushe en bestemt tag ved
 
-```html
+```bash
 git push origin <tag>>
 ```
 
 eller alle ved
 
-```nginx
+```bash
 git push origin --tags
 ```
 
 Etter dette kan man hente ned tags på en annen PC ved:
 
-```nginx
+```bash
 git fetch --tags
 ```
 
@@ -556,21 +556,21 @@ git fetch --tags
 
 Syntaksen er
 
-```nginx
+```bash
 git archive [options] <commit/branch/tag> [paths]
 ```
 
 Her ser vi noen eksempler:
 
-```nginx
+```bash
 git archive -o project-main.zip main
 ```
 
-```nginx
+```bash
 git archive -o project.tar 1a2b3c4
 ```
 
-```nginx
+```bash
 git archive main | tar -x -C /tmp/project
 ```
 
@@ -588,11 +588,11 @@ Typisk pusher man en eller flere arbeidsfiler til et stash-område. Deretter kan
 
 Her ser vi push uten og med en beskrivelse:
 
-```html
+```bash
 git stash push <fil-1> <fil-2>
 ```
 
-```html
+```bash
 git stash push -m "Beskrivelse" <fil-1>
 ```
 
@@ -600,25 +600,25 @@ Globbing av filer er ikke støttet her.
 
 Man kan *stashe* alle modifiserte filer ved:
 
-```nginx
+```bash
 git stash
 ```
 
 Dette følgende lister alle:
 
-```nginx
+```bash
 git stash list
 ```
 
 Her hentes arbeidsfilene tilbake:
 
-```nginx
+```bash
 git stash pop
 ```
 
 og det samme skjer her,  men man lar dem bli værende på *stash*-området:
 
-```nginx
+```bash
 git stash apply
 ```
 
@@ -628,21 +628,21 @@ git stash apply
 
 Man kan få hjelp via manualsider til ulike kommandoer, både i kort og langt format. Den første er for korte beskrivelser, de to andre for lengre (like) output:
 
-```html
+```bash
 git <command> -h
   ```
 
-```html
+```bash
 git <command> --help
   ```
 
-```html
+```bash
 git help <command>
 ```
 
 Man kan også få en liste over alle kommandoer ved:
 
-```nginx
+```bash
 git help -a
 ```
 
@@ -658,7 +658,7 @@ For å forstå Git bedre og å kunne håndtere enkelte kommandoer riktig, trenge
 
 Man kan generelt referer både absolutt og relativt, både utfra øyeblikksbilder, merkelapper og grener. Det grunnleggende (og i normaltilstander) er oppsummert under og kan typisk testes ved:
 
-```html
+```bash
 git show -s <ref>
 ```
 
@@ -711,7 +711,7 @@ Når det gjelder `reflog`, så lagrer Git en lokal logg over
 
 og dette kan vises med:
 
-```nginx
+```bash
 git reflog
 ```
 
@@ -744,7 +744,7 @@ Et øyeblikksbilde inneholder:
 
 Bortsett fra den første, bør alle disse være selvforklarende. Normalt har et øyeblikksbilde bare ett forelderbilde, men ifm. sammenfletting av grener (*merge*), kan flere foreldre være involvert, hvilket da fremkommer her. Metadataene trenger ingen forklaring, og disse kan for øvrig vises ved:
 
-```html
+```bash
 git cat-file -p <commit>
 ```
 
@@ -823,7 +823,7 @@ Det som ikke nevnes er uforandret.
 
 Man kaller
 
-```html
+```bash
 git reset <styrke> <commit>
 ```
 
@@ -852,7 +852,7 @@ La oss se nærmere hva som skjer med pekerne i et `reset`-eksempel.
 
 Anta vi har en følge av øyeblikksbilder A → B → C → D på MAIN, og at D er aktivt. Hva skjer om vi foretar:
 
-```nginx
+```bash
 git reset soft <B>
 ```
 
@@ -936,7 +936,7 @@ Man kan også benytte git restore opsjonen `---patch` for å få en interaktiv *
 
 Kommandoen
 
-```html
+```bash
 git merge <gren-1> <gren-2>
 ```
 
@@ -954,7 +954,7 @@ A ── B ── C  ← MAIN ← HEAD
 
 For å utføre `merge` her må man første sørge for å stå på gren MAIN,og så kalle `merge` som følger:
 
-```nginx
+```bash
 git merge feature
 ```
 
@@ -981,7 +981,7 @@ Vi kan flette sammen på to måter:
 
 - *merge* FEATURE på MAIN (hvilket skjer ved):
 
-```h
+```bash
 git switch MAIN
 git merge FEATURE
 ```
@@ -990,7 +990,7 @@ eller
 
 - *merge* MAIN på FEATURE (hvilket skjer ved):
 
-```h
+```bash
 git switch FEATURE
 git merge MAIN
 ```
@@ -1023,7 +1023,7 @@ I begge tilfeller beregnes et øyeblikksbilde **M** med oppdatert innhold og to 
 
 Ved konflikter blir dialogen annerledes, og brukeren får dessuten ansvaret for å løse dem. I dette tilfellet må brukeren også utføre en etterfølgende.
 
-```nginx
+```bash
 git commit -m "Beskrivelse"
 ```
 
@@ -1031,7 +1031,7 @@ Dette gjøres automatisk når det ikke er konflikter.
 
 En merge kan dessuten aborteres underveis ved:
 
-```nginx
+```bash
 git merge --abort
 ```
 
@@ -1051,7 +1051,7 @@ Ant f.eks. vi har følge tre av commits:
 
 og ønsker å foreta *cherry-pick* av *commit* E fra FEATURE over på MAIN. Man må da forsikrer seg om at man står på MAIN, og så utfører `git cherry-pick` med referanse til commit E i form av en hash eller tag:
 
-```h
+```bash
 git cherry-pick <E>
 
 ```
@@ -1070,7 +1070,7 @@ E' blir altså her den nye *commiten* som inneholder de samme endringene som E, 
 
 Om Git støter på konflikter underveis, stopper prosessen og overlater til brukeren å løse opp. Deretter igangsettes prosessen igjen med:
 
-```nginx
+```bash
 git cherry-pick --continue
 ```
 
@@ -1078,7 +1078,7 @@ Se kapittelet om **Konflikthåndtering** for flere detaljer.
 
 Bruker kan når som helst abortere en *cherry-pick* og gå tilbake til utgangspunktet med:
 
-```nginx
+```bash
 git cherry-pick --abort
 ```
 
@@ -1090,13 +1090,13 @@ git cherry-pick --abort
 
 Om Git støter på konflikter underveis, stopper prosessen så brukeren kan løse opp. Prosessen igangsettes igjen med:
 
-```h
+```bash
 git rebase --continue
 ```
 
 Bruker kan når som helst abortere og gå tilbake til utgangspunktet med:
 
-```h
+```bash
 git rebase --abort
 ```
 
@@ -1110,7 +1110,7 @@ A ── B ── C  ← MAIN
 
 og skal gjøre en rebase fra FEATURE over på MAIN. Man forsikrer seg da at at man står på FEATURE, og så gjøre `rebase main`:
 
-```h
+```bashs
 git rebase main
 ```
 
@@ -1146,13 +1146,13 @@ Dvs, man må
 
 Kommandoen for å generere SSH-nøkler er:
 
-```html
+```bash
 ssh-keygen -t ed25519 -C <e-post>
 ```
 
 Argumentet `ed25519` ber bare om en public-key signaturalgoritme basert på elliptiske kurver, som er vanlig å bruke i dag. Man har andre alternativer, som f.eks. 4096-bits RSA
 
-```python
+```bash
 ssh-keygen -t rsa -b 4096 -C <e-post>
 ```
 
@@ -1162,19 +1162,19 @@ Kommandoen outputer informasjon om hvor nøklene lagres, samt fingerprint til of
 
 Fingerprint kan vises senere ved
 
-```nginx
+```bash
 ssh-keygen -lf ~/.ssh/id_ed25519.pub
 ```
 
 og random art ved:
 
-```nginx
+```bash
 ssh-keygen -lvf ~/.ssh/id_ed25519.pub
 ```
 
 Deretter må man legge til den offentlige SSH-nøkkelen på GitHub. Man må da kopiere sin lokale offentlige nøkkel ved hjelp av
 
-```nginx
+```bash
 cat ~/.ssh/id_ed25519.pub
 ```
 
@@ -1182,7 +1182,7 @@ finne fram på GitHub stedet man kan legge til SSH-nøkkel, og deretter lime inn
 
 Man kan teste nøkkeloppsettet ved:
 
-```nginx
+```bash
 ssh -T git@github.com
 ```
 
@@ -1215,7 +1215,7 @@ Om du allerede har et lokalt Git-prosjekt, sørg for å gjøre `add` og `commit`
 
 Uansett vil et lokalt Git-prosjekt eksistere, og det neste vi vil gjøre, er å knytte dette prosjektet til det eksterne repoet vi har opprettet på GitHub. Vi gjør da:
 
-```html
+```bash
 git remote add origin git@github.com:<brukernavn>/<prosjektnavn>.git
 git push -u origin <gren>
 ```
@@ -1230,7 +1230,7 @@ Endelsen `.git` kan strengt tatt droppes i ovennevnte kommando.
 
 Etter man har utført *commit* er det naturlig å pushe dette til eksternt REPO. Kommandoen for dette er `git push`. Det en god vane å inkludere `-u origin <gren>` i første **push**/**pull** etter at man har flyttet seg dit, altså gjøre
 
-```nginx
+```bash
 git push origin <gren>
 ```
 
@@ -1238,7 +1238,7 @@ Dette minner en gjerne om å stå på grenen man ønsker å pushe fra, pluss at 
 
 Siden kan man bare gjøre
 
-```nginx
+```bash
 git push
 ```
 
@@ -1250,19 +1250,19 @@ Før man starter en ny editering, ønsker man typisk å foreta en **pull** for �
 
 Etter det kan man (aller tryggest) gjøre
 
-```nginx
+```bash
 git pull origin <gren>
 ```
 
 eller bare 
 
-```nginx
+```bash
 git pull
 ```
 
 For å oppsummere kommandoen man bør gjøre ifm. henting av filer:
 
-```nginx
+```bash
 git status
 git fetch
 git pull
@@ -1272,7 +1272,7 @@ git pull
 
 Det betyr også at om man oppretter en gren på en PC, på PC-1, la oss si, så blir ikke den uten videre synlig på PC-2. Vi skal se på oppsett for bruk av flere PC-er i neste kapittel, men for at **ny-gren** på PC-1 skal bli tilgjengelig på PC-2, må man der utføre:
 
-```nginx
+```bash
 git fetch
 git switch --track origin/ny-gren
 ```
@@ -1281,25 +1281,25 @@ REPO på GitHub vil kjenne til alle grener, men altså ikke nødvendigvis alle P
 
 Før vi går over til oppsette på flere PC-er, må vi se litt på noen `git log`-varianter som kan brukes også på grener. Den første av de følgende viser et kort format
 
-```nginx
+```bash
 git log origin/<gren> --oneline
 ```
 
 og under ser vi noen varianter med lengre output:
 
-```nginx
+```bash
 git log origin/<gren>
 ```
 
-```nginx
+```bash
 git log --pretty=fuller origin/<gren>
 ```
 
-```nginx
+```bash
 git log --graph --decorate --all origin/<gren>
 ```
 
-```nginx
+```bash
 git log -p origin/NyMain
 ```
 
@@ -1309,7 +1309,7 @@ git log -p origin/NyMain
 
 Om man vil jobbe med prosjektet på annen PC, bør man først ha initialisert Git med samme bruker og e-post som den opprinnelige PC-en. Deretter kan man klone prosjektet over fra GitHub med:
 
-```nginx
+```bash
 git clone git@github.com:<bruker>/<prosjekt>.git
 ```
 
@@ -1323,11 +1323,11 @@ Verre er ikke det. Etter dette kan man jobbe med prosjekter fra flere PC-er: hje
 
 En annen utfordring kan være at man etter hvert har mange Git-prosjekter. Over tid kan man kanskje glemme hvilke som er lokale og hvilke som er ikke-lokale. Kommandoene
 
-```nginx
+```bash
 git remote
 ```
 
-```nginx
+```bash
 git remote -v
 ```
 
@@ -1335,7 +1335,7 @@ fra prosjektets hjemmekatalog sjekker dette. For ikke-lokale REPO gir førstnevn
 
 For å se hvilke Git-prosjekter man har, både lokal og ikke-lokale, kan man utføre følgende (denne finner alle .**git**-kataloger)
 
-```nginx
+```bash
 fd -u -t d '^\.git$' ~
 ```
 
@@ -1361,7 +1361,7 @@ La oss først se på situasjonen at en faktisk konflikt har oppstått.
 
 - Første punkt er *alltid* å utføre
 
-```nginx
+```bash
 git status
 ```
 
@@ -1422,13 +1422,13 @@ git reset --hard origin/main
 
 En vanligere strategi ved divergerende grener er å lage en ny gren, f.eks. **tmp-gren**, på PC-en situasjonen oppstod på ved:
 
-```nginx
+```bash
 git branch tmp-gren
 ```
 
 Da kjøper man seg litt tid, kan undersøke og teste friere, for siden å foreta
 
-```nginx
+```bash
 git merge tmp-gren
 ```
 

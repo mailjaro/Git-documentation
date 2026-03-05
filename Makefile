@@ -52,12 +52,6 @@ git-2.adoc: git-1.adoc
 	@sd '\[source,bash\]'   '[%unbreakable]\n[source,bash]' $@
 	@sd '\[source,text\]'   '[%unbreakable]\n[source,text]' $@
 	@sd '\[source,yaml\]'   '[%unbreakable]\n[source,text]' $@
-	@sd '\[source,bash\]'   '[%unbreakable]\n[source,bash]' $@
-	@sd '\[source,html\]'   '[%unbreakable]\n[source,bash]' $@
-	@sd '\[source,h\]'      '[%unbreakable]\n[source,bash]' $@
-	@sd '\[source,r\]'      '[%unbreakable]\n[source,bash]' $@
-	@sd '\[source,python\]' '[%unbreakable]\n[source,bash]' $@
-	@sd '\[source,nginx\]'  '[%unbreakable]\n[source,bash]' $@
 	@sd '❗' 'NOTE:' $@
 	@sd '‼️' 'CAUTION:' $@
 # remove emojis when generating HTML2/PDF

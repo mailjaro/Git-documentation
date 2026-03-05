@@ -25,15 +25,10 @@ asciidoctor -a stylesheet=../styles/asciidoctor-default.css \
 echo "✅ HTML 1 successfully built."
 
 cp git-1.adoc git-2.adoc
-sd '\[source,output\]'   '[%unbreakable]\n[source,output]' git-2.adoc
+sd '\[source,output\]' '[%unbreakable]\n[source,output]' git-2.adoc
 sd '\[source,text\]'   '[%unbreakable]\n[source,text]' git-2.adoc
 sd '\[source,yaml\]'   '[%unbreakable]\n[source,text]' git-2.adoc
 sd '\[source,bash\]'   '[%unbreakable]\n[source,bash]' git-2.adoc
-sd '\[source,html\]'   '[%unbreakable]\n[source,bash]' git-2.adoc
-sd '\[source,h\]'      '[%unbreakable]\n[source,bash]' git-2.adoc
-sd '\[source,r\]'      '[%unbreakable]\n[source,bash]' git-2.adoc
-sd '\[source,python\]' '[%unbreakable]\n[source,bash]' git-2.adoc
-sd '\[source,nginx\]'  '[%unbreakable]\n[source,bash]' git-2.adoc
 sd '❗' 'NOTE:' git-2.adoc
 sd '‼️' 'CAUTION:' git-2.adoc
 
