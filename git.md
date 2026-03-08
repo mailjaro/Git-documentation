@@ -190,7 +190,7 @@ Droppes opsjonen `-m`, altså ved
 git commit
 ```
 
-åpnes standard editor, og man kan skrive en lengre, mer detaljert melding. Linux (og andre OS-er) har gjerne en standard editor (som f.eks. **nano**), men man kan også sette den ekspilsitt for Git ved
+åpnes standard editor, og man kan skrive en lengre, mer detaljert melding. Linux (og andre OS-er) har gjerne en standard editor (som f.eks. **nano**), men man kan også sette den eksplisitt for Git ved
 
 ```bash
 git config --global core.editor "code --wait"
@@ -238,7 +238,7 @@ Date:   Wed Feb 11 10:29:13 2026 +0100
 
 Alt under datolinjen vil være brukerens beskrivelse av endringene, enten gitt ved `-m`-opsjonen til `commit` eller via en editor som VS Code. Vi ser også hashen til øyeblikksbildet, som kan benyttes som entydig *commit*-referanse (ofte bare i kortform).
 
-Under ser vi flere `git log`-varianter. Disse viser hhv. bare det referte øyeblikksbildet, bare det nyeste, bare de to nyeste bildene, en liste med kort, fargekodet info, samt en liste med litt esktra info.
+Under ser vi flere `git log`-varianter. Disse viser hhv. bare det refererte øyeblikksbildet, bare det nyeste, bare de to nyeste bildene, en liste med kort, fargekodet info, samt en liste med litt ekstra info.
 
 ```bash
 git log -1 <hash>
@@ -1086,7 +1086,7 @@ git cherry-pick --abort
 
 ### ▶️ Rebase
 
-`git rebase` flytter en serie *commits* fra en gren til toppen av en annen. Historikken skrives om, *Committene* blir nye *commit*-objekter med nye hash-verdier, og resultatet blir en lineær historie.
+`git rebase` flytter en serie *commits* fra en gren til toppen av en annen. Historikken skrives om, *Commitene* blir nye *commit*-objekter med nye hash-verdier, og resultatet blir en lineær historie.
 
 Om Git støter på konflikter underveis, stopper prosessen så brukeren kan løse opp. Prosessen igangsettes igjen med:
 
@@ -1110,7 +1110,7 @@ A ── B ── C  ← MAIN
 
 og skal gjøre en rebase fra FEATURE over på MAIN. Man forsikrer seg da at at man står på FEATURE, og så gjøre `rebase main`:
 
-```bashs
+```bash
 git rebase main
 ```
 
@@ -1194,7 +1194,7 @@ Neste steg er å opprette et eksternt REPO (*remote repository*). Velg et passen
 
 ❗ Om du allerede har et prosjektet med noen av filene **README**, **.gitignore** eller **license**, så ikke huk av for dem under opprettelsen.
 
-*Default branch* i prosjektet på GitGub må angis spesielt. Tanken er at om man har flere grener, må én av disse være hovegren, være prosjektets "ansikt utad".
+*Default branch* i prosjektet på GitGub må angis spesielt. Tanken er at om man har flere grener, må én av disse være hovedgren, være prosjektets "ansikt utad".
 
 Eksternt REPO vil inntil videre være tomt etter opprettelsen.
 
@@ -1434,7 +1434,7 @@ git merge tmp-gren
 
 på hovegrenen (dvs. man må stå der når kommandoen kjøres).
 
-Generelt er nok `git merge` å foretrekke framfor `git rebase` i situasjoner med divergerende grener. Sistnevnte kan kreve noen etterfølgende kommandoer, og regnes gjerne som mer kompleks. Dessuten er den farligere å bruke i stuasjoner med flere brukere. Vi ser jo ikke på det her, men bare så det er sagt:
+Generelt er nok `git merge` å foretrekke framfor `git rebase` i situasjoner med divergerende grener. Sistnevnte kan kreve noen etterfølgende kommandoer, og regnes gjerne som mer kompleks. Dessuten er den farligere å bruke i situasjoner med flere brukere. Vi ser jo ikke på det her, men bare så det er sagt:
 
 ‼️ Bruk aldri  `git rebase` på *commits* som er pushet til gren delt med flere brukere. Da risikerer man at arbeid de har gjort blir *unreachable*, med komplisert oppryddingsarbeid – eller i verste fall tap av arbeid – som resultat.
 
