@@ -1,92 +1,160 @@
-# Makefile GIT-DOC project
+# ------------------------------------------------------------
+# Project paths
+# ------------------------------------------------------------
 
-# source markdown and configuration
-MD = git.md
-COMMON = config/common.yaml
-BUILD = builds
+SRC_MD      := git.md
+ADOC1       := git-1.adoc
+ADOC2       := git-2.adoc
+ADOC3       := git-3.adoc
 
-# output files
-EPUB_DARK = $(BUILD)/git-dark.epub
-EPUB_LIGHT = $(BUILD)/git-light.epub
-HTML1 = $(BUILD)/git-1.html
-HTML2 = $(BUILD)/git-2.html
-PDF = $(BUILD)/git.pdf
+CONFIG      := config
+STYLES      := styles
+IMAGES      := images
+BUILDS      := builds
 
-ASCIIDOC_CSS = styles/asciidoctor-default.css
-ASCIIDOCTOR_THEME = styles/asciidoctor-default.yml
+META        := $(CONFIG)/common.yaml
+COVER       := $(IMAGES)/cover.png
 
-.PHONY: all epub html1 html2 pdf clean
+# ------------------------------------------------------------
+# Default target
+# ------------------------------------------------------------
 
-all: epub html1 html2 pdf
+all: pandoc-epubs html pdf asc-epubs
 
-# ensure build directory exists
-$(BUILD):
-	@mkdir -p $@
+# ------------------------------------------------------------
+# Ensure build directory exists
+# ------------------------------------------------------------
 
-# --- EPUB ------------------------------------------------------------------
-epub: $(BUILD) $(EPUB_DARK) $(EPUB_LIGHT)
+$(BUILDS):
+	@mkdir -p $(BUILDS)
 
-$(EPUB_DARK): $(MD) $(COMMON) | $(BUILD)
-	@pandoc $(MD) --metadata-file=$(COMMON) \
-	       --css=styles/epub-dark.css -o $@
-	@echo "✅ EPUB DARK successfully built."
+# ------------------------------------------------------------
+# Pandoc EPUB
+# ------------------------------------------------------------
 
-$(EPUB_LIGHT): $(MD) $(COMMON) | $(BUILD)
-	@pandoc $(MD) --metadata-file=$(COMMON) \
-	       --css=styles/epub-light.css -o $@
-	@echo "✅ EPUB LIGHT successfully built."
+pandoc-epubs: $(BUILDS)
+	@pandoc $(SRC_MD) \
+	   --metadata-file=$(META) \
+	   --css=$(STYLES)/epub-dark.css \
+	   --metadata cover-image=$(COVER) \
+	   -o $(BUILDS)/git-pan-dark.epub
 
-# --- intermediate AsciiDoc files -------------------------------------------
+	@pandoc $(SRC_MD) \
+	   --metadata-file=$(META) \
+	   --css=$(STYLES)/epub-light.css \
+	   --metadata cover-image=$(COVER) \
+	   -o $(BUILDS)/git-pan-light.epub
 
-# converted directly from markdown
-git-1.adoc: $(MD) $(COMMON)
-	@pandoc $(MD) --metadata-file=$(COMMON) --wrap=none \
-	       -f markdown-smart -o $@
-#  Other formats are called form config/, affecting rel. imagepath:
-	@sd 'image::images' 'image::../images' $@
+	@echo "✅ Pandoc EPUB LIGHT and DARK successfully built."
 
-git-2.adoc: git-1.adoc
-	@cp $< $@
-# add unbreakable attributes before certain source blocks
-	@sd '\[source,output\]' '[%unbreakable]\n[source,output]' $@
-	@sd '\[source,bash\]'   '[%unbreakable]\n[source,bash]' $@
-	@sd '\[source,text\]'   '[%unbreakable]\n[source,text]' $@
-	@sd '\[source,yaml\]'   '[%unbreakable]\n[source,text]' $@
-	@sd '❗' 'NOTE:' $@
-	@sd '‼️' 'CAUTION:' $@
-# remove emojis when generating HTML2/PDF
-	@sd '\p{Extended_Pictographic}\uFE0F? ' '' $@
-	@sd '1️⃣' '1.' $@
-	@sd '2️⃣' '2.' $@
-	@sd '3️⃣' '3.' $@
+# ------------------------------------------------------------
+# Markdown → AsciiDoc
+# ------------------------------------------------------------
 
-# --- HTML 1 ----------------------------------------------------------------
-html1: $(HTML1)
+$(ADOC1): $(SRC_MD)
+	@pandoc $(SRC_MD) \
+		--metadata-file=$(META) \
+		--wrap=none \
+		-f markdown-smart \
+		-o $(ADOC1)
+	@sd 'image::images' 'image::../images' $(ADOC1)
 
-$(HTML1): config/masterHTML-1.adoc git-1.adoc | $(BUILD)
-	@asciidoctor -a stylesheet=../$(ASCIIDOC_CSS) \
-	            -a data-uri config/masterHTML-1.adoc -o $@
-	@echo "✅ HTML 1 successfully built."
+# ------------------------------------------------------------
+# HTML 1
+# ------------------------------------------------------------
 
-# --- HTML 2 ----------------------------------------------------------------
-html2: $(HTML2)
+html1: $(ADOC1) | $(BUILDS)
+	@asciidoctor \
+		-a stylesheet=../$(STYLES)/asciidoctor-default.css \
+		-a data-uri \
+		$(CONFIG)/masterHTML-1.adoc \
+		-o $(BUILDS)/git-1.html
 
-$(HTML2): config/masterHTML-2.adoc git-2.adoc | $(BUILD)
-	@asciidoctor -a stylesheet=../$(ASCIIDOC_CSS) \
-	            -a data-uri config/masterHTML-2.adoc -o $@
-	@echo "✅ HTML 2 successfully built."
-# --- PDF -------------------------------------------------------------------
-pdf: $(PDF)
+# ------------------------------------------------------------
+# Prepare git-2.adoc
+# ------------------------------------------------------------
 
-git-3.adoc: git-2.adoc
-	@cp $< $@
-	
-$(PDF): config/masterPDF.adoc git-3.adoc | $(BUILD)
-	@asciidoctor-pdf config/masterPDF.adoc --theme=$(ASCIIDOCTOR_THEME) \
-	                -o $@
+$(ADOC2): $(ADOC1)
+	@cp $(ADOC1) $(ADOC2)
+
+	@sd '\[source,output\]' '[%unbreakable]\n[source,output]' $(ADOC2)
+	@sd '\[source,bash\]'   '[%unbreakable]\n[source,bash]' $(ADOC2)
+	@sd '\[source,text\]'   '[%unbreakable]\n[source,text]' $(ADOC2)
+	@sd '\[source,yaml\]'   '[%unbreakable]\n[source,text]' $(ADOC2)
+
+	@sd '❗' 'NOTE:' $(ADOC2)
+	@sd '‼️' 'CAUTION:' $(ADOC2)
+	@sd '🚩' 'WARNING:' $(ADOC2)
+
+	@sd '\p{Extended_Pictographic}\uFE0F? ' '' $(ADOC2)
+
+	@sd ' 1️⃣' '' $(ADOC2)
+	@sd ' 2️⃣' '' $(ADOC2)
+	@sd ' 3️⃣' '' $(ADOC2)
+	@sd ' 4️⃣' '' $(ADOC2)
+	@sd ' 5️⃣' '' $(ADOC2)
+	@sd ' 6️⃣' '' $(ADOC2)
+	@sd ' 7️⃣' '' $(ADOC2)
+
+# ------------------------------------------------------------
+# HTML 2
+# ------------------------------------------------------------
+
+html2: $(ADOC2) | $(BUILDS)
+	@asciidoctor \
+		-a stylesheet=../$(STYLES)/asciidoctor-default.css \
+		-a data-uri \
+		$(CONFIG)/masterHTML-2.adoc \
+		-o $(BUILDS)/git-2.html
+
+	@echo "✅ HTML1 and HTML2 successfully built."
+
+html: html1 html2
+
+# ------------------------------------------------------------
+# PDF
+# ------------------------------------------------------------
+
+$(ADOC3): $(ADOC2)
+	@cp $(ADOC2) $(ADOC3)
+
+pdf: $(ADOC3) | $(BUILDS)
+	@asciidoctor-pdf \
+		$(CONFIG)/masterPDF.adoc \
+		--theme=$(STYLES)/asciidoctor-default.yml \
+		-o $(BUILDS)/git.pdf
+
 	@echo "✅ PDF successfully built."
 
-# --- cleanup ---------------------------------------------------------------
+# ------------------------------------------------------------
+# Asciidoctor EPUB
+# ------------------------------------------------------------
+
+asc-epubs: $(ADOC2) | $(BUILDS)
+
+	@sd 'image::\.\./images' 'image::images' $(ADOC2)
+
+	@asciidoctor-epub3 \
+		$(CONFIG)/masterEPUB-light.adoc \
+		-B . \
+		-o $(BUILDS)/git-asc-light.epub
+
+	@asciidoctor-epub3 \
+		$(CONFIG)/masterEPUB-dark.adoc \
+		-B . \
+		-o $(BUILDS)/git-asc-dark.epub
+
+	@echo "✅ Asciidoctor EPUB LIGHT and DARK successfully built."
+
+# ------------------------------------------------------------
+# Cleaning
+# ------------------------------------------------------------
+
 clean:
-	@rm -rf $(BUILD) git-1.adoc git-2.adoc git-3.adoc
-	@echo "✅ Cleaned up build artifacts."
+	@rm -rf $(BUILDS) $(ADOC1) $(ADOC2) $(ADOC3)
+
+# ------------------------------------------------------------
+# Phony targets
+# ------------------------------------------------------------
+
+.PHONY: all html html1 html2 pdf pandoc-epubs asc-epubs clean

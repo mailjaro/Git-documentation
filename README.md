@@ -26,6 +26,7 @@ To build the documentation you need the following tools installed on your system
 - `pandoc`
 - `asciidoctor`
 - `asciidoctor-pdf`
+- `asciidoctor-epub3`
 - `sd` (streaming text replacement tool used during conversion)
 
 On Debian/Ubuntu you can typically install most packages with `apt`; some tools (for example `sd`) may need to be installed from their respective package sources or via other package managers.
@@ -41,7 +42,8 @@ make all
 Build only EPUBs:
 
 ```bash
-make epub
+make pandoc-epubs 
+make asc-epubs
 ```
 
 Build the HTML variants:
@@ -65,11 +67,16 @@ make clean
 
 ## 📦 Output
 
-After a successful build you will find, among other files, the following in `builds/`:
+After a successful build you will find the following in `builds/`:
 
-- `git-dark.epub`, `git-light.epub`
-- `git-1.html`, `git-2.html`
-- `git.pdf`
+- git-1.html
+- git-2.html
+- git-asc-dark.epub
+- git-asc-light.epub
+- git-pan-dark.epub
+- git-pan-light.epub
+- git.pdf
+
 
 ----
 
