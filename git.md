@@ -290,7 +290,7 @@ Navnet endres på arbeidskatalogen, og endringen legges til på INDEKS, klar for
 Alternativt kan man navnendre filen og legge den til INDEKS selv. Altså gjøre:
 
 ```bash
-mv <filnavn> <nytt-fil-navn>
+mv <fil> <ny-fil>
 git <ny-fil>
 ```
 
@@ -1351,7 +1351,11 @@ fd -u -t d '^\.git$' ~ -x sh -c \
 
 ### ▶️ Konflikthåndtering
 
-Konflikter kan oppstå når det editeres fra flere steder. Man kan f.eks. glemme å utføre `git fetch origin` og `git pull` før en editering, og dermed ikke få med tidligere fileditering.
+Uheldige situasjoner, ulike former for utakt, kan oppstå når det editeres fra flere steder. Git kan da be om input for å vite hva som skal gjøres videre. Alt kalles egentlig ikke konflikter, men det føles slik for (ferske) brukere. Man må ta stilling til neste steg, om noe skal slås sammen, forkastes etc, og til å begynne med kan det føles noe utrygt. En konflikt blir det egentlig først når forsøker å slå noe sammen. Vi skal se litt på dette, uten dermed å prøve å være en generell guide.
+
+Det første som skjer er at Git stopper opp ifm. en eller annen kommando og forsøker å si noe om hva problemet består i.
+
+Men en vanlig situasjon som kan oppstå, er at f.eks. at man glemmer å hente siste versjon før en ny modifisering. Dermed kan alt fra filinnhold, til filnavn komme i utakt mellom commits
 
 Dette bør være ufarlig. Git har et gjennomtenkt design, og konflikter lar seg gjerne fint løse. Men det betyr ikke at man ikke kan føle en grad av forvirring underveis.
 
