@@ -670,9 +670,9 @@ pre.rouge .nv, pre.rouge .vc, pre.rouge .vg, pre.rouge .vi, pre.rouge .vm {
 </li>
 <li><a href="#_github">GitHub</a>
 <ul class="sectlevel3">
-<li><a href="#_1_opprette_konto_og_nøkler">1. Opprette konto og nøkler</a></li>
-<li><a href="#_2_opprette_eksternt_repository_på_github">2. Opprette eksternt repository på GitHub</a></li>
-<li><a href="#_3_forbinde_remote_repository_med_det_lokale">3. Forbinde remote repository med det lokale</a></li>
+<li><a href="#_opprette_konto_og_nøkler">Opprette konto og nøkler</a></li>
+<li><a href="#_opprette_eksternt_repository_på_github">Opprette eksternt repository på GitHub</a></li>
+<li><a href="#_forbinde_remote_repository_med_det_lokale">Forbinde remote repository med det lokale</a></li>
 <li><a href="#_vanlig_bruk">Vanlig bruk</a></li>
 <li><a href="#_flere_pc_er_eller_brukere">Flere PC-er eller brukere</a></li>
 <li><a href="#_konflikthåndtering">Konflikthåndtering</a></li>
@@ -983,6 +983,9 @@ git config <span class="nt">--global</span> user.email <span class="s1">'ola.nor
 <div class="paragraph">
 <p>tar med endringer og slettinger, men ikke nye filer.</p>
 </div>
+<div class="paragraph">
+<p>Det er også mulig å legge til bestemte deler av filer ved ved <code>git add -p</code>. Dette skal ikke vi gå inn på, men kan jo nevne det er aktuelt for folk/prosjekter som legger til endringer mer temabasert. For skribenter, hobbyprogrammere og småskalaprosjekter er det nok enklere å legge til rubbel og bit (en <em>keep it simple</em>-strategi).</p>
+</div>
 <hr>
 </div>
 <div class="sect3">
@@ -1139,7 +1142,7 @@ Date:   Wed Feb 11 10:29:13 2026 +0100
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="bash"><span class="nb">mv</span> &lt;filnavn&gt; &lt;nytt-fil-navn&gt;
+<pre class="rouge highlight"><code data-lang="bash"><span class="nb">mv</span> &lt;fil&gt; &lt;ny-fil&gt;
 git &lt;ny-fil&gt;</code></pre>
 </div>
 </div>
@@ -2342,7 +2345,7 @@ TRE ← INDEKS ← D''</code></pre>
 </div>
 <hr>
 <div class="sect3">
-<h4 id="_1_opprette_konto_og_nøkler"><a class="anchor" href="#_1_opprette_konto_og_nøkler"></a>1. Opprette konto og nøkler</h4>
+<h4 id="_opprette_konto_og_nøkler"><a class="anchor" href="#_opprette_konto_og_nøkler"></a>Opprette konto og nøkler</h4>
 <div class="paragraph">
 <p>Dvs, man må</p>
 </div>
@@ -2428,7 +2431,7 @@ Merk at det kreves to passordfraser, ett for GitHub-kontoen og ett for SSH-nøkl
 <hr>
 </div>
 <div class="sect3">
-<h4 id="_2_opprette_eksternt_repository_på_github"><a class="anchor" href="#_2_opprette_eksternt_repository_på_github"></a>2. Opprette eksternt repository på GitHub</h4>
+<h4 id="_opprette_eksternt_repository_på_github"><a class="anchor" href="#_opprette_eksternt_repository_på_github"></a>Opprette eksternt repository på GitHub</h4>
 <div class="paragraph">
 <p>Neste steg er å opprette et eksternt REPO (<em>remote repository</em>). Velg et passende prosjektnavn og avgjør om det skal være privat eller offentlig tilgjengelig etc.</p>
 </div>
@@ -2453,7 +2456,7 @@ Om du allerede har et prosjektet med noen av filene <strong>README</strong>, <st
 <hr>
 </div>
 <div class="sect3">
-<h4 id="_3_forbinde_remote_repository_med_det_lokale"><a class="anchor" href="#_3_forbinde_remote_repository_med_det_lokale"></a>3. Forbinde remote repository med det lokale</h4>
+<h4 id="_forbinde_remote_repository_med_det_lokale"><a class="anchor" href="#_forbinde_remote_repository_med_det_lokale"></a>Forbinde remote repository med det lokale</h4>
 <div class="paragraph">
 <p>Om du ikke har et lokalt Git-prosjekt, lag ett på aktuell arbeidskatalog, f.eks. ved</p>
 </div>
@@ -2670,10 +2673,10 @@ git switch <span class="nt">--track</span> origin/ny-gren</code></pre>
 <div class="sect3">
 <h4 id="_konflikthåndtering"><a class="anchor" href="#_konflikthåndtering"></a>Konflikthåndtering</h4>
 <div class="paragraph">
-<p>Konflikter kan oppstå når det editeres fra flere steder. Man kan f.eks. glemme å utføre <code>git fetch origin</code> og <code>git pull</code> før en editering, og dermed ikke få med tidligere fileditering.</p>
+<p>De fleste Git-operasjoner går helt automatisk. Når man for eksempel kjører <code>git pull</code>, forsøker Git å kombinere endringer fra eksternt repo med de lokale endringene uten at brukeren trenger å gjøre noe.</p>
 </div>
 <div class="paragraph">
-<p>Dette bør være ufarlig. Git har et gjennomtenkt design, og konflikter lar seg gjerne fint løse. Men det betyr ikke at man ikke kan føle en grad av forvirring underveis.</p>
+<p>Av og til er dette imidlertid ikke mulig. Git kan da ikke avgjøre hvordan endringene skal kombineres, eller hvilken historikk som er riktig vei videre. I slike situasjoner stopper Git opp og ber brukeren ta en beslutning.</p>
 </div>
 <div class="admonitionblock caution">
 <table>
@@ -2688,7 +2691,13 @@ Merk at vi her ser på personlig bruk og relativt enkle prosjekter. I større sa
 </table>
 </div>
 <div class="paragraph">
-<p>La oss først se på situasjonen at en faktisk konflikt har oppstått.</p>
+<p>Dette kan skje i flere sammenhenger, også i vår situasjon, særlig når man jobber fra flere steder. Man kan ha glemt å hente inn nyeste versjon før man en editering, glemt å Git-lagre en endring før man henter ned noe etc. Uansett oppdager Git en konfliktsituasjon og gir brukeren informasjon om at noe må gjøres før arbeidet kan fortsette. Først når konfliktene er løst og bekreftet, kan operasjonen fullføres.</p>
+</div>
+<div class="paragraph">
+<p>Ofte er det en situasjon med divergerende grener som har oppstått. Man får typisk valget valget mellom å foreta en <code>git merge</code> eller <code>git rebase</code>. Man må da vurdere situasjonen, bruke <code>git diff</code> aktivt på aktuelle <em>commits</em>, tenke nærmere på hvordan <code>merge</code>, <code>rebase</code>, <code>cherry-picks</code> etc. vil virke akkurat her. Meldingen Git gir kan heldigvis googles, og det er mange som har stått i nøyaktig din situasjon. Det er råd å få. Man kan også ta kopier av tekst og filer underveis som kan limes inn på rette steder siden. Proffene klarer seg sikkert uten sånt, men dette kan redde amatøren fra å tape arbeid ifm. konfliktløsing som kan føles innfløkt.</p>
+</div>
+<div class="paragraph">
+<p>La oss da se på situasjonen der en faktisk konflikt har oppstått, f.eks. at man forsøker å løse en situasjon med <code>git merge</code>. Husk da at slike operasjoner (som vi har sett) kan aborteres, og man alltid kunne komme tilbake til utgangspunktet om ting begynner å bli komplisert.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2719,7 +2728,7 @@ Unmerged paths:
 <div class="ulist">
 <ul>
 <li>
-<p>I så fall er andre punkt er åpne disse filene (f.eks i VSCode). På steder i filene vil konfliktene være markert noe tilsvarende dette:</p>
+<p>I så fall er andre punkt å åpne disse filene (f.eks i VSCode). På steder i filene vil konfliktene være markert noe tilsvarende dette:</p>
 </li>
 </ul>
 </div>
@@ -2733,7 +2742,7 @@ den andre teksten
 </div>
 </div>
 <div class="paragraph">
-<p>Du har så ansvaret for å løse opp i dette. Fjern tilslutt alle konfliktmarkeringene og lagre filene.</p>
+<p>Du har så ansvaret for å løse opp i dette, bestemme hva som skal beholdes og hva som skal fjernes. Slett tilslutt alle konfliktmarkeringene og lagre filene.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2756,7 +2765,7 @@ den andre teksten
 <p>I noen tilfeller er dette greit og forståelig, som hvis avbruddet oppstod under en <code>rebase</code> eller <code>cherry-pick</code>. Disse har en egen <code>--continue</code>-opsjon som skal benyttes. Andre operasjoner som <code>merge</code>, <code>git push</code>, en <strong>sync</strong> i VS Code m.fl. har ikke denne opsjonen, og det er mindre klart hva som menes med "å fortsette". Ikke nok med det, VS Code kan liste tips med flere alternativer, så hva gjør man?</p>
 </div>
 <div class="paragraph">
-<p>Igjen ligger løsningen i output fra <code>git status</code>. Den forteller også om hva som skal fortsettes, og oversikten under viser hvilke kall som fortsetter og fullfører den tilhørende operasjonen:</p>
+<p><code>git status</code> kan fortelle om hva som skal fortsettes, og oversikten under viser hvilke kall som fortsetter og fullfører den tilhørende operasjonen:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2770,24 +2779,7 @@ cherry-pick:             git cherry-pick --continue</code></pre>
 <p>I <code>git status</code>-eksemplet over kan vi se at det nevnes <strong>unmerged paths</strong>, dvs. en <strong>merge</strong> ble avbrutt, og riktig fortsettelse ville vært <code>git commit</code>.</p>
 </div>
 <div class="paragraph">
-<p>Dette så vel og bra ut. Men det kan også oppstå situasjoner som minner om en konflikt, men som egentlig er å tenke på som <em>divergerende grener</em>. Selv når bare én bruker oppdaterer et prosjekt fra to PC-er, kan dette lett oppstå. Git stopper da opp og vil prøve å fortelle hva som er problemet.</p>
-</div>
-<div class="paragraph">
-<p>Ett typisk tilfelle er at man gjør en liten modifisering på én PC og synes mengden er for liten til å foreta <code>add &#43; commit</code>. Og når man siden gjør en større endring (med <code>add &#43; commit</code>) på annen PC, har man divergerende grener. Foreløpig er det ingen konflikt (det blir det først når man prøver å slå den sammen), men <code>git status</code> og <code>git pull</code> vet ikke hva de skal gjøre (og lister alternativer). Da må man vurdere situasjonen, bruke <code>git diff</code> aktivt på aktuelle <em>commits</em> før man ser nærmere på hvordan <code>merge</code>, <code>rebase</code>, <code>cherry-picks</code> etc. vil virke. Meldingen Git gir kan dessuten googles. Det er mange som har stått i nøyaktig din situasjon, og det er råd å få. Man kan også ta kopier av tekst og filer underveis som kan limes inn på rette steder siden. Proffene klarer seg sikkert uten sånt, men dette kan redde amatøren fra å tape arbeid ifm. konfliktløsing som kan føles innfløkt.</p>
-</div>
-<div class="paragraph">
-<p>I det beskrevne tilfellet, der en ubetydelig gren og en mer betydelig gren skal forenes, <em>kan</em> et alternativ være å foreta en <strong>hard reset</strong> fra "ubetydelig versjon":</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="bash">git reset <span class="nt">--hard</span> origin/main</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>(eller hva nå hovedgrenen heter), kanskje i kombinasjon med noen innliming av spesiell, utkopiert tekst. Etter dette blir PC-ene enige om situasjonen (som er i samsvar "betydelige gren" og reflektert i TRE, INDEKS og REPO).</p>
-</div>
-<div class="paragraph">
-<p>En vanligere strategi ved divergerende grener er å lage en ny gren, f.eks. <strong>tmp-gren</strong>, på PC-en situasjonen oppstod på ved:</p>
+<p>En vanlig strategi når en situasjon oppstår, er ellers å lage en ny gren, f.eks. <strong>tmp-gren</strong>, på PC-en situasjonen oppstod på:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2803,7 +2795,10 @@ cherry-pick:             git cherry-pick --continue</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>på hovegrenen (dvs. man må stå der når kommandoen kjøres).</p>
+<p>ned på på den opprinnelige grenen.</p>
+</div>
+<div class="paragraph">
+<p>Konflikthåndtering kan virke utfordrende i starten, og forhåpentligvis gir dette en viss hjelp til ferske brukere. Uansett lærer man fort nytten av å utføre hyppige commit/push her. Det å ha halvferdig arbeid liggende rundt er forbundet med en viss risiko.</p>
 </div>
 <div class="paragraph">
 <p>Generelt er nok <code>git merge</code> å foretrekke framfor <code>git rebase</code> i situasjoner med divergerende grener. Sistnevnte kan kreve noen etterfølgende kommandoer, og regnes gjerne som mer kompleks. Dessuten er den farligere å bruke i situasjoner med flere brukere. Vi ser jo ikke på det her, men bare så det er sagt:</p>
@@ -2815,13 +2810,13 @@ cherry-pick:             git cherry-pick --continue</code></pre>
 <i class="fa icon-caution" title="Caution"></i>
 </td>
 <td class="content">
-Bruk aldri <code>git rebase</code> på <em>commits</em> som er pushet til gren delt med flere brukere. Da risikerer man at arbeid de har gjort blir <em>unreachable</em>, med komplisert oppryddingsarbeid – eller i verste fall tap av arbeid – som resultat.
+Bruk aldri <code>git rebase</code> på <em>commits</em> som er pushet til gren delt med flere. Da risikerer man at arbeid de har gjort blir <em>unreachable</em>, med komplisert oppryddingsarbeid – eller i verste fall tap av arbeid – som resultat.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Det kan også oppstå situasjoner der Git rapportere flertydighet rundt <strong>push</strong>. Igjen bør man kartlegge best mulig, søke opp råd på nettet osv. Men <em>hvis</em> man f.eks. er helt sikker på at situasjonen på PC-1 er korrekt, kan man foreta en <em>forced push</em> derfra ved:</p>
+<p>Det kan også oppstå situasjoner der Git rapportere flertydighet rundt <strong>push</strong>. Igjen bør man kartlegge best mulig, søke opp råd på nettet osv. Men <em>hvis</em> man f.eks. er sikker på at situasjonen på PC-1 er korrekt, kan man foreta en <em>forced push</em> derfra ved:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2842,9 +2837,6 @@ Husk at <strong>hard reset</strong> alltid risikerer å overskrive lokale filer
 </td>
 </tr>
 </table>
-</div>
-<div class="paragraph">
-<p>Dessuten, i en situasjoner der man har en korrekt versjon på PC-1 (og er 100 % sikker på det), men har kommet i utakt på PC-2 på en måte som ikke lett lar seg løse, <em>kan</em> man alltids slette prosjektet på PC-2 og klone det tilbake fra GitHub (eller kopiere det fra en backup). Det er neppe hva en proff ville gjort, men muligheten kan virke beroligende for ferske brukere av Git.</p>
 </div>
 <div class="paragraph">
 <p>Men beste medisin er uansett å unngå utakt og konflikter i utgangspunktet. La oss gjenta moralen her. Unngå at halvferdig arbeid blir liggende igjen. Sørg for å</p>
@@ -2891,7 +2883,7 @@ Husk at <strong>hard reset</strong> alltid risikerer å overskrive lokale filer
 <p><a href="https://mailjaro.github.io/css-repo/">Litt om CSS</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://mailjaro.github.io/gpg-repo/">Litt om GPG</a></p>
+<p><a href="https://mailjaro.github.io/makefile-repo/">Litt om Makefile</a></p>
 </div>
 <div class="paragraph">
 <p><a href="https://mailjaro.github.io/highlight-repo/">Litt om syntaksutheving</a></p>
@@ -2925,7 +2917,7 @@ Husk at <strong>hard reset</strong> alltid risikerer å overskrive lokale filer
 <div id="footer">
 <div id="footer-text">
 Version 1.0 2026-02-19<br>
-Last updated 2026-03-08 08:42:23 +0100
+Last updated 2026-03-08 08:52:39 +0100
 </div>
 </div>
 </body>
