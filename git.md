@@ -168,6 +168,9 @@ git add -u
 
 tar med endringer og slettinger, men ikke nye filer.
 
+Det er også mulig å legge til bestemte deler av filer ved ved `git add -p`. Dette skal ikke vi gå inn på, men kan jo nevne det er aktuelt for folk/prosjekter som legger til endringer mer temabasert. For skribenter, hobbyprogrammere og småskalaprosjekter er det nok 
+enklere å legge til rubbel og bit (en *keep it simple*-strategi).
+
 ---
 
 ### ▶️ Foreta commit
@@ -1351,17 +1354,17 @@ fd -u -t d '^\.git$' ~ -x sh -c \
 
 ### ▶️ Konflikthåndtering
 
-Uheldige situasjoner, ulike former for utakt, kan oppstå når det editeres fra flere steder. Git kan da be om input for å vite hva som skal gjøres videre. Alt kalles egentlig ikke konflikter, men det føles slik for (ferske) brukere. Man må ta stilling til neste steg, om noe skal slås sammen, forkastes etc, og til å begynne med kan det føles noe utrygt. En konflikt blir det egentlig først når forsøker å slå noe sammen. Vi skal se litt på dette, uten dermed å prøve å være en generell guide.
+De fleste Git-operasjoner går helt automatisk. Når man for eksempel kjører `git pull`, forsøker Git å kombinere endringer fra eksternt repo med de lokale endringene uten at brukeren trenger å gjøre noe.
 
-Det første som skjer er at Git stopper opp ifm. en eller annen kommando og forsøker å si noe om hva problemet består i.
-
-Men en vanlig situasjon som kan oppstå, er at f.eks. at man glemmer å hente siste versjon før en ny modifisering. Dermed kan alt fra filinnhold, til filnavn komme i utakt mellom commits
-
-Dette bør være ufarlig. Git har et gjennomtenkt design, og konflikter lar seg gjerne fint løse. Men det betyr ikke at man ikke kan føle en grad av forvirring underveis.
+Av og til er dette imidlertid ikke mulig. Git kan da ikke avgjøre hvordan endringene skal kombineres, eller hvilken historikk som er riktig vei videre. I slike situasjoner stopper Git opp og ber brukeren ta en beslutning.
 
 ‼️ Merk at vi her ser på personlig bruk og relativt enkle prosjekter. I større samarbeidsprosjekter fins det gjerne sett av prosedyrer og definerte strukturer man opererer etter. Det som diskuteres her er *ikke* dekkende for profesjonell bruk.
 
-La oss først se på situasjonen at en faktisk konflikt har oppstått.
+Dette kan skje i flere sammenhenger, også i vår situasjon, særlig når man jobber fra flere steder. Man kan ha glemt å hente inn nyeste versjon før man  en editering, glemt å Git-lagre en endring før man henter ned noe etc. Uansett oppdager Git en konfliktsituasjon og gir brukeren informasjon om at noe må gjøres før arbeidet kan fortsette. Først når konfliktene er løst og bekreftet, kan operasjonen fullføres.
+
+Ofte er det en situasjon med divergerende grener som har oppstått. Man får typisk valget valget mellom å foreta en `git merge` eller `git rebase`. Man må da vurdere situasjonen, bruke `git diff` aktivt på aktuelle *commits*, tenke nærmere på hvordan `merge`, `rebase`, `cherry-picks` etc. vil virke akkurat her. Meldingen Git gir kan heldigvis googles, og det er mange som har stått i nøyaktig din situasjon. Det er råd å få. Man kan også ta kopier av tekst og filer underveis som kan limes inn på rette steder siden. Proffene klarer seg sikkert uten sånt, men dette kan redde amatøren fra å tape arbeid ifm. konfliktløsing som kan føles innfløkt.
+
+La oss da se på situasjonen der en faktisk konflikt har oppstått, f.eks. at man forsøker å løse en situasjon med `git merge`. Husk da at slike operasjoner (som vi har sett) kan aborteres, og man alltid kunne komme tilbake til utgangspunktet om ting begynner å bli komplisert.
 
 - Første punkt er *alltid* å utføre
 
@@ -1381,7 +1384,7 @@ Unmerged paths:
   both modified:   chapter/35.md
 ```
 
-- I så fall er andre punkt er åpne disse filene (f.eks i VSCode). På steder i filene vil konfliktene være markert noe tilsvarende dette:
+- I så fall er andre punkt å åpne disse filene (f.eks i VSCode). På steder i filene vil konfliktene være markert noe tilsvarende dette:
 
 ```yaml
 <<<<<<< HEAD
@@ -1391,7 +1394,7 @@ den andre teksten
 >>>>>>> feature
 ```
 
-Du har så ansvaret for å løse opp i dette. Fjern tilslutt alle konfliktmarkeringene og lagre filene.
+Du har så ansvaret for å løse opp i dette, bestemme hva som skal beholdes og hva som skal fjernes. Slett tilslutt alle konfliktmarkeringene og lagre filene.
 
 - Tredje punkt er å utføre `git add` på filene.
 
@@ -1401,7 +1404,7 @@ Utføre gjerne `git status` underveis om antall filer er stort.
 
 I noen tilfeller er dette greit og forståelig, som hvis avbruddet oppstod under en `rebase` eller `cherry-pick`. Disse har en egen `--continue`-opsjon som skal benyttes. Andre operasjoner som `merge`, `git push`, en **sync** i VS Code m.fl. har ikke denne opsjonen, og det er mindre klart hva som menes med "å fortsette". Ikke nok med det, VS Code kan liste tips med flere alternativer, så hva gjør man?
 
-Igjen ligger løsningen i output fra `git status`. Den forteller også om hva som skal fortsettes, og oversikten under viser hvilke kall som fortsetter og fullfører den tilhørende operasjonen:
+`git status` kan fortelle om hva som skal fortsettes, og oversikten under viser hvilke kall som fortsetter og fullfører den tilhørende operasjonen:
 
 ```yaml
 KONFLIKT OPPSTOD UNDER   UTFØR            
@@ -1412,19 +1415,7 @@ cherry-pick:             git cherry-pick --continue
 
 I `git status`-eksemplet over kan vi se at det nevnes **unmerged paths**, dvs. en **merge** ble avbrutt, og riktig fortsettelse ville vært `git commit`.
 
-Dette så vel og bra ut. Men det kan også oppstå situasjoner som minner om en konflikt, men som egentlig er å tenke på som *divergerende grener*. Selv når bare én bruker oppdaterer et prosjekt fra to PC-er, kan dette lett oppstå. Git stopper da opp og vil prøve å fortelle hva som er problemet.
-
-Ett typisk tilfelle er at man gjør en liten modifisering på én PC og synes mengden er for liten til å foreta `add + commit`. Og når man siden gjør en større endring (med `add + commit`) på annen PC, har man divergerende grener. Foreløpig er det ingen konflikt (det blir det først når man prøver å slå den sammen), men `git status` og `git pull` vet ikke hva de skal gjøre (og lister alternativer). Da må man vurdere situasjonen, bruke `git diff` aktivt på aktuelle *commits* før man ser nærmere på hvordan `merge`, `rebase`, `cherry-picks` etc. vil virke. Meldingen Git gir kan dessuten googles. Det er mange som har stått i nøyaktig din situasjon, og det er råd å få. Man kan også ta kopier av tekst og filer underveis som kan limes inn på rette steder siden. Proffene klarer seg sikkert uten sånt, men dette kan redde amatøren fra å tape arbeid ifm. konfliktløsing som kan føles innfløkt.
-
-I det beskrevne tilfellet, der en ubetydelig gren og en mer betydelig gren skal forenes, *kan* et alternativ være å foreta en **hard reset** fra "ubetydelig versjon":
-
-```bash
-git reset --hard origin/main
-```
-
-(eller hva nå hovedgrenen heter), kanskje i kombinasjon med noen innliming av spesiell, utkopiert tekst. Etter dette blir PC-ene enige om situasjonen (som er i samsvar "betydelige gren" og reflektert i TRE, INDEKS og REPO).
-
-En vanligere strategi ved divergerende grener er å lage en ny gren, f.eks. **tmp-gren**, på PC-en situasjonen oppstod på ved:
+En vanlig strategi når en situasjon oppstår, er ellers å lage en ny gren, f.eks. **tmp-gren**, på PC-en situasjonen oppstod på:
 
 ```bash
 git branch tmp-gren
@@ -1436,14 +1427,15 @@ Da kjøper man seg litt tid, kan undersøke og teste friere, for siden å foreta
 git merge tmp-gren
 ```
 
-på hovegrenen (dvs. man må stå der når kommandoen kjøres).
+ned på på den opprinnelige grenen.
+
+Konflikthåndtering kan virke utfordrende i starten, og forhåpentligvis gir dette en viss hjelp til ferske brukere. Uansett lærer man fort nytten av å utføre hyppige commit/push her. Det å ha halvferdig arbeid liggende rundt er forbundet med en viss risiko.
 
 Generelt er nok `git merge` å foretrekke framfor `git rebase` i situasjoner med divergerende grener. Sistnevnte kan kreve noen etterfølgende kommandoer, og regnes gjerne som mer kompleks. Dessuten er den farligere å bruke i situasjoner med flere brukere. Vi ser jo ikke på det her, men bare så det er sagt:
 
-‼️ Bruk aldri  `git rebase` på *commits* som er pushet til gren delt med flere brukere. Da risikerer man at arbeid de har gjort blir *unreachable*, med komplisert oppryddingsarbeid – eller i verste fall tap av arbeid – som resultat.
+‼️ Bruk aldri `git rebase` på *commits* som er pushet til gren delt med flere. Da risikerer man at arbeid de har gjort blir *unreachable*, med komplisert oppryddingsarbeid – eller i verste fall tap av arbeid – som resultat.
 
-
-Det kan også oppstå situasjoner der Git rapportere flertydighet rundt **push**. Igjen bør man kartlegge best mulig, søke opp råd på nettet osv. Men *hvis* man f.eks. er helt sikker på at situasjonen på PC-1 er korrekt, kan man foreta en *forced push* derfra ved:
+Det kan også oppstå situasjoner der Git rapportere flertydighet rundt **push**. Igjen bør man kartlegge best mulig, søke opp råd på nettet osv. Men *hvis* man f.eks. er sikker på at situasjonen på PC-1 er korrekt, kan man foreta en *forced push* derfra ved:
 
 ```bash
 git push -f origin main
@@ -1452,8 +1444,6 @@ git push -f origin main
 Da må siden rette opp ift. dette på PC-2, f.eks. ved å foreta en **hard reset** der.
 
 ‼️ Husk at **hard reset** alltid risikerer å overskrive lokale filer
-
-Dessuten, i en situasjoner der man har en korrekt versjon på PC-1 (og er 100 % sikker på det), men har kommet i utakt på PC-2 på en måte som ikke lett lar seg løse, *kan* man alltids slette prosjektet på PC-2 og klone det tilbake fra GitHub (eller kopiere det fra en backup). Det er neppe hva en proff ville gjort, men muligheten kan virke beroligende for ferske brukere av Git.
 
 Men beste medisin er uansett å unngå utakt og konflikter i utgangspunktet. La oss gjenta moralen her. Unngå at halvferdig arbeid blir liggende igjen. Sørg for å
 
@@ -1474,7 +1464,7 @@ Men beste medisin er uansett å unngå utakt og konflikter i utgangspunktet. La 
 
 📘 [Litt om CSS](https://mailjaro.github.io/css-repo/)
 
-📘 [Litt om GPG](https://mailjaro.github.io/gpg-repo/)
+📘 [Litt om Makefile](https://mailjaro.github.io/makefile-repo/)
 
 📘 [Litt om syntaksutheving](https://mailjaro.github.io/highlight-repo/)
 
