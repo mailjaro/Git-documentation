@@ -19,7 +19,7 @@ COVER       := $(IMAGES)/cover.png
 # Default target
 # ------------------------------------------------------------
 
-all: pandoc-epubs html pdf asc-epubs
+all: pandoc-epubs html1 html2 pdf asc-epubs
 
 # ------------------------------------------------------------
 # Ensure build directory exists
@@ -56,8 +56,9 @@ $(ADOC1): $(SRC_MD)
 		--metadata-file=$(META) \
 		--wrap=none \
 		-f markdown-smart \
-		-o $(ADOC1)
-	@sd 'image::images' 'image::../images' $(ADOC1)
+		-o $@.tmp
+	@sd 'image::images' 'image::../images' $@.tmp > $@
+	@rm $@.tmp
 
 # ------------------------------------------------------------
 # HTML 1
@@ -69,6 +70,7 @@ html1: $(ADOC1) | $(BUILDS)
 		-a data-uri \
 		$(CONFIG)/masterHTML-1.adoc \
 		-o $(BUILDS)/git-1.html
+	@echo "✅ HTML1 successfully built."
 
 # ------------------------------------------------------------
 # Prepare git-2.adoc
@@ -76,7 +78,6 @@ html1: $(ADOC1) | $(BUILDS)
 
 $(ADOC2): $(ADOC1)
 	@cp $(ADOC1) $(ADOC2)
-
 	@sd '\[source,output\]' '[%unbreakable]\n[source,output]' $(ADOC2)
 	@sd '\[source,bash\]'   '[%unbreakable]\n[source,bash]' $(ADOC2)
 	@sd '\[source,text\]'   '[%unbreakable]\n[source,text]' $(ADOC2)
@@ -107,7 +108,7 @@ html2: $(ADOC2) | $(BUILDS)
 		$(CONFIG)/masterHTML-2.adoc \
 		-o $(BUILDS)/git-2.html
 
-	@echo "✅ HTML1 and HTML2 successfully built."
+	@echo "✅ HTML2 successfully built."
 
 html: html1 html2
 
@@ -132,8 +133,6 @@ pdf: $(ADOC3) | $(BUILDS)
 
 asc-epubs: $(ADOC2) | $(BUILDS)
 
-	@sd 'image::\.\./images' 'image::images' $(ADOC2)
-
 	@asciidoctor-epub3 \
 		$(CONFIG)/masterEPUB-light.adoc \
 		-B . \
@@ -152,7 +151,7 @@ asc-epubs: $(ADOC2) | $(BUILDS)
 
 clean:
 	@rm -rf $(BUILDS) $(ADOC1) $(ADOC2) $(ADOC3)
-
+	@echo "✅ Bulids and adocs removed."
 # ------------------------------------------------------------
 # Phony targets
 # ------------------------------------------------------------
