@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.23">
+<meta name="generator" content="Asciidoctor 2.0.26">
 <meta name="description" content="Dette heftet forsøker å hjelpe til med å få oversikt over VGit">
 <meta name="author" content="Jan R Sandbakken">
 <title>Litt om Git</title>
@@ -439,118 +439,182 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <style>
 pre.rouge table td { padding: 5px; }
 pre.rouge table pre { margin: 0; }
-pre.rouge, pre.rouge .w {
-  color: #24292f;
-  background-color: #f6f8fa;
+pre.rouge {
+  color: #faf6e4;
+  background-color: #122b3b;
 }
-pre.rouge .k, pre.rouge .kd, pre.rouge .kn, pre.rouge .kp, pre.rouge .kr, pre.rouge .kt, pre.rouge .kv {
-  color: #cf222e;
+pre.rouge .gl {
+  color: #dee5e7;
+  background-color: #4e5d62;
+}
+pre.rouge .gp {
+  color: #a8e1fe;
+  font-weight: bold;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cm, pre.rouge .cpf, pre.rouge .c1, pre.rouge .cs {
+  color: #6c8b9f;
+  font-style: italic;
+}
+pre.rouge .cp {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+pre.rouge .err {
+  color: #fefeec;
+  background-color: #cc0000;
 }
 pre.rouge .gr {
-  color: #f6f8fa;
+  color: #cc0000;
+  font-weight: bold;
+  font-style: italic;
+}
+pre.rouge .k, pre.rouge .kd, pre.rouge .kv {
+  color: #f6dd62;
+  font-weight: bold;
+}
+pre.rouge .o, pre.rouge .ow {
+  color: #4df4ff;
+  font-weight: bold;
+}
+pre.rouge .p, pre.rouge .pi {
+  color: #4df4ff;
 }
 pre.rouge .gd {
-  color: #82071e;
-  background-color: #ffebe9;
-}
-pre.rouge .nb {
-  color: #953800;
-}
-pre.rouge .nc {
-  color: #953800;
-}
-pre.rouge .no {
-  color: #953800;
-}
-pre.rouge .nn {
-  color: #953800;
-}
-pre.rouge .sr {
-  color: #116329;
-}
-pre.rouge .na {
-  color: #116329;
-}
-pre.rouge .nt {
-  color: #116329;
+  color: #cc0000;
 }
 pre.rouge .gi {
-  color: #116329;
-  background-color: #dafbe1;
+  color: #b2fd6d;
+}
+pre.rouge .ge {
+  font-style: italic;
 }
 pre.rouge .ges {
   font-weight: bold;
   font-style: italic;
 }
+pre.rouge .gs {
+  font-weight: bold;
+}
+pre.rouge .gt {
+  color: #dee5e7;
+  background-color: #4e5d62;
+}
 pre.rouge .kc {
-  color: #0550ae;
+  color: #f696db;
+  font-weight: bold;
 }
-pre.rouge .l, pre.rouge .ld, pre.rouge .m, pre.rouge .mb, pre.rouge .mf, pre.rouge .mh, pre.rouge .mi, pre.rouge .il, pre.rouge .mo, pre.rouge .mx {
-  color: #0550ae;
+pre.rouge .kn {
+  color: #ffb000;
+  font-weight: bold;
 }
-pre.rouge .sb {
-  color: #0550ae;
+pre.rouge .kp {
+  color: #ffb000;
+  font-weight: bold;
 }
-pre.rouge .bp {
-  color: #0550ae;
-}
-pre.rouge .ne {
-  color: #0550ae;
-}
-pre.rouge .nl {
-  color: #0550ae;
-}
-pre.rouge .py {
-  color: #0550ae;
-}
-pre.rouge .nv, pre.rouge .vc, pre.rouge .vg, pre.rouge .vi, pre.rouge .vm {
-  color: #0550ae;
-}
-pre.rouge .o, pre.rouge .ow {
-  color: #0550ae;
+pre.rouge .kr {
+  color: #ffb000;
+  font-weight: bold;
 }
 pre.rouge .gh {
-  color: #0550ae;
+  color: #ffb000;
   font-weight: bold;
 }
 pre.rouge .gu {
-  color: #0550ae;
+  color: #ffb000;
   font-weight: bold;
 }
-pre.rouge .s, pre.rouge .sa, pre.rouge .sc, pre.rouge .dl, pre.rouge .sd, pre.rouge .s2, pre.rouge .se, pre.rouge .sh, pre.rouge .sx, pre.rouge .s1, pre.rouge .ss {
-  color: #0a3069;
+pre.rouge .kt {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+pre.rouge .no {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+pre.rouge .nc {
+  color: #b2fd6d;
+  font-weight: bold;
 }
 pre.rouge .nd {
-  color: #8250df;
+  color: #b2fd6d;
+  font-weight: bold;
 }
-pre.rouge .nf, pre.rouge .fm {
-  color: #8250df;
+pre.rouge .nn {
+  color: #b2fd6d;
+  font-weight: bold;
 }
-pre.rouge .err {
-  color: #f6f8fa;
-  background-color: #82071e;
+pre.rouge .bp {
+  color: #b2fd6d;
+  font-weight: bold;
 }
-pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cm, pre.rouge .cp, pre.rouge .cpf, pre.rouge .c1, pre.rouge .cs {
-  color: #6e7781;
+pre.rouge .ne {
+  color: #b2fd6d;
+  font-weight: bold;
 }
-pre.rouge .gl {
-  color: #6e7781;
+pre.rouge .nl {
+  color: #ffb000;
+  font-weight: bold;
 }
-pre.rouge .gt {
-  color: #6e7781;
+pre.rouge .nt {
+  color: #ffb000;
+  font-weight: bold;
 }
-pre.rouge .ni {
-  color: #24292f;
+pre.rouge .m, pre.rouge .mb, pre.rouge .mf, pre.rouge .mh, pre.rouge .mi, pre.rouge .il, pre.rouge .mo, pre.rouge .mx {
+  color: #f696db;
+  font-weight: bold;
+}
+pre.rouge .ld {
+  color: #f696db;
+  font-weight: bold;
+}
+pre.rouge .ss {
+  color: #f696db;
+  font-weight: bold;
+}
+pre.rouge .s, pre.rouge .sb, pre.rouge .dl, pre.rouge .sd, pre.rouge .s2, pre.rouge .sh, pre.rouge .sx, pre.rouge .sr, pre.rouge .s1 {
+  color: #fff0a6;
+  font-weight: bold;
+}
+pre.rouge .sa {
+  color: #f6dd62;
+  font-weight: bold;
+}
+pre.rouge .se {
+  color: #4df4ff;
+  font-weight: bold;
+}
+pre.rouge .sc {
+  color: #4df4ff;
+  font-weight: bold;
 }
 pre.rouge .si {
-  color: #24292f;
+  color: #4df4ff;
+  font-weight: bold;
 }
-pre.rouge .ge {
-  color: #24292f;
-  font-style: italic;
+pre.rouge .nb {
+  font-weight: bold;
 }
-pre.rouge .gs {
-  color: #24292f;
+pre.rouge .ni {
+  color: #999999;
+  font-weight: bold;
+}
+pre.rouge .w {
+  color: #BBBBBB;
+}
+pre.rouge .go {
+  color: #BBBBBB;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #a8e1fe;
+}
+pre.rouge .py {
+  color: #a8e1fe;
+}
+pre.rouge .na {
+  color: #a8e1fe;
+}
+pre.rouge .nv, pre.rouge .vc, pre.rouge .vg, pre.rouge .vi, pre.rouge .vm {
+  color: #a8e1fe;
   font-weight: bold;
 }
 </style>
@@ -573,12 +637,12 @@ pre.rouge .gs {
 <ul class="sectlevel3">
 <li><a href="#_initialisering_init">Initialisering (init)</a></li>
 <li><a href="#_legge_til_indeks_add">Legge til indeks (add)</a></li>
+<li><a href="#_foreta_commit">Foreta commit</a></li>
 <li><a href="#_se_git_informasjon">Se Git-informasjon</a></li>
 <li><a href="#_endre_filnavn">Endre filnavn</a></li>
 <li><a href="#_slette_fil">Slette fil</a></li>
 <li><a href="#_forgreninger_branch">Forgreninger (branch)</a></li>
 <li><a href="#_se_endringer_diff">Se endringer (diff)</a></li>
-<li><a href="#_foreta_commit">Foreta commit</a></li>
 <li><a href="#_merkalapper_tags">Merkalapper (tags)</a></li>
 <li><a href="#_archive">Archive</a></li>
 <li><a href="#_stash">Stash</a></li>
@@ -606,9 +670,9 @@ pre.rouge .gs {
 </li>
 <li><a href="#_github">GitHub</a>
 <ul class="sectlevel3">
-<li><a href="#_1️⃣_opprette_konto_og_nøkler">1️⃣ Opprette konto og nøkler</a></li>
-<li><a href="#_2️⃣_opprette_eksternt_repository_på_github">2️⃣ Opprette eksternt repository på GitHub</a></li>
-<li><a href="#_3️⃣_forbinde_remote_med_det_lokale">3️⃣ Forbinde remote med det lokale</a></li>
+<li><a href="#_opprette_konto_og_nøkler">Opprette konto og nøkler</a></li>
+<li><a href="#_opprette_eksternt_repository_på_github">Opprette eksternt repository på GitHub</a></li>
+<li><a href="#_forbinde_remote_repository_med_det_lokale">Forbinde remote repository med det lokale</a></li>
 <li><a href="#_vanlig_bruk">Vanlig bruk</a></li>
 <li><a href="#_flere_pc_er_eller_brukere">Flere PC-er eller brukere</a></li>
 <li><a href="#_konflikthåndtering">Konflikthåndtering</a></li>
@@ -638,22 +702,59 @@ pre.rouge .gs {
 <p>Dette heftet gir en introduksjon til Git. Den viser grunnleggende eksempler og bruk i del 1, og går litt mer i dybden på implementering og detaljer i del 2.</p>
 </div>
 <div class="paragraph">
-<p>Heftet retter seg mot brukere med ikke altfor avanserte behov, men som likevel ønsker trygghet og forståelse i det man gjør. Det retter seg ikke primært mot kodere eller større samarbeidsprosjekter, men heller mot folk som skriver, dokumenterer eller koder mer hobbypreget.</p>
+<p>Heftet retter seg mot brukere med ikke altfor avanserte behov, men som likevel ønsker trygghet og forståelse i det man gjør. Det retter seg ikke mot kodere eller større samarbeidsprosjekter, men heller mot folk som skriver, dokumenterer eller koder mer hobbypreget.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+I et prosjekt med flere deltakere bør man sikkert sørge for god opplæring for å unngå å påføre andre unødvendige versjonskonflikter eller sogar tap av arbeid.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>I et prosjekt med flere deltakere bør man nok sørge for god opplæring for å unngå å påføre andre unødvendige versjonskonflikter eller sogar tap av arbeid.</p>
+<p>Å kunne jobbe sømløst på flere PC-er, ha et enkelt system for ekstern backup, kunne eksperimentere med ulike versjoner med full oversikt, er likevel viktig. Og Git kan forenkle hverdagen for slike brukere vesentlig. Mange er de som brukt mye energi på å holde orden på backuper og ulike versjoner på hjemmesnekret vis. Dette heftet forsøker å være til hjelp for slike brukere.</p>
 </div>
 <div class="paragraph">
-<p>Å kunne jobbe sømløst på flere PC-er, ha et enkelt, trygt system for ekstern backup, kunne eksperimentere med ulike versjoner med full oversikt, er likevel viktig. Og Git kan <em>virkelig</em> forenkle hverdagen for slike brukere vesentlig. Mange er de som brukt mye energi på å holde orden på backuper og ulike versjoner på hjemmesnekret vis. Kanskje har de også slitt med å finne <em>Tutorials</em> som verken er for overflatiske eller for avanserte. Dette heftet forsøker å være til hjelp for slike brukere.</p>
+<p>Heftet tar bl.a. for seg hvordan man setter opp forbindelser mot <a href="https://github.com/">GitHub</a> (for ekstern overførsel) fra en eller flere PC-er. Linux legges til grunn som operativsystem.</p>
 </div>
 <div class="paragraph">
-<p>Heftet tar bl.a. for seg hvordan man setter opp forbindelser mot <a href="https://github.com/">GitHub</a> (for ekstern overførsel) fra en eller flere PC-er. Linux legges til grunn som operativsystem, der Git er inkludert i de fleste distroer (eller lett lar seg installere).</p>
+<p>Det fins gode alternativer til GitHub der ute (med ulike karakteristika), som f.eks.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://about.gitlab.com/">GitLab</a></p>
+</li>
+<li>
+<p><a href="https://gitbucket.github.io/">Bitbucket</a></p>
+</li>
+<li>
+<p><a href="https://about.gitea.com/">Gitea</a></p>
+</li>
+<li>
+<p><a href="https://gogs.io">Gogs</a></p>
+</li>
+<li>
+<p><a href="https://git.sr.ht/">SourceHut</a></p>
+</li>
+<li>
+<p><a href="https://azure.microsoft.com">Azure DevOps Repos</a></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>Ulike Git-kommandoer blir vist og forklart. Det kan likevel være lurt å benytte en editor som <a href="https://code.visualstudio.com/">Visual Code Studio</a>. Git aksesseres der via et menybasert grensesnitt, og visse operasjoner, som å angre ting, er enklere der. Påminnelser på ting man bør gjøre, får man også. Men det er uansett nyttig å ha en god forståelse i bunn. Og har man det, er jobbing med systemer som Git på Visual Code Studio enkelt, og dette vil ikke bli behandlet spesielt.</p>
+<p>og sikkert andre. Men GitHub er mest utbredt og fungerer fint for oss.</p>
 </div>
 <div class="paragraph">
-<p>Det kan også nevnes at Git har et et godt, gjennomtenkt design. Filosofien er at alt skal kunne gjenskapes, intet skal gå tapt, og brukeren kan vanskelig gjøre feil som gjør at data og versjoner forsvinner. Som det ofte sies:</p>
+<p>Ulike Git-kommandoer blir vist og forklart. Det kan likevel være lurt å benytte en editor som <a href="https://code.visualstudio.com/">Visual Code Studio</a>. Git aksesseres der via et menybasert grensesnitt, og visse operasjoner, særlig det å angre ting, er enklere der. Det er uansett nyttig å ha en god forståelse i bunn. Og har man det, er jobbing med systemer som Git på Visual Code Studio enkelt (og vil ikke bli behandlet spesielt).</p>
+</div>
+<div class="paragraph">
+<p>Det kan også nevnes at Git har et et godt, gjennomtenkt design. Filosofien er at alt skal kunne gjenskapes og at intet permanent skal gå tapt. Som det ofte sies:</p>
 </div>
 <div class="paragraph">
 <p>&#8201;&#8212;&#8201;<em>If it’s hard to do something stupid, the design is good.</em></p>
@@ -673,25 +774,11 @@ pre.rouge .gs {
 <div class="paragraph">
 <p>Her ser vi strukturen Git-systemet bygger på:</p>
 </div>
-<div class="listingblock">
+<div class="imageblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="text">┌──────────────────────┐
-│  Working Directory   │
-│        (TRE)         │
-└──────────┬───────────┘
-           │
-           ▼
-┌──────────────────────┐
-│     Staging Area     │
-│       (INDEX)        │
-└──────────┬───────────┘
-           │
-           ▼
-┌──────────────────────┐
-│    Git Directory     │
-│       (REPO)         │
-└──────────────────────┘</code></pre>
+<img src="data:image/png;base64,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v84Mw3AwQAGppnrkcobPu5aqxpkDzp9QtoAbMaunic4jW+g+toXu1v3Ylh0HL5517hEdjC0U9WCjSnytXvRxR4E1ASU1Vg4W1cOCJBCRTGTVngUpORVMKJ614/HWPQAW+6WXSjjp6CVxZEAaNyYaEVR0BRejizFNQ4d4ICUeiL1KuMQtOIn7e7zXEhvi+OclEi+M6N14xBWlFFd9ofnYAVqaDyMSZOKUmYgYUZa+iKektsYvYM9kiZ4HDHG97/jTSvIzSwZfTTi5kCToKHEPSNJydWi8t+yZl5Kmx0c8HnTkWeIpE/eCcgyEvcCW/Jwim2EisKc60yRt0NGTY4ZWYM/mFD1IiWeTUifBRcqN0TNHPK9XdZSdNSIeaphU1gylcuhUqhpnUDFkQtl4tWUPuINR74FBqFlcSMHP06tf5MlnX6EiYPLhD1xNRSCQF81nuY2xDqKKZPWrro8fiZ3B8JB8sM0+JpZlgwiGmRjLPj7HWAbxsxyMZvhD4Nvx5CKprRgoxoBpbPnmmw+4vg0SF8mOVoXgI65vPuD65lvJdfDUSVr5cOubD7i++Vbi7kSilcd+VNA3H3B98630yRcpDxVW33zzAdc3P+Ptm28+4PrmG32v5exPDnjffPMB17fBDLk+3vrmA65vvuHHb33zzQdc3/6FENf3b33zAdc33+jfctz823p9880HXN98K6TF1x8F33zA9c23fqTX8lHXNx9wffOt1IirfjGubz7g+ubbQOve+uabD7i++UYpOs18F9c3H3B9860fvFyfusY3H3B9860ffNsEuXnffPMB1zfffAIb33zzAdc3jm8uhUQZdt988wHXN99KIvjgVyz45gOub771k4frA61vPuD65ls/ergivsSObz7g+uZbv3Q9iIifNfPNB1zffKNfWBp9tPXNB1zffPPNN998wPWNfzE+XD975psPuL755hOQ++abD7i+8a/RWhZxbn289c0HXN98K7VnG/u/b775gOubbyXV13F+/DoF33zA9c23fmh88L1b33zA9c23Eptt29FYrh9U8M0HXN9880V2fPPNB1zf+BcS1xEfe33zAdc330rKhSuO4oMfTvDteLSAPwS+UTbxWWX3nn3U19dRU11FRUUwypkg4vFoRWPdZt7OM8CybMLhMG1t7dTX11FVVekPrG8+4PrmW6Lt3rufP/3lURAlEAhQ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" alt="Git System">
 </div>
+<div class="title">Figure 1. Git System</div>
 </div>
 <div class="paragraph">
 <p>Man har</p>
@@ -710,7 +797,7 @@ pre.rouge .gs {
 </ul>
 </div>
 <div class="paragraph">
-<p>Ved bruk av et fjernsystem som GitHub, kommer <em>det</em> inn som et fjerde element i tillegg (hvilket behandles senere i dokumentet). De tre elementene korresponderer til de tre stadiene en fil kan være i under Git:</p>
+<p>Ved bruk av et fjernsystem som GitHub, kommer et fjerde element inn i tillegg (behandles senere i dokumentet). De tre elementene korresponderer til de tre hovedstadiene en fil kan være i under Git:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -729,7 +816,7 @@ pre.rouge .gs {
 <p>Arbeidskatalogen utgjør den aktive, lokale utgaven av filtreet til prosjektet. Filene er hentet ut fra REPO og plassert på disken klar for bruk eller videre modifisering.</p>
 </div>
 <div class="paragraph">
-<p>INDEKS er rent fysisk en fil og holder oversikt over om hva som skal med i neste <em>commit</em>.</p>
+<p>INDEKS holder oversikt over om hva som skal med i neste <em>commit</em>.</p>
 </div>
 <div class="paragraph">
 <p>REPO inneholder objektdatabasen for prosjektet og lagrer alle versjoner og alt av relasjoner gjennom prosjektet.</p>
@@ -750,7 +837,7 @@ pre.rouge .gs {
 <p>Her ser vi en illustrasjon av et prosjekt organisert i to grener av øyeblikksbilder. Hvert øyeblikksbilde har referanse bakover til sin forelder, men aldri til sine barn. I figuren skjer commits fra venstre mot høyre, slik at f.eks. F og D har referanse til C (men ikke omvendt), og C har referanse til B (men ikke omvendt).</p>
 </div>
 <div class="paragraph">
-<p>Vi ser også noen andre viktige elementer i Git, nemlig:</p>
+<p>Vi ser også andre viktige elementer i Git, nemlig:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -774,7 +861,7 @@ pre.rouge .gs {
 <p>Brukeren endrer eller oppretter filer i arbeidskatalogen</p>
 </li>
 <li>
-<p>Brukeren velger hvilke forandringer som skal være med i neste <em>commit</em>v(legger disse til INDEKS)</p>
+<p>Brukeren velger hvilke forandringer som skal være med i neste <em>commit</em> (legger disse til INDEKS)</p>
 </li>
 <li>
 <p>Bruker gjør en <em>commit</em>, hvilket tar filene slik de er i INDEKS og lagrer alt (hele øyeblikksbildet) i REPO</p>
@@ -782,44 +869,65 @@ pre.rouge .gs {
 </ol>
 </div>
 <div class="paragraph">
-<p>Ved ekstern versjonskontroll, som f.eks. ved bruk av GitHub, må man foreta et innledende <code>git pull</code> (for hente inn nyeste tre fra ekstern REPO) og et avsluttende <code>git push</code> (for å <em>synce</em> lokalt REPO med ekstern REPO) i tillegg.</p>
+<p>Ved ekstern versjonskontroll foretar man typisk et innledende <code>git pull</code> (for hente inn nyeste tre fra ekstern REPO) og et avsluttende <code>git push</code> (for å <em>synce</em> lokalt REPO med ekstern REPO) i tillegg.</p>
 </div>
 <div class="paragraph">
-<p>Ettersom prosjektet vokser, kan prosjektet grene ut i flere versjoner. Disse vil likevel være lagret i samme REPO. Alt av data og referanser for å kunne gjenskape ulike versjoner i sin helhet, er lagret der.</p>
+<p>Ettersom prosjektet vokser, kan prosjektet grene ut i flere versjoner. Disse vil likevel være lagret i samme REPO. Alt av data og referanser for å kunne gjenskape ulike versjoner, er lagret der.</p>
 </div>
 <div class="paragraph">
 <p>Vi bør i oppstarten også nevne at vi kan skjerme bestemte filer og kataloger fra Git ved å inkludere dem i en tekstfil <strong>.gitignore</strong> øverst i arbeidskatalogen. Avhengig av type prosjekt, kan man velge å ikke følge bestemt filer.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Det anbefales å <strong>ikke</strong> la Git følge genererte filer som o- og exe-filer under C, eller filer produsert i andre formater fra en hovedfil. Dette sparer plass, men kanskje viktigere er at det gjør eventuelle konflikthåndteringer ryddigere.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
-<p><strong>Merk</strong>: Det anbefales å <strong>ikke</strong> følge filer som genereres av andre, som o- og exe-filer under C, eller filer produsert i andre formater fra en hovedfil. Dette er ikke primært for å spare plass, men å ikke forvanske en eventuelle konflikthåndteringer. Konflikthåndtering er beskrevet nærmere i et eget underkapittel av GitHub-kapittelet, ettersom konflikter lettere oppstår i en <em>remote</em> situasjon med editering fra flere steder.</p>
+<p>Vi skal se litt på konflikthåndtering i et eget underkapittel av GitHub-kapittelet, ettersom konflikter lettere oppstår i en <em>remote</em> situasjon og editering fra flere steder.</p>
 </div>
 <hr>
 </div>
 <div class="sect2">
 <h3 id="_grunnleggende_bruk"><a class="anchor" href="#_grunnleggende_bruk"></a>Grunnleggende bruk</h3>
 <div class="paragraph">
-<p>Før vi går inn på flere Git-detaljer og ser nærmere på hvordan ting henger sammen, kan vi vise noen eksempler og kommandoer for grunnleggende bruk. Dette dekker normal aktivitet, og mange vil klare seg med dette. Noen kommandoer fins i både eldre og nyere varianter, og vi skal prøve å benytte de nyere. Vi fokuserer først på lokal bruk og senere ta for oss hvordan man kobler seg på eksterne systemer som GitHub, for backup, samarbeid eller fjernaksess.</p>
+<p>Før vi går inn på flere Git-detaljer og ser nærmere på hvordan ting henger sammen, kan vi vise noen eksempler og kommandoer for grunnleggende bruk. Noen kommandoer fins i både eldre og nyere varianter, og vi skal prøve å benytte de nyere. Vi fokuserer først på lokal bruk og skal senere ta for oss hvordan man kobler seg på GitHub for backup og/eller fjernaksess.</p>
 </div>
 <hr>
 <div class="sect3">
 <h4 id="_initialisering_init"><a class="anchor" href="#_initialisering_init"></a>Initialisering (init)</h4>
 <div class="paragraph">
-<p>Man kan initialiser Git for et prosjekt med å gjøre</p>
+<p>For å initiere Git første gang kan man gjøre noe som likner:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">init</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git config <span class="nt">--global</span> user.name <span class="s1">'Ola Nordmann'</span>
+git config <span class="nt">--global</span> user.email <span class="s1">'ola.nordmann@gmail.com'</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>på toppen av aktuelle arbeidskatalog. Ved første initialisering, for aller første prosjekt, oppgis navn og e-postadresse. Senere benyttes disse valgene automatisk.</p>
-</div>
-<div class="paragraph">
-<p>Default <em>branch name</em> ved initialisering er <em>master</em> eller <em>main</em>, avhenging av distro. Ønsker man å spesifisere navnet nærmere, kan man benytte <strong><code>-b</code></strong>-opsjonen.</p>
+<p>Brukerdataene blir globale på maskinen. Deretter kan man sette opp Git for et prosjekt ved</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git init -b <span class="nt">&lt;grennavn&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git init</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>på toppen av aktuelle arbeidskatalog.</p>
+</div>
+<div class="paragraph">
+<p>Default <em>branch name</em> ved initialisering er <em>main</em> eller <em>master</em>, avhenging av distro. Ønsker man å spesifisere navnet nærmere, kan man benytte <strong><code>-b</code></strong>-opsjonen.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git init <span class="nt">-b</span> &lt;grennavn&gt;</code></pre>
 </div>
 </div>
 <hr>
@@ -831,37 +939,37 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git  add <span class="nt">&lt;fil&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git  add &lt;fil&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p><code>add</code> tillater globbing, som f.eks. <code>*.md</code>, for å sende en familie av filer til INDEKS.</p>
 </div>
 <div class="paragraph">
-<p>Man kan legge til alle modifiserte filer ved</p>
+<p>Man kan legge til <em>alle</em> modifiserte filer (nye, endrede og slettede) ved</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span>  <span class="s">add</span> <span class="s">-A</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git  add <span class="nt">-A</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>eller</p>
+<p>eller ved en som bare <em>nesten</em> gjør det samme:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span>  <span class="s">add</span> <span class="s">.</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git  add .</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Sistnevnte gjelder bare for <strong>nåværende katalog</strong>.</p>
+<p>som strengt tatt ikke tar med slettede filer utenfor nåværende katalog.</p>
 </div>
 <div class="paragraph">
 <p>Man kan også foreta et <em>dry run</em> for å se hvilke filer som vil bli sendt til INDEKS ved:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">add</span> <span class="s">-n</span> <span class="s">-A</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git add <span class="nt">-n</span> <span class="nt">-A</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -869,83 +977,150 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">add</span> <span class="s">-u</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git add <span class="nt">-u</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>tar med endringer og slettinger, men ikke nye filer.</p>
+</div>
+<div class="paragraph">
+<p>Det er også mulig å legge til bestemte deler av filer ved ved <code>git add -p</code>. Dette skal ikke vi gå inn på, men kan jo nevne det er aktuelt for folk/prosjekter som legger til endringer mer temabasert. For skribenter, hobbyprogrammere og småskalaprosjekter er det nok enklere å legge til rubbel og bit (en <em>keep it simple</em>-strategi).</p>
+</div>
+<hr>
+</div>
+<div class="sect3">
+<h4 id="_foreta_commit"><a class="anchor" href="#_foreta_commit"></a>Foreta commit</h4>
+<div class="paragraph">
+<p>Man foretar <em>commit</em> ved:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git commit <span class="nt">-m</span> <span class="s2">"&lt;Passende beskrivelse&gt;"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Evt. kan man sende alt både til INDEKS og til <em>commit</em> samtidig ved:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git commit <span class="nt">-a</span> <span class="nt">-m</span> <span class="s2">"&lt;Beskrivelse&gt;"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Droppes opsjonen <code>-m</code>, altså ved</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git commit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>åpnes standard editor, og man kan skrive en lengre, mer detaljert melding. Linux (og andre OS-er) har gjerne en standard editor (som f.eks. <strong>nano</strong>), men man kan også sette den eksplisitt for Git ved</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git config <span class="nt">--global</span> core.editor <span class="s2">"code --wait"</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git config <span class="nt">--global</span> core.editor <span class="s2">"nano"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>for hhv. VS Code og <strong>nano</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Man kan sjekke hva, eller om noe er satt, ved</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git config <span class="nt">--list</span> <span class="nt">--show-origin</span></code></pre>
+</div>
 </div>
 <hr>
 </div>
 <div class="sect3">
 <h4 id="_se_git_informasjon"><a class="anchor" href="#_se_git_informasjon"></a>Se Git-informasjon</h4>
 <div class="paragraph">
-<p>Man kan til se hvilke filer som er <em>modifisert</em> og hvilke som er sendt til INDEKS ved <code>git status</code>. Under ser vi noen varianter. Disse viser hhv. alle slike filer i en lang eller kort output, samt <em>branch</em>-info:</p>
+<p>Man kan se hvilke filer som er <em>modifisert</em> og hvilke som er sendt til INDEKS ved <code>git status</code>. Under ser vi noen varianter. Disse viser hhv. alle slike filer i en lang eller kort output:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">status</span></code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">status</span> <span class="s">-s</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git status</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git status -b <span class="nt">&lt;branch&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git status <span class="nt">-s</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Vi kan videre få informasjon om øyeblikksbilder ved <code>git log</code>. Output fra en slik kommando er vist under.</p>
+<p>Man kan videre få listet følgen av øyeblikksbilder ved <code>git log</code>. Eksempel på toppen av en slik output er vist under.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">log</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git log</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="s">commit bbf9a583e00cf19be7d7714a0d24be6af9ffc00b</span>
-<span class="na">Author</span><span class="pi">:</span> <span class="s">&lt;navn&gt; &lt;e-post&gt;</span>
-<span class="na">Date</span><span class="pi">:</span>   <span class="s">Wed Feb 11 10:29:13 2026 +0100</span>
+<pre class="rouge highlight"><code data-lang="text">commit bbf9a583e00cf19be7d7714a0d24be6af9ffc00b
+Author: &lt;navn&gt; &lt;e-post&gt;
+Date:   Wed Feb 11 10:29:13 2026 +0100
 
-    <span class="s">On branch &lt;gren&gt;</span>
-    <span class="s">Your branch is up to date with 'origin/&lt;gren&gt;'.</span>
-
-    <span class="s">Changes to be committed</span><span class="err">:</span>
-            <span class="na">modified</span><span class="pi">:</span>   <span class="s">file-1.md</span>
-            <span class="na">modified</span><span class="pi">:</span>   <span class="s">file-4.md</span>
-
-    <span class="s">More details.</span></code></pre>
+    &lt;Beskrivelse&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Alt under datolinjen her er brukerens beskrivelse av de siste endringene, enten gitt ved <code>-m</code>-opsjonen til <code>commit</code> eller (mer sannsynlig i dette tilfellet) via en editor som VSCode. Øverst ser vi hashen til øyeblikksbildet, som kan benyttes som entydig <em>commit</em>-referanse (ofte bare i kortform, de 7 første tegnene).</p>
+<p>Alt under datolinjen vil være brukerens beskrivelse av endringene, enten gitt ved <code>-m</code>-opsjonen til <code>commit</code> eller via en editor som VS Code. Vi ser også hashen til øyeblikksbildet, som kan benyttes som entydig <em>commit</em>-referanse (ofte bare i kortform).</p>
 </div>
 <div class="paragraph">
-<p>Under ser vi flere <code>git log</code>-varianter. Disse viser hhv. nyeste øyeblikksbilde, de to nyeste bildene, en kort, fargeformatert output samt en som viser et spesifikt bilde med utvidet informasjon om bl.a. fil-endringer.</p>
+<p>Under ser vi flere <code>git log</code>-varianter. Disse viser hhv. bare det refererte øyeblikksbildet, bare det nyeste, bare de to nyeste bildene, en liste med kort, fargekodet info, samt en liste med litt ekstra info.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="r"><span class="n">git</span><span class="w"> </span><span class="n">log</span><span class="w"> </span><span class="m">-1</span></code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="r"><span class="n">git</span><span class="w"> </span><span class="n">log</span><span class="w"> </span><span class="m">-2</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git log <span class="nt">-1</span> &lt;<span class="nb">hash</span><span class="o">&gt;</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="r"><span class="n">git</span><span class="w"> </span><span class="n">log</span><span class="w"> </span><span class="o">--</span><span class="n">oneline</span><span class="w"> </span><span class="o">--</span><span class="n">graph</span><span class="w"> </span><span class="o">--</span><span class="n">decorate</span><span class="w"> </span><span class="o">--</span><span class="n">all</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git log <span class="nt">-1</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git log <span class="nt">&lt;hash&gt;</span> --stat</code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git log <span class="nt">-2</span></code></pre>
 </div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git log <span class="nt">--oneline</span> <span class="nt">--graph</span> <span class="nt">--decorate</span> <span class="nt">--all</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git log <span class="nt">--stat</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Man har også varianter som:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git log A..B</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>og</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git log A...B</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Den første viser commits som er i B, men ikke i A; den andre commits som er i A eller B, men ikke i begge.</p>
 </div>
 <hr>
 </div>
@@ -956,19 +1131,19 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git mv <span class="nt">&lt;fil&gt;</span> <span class="nt">&lt;ny-fil&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git <span class="nb">mv</span> &lt;fil&gt; &lt;ny-fil&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>Navnet endres på arbeidskatalogen, og endringen legges til på INDEKS, klar for neste <em>commit</em>.</p>
 </div>
 <div class="paragraph">
-<p>Alternativt kan man navnendre filen og legge den til indeksen selv. Altså gjøre:</p>
+<p>Alternativt kan man navnendre filen og legge den til INDEKS selv. Altså gjøre:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">mv <span class="nt">&lt;filnavn&gt;</span> <span class="nt">&lt;nytt-fil-navn&gt;</span>
-git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash"><span class="nb">mv</span> &lt;fil&gt; &lt;ny-fil&gt;
+git &lt;ny-fil&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -976,8 +1151,8 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="na">rename</span><span class="pi">:</span>
-    <span class="s">TRE → INDEKS</span></code></pre>
+<pre class="rouge highlight"><code data-lang="text">rename:
+    TRE → INDEKS</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -992,7 +1167,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git rm <span class="nt">&lt;fil&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git <span class="nb">rm</span> &lt;fil&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1012,27 +1187,15 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 <p>Man kan for så vidt også slette filen fra arbeidskatalogen (ved <code>rm</code>) og legge til INDEKS selv (ved <code>add</code>), med samme resultat.</p>
 </div>
 <div class="paragraph">
-<p>Dersom man ønsker å beholde filen lokalt, men bare fjerne den fra Git, kan man dessuten gjøre</p>
+<p>Dersom man ønsker å ta en allerede fulgt fil ut av versjonskontrollen, kan man gjøre:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git rm --cached <span class="nt">&lt;fil&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git <span class="nb">rm</span> <span class="nt">--cached</span> &lt;fil&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>(og deretter også oppdatere <strong>.gitignore</strong> tilsvarende).</p>
-</div>
-<div class="paragraph">
-<p>Kun INDEKS blir endret, dvs.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="na">delete</span><span class="pi">:</span>
-    <span class="s">TRE → INDEKS</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Prosessen krever en avsluttende <em>commit</em>.</p>
+<p>etterfulgt av en <em>commit</em>. Filen blr værende på arbeidskatalogen. Man vil typisk også oppdatere <strong>.gitignore</strong> tilsvarende.</p>
 </div>
 <hr>
 </div>
@@ -1043,7 +1206,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git branch <span class="nt">&lt;navn&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git branch &lt;navn&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1051,7 +1214,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git switch <span class="nt">&lt;navn&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git switch &lt;navn&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1059,31 +1222,76 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">branch</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git branch</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Denne viser i tillegg alle ikke-lokale:</p>
+<p>og output kan se noe slik ut:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">branch</span> <span class="s">-a</span></code></pre>
+<pre class="rouge highlight"><code data-lang="text">  gh-pages
+* main</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>og denne bare de ikke-lokale:</p>
+<p>Vi ser to lokale grener her, <strong>main</strong> og <strong>gh-pages</strong>, og vi står på førstnevnte (vist ved <code>*</code>).</p>
+</div>
+<div class="paragraph">
+<p>Følgende kommando viser dem på remote:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">branch</span> <span class="s">-r</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git branch <span class="nt">-r</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Mer spesifikk informasjon relatert til ekstern REPO fås fra:</p>
+<p>som f.eks.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">branch</span> <span class="s">-vv</span></code></pre>
+<pre class="rouge highlight"><code data-lang="text">  remotes/origin/HEAD -&gt; origin/main
+  remotes/origin/gh-pages
+  remotes/origin/main</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>origin</strong> adressen på rot i remote repository, og grenene der omtales generelt som <strong>origin/main</strong> og <strong>origin/gh-page</strong>. I eksempelet peker HEAD peker på førstnevnte.</p>
+</div>
+<div class="paragraph">
+<p>For å vise begge deler kan man gjøre:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git branch <span class="nt">-a</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Strengt tatt får man ikke remote-brancher direkte fra serveren her, men det viser egentlig hvordan det så ut sist det ble hentet (ved <code>git fetch</code>).
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Mer spesifikk lokal greninformasjon fås fra:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git branch <span class="nt">-vv</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>og den tlnærmet ekvivalente kommandoen for remote blir:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git branch <span class="nt">-vr</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1091,11 +1299,20 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git branch <span class="nt">&lt;navn&gt;</span> <span class="nt">&lt;commit&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git branch &lt;navn&gt; &lt;commit&gt;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Ved bruk av GitHub og editering fra flere PC-er, er det viktig å være klar over at grener opprettet på én, ikke uten videre blir synlig/tilgjengelig på en annen. Kommandoene for å bøte på dette er vist i senere kapittel.</p>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Merk at ved bruk av GitHub og editering fra flere PC-er, vil ikke grener opprettet på én uten videre blir synlig/tilgjengelig på en annen. Kommandoene for å sørge for det er vist i senere kapittel.
+</td>
+</tr>
+</table>
 </div>
 <hr>
 </div>
@@ -1106,7 +1323,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git diff <span class="nt">&lt;commit1&gt;</span> <span class="nt">&lt;commit2&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git diff &lt;commit1&gt; &lt;commit2&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1114,7 +1331,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git diff <span class="nt">&lt;commit1&gt;</span> <span class="nt">&lt;commit2&gt;</span> | delta</code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git diff &lt;commit1&gt; &lt;commit2&gt; | delta</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1122,7 +1339,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">diff</span> <span class="s">HEAD~3</span> <span class="s">HEAD</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git diff HEAD~3 HEAD</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1130,21 +1347,21 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">diff</span> <span class="s">HEAD^</span> <span class="s">HEAD</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git diff HEAD^ HEAD</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>(her refereres siste og den før det).</p>
 </div>
 <div class="paragraph">
-<p>Ulike refereringsmåter er behandlet senere i dokumentet.</p>
+<p>Ulike refereringsmåter behandles mer fullstendig senere i dokumentet.</p>
 </div>
 <div class="paragraph">
 <p>For bare å se hvilke <em>filer</em> som skiller seg fra hverandre, kan man gjøre:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git diff --name-only <span class="nt">&lt;commit1&gt;</span> <span class="nt">&lt;commit2&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git diff <span class="nt">--name-only</span> &lt;commit1&gt; &lt;commit2&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1152,7 +1369,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git diff <span class="nt">&lt;gren-1&gt;</span> <span class="nt">&lt;gren-2&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git diff &lt;gren-1&gt; &lt;gren-2&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1160,7 +1377,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">diff</span> <span class="s">HEAD</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git diff HEAD</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1168,7 +1385,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">diff</span> <span class="s">--staged</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git diff <span class="nt">--staged</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1176,42 +1393,11 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">diff</span> <span class="s">A...B</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git diff A...B</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>(kun aktuell i forgreninger) som sammenlikner B med siste felles <em>commit</em> for A og B.</p>
-</div>
-<hr>
-</div>
-<div class="sect3">
-<h4 id="_foreta_commit"><a class="anchor" href="#_foreta_commit"></a>Foreta commit</h4>
-<div class="paragraph">
-<p>Man foretar <em>commit</em> ved:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="html">git commit -m "<span class="nt">&lt;Passende</span> <span class="na">beskrivelse</span><span class="nt">&gt;</span>"</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Evt. kan man sende alt både til INDEKS og til <em>commit</em> samtidig ved:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="html">git commit -a -m "<span class="nt">&lt;Beskrivelse&gt;</span>"</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Droppes opsjonen <code>-m</code></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">commit</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>åpnes standard editor, og man kan skrive en lengre, mer detaljert melding som også støtter multiline <em>commit</em>-beskrivelser.</p>
 </div>
 <hr>
 </div>
@@ -1222,7 +1408,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git tag <span class="nt">&lt;tag-navn&gt;</span> <span class="nt">&lt;commit-hash&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git tag &lt;tag-navn&gt; &lt;commit-hash&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1230,11 +1416,11 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="s">-hvem som tager</span>
-<span class="s">-dato</span>
-<span class="s">-melding</span>
-<span class="s">-mulighet for kryptografisk signering</span>
-<span class="s">-peker på commit</span></code></pre>
+<pre class="rouge highlight"><code data-lang="text">-hvem som tager
+-dato
+-melding
+-mulighet for kryptografisk signering
+-peker på commit</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1242,7 +1428,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git tag -a <span class="nt">&lt;tag-navn&gt;</span> -m "melding" <span class="nt">&lt;commit&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git tag <span class="nt">-a</span> &lt;tag-navn&gt; <span class="nt">-m</span> <span class="s2">"melding"</span> &lt;commit&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1250,7 +1436,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">tag</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git tag</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1258,7 +1444,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">tag</span> <span class="s">-l</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git tag <span class="nt">-l</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1266,7 +1452,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">tag</span> <span class="s">-l</span> <span class="s">"-2*"</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git tag <span class="nt">-l</span> <span class="s2">"-2*"</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1274,7 +1460,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">show</span> <span class="s">&lt;tag&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git show &lt;tag&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1285,18 +1471,27 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git tag -d <span class="nt">&lt;tag&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git tag <span class="nt">-d</span> &lt;tag&gt;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Det er viktig å være klar over at alle tags er <em>lokale</em>. De kan oppfattes som bokmerker, er ikke en del av en <em>commit</em>/<em>push</em> og vil ikke være synlige eksternt (f.eks. på GitGub).</p>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Merk at alle tags er <em>lokale</em>. De kan oppfattes som bokmerker, er ikke en del av en <em>commit</em>/<em>push</em> og vil ikke automatisk være synlige eksternt (f.eks. på GitGub).
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Man kan pushe en bestemt tag ved</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git push origin <span class="nt">&lt;tag&gt;</span>&gt;</code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git push origin &lt;tag&gt;&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1304,7 +1499,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">push</span> <span class="s">origin</span> <span class="s">--tags</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git push origin <span class="nt">--tags</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1312,22 +1507,34 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">fetch</span> <span class="s">--tags</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git fetch <span class="nt">--tags</span></code></pre>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Om PC-1 har tag som peker på et øyeblikksbilde på en gren PC-2 ikke kjenner, gir kommandoen en feilmelding.
+</td>
+</tr>
+</table>
 </div>
 <hr>
 </div>
 <div class="sect3">
 <h4 id="_archive"><a class="anchor" href="#_archive"></a>Archive</h4>
 <div class="paragraph">
-<p><code>git archive</code> lar bruker pakke innholdet av en <em>commit</em>, <em>branch</em> eller <em>tag</em> i en arkivfil (f.eks. .zip eller .tar) uten å inkludere hele Git-historikken. Den brukes ofte for å dele kode som et snapshot, eller lage en kildekodepakke til en distribusjon.</p>
+<p><code>git archive</code> lar bruker pakke innholdet av en <em>commit</em>, <em>branch</em> eller <em>tag</em> i en arkivfil (f.eks. <strong>.zip</strong> eller <strong>.tar</strong>) uten å inkludere hele Git-historikken. Den brukes ofte for å dele kode som et snapshot, eller lage en kildekodepakke til en distribusjon.</p>
 </div>
 <div class="paragraph">
 <p>Syntaksen er</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">archive</span> <span class="s">[options]</span> <span class="s">&lt;commit/branch/tag&gt;</span> <span class="s">[paths]</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git archive <span class="o">[</span>options] &lt;commit/branch/tag&gt; <span class="o">[</span>paths]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1335,17 +1542,17 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">archive</span> <span class="s">-o</span> <span class="s">project-main.zip</span> <span class="s">main</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git archive <span class="nt">-o</span> project-main.zip main</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">archive</span> <span class="s">-o</span> <span class="s">project.tar</span> <span class="s">1a2b3c4</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git archive <span class="nt">-o</span> project.tar 1a2b3c4</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">archive</span> <span class="s">main</span> <span class="s">|</span> <span class="s">tar</span> <span class="s">-x</span> <span class="s">-C</span> <span class="n">/tmp/project</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git archive main | <span class="nb">tar</span> <span class="nt">-x</span> <span class="nt">-C</span> /tmp/project</code></pre>
 </div>
 </div>
 <hr>
@@ -1376,12 +1583,12 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git stash push <span class="nt">&lt;fil-1&gt;</span> <span class="nt">&lt;fil-2&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git stash push &lt;fil-1&gt; &lt;fil-2&gt;</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git stash push -m "Beskrivelse" <span class="nt">&lt;fil-1&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git stash push <span class="nt">-m</span> <span class="s2">"Beskrivelse"</span> &lt;fil-1&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1392,7 +1599,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">stash</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git stash</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1400,7 +1607,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">stash</span> <span class="s">list</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git stash list</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1408,7 +1615,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">stash</span> <span class="s">pop</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git stash pop</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1416,7 +1623,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">stash</span> <span class="s">apply</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git stash apply</code></pre>
 </div>
 </div>
 <hr>
@@ -1428,17 +1635,17 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git <span class="nt">&lt;command&gt;</span> -h</code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git &lt;<span class="nb">command</span><span class="o">&gt;</span> <span class="nt">-h</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git <span class="nt">&lt;command&gt;</span> --help</code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git &lt;<span class="nb">command</span><span class="o">&gt;</span> <span class="nt">--help</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git help <span class="nt">&lt;command&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git <span class="nb">help</span> &lt;<span class="nb">command</span><span class="o">&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1446,7 +1653,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">help</span> <span class="s">-a</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git <span class="nb">help</span> <span class="nt">-a</span></code></pre>
 </div>
 </div>
 <hr>
@@ -1455,7 +1662,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 <div class="sect2">
 <h3 id="_git_en_detaljert_kikk"><a class="anchor" href="#_git_en_detaljert_kikk"></a>Git: En detaljert kikk</h3>
 <div class="paragraph">
-<p>For å forstå Git bedre og å kunne håndtere enkelte kommandoer riktig, trenger vi å dykke mer ned i detaljene. Vi må vite litt om hvordan øyeblikksbilder egentlig ser ut og hvordan de ulike pekerne fungerer. Dessuten må vi se på hvordan man kan referere ting i git-kommandoer. La oss starte der.</p>
+<p>For å forstå Git bedre og å kunne håndtere enkelte kommandoer riktig, trenger vi å dykke mer ned i detaljene. Vi må vite litt om hvordan øyeblikksbilder egentlig ser ut og hvordan de ulike pekerne fungerer. Dessuten må vi se på hvordan man kan referere ting i Git-kommandoer. La oss starte der.</p>
 </div>
 <hr>
 <div class="sect3">
@@ -1465,7 +1672,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git show -s <span class="nt">&lt;ref&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git show <span class="nt">-s</span> &lt;ref&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1473,30 +1680,30 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="s">RELATIVT</span>
-  <span class="s">HEAD</span>               <span class="err">:</span> <span class="s">Aktiv commit</span>
-  <span class="s">HEAD^    HEAD~1</span>    <span class="err">:</span> <span class="s">Forelder</span>
-  <span class="s">HEAD^^   HEAD~2</span>    <span class="err">:</span> <span class="s">Besteforelder</span>
-  <span class="s">HEAD^^^  HEAD~3</span>    <span class="err">:</span> <span class="s">Oldeforelder</span>
-  <span class="s">osv</span>
-  <span class="s">&lt;tag&gt;^   &lt;tag&gt;~1</span>   <span class="err">:</span> <span class="s">Commit før den tag-refererte</span>
-  <span class="s">osv</span>
-  <span class="s">&lt;gren&gt;^  &lt;gren&gt;~1</span>  <span class="err">:</span> <span class="s">Commit før den gren-refererte</span>
-  <span class="s">osv</span>
+<pre class="rouge highlight"><code data-lang="text">RELATIVT
+  HEAD               : Aktiv commit
+  HEAD^    HEAD~1    : Forelder
+  HEAD^^   HEAD~2    : Besteforelder
+  HEAD^^^  HEAD~3    : Oldeforelder
+  osv
+  &lt;tag&gt;^   &lt;tag&gt;~1   : Commit før den tag-refererte
+  osv
+  &lt;gren&gt;^  &lt;gren&gt;~1  : Commit før den gren-refererte
+  osv
 
-<span class="s">ABSOLUTT</span>
-  <span class="s">Full hash</span>
-  <span class="s">Kort hash</span>
-  <span class="s">Tag</span>
-  <span class="s">Branch</span>
+ABSOLUTT
+  Full hash
+  Kort hash
+  Tag
+  Branch
 
-<span class="s">REFLOG-BASERTE</span>
-  <span class="s">HEAD@{0}</span><span class="err">:</span>   <span class="s">nåværende HEAD</span>
-  <span class="s">HEAD@{1}</span><span class="err">:</span>   <span class="s">forrige posisjon ift. reflog</span>
-  <span class="s">HEAD@{2}</span><span class="err">:</span>   <span class="s">posisjonen før det ift reflog</span>
-  <span class="s">osv</span>
-  <span class="s">&lt;gren&gt;@{1}</span><span class="err">:</span> <span class="s">forrige commit-gren pekt på ift reflog</span>
-  <span class="s">osv</span></code></pre>
+REFLOG-BASERTE
+  HEAD@{0}:   nåværende HEAD
+  HEAD@{1}:   forrige posisjon ift. reflog
+  HEAD@{2}:   posisjonen før det ift reflog
+  osv
+  &lt;gren&gt;@{1}: forrige commit-gren pekt på ift reflog
+  osv</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1504,9 +1711,9 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="s">git log --grep="&lt;mønster&gt;"</span>  <span class="err">:</span> <span class="s">Meldingstekst</span>
-<span class="s">git log -S "&lt;mønster&gt;"</span>      <span class="err">:</span> <span class="s">Filinnhold</span>
-<span class="s">git log -G "&lt;mønster&gt;"</span>      <span class="err">:</span> <span class="s">Endret filinnhold</span></code></pre>
+<pre class="rouge highlight"><code data-lang="text">git log --grep="&lt;mønster&gt;"  : Meldingstekst
+git log -S "&lt;mønster&gt;"      : Filinnhold
+git log -G "&lt;mønster&gt;"      : Endret filinnhold</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1539,7 +1746,7 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">reflog</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git reflog</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1547,9 +1754,11 @@ git <span class="nt">&lt;ny-fil&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="text">16c54e5 (HEAD -&gt; NyMain, origin/&lt;gren&gt; ...
-96d8ea0 HEAD@{1}: commit: On branch ...
-bbf9a58 HEAD: clone: from github.com ...</code></pre>
+<pre class="rouge highlight"><code data-lang="text">7f53139 (HEAD -&gt; main, origin/main, origin/HEAD) HEAD@{0}: commit ...
+402a952 HEAD@{1}: checkout: moving from gh-pages to main
+72e0747 (origin/gh-pages, gh-pages) HEAD@{2}: pull ...
+0555a2d HEAD@{3}: checkout: moving from main to gh-pages
+402a952 HEAD@{4}: pull: Fast-forward</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1599,7 +1808,7 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git cat-file -p <span class="nt">&lt;commit&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git cat-file <span class="nt">-p</span> &lt;commit&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1619,14 +1828,14 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 <div class="sect3">
 <h4 id="_head_og_gren_pekere"><a class="anchor" href="#_head_og_gren_pekere"></a>HEAD og gren-pekere</h4>
 <div class="paragraph">
-<p>Vi må se litt nærmere på hvordan peker HEAD og gren-pekere er implementert. Vi husker at HEAD (konseptuelt) peker på aktivt øyeblikksbilde, mens gren-pekere (konseptuelt) peker på hver sin gren. Begge deler er imidlertid vanlige tekstfiler. HEAD ligger på <code>.git</code>, mens de sistnevnt ligger på <code>.git/refs/heads</code> og har filnavn som tilsvarer grennavnet (én fil for hver gren).</p>
+<p>Vi må se litt nærmere på hvordan peker HEAD og gren-pekere er implementert. Vi husker at HEAD (konseptuelt) peker på aktivt øyeblikksbilde, mens gren-pekere (konseptuelt) peker på hver sin gren. Begge deler er imidlertid vanlige tekstfiler. HEAD ligger på <strong>.git</strong>, mens de sistnevnt ligger på .<strong>git/refs/heads</strong> og har filnavn som tilsvarer grennavnet (én fil for hver gren).</p>
 </div>
 <div class="paragraph">
 <p>En grenpeker, som f.eks. MAIN, inneholder hash-verdien til et øyeblikksbilde (normalt siste øyeblikksbilde på grenen), som f.eks:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="s">436ab61d81d052cd320f3a8a4dc532f33e5d1a13</span></code></pre>
+<pre class="rouge highlight"><code data-lang="text">436ab61d81d052cd320f3a8a4dc532f33e5d1a13</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1634,18 +1843,18 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="na">ref</span><span class="pi">:</span> <span class="s">refs/heads/main</span></code></pre>
+<pre class="rouge highlight"><code data-lang="text">ref: refs/heads/main</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>I noen tilfeller (som vi skal se) inneholder den imidlertid bare hash-verdien til et bestemt øyeblikksbilde. HEAD sises da å være <em>detached</em> eller i <em>detached</em> tilstand, hvilket utnyttes i enkelt kommandoer.</p>
 </div>
 <div class="paragraph">
-<p>Men i normaltilstand, når man sier "HEAD peker på øyeblikksbilde D", så betyr det egentlig at HEAD peker på MAIN, som i sin tur peker på bilde D:</p>
+<p>Men i normaltilstand, når man sier <em>"HEAD peker på øyeblikksbilde D"</em>, så betyr det egentlig at HEAD peker på MAIN, som i sin tur peker på bilde D:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="s">HEAD → MAIN → D</span></code></pre>
+<pre class="rouge highlight"><code data-lang="text">HEAD → MAIN → D</code></pre>
 </div>
 </div>
 <hr>
@@ -1653,7 +1862,7 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 <div class="sect3">
 <h4 id="_forutsetninger_og_antakelser_videre"><a class="anchor" href="#_forutsetninger_og_antakelser_videre"></a>Forutsetninger og antakelser videre</h4>
 <div class="paragraph">
-<p>Vi skal nå se mer i detalj på hva som endrer seg og ikke ifm. viktige kommandoer. Dette er ofte helt avgjørende for å forstå og se forskjeller på beslektede kommandoer. Konkret bør man se på hva som endres av</p>
+<p>Vi skal nå se mer i detalj på hva som endrer seg og ikke ifm. viktige kommandoer. Dette er ofte avgjørende for å forstå forskjeller på beslektede kommandoer. Konkret bør man se på hva som endres av</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1698,10 +1907,10 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="na">add</span><span class="pi">:</span>
-    <span class="s">TRE → INDEKS</span>
-<span class="na">commit</span><span class="pi">:</span>
-    <span class="s">INDEKS → REPO, MAIN++</span></code></pre>
+<pre class="rouge highlight"><code data-lang="text">add:
+    TRE → INDEKS
+commit:
+    INDEKS → REPO, MAIN++</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1712,14 +1921,14 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 <div class="sect3">
 <h4 id="_reset"><a class="anchor" href="#_reset"></a>Reset</h4>
 <div class="paragraph">
-<p><code>git reset</code> er en kommando med rike muligheter til å endre tingenes tilstand. Vi har tre grunnleggende versjoner: <strong>soft</strong>, <strong>mixed</strong> og <strong>hard</strong> (med flere mulige opsjoner).</p>
+<p><code>git reset</code> har tre grunnleggende versjoner: <strong>soft</strong>, <strong>mixed</strong> og <strong>hard</strong> (med flere mulige opsjoner).</p>
 </div>
 <div class="paragraph">
 <p>Man kaller</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git reset <span class="nt">&lt;styrke&gt;</span> <span class="nt">&lt;commit&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git reset &lt;styrke&gt; &lt;commit&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1727,23 +1936,23 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="na">Soft reset</span><span class="pi">:</span>
-    <span class="s">MAIN → commit</span>
+<pre class="rouge highlight"><code data-lang="text">Soft reset:
+    MAIN → commit
 
-<span class="na">Mixed reset</span><span class="pi">:</span>
-    <span class="s">INDEKS ← REPO.commit</span>
-    <span class="s">MAIN → commit</span>
+Mixed reset:
+    INDEKS ← REPO.commit
+    MAIN → commit
 
-<span class="na">HARD reset</span><span class="pi">:</span>
-    <span class="s">TRE ← INDEKS ← REPO.commit</span>
-    <span class="s">MAIN → commit</span></code></pre>
+HARD reset:
+    TRE ← INDEKS ← REPO.commit
+    MAIN → commit</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>HEAD peker fortsatt på MAIN.</p>
 </div>
 <div class="paragraph">
-<p>Ved <em>hard reset</em> kan man dessuten benytte opsjonene <code>--Merged</code> og <code>--Keep</code>, som på to måter beskytter filer i TRE fra overskrivelse (som jo er en reell fare ved <em>hard reset</em>).</p>
+<p>Ved <em>hard reset</em> kan man dessuten benytte opsjonene <code>--Merged</code> og <code>--Keep</code>, som på to måter beskytter filer i TRE fra overskrivelse (som er en reell fare ved <em>hard reset</em>).</p>
 </div>
 <div class="paragraph">
 <p>Mixed er default.</p>
@@ -1756,7 +1965,7 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">reset</span> <span class="s">soft</span> <span class="s">&lt;B&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git reset soft &lt;B&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1764,7 +1973,7 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="s">HEAD → MAIN → B</span></code></pre>
+<pre class="rouge highlight"><code data-lang="text">HEAD → MAIN → B</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1774,10 +1983,7 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 <p>Merk nå at dersom vi <em>commit</em>'er modifiseringer, får vi en etterfølger vi kan betegn C', som vil være ulik C (uansett om modifiseringene skulle være identiske). C og D risikerer nå å bli hengende (selv om forgjenger B er uendret). Dersom intet annet refererer dem, en tag eller noe, risikerer disse (med tid og stunder, kanskje etter 30 dager) å bli slettet av <em>garbage collector</em> (GC). Disse risikerer å bli såkalt <em>unreachable</em> (man kan gjenskapes via <strong>reflog</strong> fram til en GC finner sted).</p>
 </div>
 <div class="paragraph">
-<p>Dette betyr at <em>reset</em> primært er ment for å rulle tilbake i versjoner, kanskje angre en <em>commit</em> ved feilskrevet melding etc. Lite endres direkte (særlig ved <em>soft reset</em>), men etterfølgende modifisering vil endre referansene og gjøre kommandoene nokså gjennomgripende like fullt.</p>
-</div>
-<div class="paragraph">
-<p>La oss nå se på den beslektede kommandoen <code>switch</code>.</p>
+<p>Dette betyr at <em>reset</em> primært er ment for å rulle tilbake i versjoner, kanskje angre en <em>commit</em> ved feilskrevet melding etc.</p>
 </div>
 <hr>
 </div>
@@ -1791,9 +1997,9 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="na">git switch GREN</span><span class="pi">:</span>
-    <span class="s">HEAD → GREN</span>
-    <span class="s">TRE ← INDEKS ← REPO.commit</span></code></pre>
+<pre class="rouge highlight"><code data-lang="text">git switch GREN:
+    HEAD → GREN
+    TRE ← INDEKS ← REPO.commit</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1801,9 +2007,9 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="na">git switch --detached commit</span><span class="pi">:</span>
-    <span class="s">HEAD → REPO.commit (detached)</span>
-    <span class="s">TRE ← INDEKS ← REPO.commit</span></code></pre>
+<pre class="rouge highlight"><code data-lang="text">git switch --detached commit:
+    HEAD → REPO.commit (detached)
+    TRE ← INDEKS ← REPO.commit</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1811,6 +2017,18 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 </div>
 <div class="paragraph">
 <p>I den andre skjer heller ingenting med MAIN. HEAD peker altså direkte på den spesifiserte <em>commiten</em> (HEAD-filen får hash-verdien som innhold, <em>detached</em>-mode), og øyeblikksbildet overføres både til INDEKS og TRE.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Dersom grenen man switcher fra er uferdig (dvs. man har modifiseringer som ennå ikke er <em>commited</em>), risikerer man å miste arbeid. Git advarer imidlertid om dette.
+</td>
+</tr>
+</table>
 </div>
 <hr>
 </div>
@@ -1821,17 +2039,17 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="na">git restore &lt;fil&gt;</span><span class="pi">:</span>
-    <span class="s">TRE ← INDEKS</span>
+<pre class="rouge highlight"><code data-lang="text">git restore &lt;fil&gt;:
+    TRE ← INDEKS
 
-<span class="na">git restore --staged &lt;fil&gt;</span><span class="pi">:</span>
-    <span class="s">INDEKS ← REPO.commit (HEAD)</span>
+git restore --staged &lt;fil&gt;:
+    INDEKS ← REPO.commit (HEAD)
 
-<span class="na">git restore --source=&lt;commit&gt; &lt;fil&gt;</span><span class="pi">:</span>
-    <span class="s">TRE ← REPO.commit</span>
+git restore --source=&lt;commit&gt; &lt;fil&gt;:
+    TRE ← REPO.commit
 
-<span class="na">git restore --source=&lt;commit&gt; --staged --worktree &lt;fil&gt;</span><span class="pi">:</span>
-    <span class="s">TRE ← INDEKS ← REPO.commit</span></code></pre>
+git restore --source=&lt;commit&gt; --staged --worktree &lt;fil&gt;:
+    TRE ← INDEKS ← REPO.commit</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1868,11 +2086,11 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git merge <span class="nt">&lt;gren-1&gt;</span> <span class="nt">&lt;gren-2&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git merge &lt;gren-1&gt; &lt;gren-2&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><em>fletter</em> sammen to grener. Man kan godt tenke seg at Git <em>slår sammen</em> de to grenene til én, hvilket gjerne er det man ønsker, men strengt tatt er det ikke nøyaktig det som skjer. Situasjoner er typisk at en ekstra gren er satt opp for å eksperimentere med en ny funksjon. Og, når funksjonen er moden for det, kan man ønske å slå disse sammen igjen. Men Git er tro mot sitt prinsipp om at alt skal kunne gjenskapes, så den fletter dem egentlig sammen til en gren hvor historikken ligger som en slags løkke i historikken. For å forklare dette skal vi først se på et lineært eksempel (<strong>fast forward merge</strong>) før vi ser på to eksempler med overlappende grener i <strong>no fast forward merge</strong>.</p>
+<p><em>fletter</em> sammen to grener. Ordet <em>merge</em> betyr <em>slå sammen</em>, men det er ikke nøyaktig det som skjer. Situasjoner er typisk at en ekstra gren er satt opp for å eksperimentere med en ny funksjon. Og, når funksjonen er moden for det, kan man ønske å slå disse sammen igjen. Men Git er tro mot sitt prinsipp om at alt skal kunne gjenskapes, så den fletter dem egentlig sammen til en gren hvor nærhistorikken ligger som en slags løkke av commits. For å forklare dette skal vi først se på et lineært eksempel (<strong>fast forward merge</strong>) før vi ser på to eksempler med overlappende grener i <strong>no fast forward merge</strong>.</p>
 </div>
 <div class="sect4">
 <h5 id="_fast_forward_merge"><a class="anchor" href="#_fast_forward_merge"></a>Fast forward merge</h5>
@@ -1891,8 +2109,7 @@ bbf9a58 HEAD: clone: from github.com ...</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="h">git switch main
-git merge feature</code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git merge feature</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1931,7 +2148,7 @@ A ──
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="h">git switch MAIN
+<pre class="rouge highlight"><code data-lang="bash">git switch MAIN
 git merge FEATURE</code></pre>
 </div>
 </div>
@@ -1947,7 +2164,7 @@ git merge FEATURE</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="h">git switch FEATURE
+<pre class="rouge highlight"><code data-lang="bash">git switch FEATURE
 git merge MAIN</code></pre>
 </div>
 </div>
@@ -1980,14 +2197,14 @@ TRE ← INDEX ← M</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>I begge tilfeller beregnes et øyeblikksbilde <strong>M</strong> med oppdatert innhold og to foreldre, som vist i figuren. Ved å følge linjene bakover kan man finne hele historikken, hele nodenettverket.</p>
+<p>I begge tilfeller beregnes et øyeblikksbilde <strong>M</strong> med oppdatert innhold og to foreldre, som vist i figuren. Ved å følge linjene bakover kan man se hele historikken, hele nodenettverket.</p>
 </div>
 <div class="paragraph">
 <p>Ved konflikter blir dialogen annerledes, og brukeren får dessuten ansvaret for å løse dem. I dette tilfellet må brukeren også utføre en etterfølgende.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">commit</span> <span class="s">-m</span> <span class="s">"Beskrivelse"</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git commit <span class="nt">-m</span> <span class="s2">"Beskrivelse"</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1998,7 +2215,7 @@ TRE ← INDEX ← M</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">merge</span> <span class="s">--abort</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git merge <span class="nt">--abort</span></code></pre>
 </div>
 </div>
 <hr>
@@ -2024,8 +2241,7 @@ TRE ← INDEX ← M</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="h">git switch main
-git cherry-pick &lt;E&gt;</code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git cherry-pick &lt;E&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2041,14 +2257,14 @@ TRE ← INDEKS ← E'</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>E' blir altså her den nye <em>commiten</em> som inneholder de samme endringene som E, men med ny hash og ny forelder &#169;.</p>
+<p>E' blir altså her den nye <em>commiten</em> som inneholder de samme endringene som E, men med ny hash og ny forelder (<em>commit</em> C).</p>
 </div>
 <div class="paragraph">
 <p>Om Git støter på konflikter underveis, stopper prosessen og overlater til brukeren å løse opp. Deretter igangsettes prosessen igjen med:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">cherry-pick</span> <span class="s">--continue</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git cherry-pick <span class="nt">--continue</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2059,7 +2275,7 @@ TRE ← INDEKS ← E'</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">cherry-pick</span> <span class="s">--abort</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git cherry-pick <span class="nt">--abort</span></code></pre>
 </div>
 </div>
 <hr>
@@ -2067,14 +2283,14 @@ TRE ← INDEKS ← E'</code></pre>
 <div class="sect3">
 <h4 id="_rebase"><a class="anchor" href="#_rebase"></a>Rebase</h4>
 <div class="paragraph">
-<p><code>git rebase</code> flytter en serie <em>commits</em> fra en gren til toppen av en annen. Historikken skrives om, <em>Committene</em> blir nye <em>commit</em>-objekter med nye hash-verdier, og resultatet blir en lineær historie.</p>
+<p><code>git rebase</code> flytter en serie <em>commits</em> fra en gren til toppen av en annen. Historikken skrives om, <em>Commitene</em> blir nye <em>commit</em>-objekter med nye hash-verdier, og resultatet blir en lineær historie.</p>
 </div>
 <div class="paragraph">
 <p>Om Git støter på konflikter underveis, stopper prosessen så brukeren kan løse opp. Prosessen igangsettes igjen med:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="h">git rebase --continue</code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git rebase <span class="nt">--continue</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2082,7 +2298,7 @@ TRE ← INDEKS ← E'</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="h">git rebase --abort</code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git rebase <span class="nt">--abort</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2100,8 +2316,7 @@ A ── B ── C  ← MAIN</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="h">git switch feature
-git rebase main</code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git rebase main</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2130,7 +2345,7 @@ TRE ← INDEKS ← D''</code></pre>
 </div>
 <hr>
 <div class="sect3">
-<h4 id="_1️⃣_opprette_konto_og_nøkler"><a class="anchor" href="#_1️⃣_opprette_konto_og_nøkler"></a>1️⃣ Opprette konto og nøkler</h4>
+<h4 id="_opprette_konto_og_nøkler"><a class="anchor" href="#_opprette_konto_og_nøkler"></a>Opprette konto og nøkler</h4>
 <div class="paragraph">
 <p>Dvs, man må</p>
 </div>
@@ -2144,19 +2359,36 @@ TRE ← INDEKS ← D''</code></pre>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>Merk at det kreves to passordfraser, ett for GitHub-kontoen og ett for SSH-nøklene. (Ved bruke av ekstra-PC, kreves ytterliger ett sett SSH-nøkler med tilhørende passord.)</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Merk at det kreves to passordfraser, ett for GitHub-kontoen og ett for SSH-nøklene. (Ved bruk av flere PC-er, kreves ytterligere sett av SSH-nøkler med passord.)
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Kommandoen for å generere SSH-nøkler er:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">ssh-keygen -t ed25519 -C <span class="nt">&lt;e-post&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">ssh-keygen <span class="nt">-t</span> ed25519 <span class="nt">-C</span> &lt;e-post&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>(Argumentet <code>ed25519</code> ber bare om en public-key signaturalgoritme basert på elliptiske kurver.)</p>
+<p>Argumentet <code>ed25519</code> ber bare om en public-key signaturalgoritme basert på elliptiske kurver, som er vanlig å bruke i dag. Man har andre alternativer, som f.eks. 4096-bits RSA</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ssh-keygen <span class="nt">-t</span> rsa <span class="nt">-b</span> 4096 <span class="nt">-C</span> &lt;e-post&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>som var vanligere før. I fortsettelsen forutsetter vi førstnevnte valg.</p>
 </div>
 <div class="paragraph">
 <p>Kommandoen outputer informasjon om hvor nøklene lagres, samt fingerprint til offentlig nøkkel og en såkalt <em>random art</em> av nøkkelen.</p>
@@ -2166,7 +2398,7 @@ TRE ← INDEKS ← D''</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">ssh-keygen</span> <span class="s">-lf</span> <span class="p">~</span><span class="sr">/.ssh/id_ed25519.pub</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">ssh-keygen <span class="nt">-lf</span> ~/.ssh/id_ed25519.pub</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2174,7 +2406,7 @@ TRE ← INDEKS ← D''</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">ssh-keygen</span> <span class="s">-lvf</span> <span class="p">~</span><span class="sr">/.ssh/id_ed25519.pub</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">ssh-keygen <span class="nt">-lvf</span> ~/.ssh/id_ed25519.pub</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2182,7 +2414,7 @@ TRE ← INDEKS ← D''</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">cat</span> <span class="p">~</span><span class="sr">/.ssh/id_ed25519.pub</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash"><span class="nb">cat</span> ~/.ssh/id_ed25519.pub</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2193,39 +2425,38 @@ TRE ← INDEKS ← D''</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">ssh</span> <span class="s">-T</span> <span class="s">git@github.com</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">ssh <span class="nt">-T</span> git@github.com</code></pre>
 </div>
 </div>
 <hr>
 </div>
 <div class="sect3">
-<h4 id="_2️⃣_opprette_eksternt_repository_på_github"><a class="anchor" href="#_2️⃣_opprette_eksternt_repository_på_github"></a>2️⃣ Opprette eksternt repository på GitHub</h4>
+<h4 id="_opprette_eksternt_repository_på_github"><a class="anchor" href="#_opprette_eksternt_repository_på_github"></a>Opprette eksternt repository på GitHub</h4>
 <div class="paragraph">
-<p>Neste steg er å opprette eksternt REPO. Velg et passende prosjektnavn og avgjør om det skal være privat eller offentlig tilgjengelig etc.</p>
+<p>Neste steg er å opprette et eksternt REPO (<em>remote repository</em>). Velg et passende prosjektnavn og avgjør om det skal være privat eller offentlig tilgjengelig etc.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Om du allerede har et prosjektet med noen av filene <strong>README</strong>, <strong>.gitignore</strong> eller <strong>license</strong>, så ikke huk av for dem under opprettelsen.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>Om du allerede har et prosjektet med følgende filer, så ikke huk av for:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Add README</p>
-</li>
-<li>
-<p>Add .gitignore</p>
-</li>
-<li>
-<p>Add license</p>
-</li>
-</ul>
+<p><em>Default branch</em> i prosjektet på GitGub må angis spesielt. Tanken er at om man har flere grener, må én av disse være hovedgren, være prosjektets "ansikt utad".</p>
 </div>
 <div class="paragraph">
-<p><em>Default branch</em> i prosjektet på GitGub forlanges fordi en av versjonene (grenene) av prosjektet må være prosjektets ansikt utad.</p>
+<p>Eksternt REPO vil inntil videre være tomt etter opprettelsen.</p>
 </div>
 <hr>
 </div>
 <div class="sect3">
-<h4 id="_3️⃣_forbinde_remote_med_det_lokale"><a class="anchor" href="#_3️⃣_forbinde_remote_med_det_lokale"></a>3️⃣ Forbinde remote med det lokale</h4>
+<h4 id="_forbinde_remote_repository_med_det_lokale"><a class="anchor" href="#_forbinde_remote_repository_med_det_lokale"></a>Forbinde remote repository med det lokale</h4>
 <div class="paragraph">
 <p>Om du ikke har et lokalt Git-prosjekt, lag ett på aktuell arbeidskatalog, f.eks. ved</p>
 </div>
@@ -2241,137 +2472,138 @@ git commit <span class="nt">-m</span> <span class="s2">"First commit"</span></co
 <p>Om du allerede har et lokalt Git-prosjekt, sørg for å gjøre <code>add</code> og <code>commit</code>, og sjekk at du står på riktig gren.</p>
 </div>
 <div class="paragraph">
-<p>Uansett vil et lokalt Git-prosjekt eksistere, og du skal gjøre:</p>
+<p>Uansett vil et lokalt Git-prosjekt eksistere, og det neste vi vil gjøre, er å knytte dette prosjektet til det eksterne repoet vi har opprettet på GitHub. Vi gjør da:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">git remote add origin git@github.com:<span class="nt">&lt;brukernavn&gt;</span>/<span class="nt">&lt;prosjektnavn&gt;</span>.git
-git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git remote add origin git@github.com:&lt;brukernavn&gt;/&lt;prosjektnavn&gt;.git
+git push <span class="nt">-u</span> origin &lt;gren&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Fordelen ved å benytte opsjonen <code>-u</code>, er at man:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>siden slipper og angi gren i <code>`pull</code> og <code>push</code></p>
-</li>
-<li>
-<p><em>default branch</em> i prosjektet på GitHub settes iht. til dette.</p>
-</li>
-</ol>
+<p>fra hovedgrenen.</p>
 </div>
 <div class="paragraph">
-<p>Endelsen <code>.git</code> kan droppes i ovennevnte kommando.</p>
-</div>
-<div class="paragraph">
-<p>For å eksemplifisere kommandoen, mitt brukernavn er <code>mailjaro</code>. For et REPO på GitHub med navnet f.eks. <code>git-doc</code>, blir kommandoen:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">remote</span> <span class="s">add</span> <span class="s">origin</span> <span class="s">git@github.com:mailjaro/git-doc</span></code></pre>
-</div>
+<p>Endelsen <code>.git</code> kan strengt tatt droppes i ovennevnte kommando.</p>
 </div>
 <hr>
 </div>
 <div class="sect3">
 <h4 id="_vanlig_bruk"><a class="anchor" href="#_vanlig_bruk"></a>Vanlig bruk</h4>
 <div class="paragraph">
-<p>Man kan foreta vanlige <code>push</code> og <code>pull</code> ved:</p>
+<p>Etter man har utført <em>commit</em> er det naturlig å pushe dette til eksternt REPO. Kommandoen for dette er <code>git push</code>. Det en god vane å inkludere <code>-u origin &lt;gren&gt;</code> i første <strong>push</strong>/<strong>pull</strong> etter at man har flyttet seg dit, altså gjøre</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">push</span></code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">pull</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git push origin &lt;gren&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Man kan også senere spesifisere gren spesifikt ved:</p>
+<p>Dette minner en gjerne om å stå på grenen man ønsker å pushe fra, pluss at man unngår en <em>mulig</em> feilmelding fra Git om annen underforstått gren.</p>
+</div>
+<div class="paragraph">
+<p>Siden kan man bare gjøre</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">push</span> <span class="s">origin</span> <span class="s">&lt;gren&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git push</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Før man starter en ny editering, ønsker man typisk å foreta en <strong>pull</strong> for å hente nyeste versjon av prosjektet å jobbe med. Men før man gjøre det, er det lurt å</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>sjekke at man står på rett gren</p>
+</li>
+<li>
+<p>utføre <code>git status</code> for å se om man har glemt noen lokale modifiseringer eller har noe på INDEKS</p>
+</li>
+<li>
+<p>utføre <code>git fetch origin</code> for info om hva som har skjedd mot eksternt REPO siden sist (info om nye <em>commits</em>)</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Etter det kan man (aller tryggest) gjøre</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git pull origin &lt;gren&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>eller bare</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git pull</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For å oppsummere kommandoen man bør gjøre ifm. henting av filer:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git status
+git fetch
+git pull</code></pre>
+</div>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Det er viktig å være klar over at <strong>push</strong> bare overfører endringer på aktiv gren. Har man modifisert på flere grener, må disse pushes separat. Tilsvarende henter <strong>pull</strong> bare ned oppdateringer til én gren (aktiv gren). Operasjonen må gjentas på alle grener.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Det betyr også at om man oppretter en gren på en PC, på PC-1, la oss si, så blir ikke den uten videre synlig på PC-2. Vi skal se på oppsett for bruk av flere PC-er i neste kapittel, men for at <strong>ny-gren</strong> på PC-1 skal bli tilgjengelig på PC-2, må man der utføre:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git fetch
+git switch <span class="nt">--track</span> origin/ny-gren</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>REPO på GitHub vil kjenne til alle grener, men altså ikke nødvendigvis alle PC-er (selv om det er å foretrekke).</p>
+</div>
+<div class="paragraph">
+<p>Før vi går over til oppsette på flere PC-er, må vi se litt på noen <code>git log</code>-varianter som kan brukes også på grener. Den første av de følgende viser et kort format</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git log origin/&lt;gren&gt; <span class="nt">--oneline</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>og under ser vi noen varianter med lengre output:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git log origin/&lt;gren&gt;</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">pull</span> <span class="s">origin</span> <span class="s">&lt;gren&gt;</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Origin Git er bare navnet (eller kanskje bedre adressen) til remote repository. Det er mulig å flere slike, men det ses bort fra her.</p>
-</div>
-<div class="paragraph">
-<p>For å få en oversikt over hva som har skjedd siden sist, før man evt. foretar en <code>pull</code>, kan man gjøre en <code>fetch</code>. Kort fortalt får man returnert hvilke nye commits GitHub har registrert, men uten å gjøre endringer i lokale grener:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">fetch</span> <span class="s">origin</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>(som i våre tilfeller er det samme som <code>git fetch</code>). I tillegg, før man foretar en <code>git pull</code>, bør man også gjøre:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">status</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Det er nemlig fort gjort å glemme at man har gjort lokale modifiseringer som evt. kan komme i konflikt med <code>git pull</code>.</p>
-</div>
-<div class="paragraph">
-<p>Husk også at hvis en konflikt oppstår, på den ene eller andre måten, så er <em>alltid</em> første punkt å utføre <code>git status</code>.</p>
-</div>
-<div class="paragraph">
-<p>Det er også viktig å være klar over at <strong>push</strong> bare overfører endringer på aktiv gren. Har man modifisert på flere grener, må disse pushes separat. Tilsvarende henter <strong>pull</strong> bare ned oppdateringer til aktiv gren. Operasjonen må gjentas på alle grener.</p>
-</div>
-<div class="paragraph">
-<p>Vi skal se på bruk oppsett for bruk av flere PC-er i neste kapittel, men det er verdt å merke seg at for at en gren <strong>ny-gren</strong> på PC-1 skal bli synlig og tilgjengelig på PC-2, må man der utføre:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">fetch</span>
-<span class="s">git</span> <span class="s">switch</span> <span class="s">--track</span> <span class="s">origin/&lt;ny-gren&gt;</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>REPO på GitHub vil kjenne til alle grener, men altså ikke nødvendigvis alle PC-er. Dette</p>
-</div>
-<div class="paragraph">
-<p>Når det gjelder å få oversikt over øyeblikksbilder, har man fler varianter av <code>git log</code> som kan brukes også på grener. Den første viser et kort format</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">log</span> <span class="s">origin/&lt;gren&gt;</span> <span class="s">--oneline</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>og under ser du noen varianter med lengre output:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">log</span> <span class="s">origin/&lt;gren&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git log <span class="nt">--pretty</span><span class="o">=</span>fuller origin/&lt;gren&gt;</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">log</span> <span class="s">--pretty=fuller</span> <span class="s">origin/&lt;gren&gt;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git log <span class="nt">--graph</span> <span class="nt">--decorate</span> <span class="nt">--all</span> origin/&lt;gren&gt;</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">log</span> <span class="s">--graph</span> <span class="s">--decorate</span> <span class="s">--all</span> <span class="s">origin/&lt;gren&gt;</span></code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">log</span> <span class="s">-p</span> <span class="nc">origin/NyMain</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git log <span class="nt">-p</span> origin/NyMain</code></pre>
 </div>
 </div>
 <hr>
@@ -2383,37 +2615,47 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">clone</span> <span class="s">git@github.com:&lt;bruker&gt;/&lt;prosjekt&gt;.git</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git clone git@github.com:&lt;bruker&gt;/&lt;prosjekt&gt;.git</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>fra der arbeidskatalogen (som blir opprettet i kallet) skal ligge på. Selve katalognavnet for prosjektet kan godt navnendres om prosjektnavnet ikke skal være katalognavnet.</p>
+<p>fra der arbeidskatalogen (som blir opprettet i kallet) skal ligge. Selve katalognavnet for prosjektet kan godt navnendres om prosjektnavnet ikke skal være katalognavnet.</p>
 </div>
 <div class="paragraph">
-<p>Dersom man ønsker å samarbeide med eksterne brukere, må de først gis tilgang til GitHub-repoet. De må ha Git installert og ha SSH-nøkler etc. før prosjektet klones. Konflikter i filer kan forekomme når flere modifiserer, <em>commiter</em> og pusher. Konflikter løses lokalt (se neste kapittel).</p>
+<p>Verre er ikke det. Etter dette kan man jobbe med prosjekter fra flere PC-er: hjemmefra, på jobb på hytta. Det viktige da er å jobbe slik at man unngår unødvendige konflikter. Selv når man jobber alene, som vi forutsetter, er det fort gjort å glemme ting, komme i utilsiktet i utakt. Det viktige er å:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>avslutte alle editeringer med <strong>commit</strong>/<strong>push</strong> (for alle aktuelle grener)</p>
+</li>
+<li>
+<p>alltid starte editeringer med å <strong>status</strong>/<strong>fetch</strong>/<strong>pull</strong> (for alle aktuelle grener)</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>Har man mange Git-prosjekter, kan man over tid glemme hvilke som er lokale og hvilke som er ikke-lokale. Kommandoene</p>
+<p>En annen utfordring kan være at man etter hvert har mange Git-prosjekter. Over tid kan man kanskje glemme hvilke som er lokale og hvilke som er ikke-lokale. Kommandoene</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">remote</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git remote</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">remote</span> <span class="s">-v</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git remote <span class="nt">-v</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>fra prosjektets hjemmekatalog sjekker dette. For ikke-lokale REPO gir førstnevnte <code>origin</code> som svar, den andre nærmere informasjon om navn mm. Lokale REPO gir ingen output.</p>
+<p>fra prosjektets hjemmekatalog sjekker dette. For ikke-lokale REPO gir førstnevnte <strong>origin</strong> som svar, den andre nærmere informasjon om navn mm. Lokale REPO gir ingen output.</p>
 </div>
 <div class="paragraph">
-<p>For å se hvilke Git-prosjekter man har, både lokal og ikke-lokale, kan man utføre følgende (denne finner alle <code>.git</code>-kataloger)</p>
+<p>For å se hvilke Git-prosjekter man har, både lokal og ikke-lokale, kan man utføre følgende (denne finner alle .<strong>git</strong>-kataloger)</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">fd</span> <span class="s">-u</span> <span class="s">-t</span> <span class="s">d</span> <span class="s">'^</span><span class="err">\</span><span class="s">.git</span>$<span class="s">'</span> <span class="p">~</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">fd <span class="nt">-u</span> <span class="nt">-t</span> d <span class="s1">'^\.git$'</span> ~</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2431,24 +2673,42 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 <div class="sect3">
 <h4 id="_konflikthåndtering"><a class="anchor" href="#_konflikthåndtering"></a>Konflikthåndtering</h4>
 <div class="paragraph">
-<p>Konflikter kan oppstå når det editeres fra flere steder. Man kan f.eks. glemme å utføre <code>git fetch origin</code> og <code>git pull</code> før en editering, og dermed ikke få med tidligere fileditering.</p>
+<p>De fleste Git-operasjoner går helt automatisk. Når man for eksempel kjører <code>git pull</code>, forsøker Git å kombinere endringer fra eksternt repo med de lokale endringene uten at brukeren trenger å gjøre noe.</p>
 </div>
 <div class="paragraph">
-<p>Dette bør være ufarlig. Git har et gjennomtenkt design, og konflikter lar seg gjerne fint løse. Men det betyr ikke at man ikke kan føle en grad av forvirring underveis.</p>
+<p>Av og til er dette imidlertid ikke mulig. Git kan da ikke avgjøre hvordan endringene skal kombineres, eller hvilken historikk som er riktig vei videre. I slike situasjoner stopper Git opp og ber brukeren ta en beslutning.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Merk at vi her ser på personlig bruk og relativt enkle prosjekter. I større samarbeidsprosjekter fins det gjerne sett av prosedyrer og definerte strukturer man opererer etter. Det som diskuteres her er <em>ikke</em> dekkende for profesjonell bruk.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>Merk at vi her ser på personlig bruk og relativt enkle prosjekter. I større samarbeidsprosjekter fins det gjerne sett av prosedyrer og definerte strukturer man opererer etter. Det som diskuteres her er neppe iht. til profesjonell bruk.</p>
+<p>Dette kan skje i flere sammenhenger, også i vår situasjon, særlig når man jobber fra flere steder. Man kan ha glemt å hente inn nyeste versjon før man en editering, glemt å Git-lagre en endring før man henter ned noe etc. Uansett oppdager Git en konfliktsituasjon og gir brukeren informasjon om at noe må gjøres før arbeidet kan fortsette. Først når konfliktene er løst og bekreftet, kan operasjonen fullføres.</p>
+</div>
+<div class="paragraph">
+<p>Ofte er det en situasjon med divergerende grener som har oppstått. Man får typisk valget valget mellom å foreta en <code>git merge</code> eller <code>git rebase</code>. Man må da vurdere situasjonen, bruke <code>git diff</code> aktivt på aktuelle <em>commits</em>, tenke nærmere på hvordan <code>merge</code>, <code>rebase</code>, <code>cherry-picks</code> etc. vil virke akkurat her. Meldingen Git gir kan heldigvis googles, og det er mange som har stått i nøyaktig din situasjon. Det er råd å få. Man kan også ta kopier av tekst og filer underveis som kan limes inn på rette steder siden. Proffene klarer seg sikkert uten sånt, men dette kan redde amatøren fra å tape arbeid ifm. konfliktløsing som kan føles innfløkt.</p>
+</div>
+<div class="paragraph">
+<p>La oss da se på situasjonen der en faktisk konflikt har oppstått, f.eks. at man forsøker å løse en situasjon med <code>git merge</code>. Husk da at slike operasjoner (som vi har sett) kan aborteres, og man alltid kunne komme tilbake til utgangspunktet om ting begynner å bli komplisert.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Første punkt er imidlertid <em>alltid</em> å utføre</p>
+<p>Første punkt er <em>alltid</em> å utføre</p>
 </li>
 </ul>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="nginx"><span class="k">git</span> <span class="s">status</span></code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git status</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2456,33 +2716,33 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="s">On branch main</span>
-<span class="s">You have unmerged paths.</span>
-  <span class="s">(fix conflicts and run "git commit")</span>
+<pre class="rouge highlight"><code data-lang="text">On branch main
+You have unmerged paths.
+  (fix conflicts and run "git commit")
 
-<span class="na">Unmerged paths</span><span class="pi">:</span>
-  <span class="na">both modified</span><span class="pi">:</span>   <span class="s">chapter/01.md</span>
-  <span class="na">both modified</span><span class="pi">:</span>   <span class="s">chapter/35.md</span></code></pre>
+Unmerged paths:
+  both modified:   chapter/01.md
+  both modified:   chapter/35.md</code></pre>
 </div>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>I så fall er andre punkt er åpne disse filene (f.eks i VSCode). På steder i filene vil konfliktene være markert noe tilsvarende dette:</p>
+<p>I så fall er andre punkt å åpne disse filene (f.eks i VSCode). På steder i filene vil konfliktene være markert noe tilsvarende dette:</p>
 </li>
 </ul>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="s">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span>
-<span class="s">din tekst</span>
-<span class="s">=======</span>
-<span class="s">den andre teksten</span>
-<span class="pi">&gt;</span><span class="err">&gt;&gt;&gt;&gt;&gt;&gt;</span> <span class="err">feature</span></code></pre>
+<pre class="rouge highlight"><code data-lang="text">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+din tekst
+=======
+den andre teksten
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Du har så ansvaret for å løse opp i dette. Fjern tilslutt alle konfliktmarkeringene og lagre filene.</p>
+<p>Du har så ansvaret for å løse opp i dette, bestemme hva som skal beholdes og hva som skal fjernes. Slett tilslutt alle konfliktmarkeringene og lagre filene.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2502,38 +2762,61 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 </ul>
 </div>
 <div class="paragraph">
-<p>I noen tilfeller er dette greit og forståelig, som hvis avbruddet oppstod under en <code>rebase</code> eller <code>cherry-pick</code>. Disse har en egen <code>--continue</code>-opsjon som skal benyttes. Andre operasjoner som <code>merge</code>, <code>git push</code>, en <strong>sync</strong> i VSCode m.fl. har ikke denne opsjonen, og det er mindre klart hva som menes med "å fortsette". Ikke nok med det, VSCode kan liste tips med flere alternativer, så hva gjør man?</p>
+<p>I noen tilfeller er dette greit og forståelig, som hvis avbruddet oppstod under en <code>rebase</code> eller <code>cherry-pick</code>. Disse har en egen <code>--continue</code>-opsjon som skal benyttes. Andre operasjoner som <code>merge</code>, <code>git push</code>, en <strong>sync</strong> i VS Code m.fl. har ikke denne opsjonen, og det er mindre klart hva som menes med "å fortsette". Ikke nok med det, VS Code kan liste tips med flere alternativer, så hva gjør man?</p>
 </div>
 <div class="paragraph">
-<p>Igjen ligger løsningen i output fra <code>git status</code>. Den forteller også om hva som skal fortsettes, og oversikten under viser hvilke kall som fortsetter og fullfører den tilhørende operasjonen:</p>
+<p><code>git status</code> kan fortelle om hva som skal fortsettes, og oversikten under viser hvilke kall som fortsetter og fullfører den tilhørende operasjonen:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="s">KONFLIKT OPPSTOD UNDER   UTFØR</span>
-<span class="na">merge / pull</span><span class="pi">:</span>            <span class="s">git commit</span>
-<span class="na">rebase</span><span class="pi">:</span>                  <span class="s">git rebase --continue</span>
-<span class="na">cherry-pick</span><span class="pi">:</span>             <span class="s">git cherry-pick --continue`</span></code></pre>
+<pre class="rouge highlight"><code data-lang="text">KONFLIKT OPPSTOD UNDER   UTFØR
+merge / pull:            git commit
+rebase:                  git rebase --continue
+cherry-pick:             git cherry-pick --continue</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>I <code>git status</code>-eksemplet over kan vi se at det nevnes <strong>unmerged paths</strong>, dvs. en <strong>merge</strong> ble avbrutt, og riktig fortsettelse ville vært <code>git commit</code>.</p>
 </div>
 <div class="paragraph">
-<p>Dette så vel og bra ut. Men det kan også oppstå situasjoner som minner om en konflikt, men som egentlig er å tenke på som <em>divergerende grener</em>. Selv når bare én bruker oppdaterer et prosjekt fra to PC-er, kan dette lett oppstå. Git stopper da opp og vil prøve å fortelle hva som er problemet.</p>
-</div>
-<div class="paragraph">
-<p>Ett typisk tilfelle er at man gjør en liten modifisering på én PC og synes mengden er for liten til å foreta <code>add + commit</code>. Og når man siden gjør en større endring (med <code>add + commit</code>) på annen PC, har man divergerende grener. Foreløpig er det ingen konflikt (det blir det først når man prøver å slå den sammen), så <code>git status</code> og <code>git pull</code> vet ikke hva de skal gjøre (men lister alternativer). Da må man vurdere situasjonen, se nærmere på hvordan <code>merge</code>, <code>rebase</code>, <code>cherry-picks</code> etc. vil virke. Meldingen Git gir kan dessuten googles. Det er mange som har stått i nøyaktig din situasjon, og det er råd å få. Men i det beskrevne tilfellet, der en ubetydelig gren og en mer betydelig gren skal forenes, <em>kan</em> det beste alternativet å foreta en <strong>hard reset</strong> fra "ubetydelig versjon":</p>
+<p>En vanlig strategi når en situasjon oppstår, er ellers å lage en ny gren, f.eks. <strong>tmp-gren</strong>, på PC-en situasjonen oppstod på:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="bash">git reset <span class="nt">--hard</span> origin/main</code></pre>
+<pre class="rouge highlight"><code data-lang="bash">git branch tmp-gren</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>(eller hva nå hovedgrenen heter). Etter dette blir PC-ene enige om situasjonen (som er i samsvar "betydelige gren" og reflektert i TRE, INDEKS og REPO).</p>
+<p>Da kjøper man seg litt tid, kan undersøke og teste friere, for siden å foreta</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git merge tmp-gren</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>Det kan også oppstå situasjoner der Git rapportere flertydighet rundt <strong>push</strong>. Igjen bør man kartlegge best mulig, søke opp råd på nettet osv. Men <em>hvis</em> man f.eks. er sikker på at situasjonen på PC -1 er korrekt, kan man foreta en <em>forced push</em> derfra ved:</p>
+<p>ned på på den opprinnelige grenen.</p>
+</div>
+<div class="paragraph">
+<p>Konflikthåndtering kan virke utfordrende i starten, og forhåpentligvis gir dette en viss hjelp til ferske brukere. Uansett lærer man fort nytten av å utføre hyppige commit/push her. Det å ha halvferdig arbeid liggende rundt er forbundet med en viss risiko.</p>
+</div>
+<div class="paragraph">
+<p>Generelt er nok <code>git merge</code> å foretrekke framfor <code>git rebase</code> i situasjoner med divergerende grener. Sistnevnte kan kreve noen etterfølgende kommandoer, og regnes gjerne som mer kompleks. Dessuten er den farligere å bruke i situasjoner med flere brukere. Vi ser jo ikke på det her, men bare så det er sagt:</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Bruk aldri <code>git rebase</code> på <em>commits</em> som er pushet til gren delt med flere. Da risikerer man at arbeid de har gjort blir <em>unreachable</em>, med komplisert oppryddingsarbeid – eller i verste fall tap av arbeid – som resultat.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Det kan også oppstå situasjoner der Git rapportere flertydighet rundt <strong>push</strong>. Igjen bør man kartlegge best mulig, søke opp råd på nettet osv. Men <em>hvis</em> man f.eks. er sikker på at situasjonen på PC-1 er korrekt, kan man foreta en <em>forced push</em> derfra ved:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2543,22 +2826,42 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 <div class="paragraph">
 <p>Da må siden rette opp ift. dette på PC-2, f.eks. ved å foreta en <strong>hard reset</strong> der.</p>
 </div>
-<div class="paragraph">
-<p>Husk at <strong>hard reset</strong> alltid risikerer å overskrive lokale filer</p>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Husk at <strong>hard reset</strong> alltid risikerer å overskrive lokale filer
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>Dessuten, i en situasjoner der man har en korrekt versjon PC-1 (og er 100 % sikker på det), men har kommet i utakt på PC-2 på en måte som ikke lett lar seg løse, <em>kan</em> man alltids slette prosjektet på PC-2 og klone det tilbake fra GitHub (eller kopiere det fra en backup). Det er neppe hva en proff ville gjort, men muligheten kan virke beroligende for ferske brukere av Git.</p>
-</div>
-<div class="paragraph">
-<p>Men beste medisin er uansett å unngå utakt og konflikter i utgangspunktet. Så moralen er:</p>
+<p>Men beste medisin er uansett å unngå utakt og konflikter i utgangspunktet. La oss gjenta moralen her. Unngå at halvferdig arbeid blir liggende igjen. Sørg for å</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>alltid starte en redigeringsøkt med <code>git status</code>, <code>git fetch origin</code> før <code>git pull</code></p>
+<p>avslutte alle editeringer med</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>add</strong>/<strong>commit</strong>/<strong>push</strong> (for alle aktuelle grener)</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p>alltid avslutte en redigeringsøkt med <code>git add -A</code>, <code>git commit</code> og <code>git push</code></p>
+<p>starte alle editeringer med</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>status</strong>/<strong>fetch</strong>/<strong>pull</strong> (for alle aktuelle grener)</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -2578,6 +2881,12 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 </div>
 <div class="paragraph">
 <p><a href="https://mailjaro.github.io/css-repo/">Litt om CSS</a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://mailjaro.github.io/makefile-repo/">Litt om Makefile</a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://mailjaro.github.io/highlight-repo/">Litt om syntaksutheving</a></p>
 </div>
 <hr>
 </div>
@@ -2608,7 +2917,7 @@ git push -u origin <span class="nt">&lt;gren&gt;</span></code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 1.0 2026-02-19<br>
-Last updated 2026-02-28 10:07:36 +0100
+Last updated 2026-03-11 12:22:36 +0100
 </div>
 </div>
 </body>
