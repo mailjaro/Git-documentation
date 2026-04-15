@@ -1456,7 +1456,7 @@ Men beste medisin er uansett å unngå utakt og konflikter i utgangspunktet. La 
 
 ## 📚 Andre hefter i serien
 
-📘 Linux: Det neste steget
+📘 [Linux for hjemmebruk](https://mailjaro.github.io/linux-repo/)
 
 📘 [Litt om VS Code](https://mailjaro.github.io/vscode-repo/)
 
@@ -1467,6 +1467,8 @@ Men beste medisin er uansett å unngå utakt og konflikter i utgangspunktet. La 
 📘 [Litt om Makefile](https://mailjaro.github.io/makefile-repo/)
 
 📘 [Litt om syntaksutheving](https://mailjaro.github.io/highlight-repo/)
+
+📘 [Moderne AI: Virkemåte](https://mailjaro.github.io/ai-repo/)
 
 ---
 
