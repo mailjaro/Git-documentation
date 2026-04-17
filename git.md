@@ -1456,19 +1456,9 @@ Men beste medisin er uansett å unngå utakt og konflikter i utgangspunktet. La 
 
 ## 📚 Andre hefter i serien
 
-📘 [Linux for hjemmebruk](https://mailjaro.github.io/linux-repo/)
+For andre hefter i serien:
 
-📘 [Litt om VS Code](https://mailjaro.github.io/vscode-repo/)
-
-📘 [Litt om GPG](https://mailjaro.github.io/gpg-repo/)
-
-📘 [Litt om CSS](https://mailjaro.github.io/css-repo/)
-
-📘 [Litt om Makefile](https://mailjaro.github.io/makefile-repo/)
-
-📘 [Litt om syntaksutheving](https://mailjaro.github.io/highlight-repo/)
-
-📘 [Moderne AI: Virkemåte](https://mailjaro.github.io/ai-repo/)
+📘 [Min startside på GitHub](https://mailjaro.github.io/)
 
 ---
 
